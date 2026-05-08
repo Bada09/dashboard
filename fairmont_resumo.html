@@ -571,16 +571,106 @@
         }
 
 
-        /* ── Responsive Design ── */
-        @media (max-width: 1280px) {
-            .main-grid { grid-template-columns: 240px 1fr; gap: 1rem; }
+        /* Donut chart grid */
+        .donut-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0.5rem 0 1.5rem;
+        }
+        .donut-wrap {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .donut-wrap canvas { width: 100% !important; height: 100% !important; }
+        .donut-val {
+            position: absolute;
+            font-family: 'Outfit';
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            pointer-events: none;
+        }
+        .donut-label {
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
         }
 
+        /* ── Responsive Design ── */
+        /* ── Mobile Sidebar Drawer ── */
+        .mob-sidebar-btn {
+            display: none;
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 200;
+            background: var(--primary);
+            color: #041e42;
+            border: none;
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,188,242,0.5);
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .mob-sidebar-btn:hover { transform: scale(1.1); }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(4,30,66,0.5);
+            z-index: 150;
+            backdrop-filter: blur(2px);
+        }
+        .sidebar-overlay.open { display: block; }
+
         @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr; height: auto; }
-            .sidebar { height: 260px; }
-            .dashboard-content { height: auto; min-height: 500px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .mob-sidebar-btn { display: flex; }
+            .sidebar {
+                position: fixed !important;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 70vh !important;
+                max-height: 520px;
+                z-index: 160;
+                border-radius: 20px 20px 0 0 !important;
+                transform: translateY(100%);
+                transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.15) !important;
+                padding: 1.5rem !important;
+            }
+            .sidebar.open { transform: translateY(0); }
+            .sidebar::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: #cbd5e1;
+                border-radius: 2px;
+                margin: 0 auto 1rem;
+            }
+            .main-grid { grid-template-columns: 1fr !important; height: auto !important; }
         }
 
         @media (max-width: 768px) {
@@ -593,6 +683,8 @@
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
             .stat-card-big .val { font-size: 1.8rem; }
             .stat-card-big .lab { font-size: 0.58rem; }
+            .donut-wrap { width: 130px; height: 130px; }
+            .donut-val { font-size: 1.3rem; }
         }
 
         @media (max-width: 480px) {
@@ -601,6 +693,9 @@
             .header-controls button, .lang-switch { width: 100%; justify-content: center; }
             .stat-card-big { padding: 1rem 0.6rem; }
             .stat-card-big .val { font-size: 1.6rem; }
+            .donut-wrap { width: 110px; height: 110px; }
+            .donut-val { font-size: 1.1rem; }
+            .donut-grid { gap: 16px; }
         }
     </style>
 </head>
@@ -632,7 +727,10 @@
         </header>
 
         <div class="main-grid">
-            <aside class="sidebar">
+            <!-- Mobile sidebar overlay -->
+            <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+            <aside class="sidebar" id="mainSidebar">
                 <div class="search-box" style="display: flex; gap: 8px;">
                     <div style="position: relative; flex-grow: 1;">
                         <i class="fas fa-search"
@@ -640,7 +738,7 @@
                         <input type="text" id="userSearch" placeholder="Buscar..." oninput="renderUserList()"
                             style="width: 100%; padding-left: 2.8rem;">
                     </div>
-                    <button onclick="showGlobalSummary()" style="padding: 10px; border-radius: 12px; border: 1px solid var(--border); background: #f8fafc; cursor: pointer; color: var(--text-main);">
+                    <button onclick="showGlobalSummary(); closeSidebar();" style="padding: 10px; border-radius: 12px; border: 1px solid var(--border); background: #f8fafc; cursor: pointer; color: var(--text-main);">
                         <i class="fas fa-home"></i>
                     </button>
                 </div>
@@ -653,7 +751,36 @@
         </div>
     </div>
 
+    <!-- Mobile FAB to open sidebar -->
+    <button class="mob-sidebar-btn" id="mobSidebarBtn" onclick="toggleSidebar()" aria-label="Lista de colaboradores">
+        <i class="fas fa-users"></i>
+    </button>
+
     <script>
+        // ── Mobile Sidebar Drawer ──
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mainSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const btn = document.getElementById('mobSidebarBtn');
+            const isOpen = sidebar.classList.contains('open');
+            if (isOpen) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                btn.innerHTML = '<i class="fas fa-users"></i>';
+            } else {
+                sidebar.classList.add('open');
+                overlay.classList.add('open');
+                btn.innerHTML = '<i class="fas fa-times"></i>';
+                document.getElementById('userSearch').focus();
+            }
+        }
+        function closeSidebar() {
+            document.getElementById('mainSidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('open');
+            const btn = document.getElementById('mobSidebarBtn');
+            if (btn) btn.innerHTML = '<i class="fas fa-users"></i>';
+        }
+
         function fixEnc(s) {
             if (!s) return "";
             return s.replace(/Ã§/g, 'ç').replace(/Ã£/g, 'ã').replace(/Ã©/g, 'é').replace(/Ãª/g, 'ê').replace(/Ã³/g, 'ó').replace(/Ã¡/g, 'á').replace(/Ã­/g, 'í').replace(/Ã /g, 'à');
@@ -819,7 +946,7 @@
                         <span style="color: var(--accent); font-weight: 700;">${u.avgScore}%</span>
                     </div>
                 `;
-                item.onclick = () => selectUser(u);
+                item.onclick = () => { selectUser(u); closeSidebar(); };
                 list.appendChild(item);
             });
         }
@@ -855,17 +982,17 @@
                             <div class="skill-item"><span class="skill-name">${ui[currentLang].simulationsUser}</span><span class="skill-score">${(totalSess / activeUsers.length).toFixed(1)}</span></div>
                         </div>
                         <div class="card">
-                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].perfDistribution}</h3>
-                            <div style="display: flex; gap: 20px; justify-content: center; align-items: center; margin-top: 1rem;">
-                                <div style="height: 180px; width: 180px; position: relative; display: flex; align-items: center; justify-content: center;">
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem;">${ui[currentLang].perfDistribution}</h3>
+                            <div class="donut-grid">
+                                <div class="donut-wrap">
                                     <canvas id="globalChart"></canvas>
-                                    <div id="chartValue" style="position: absolute; font-family: 'Outfit'; font-size: 1.8rem; font-weight: 800; color: var(--text-main);">0%</div>
-                                    <span style="position: absolute; bottom: -20px; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${ui[currentLang].generalAvg}</span>
+                                    <div class="donut-val" id="chartValue">0%</div>
+                                    <span class="donut-label">${ui[currentLang].generalAvg}</span>
                                 </div>
-                                <div style="height: 180px; width: 180px; position: relative; display: flex; align-items: center; justify-content: center;">
+                                <div class="donut-wrap">
                                     <canvas id="lqaChart"></canvas>
-                                    <div id="lqaValue" style="position: absolute; font-family: 'Outfit'; font-size: 1.8rem; font-weight: 800; color: var(--text-main);">0%</div>
-                                    <span style="position: absolute; bottom: -20px; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${ui[currentLang].lqaPattern}</span>
+                                    <div class="donut-val" id="lqaValue">0%</div>
+                                    <span class="donut-label">${ui[currentLang].lqaPattern}</span>
                                 </div>
                             </div>
                         </div>
