@@ -475,6 +475,79 @@
             .donut-val { font-size: 1.1rem; }
             .donut-grid { gap: 16px; }
         }
+
+        /* ── Mobile Sidebar Drawer ── */
+        .mob-sidebar-btn {
+            display: none;
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 200;
+            background: var(--primary);
+            color: #041e42;
+            border: none;
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,188,242,0.5);
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .mob-sidebar-btn:hover { transform: scale(1.1); }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(4,30,66,0.5);
+            z-index: 150;
+            backdrop-filter: blur(2px);
+        }
+        .sidebar-overlay.open { display: block; }
+
+        @media (max-width: 1024px) {
+            .mob-sidebar-btn { display: flex; }
+
+            /* Hide sidebar from normal flow; turn it into a bottom drawer */
+            .sidebar {
+                position: fixed !important;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 70vh !important;
+                max-height: 520px;
+                z-index: 160;
+                border-radius: 20px 20px 0 0 !important;
+                transform: translateY(100%);
+                transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.15) !important;
+                padding: 1.5rem !important;
+            }
+            .sidebar.open {
+                transform: translateY(0);
+            }
+
+            /* Pull-tab handle at top of drawer */
+            .sidebar::before {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: #cbd5e1;
+                border-radius: 2px;
+                margin: 0 auto 1rem;
+            }
+
+            /* Main content fills full width */
+            .main-grid {
+                grid-template-columns: 1fr !important;
+                height: auto !important;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -508,13 +581,16 @@
         </header>
 
         <div class="main-grid">
-            <aside class="sidebar">
+            <!-- Mobile sidebar overlay -->
+            <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+            <aside class="sidebar" id="mainSidebar">
                 <div class="search-box" style="display: flex; gap: 8px;">
                     <div style="position: relative; flex-grow: 1;">
                         <i class="fas fa-search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
                         <input type="text" id="userSearch" placeholder="Buscar..." oninput="renderUserList()" style="width: 100%; padding-left: 2.8rem;">
                     </div>
-                    <button onclick="showGlobalStats()" style="padding: 10px; border-radius: 12px; border: 1px solid var(--border); background: #f8fafc; cursor: pointer; color: var(--text-main);">
+                    <button onclick="showGlobalStats(); closeSidebar();" style="padding: 10px; border-radius: 12px; border: 1px solid var(--border); background: #f8fafc; cursor: pointer; color: var(--text-main);">
                         <i class="fas fa-home"></i>
                     </button>
                 </div>
@@ -527,7 +603,36 @@
         </div>
     </div>
 
+    <!-- Mobile FAB to open sidebar -->
+    <button class="mob-sidebar-btn" id="mobSidebarBtn" onclick="toggleSidebar()" aria-label="Lista de colaboradores">
+        <i class="fas fa-users"></i>
+    </button>
+
     <script>
+        // ── Mobile Sidebar Drawer ──
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mainSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const btn = document.getElementById('mobSidebarBtn');
+            const isOpen = sidebar.classList.contains('open');
+            if (isOpen) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                btn.innerHTML = '<i class="fas fa-users"></i>';
+            } else {
+                sidebar.classList.add('open');
+                overlay.classList.add('open');
+                btn.innerHTML = '<i class="fas fa-times"></i>';
+                document.getElementById('userSearch').focus();
+            }
+        }
+        function closeSidebar() {
+            document.getElementById('mainSidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('open');
+            const btn = document.getElementById('mobSidebarBtn');
+            if (btn) btn.innerHTML = '<i class="fas fa-users"></i>';
+        }
+
         // Global Data Cleaning
         function fixEnc(s) {
             if (!s) return "";
@@ -702,7 +807,7 @@
                         <span style="color: var(--primary); font-weight: 700;">${u.avgScore}%</span>
                     </div>
                 `;
-                item.onclick = () => selectUser(u);
+                item.onclick = () => { selectUser(u); closeSidebar(); };
                 list.appendChild(item);
             });
         }
