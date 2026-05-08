@@ -309,9 +309,83 @@
             font-family: 'Outfit';
         }
 
-        .perf-item:last-child {
-            border: none;
+        /* Donut chart grid */
+        .donut-grid {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 2rem 0;
+            gap: 2rem;
         }
+        .donut-wrap {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .donut-wrap canvas { width: 100% !important; height: 100% !important; }
+        .donut-val {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Outfit';
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent);
+            pointer-events: none;
+        }
+        .donut-label {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+        }
+
+        /* Skills Matrix (User View) */
+        .skill-bar-container { margin-bottom: 1.8rem; }
+        .skill-label-row { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 0.6rem; font-family: 'Outfit';
+        }
+        .skill-label-row span:first-child { 
+            font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent);
+        }
+        .skill-label-row span:last-child { font-weight: 700; font-size: 0.9rem; color: var(--accent); }
+        .skill-track { background: #f1f5f9; height: 10px; border-radius: 10px; overflow: hidden; }
+        .skill-bar-fill { 
+            height: 100%; border-radius: 10px; 
+            background: linear-gradient(90deg, #00bcf2, #041e42);
+            transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* AI Feedback Box */
+        .insight-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        .bullet-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+        .bullet-list li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 1rem;
+            font-size: 0.9rem; color: var(--text-main); line-height: 1.6;
+        }
+        .bullet-list li::before {
+            content: '•'; position: absolute; left: 0; color: #00bcf2; font-weight: 900; font-size: 1.2rem;
+        }
+        .insight-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+        .insight-header i { 
+            background: #e0f2fe; color: #00bcf2; width: 36px; height: 36px; 
+            display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.9rem;
+        }
+        .insight-header h4 { font-family: 'Outfit'; font-size: 1.1rem; font-weight: 700; color: var(--accent); margin: 0; }
 
         /* User Profile View */
         .profile-header {
@@ -439,28 +513,13 @@
 
         .insight-box h4 {
             font-family: 'Outfit';
-            margin-bottom: 12px;
-            color: var(--text-main);
-            font-size: 1rem;
-            font-weight: 600;
+            margin-bottom: 0;
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .insight-box h4::before {
-            content: '\f130';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            background: #e0f2fe;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            color: var(--primary);
+            gap: 12px;
         }
 
         .quote-box {
@@ -476,6 +535,57 @@
 
         .bullet-list {
             list-style: none;
+        }
+
+        /* Grid Layouts */
+        .grid { display: grid; gap: 2rem; }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+
+        /* Header Section Card (Premium Design) */
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem !important;
+            background: var(--accent);
+            border-radius: 24px;
+            padding: 3.5rem !important;
+            border-bottom: 5px solid var(--primary);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+            position: relative;
+            overflow: hidden;
+        }
+        .header-content-left { flex: 1.2; }
+        .header-content-right { flex: 1; max-width: 550px; text-align: right; }
+        
+        h1 { 
+            font-family: 'Outfit';
+            font-size: 3.4rem; 
+            font-weight: 800; 
+            letter-spacing: -0.05em; 
+            color: white; 
+            line-height: 1;
+            margin: 0;
+        }
+        h1 span { 
+            display: block;
+            background: linear-gradient(135deg, #a78bfa, #3b82f6, #ec4899); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .header-desc {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        @media (max-width: 1024px) {
+            .header-section { flex-direction: column; text-align: center; padding: 2.5rem !important; }
+            .header-content-right { text-align: center; }
+            h1 { font-size: 2.5rem; }
         }
 
         .bullet-list li {
@@ -720,7 +830,7 @@
     <div class="container">
         <header>
             <div class="logo-area">
-                <img src="rhapsody_logo.png" alt="Rhapsody" style="height: 45px;">
+                <img src="rhapsody_logo.png" alt="Rhapsody Intelligence" style="height: 48px;">
             </div>
             <nav class="nav-menu">
                 <a href="fairmont_dashboard.html" class="nav-link"><span id="t-menuDashboard">Dashboard</span></a>
@@ -835,7 +945,8 @@
             return {
                 ...u,
                 name: fixEnc(u.name),
-                dates: userDates
+                dates: userDates,
+                skills: u.skills || { Escuta: 75, Empatia: 80, Crises: 65, Padroes: 85, Personalizacao: 70 }
             };
         });
 
@@ -973,9 +1084,13 @@
             const content = document.getElementById('mainContent');
             content.innerHTML = `
                 <div class="global-stats">
-                    <header class="header-section" style="text-align: left; margin-bottom: 4rem; background: var(--accent); padding: 3rem; border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                        <h1 style="color: #ffffff;">${ui[currentLang].globalMetrics} <span>${ui[currentLang].operation}</span></h1>
-                        <p style="font-size: 1.1rem; max-width: 600px; color: rgba(255,255,255,0.7);">${ui[currentLang].execVision}</p>
+                    <header class="header-section">
+                        <div class="header-content-left">
+                            <h1>${ui[currentLang].globalMetrics} <span>${ui[currentLang].operation}</span></h1>
+                        </div>
+                        <div class="header-content-right">
+                            <p class="header-desc">${ui[currentLang].execVision}</p>
+                        </div>
                     </header>
 
                     <div class="stats-grid" style="margin-bottom: 3rem;">
@@ -1025,9 +1140,13 @@
             const content = document.getElementById('mainContent');
             content.innerHTML = `
                 <div class="user-profile">
-                    <header class="header-section" style="text-align: left; margin-bottom: 4rem; background: var(--accent); padding: 3rem; border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                        <h1 style="color: #ffffff;">${ui[currentLang].performanceOf} <span>${user.name}</span></h1>
-                        <p style="font-size: 1.1rem; max-width: 600px; color: rgba(255,255,255,0.7);">${ui[currentLang].behaviorAnalysis} ${user.count} ${ui[currentLang].simulationsDone}</p>
+                    <header class="header-section">
+                        <div class="header-content-left">
+                            <h1>${ui[currentLang].performanceOf} <span>${user.name}</span></h1>
+                        </div>
+                        <div class="header-content-right">
+                            <p class="header-desc">${ui[currentLang].behaviorAnalysis} ${user.count} ${ui[currentLang].simulationsDone}</p>
+                        </div>
                     </header>
 
                     <div class="stats-grid" style="margin-bottom: 3rem;">
@@ -1044,12 +1163,18 @@
                         </div>
                         <div class="card">
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].aiFeedback}</h3>
-                            <div class="insight-box" style="background: #f8fafc; border-color: #e2e8f0;">
-                                <h4>${ui[currentLang].realTimeSession}</h4>
-                                <ul class="bullet-list" id="bulletList" style="list-style: none;"></ul>
-                                <div class="skill-bar-container" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
-                                    <div class="skill-label-row"><span>${ui[currentLang].sessionPerf}</span><span>${user.avgScore}%</span></div>
-                                    <div class="skill-track"><div class="skill-bar-fill" style="width: ${user.avgScore}%; background: var(--primary);"></div></div>
+                            <div class="insight-box">
+                                <div class="insight-header">
+                                    <i class="fas fa-microphone"></i>
+                                    <h4>${ui[currentLang].realTimeSession}</h4>
+                                </div>
+                                <ul class="bullet-list" id="u-insight"></ul>
+                                <div class="skill-bar-container" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                                    <div class="skill-label-row">
+                                        <span style="font-size: 0.75rem;">${ui[currentLang].sessionPerf}</span>
+                                        <span style="font-size: 0.85rem;">${user.avgScore}%</span>
+                                    </div>
+                                    <div class="skill-track"><div class="skill-bar-fill" style="width: ${user.avgScore}%;"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -1064,7 +1189,7 @@
                 </div>
             `;
 
-            const list = document.getElementById('bulletList');
+            const list = document.getElementById('u-insight');
             (user.insights[currentLang] || user.insights.pt || []).forEach(txt => {
                 const li = document.createElement('li');
                 li.innerText = fixEnc(txt);
@@ -1153,11 +1278,15 @@
                 data: {
                     datasets: [{
                         data: [val, 100 - val],
-                        backgroundColor: [grad, '#e2e8f0'],
-                        borderWidth: 0, cutout: '85%'
+                        backgroundColor: [grad, '#f1f5f9'],
+                        borderWidth: 0, cutout: '75%'
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: false } } }
+                options: { 
+                    responsive: true, maintainAspectRatio: false, 
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    animation: { duration: 2000, easing: 'easeOutQuart' }
+                }
             });
         }
 
