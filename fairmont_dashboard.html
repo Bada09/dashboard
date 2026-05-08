@@ -480,23 +480,23 @@
         .mob-sidebar-btn {
             display: none;
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
+            bottom: 1.25rem;
+            right: 1.25rem;
             z-index: 200;
             background: var(--primary);
             color: #041e42;
             border: none;
             border-radius: 50%;
-            width: 52px;
-            height: 52px;
-            font-size: 1.2rem;
+            width: 46px;
+            height: 46px;
+            font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(0,188,242,0.5);
+            box-shadow: 0 4px 16px rgba(0,188,242,0.45);
             align-items: center;
             justify-content: center;
             transition: var(--transition);
         }
-        .mob-sidebar-btn:hover { transform: scale(1.1); }
+        .mob-sidebar-btn:hover { transform: scale(1.08); }
 
         .sidebar-overlay {
             display: none;
@@ -511,41 +511,47 @@
         @media (max-width: 1024px) {
             .mob-sidebar-btn { display: flex; }
 
-            /* Hide sidebar from normal flow; turn it into a bottom drawer */
             .sidebar {
                 position: fixed !important;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                height: 70vh !important;
-                max-height: 520px;
+                height: auto !important;
+                max-height: 55vh;
                 z-index: 160;
-                border-radius: 20px 20px 0 0 !important;
+                border-radius: 18px 18px 0 0 !important;
                 transform: translateY(100%);
-                transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-                box-shadow: 0 -10px 40px rgba(0,0,0,0.15) !important;
-                padding: 1.5rem !important;
+                transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+                box-shadow: 0 -8px 32px rgba(0,0,0,0.18) !important;
+                padding: 0.75rem 1rem 1rem !important;
+                overflow-y: auto;
             }
-            .sidebar.open {
-                transform: translateY(0);
-            }
+            .sidebar.open { transform: translateY(0); }
 
-            /* Pull-tab handle at top of drawer */
+            /* Drag handle */
             .sidebar::before {
                 content: '';
                 display: block;
-                width: 40px;
-                height: 4px;
+                width: 36px;
+                height: 3px;
                 background: #cbd5e1;
                 border-radius: 2px;
-                margin: 0 auto 1rem;
+                margin: 0 auto 0.75rem;
             }
 
-            /* Main content fills full width */
-            .main-grid {
-                grid-template-columns: 1fr !important;
-                height: auto !important;
+            /* Compact user items inside drawer */
+            .user-item {
+                padding: 0.6rem 0.75rem !important;
+                margin-bottom: 0.3rem !important;
+                border-radius: 8px !important;
             }
+            .user-name { font-size: 0.78rem !important; margin-bottom: 1px !important; }
+            .user-meta-small { font-size: 0.62rem !important; }
+
+            /* Search box inside drawer */
+            .search-box input { padding: 9px 9px 9px 2.4rem !important; font-size: 0.85rem; }
+
+            .main-grid { grid-template-columns: 1fr !important; height: auto !important; }
         }
 
     </style>
