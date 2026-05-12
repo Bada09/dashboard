@@ -1075,20 +1075,26 @@
 </head>
 
 <body>
-    <div id="security-login-overlay" style="position: fixed; inset: 0; background: rgba(4, 30, 66, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); transition: opacity 0.5s;">
-        <div style="background: white; padding: 3rem; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); max-width: 400px; width: 90%; text-align: center;">
-            <img src="rhapsody_logo.png" alt="rhapsody" style="height: 50px; margin-bottom: 2rem;">
-            <h2 style="font-family: 'Outfit'; margin-bottom: 1rem; color: #041e42; font-size: 1.5rem;">Acesso Restrito</h2>
-            <p style="color: #64748b; margin-bottom: 2rem; font-size: 0.9rem;" id="login-desc">Insira seu e-mail corporativo para receber o código de validação.</p>
+    <div id="security-login-overlay" style="position: fixed; inset: 0; background: radial-gradient(circle at center, #0a254d 0%, #041e42 100%); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(15px); transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+        <div style="background: rgba(255, 255, 255, 0.98); padding: 3.5rem; border-radius: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.5); max-width: 440px; width: 90%; text-align: center; border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #00bcf2, #041e42);"></div>
+            <img src="rhapsody_logo.png" alt="rhapsody" style="height: 55px; margin-bottom: 2.5rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+            <h2 style="font-family: 'Outfit'; margin-bottom: 1rem; color: #041e42; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em;">Acesso Restrito</h2>
+            <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1rem; line-height: 1.5;" id="login-desc">Para garantir a segurança dos dados, insira seu e-mail corporativo.</p>
             
             <div id="login-step-1">
-                <input type="email" id="login-email" placeholder="E-mail corporativo" style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 1rem; outline: none; font-family: 'Inter'; font-size: 1rem;">
-                <button onclick="sendCode()" style="width: 100%; padding: 12px; background: #00bcf2; color: #041e42; border: none; border-radius: 12px; font-weight: 700; font-family: 'Outfit'; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,188,242,0.3);">ENVIAR CÓDIGO</button>
+                <div style="position: relative; margin-bottom: 1.5rem;">
+                    <input type="email" id="login-email" placeholder="nome@rhapsody.run" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #f1f5f9; outline: none; font-family: 'Inter'; font-size: 1rem; transition: all 0.3s; background: #f8fafc;">
+                </div>
+                <button onclick="sendCode()" style="width: 100%; padding: 16px; background: #00bcf2; color: #041e42; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,188,242,0.3); letter-spacing: 0.05em;">SOLICITAR CÓDIGO</button>
             </div>
             
             <div id="login-step-2" style="display: none;">
-                <input type="text" id="login-code" placeholder="Código de 6 dígitos" maxlength="6" style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 1rem; outline: none; font-family: 'Inter'; font-size: 1rem; text-align: center; letter-spacing: 0.2em; font-weight: bold;">
-                <button onclick="validateCode()" style="width: 100%; padding: 12px; background: #00bcf2; color: #041e42; border: none; border-radius: 12px; font-weight: 700; font-family: 'Outfit'; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,188,242,0.3);">VALIDAR ACESSO</button>
+                <div style="margin-bottom: 1.5rem;">
+                    <input type="text" id="login-code" placeholder="0 0 0 0 0 0" maxlength="6" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #00bcf2; outline: none; font-family: 'Outfit'; font-size: 1.8rem; text-align: center; letter-spacing: 0.3em; font-weight: 800; background: #f0f9ff; color: #041e42;">
+                </div>
+                <button onclick="validateCode()" style="width: 100%; padding: 16px; background: #041e42; color: #ffffff; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s; box-shadow: 0 8px 20px rgba(4,30,66,0.3); letter-spacing: 0.05em;">VALIDAR ACESSO</button>
+                <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8; cursor: pointer;" onclick="location.reload()">Reenviar e-mail</p>
             </div>
         </div>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -1279,7 +1285,8 @@
             });
         }
 
-        const activeUsers = users.filter(u => u.count > 0).map(u => {
+        const excludedNames = ['Fernando Godoy', 'Tabajara Dias', 'Sophie Géraud', 'Philippe de Langlais'];
+        const activeUsers = users.filter(u => u.count > 0 && !excludedNames.includes(u.name)).map(u => {
             function fmt(d) {
                 if (!d || typeof d !== 'string') return d;
                 const p = d.split('-');
