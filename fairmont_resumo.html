@@ -900,11 +900,153 @@
                 font-size: 2.5rem;
             }
         }
+
+        /* ── Maintenance Mode (Temporary) ── */
+        .maintenance-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #0a254d 0%, #041e42 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .m-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4.5rem;
+            border-radius: 48px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .m-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #00bcf2, #a78bfa, #ec4899);
+        }
+
+        .m-logo {
+            height: 65px;
+            margin-bottom: 3.5rem;
+            filter: drop-shadow(0 0 20px rgba(0, 188, 242, 0.3));
+        }
+
+        .m-icon-box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .m-icon {
+            font-size: 3.5rem;
+            color: #00bcf2;
+            z-index: 2;
+        }
+
+        .m-icon-spin {
+            position: absolute;
+            inset: 0;
+            border: 2px dashed rgba(0, 188, 242, 0.3);
+            border-radius: 50%;
+            animation: rotate 10s linear infinite;
+        }
+
+        .m-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .m-title span {
+            background: linear-gradient(135deg, #fff 40%, #00bcf2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .m-desc {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.7;
+            margin-bottom: 3.5rem;
+            font-weight: 400;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .m-date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(0, 188, 242, 0.12);
+            border: 1px solid rgba(0, 188, 242, 0.4);
+            padding: 16px 32px;
+            border-radius: 100px;
+            color: #00bcf2;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 0.02em;
+            box-shadow: 0 10px 30px rgba(0, 188, 242, 0.15);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-maintenance {
+            display: none !important;
+        }
     </style>
 </head>
 
-<body>
-    <div id="security-login-overlay" style="position: fixed; inset: 0; background: radial-gradient(circle at center, #0a254d 0%, #041e42 100%); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(15px); transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+<body class="maintenance-active">
+    <!-- Maintenance Screen -->
+    <div class="maintenance-screen">
+        <div class="m-card">
+            <img src="rhapsody_logo.png" alt="rhapsody" class="m-logo">
+            <div class="m-icon-box">
+                <div class="m-icon-spin"></div>
+                <i class="fas fa-database m-icon"></i>
+            </div>
+            <h1 class="m-title"><span>Atualização de Dados</span></h1>
+            <p class="m-desc">Estamos processando novas métricas e otimizando a inteligência do seu dashboard. Retornaremos em breve com novidades.</p>
+            <div class="m-date-badge">
+                <i class="far fa-calendar-check"></i>
+                Previsão de retorno: 13/05/2026
+            </div>
+        </div>
+    </div>
+
+    <div id="security-login-overlay" class="hidden-maintenance" style="position: fixed; inset: 0; background: radial-gradient(circle at center, #0a254d 0%, #041e42 100%); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(15px); transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
         <div style="background: rgba(255, 255, 255, 0.98); padding: 3.5rem; border-radius: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.5); max-width: 440px; width: 90%; text-align: center; border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden;">
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #00bcf2, #041e42);"></div>
             <img src="rhapsody_logo.png" alt="rhapsody" style="height: 55px; margin-bottom: 2.5rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
@@ -1005,13 +1147,13 @@
             }
         </script>
     </div>
-    <div class="waves-bg">
+    <div class="waves-bg hidden-maintenance">
         <div class="wave"></div>
         <div class="wave wave-2"></div>
         <div class="wave wave-3"></div>
     </div>
 
-    <div class="container">
+    <div class="container hidden-maintenance">
         <header>
             <div class="logo-area">
                 <img src="rhapsody_logo.png" alt="rhapsody Intelligence" style="height: 48px;">
@@ -1061,7 +1203,7 @@
     </div>
 
     <!-- Mobile FAB to open sidebar -->
-    <button class="mob-sidebar-btn" id="mobSidebarBtn" onclick="toggleSidebar()">
+    <button class="mob-sidebar-btn hidden-maintenance" id="mobSidebarBtn" onclick="toggleSidebar()">
         <i class="fas fa-users"></i>
         <span>USUÁRIOS</span>
     </button>
