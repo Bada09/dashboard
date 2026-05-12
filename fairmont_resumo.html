@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=2"></script>
+    <script src="users_data.js?v=3"></script>
 
     <style>
         :root {
@@ -881,26 +881,25 @@
         .mob-sidebar-btn {
             display: none;
             position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 1.5rem;
+            left: 1.5rem;
             z-index: 200;
             background: var(--primary);
             color: #041e42;
             border: none;
-            border-radius: 30px;
-            padding: 0 1.5rem;
-            height: 50px;
+            border-radius: 16px;
+            padding: 0 1rem;
+            height: 44px;
             font-family: 'Outfit';
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0, 188, 242, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 188, 242, 0.4);
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             transition: var(--transition);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
         }
 
         .mob-sidebar-btn:hover {
@@ -1294,8 +1293,12 @@
             });
         }
 
-        const excludedNames = ['Fernando Godoy', 'Tabajara Dias', 'Sophie Géraud', 'Philippe de Langlais'];
-        const activeUsers = users.filter(u => u.count > 0 && !excludedNames.includes(u.name)).map(u => {
+        const excludedNames = ['fernando godoy', 'tabajara dias', 'sophie geraud', 'philippe de langlais', 'sophie géraud'];
+        const activeUsers = users.filter(u => {
+            if (u.count <= 0) return false;
+            const name = u.name.toLowerCase();
+            return !excludedNames.some(ex => name.includes(ex) || fixEnc(name).includes(ex));
+        }).map(u => {
             function fmt(d) {
                 if (!d || typeof d !== 'string') return d;
                 const p = d.split('-');
