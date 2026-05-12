@@ -74,43 +74,6 @@
             transition: var(--transition);
         }
 
-        /* ── Typography System ── */
-        h2 {
-            font-family: 'Outfit';
-            font-size: 1.7rem;
-            font-weight: 400;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        h3 {
-            font-family: 'Outfit';
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-main);
-            letter-spacing: -0.01em;
-            line-height: 1.3;
-        }
-
-        .section-title {
-            font-family: 'Outfit';
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 1.2rem;
-        }
-
-        .section-title i {
-            opacity: 0.6;
-        }
-
         .logo-area {
             display: flex;
             align-items: center;
@@ -301,29 +264,6 @@
             letter-spacing: 0.01em;
         }
 
-        .grid {
-            display: grid;
-            gap: 1.25rem;
-        }
-
-        .grid-2 {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.4rem 1.6rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
-        }
-
         /* Dashboard Content */
         .dashboard-content {
             background: var(--card-bg);
@@ -335,7 +275,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
         }
 
-        /* Stats Dashboard (Home) */
+        /* Stats Dashboard */
         .global-stats {
             display: flex;
             flex-direction: column;
@@ -421,38 +361,6 @@
             font-weight: 700;
             color: var(--primary);
             font-family: 'Outfit';
-        }
-
-        .perf-item:last-child {
-            border: none;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        /* Grid Layouts */
-        .grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .grid-2 {
-            grid-template-columns: 1fr 1fr;
         }
 
         /* Donut chart grid */
@@ -601,35 +509,472 @@
             margin: 0;
         }
 
-        /* ── Responsive Design ── */
-        @media (max-width: 1280px) {
-            .main-grid {
-                grid-template-columns: 240px 1fr;
-                gap: 1rem;
-            }
+        /* User Profile View */
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3.5rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #e0f2fe;
+            color: var(--primary);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            border: 1px solid #bae6fd;
+        }
+
+        .badge::before {
+            content: '🚀';
+            font-size: 0.8rem;
+        }
+
+        h1 {
+            font-family: 'Outfit';
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #a78bfa 0%, #3b82f6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .bullet-summary {
+            background: #ffffff;
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            list-style: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .bullet-summary li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.65;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .bullet-summary li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.4rem 1.6rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            letter-spacing: -0.01em;
+        }
+
+        .skill-score {
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-family: 'Outfit';
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .insight-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.8rem;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .insight-box h4 {
+            font-family: 'Outfit';
+            margin-bottom: 0;
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quote-box {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border-left: 2px solid var(--primary);
+        }
+
+        .bullet-list {
+            list-style: none;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Header Section Card (Premium Design) */
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem !important;
+            background: var(--accent);
+            border-radius: 24px;
+            padding: 3.5rem !important;
+            border-bottom: 5px solid var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content-left {
+            flex: 1.2;
+        }
+
+        .header-content-right {
+            flex: 1;
+            max-width: 550px;
+            text-align: right;
+        }
+
+        h1 {
+            font-family: 'Outfit';
+            font-size: 3.4rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: white;
+            line-height: 1;
+            margin: 0;
+        }
+
+        h1 span {
+            display: block;
+            background: linear-gradient(135deg, #a78bfa, #3b82f6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-desc {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            margin: 0;
+            font-weight: 400;
         }
 
         @media (max-width: 1024px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-                height: auto;
+            .header-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 2.5rem !important;
+            }
+
+            .header-content-right {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .bullet-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Skills in Profile View */
+        .skill-bar-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.75rem;
+            color: var(--text-main);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .skill-track {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .chart-container {
+            height: 320px;
+            margin-top: 3rem;
+            background: #ffffff;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .section-title {
+            font-family: 'Outfit';
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title i {
+            opacity: 0.6;
+        }
+
+
+        /* Donut chart grid */
+        .donut-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0.5rem 0 1.5rem;
+        }
+
+        .donut-wrap {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .donut-wrap canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .donut-val {
+            position: absolute;
+            font-family: 'Outfit';
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            pointer-events: none;
+        }
+
+        .donut-label {
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        /* ── Responsive Design ── */
+        /* ── Mobile Sidebar Drawer ── */
+        .mob-sidebar-btn {
+            display: none;
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 200;
+            background: var(--primary);
+            color: #041e42;
+            border: none;
+            border-radius: 50%;
+            width: 46px;
+            height: 46px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 188, 242, 0.45);
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .mob-sidebar-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 30, 66, 0.5);
+            z-index: 150;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.open {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .mob-sidebar-btn {
+                display: flex;
             }
 
             .sidebar {
-                height: 260px;
+                position: fixed !important;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: auto !important;
+                max-height: 55vh;
+                z-index: 160;
+                border-radius: 18px 18px 0 0 !important;
+                transform: translateY(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18) !important;
+                padding: 0.75rem 1rem 1rem !important;
+                overflow-y: auto;
             }
 
-            .dashboard-content {
-                height: auto;
-                min-height: 500px;
+            .sidebar.open {
+                transform: translateY(0);
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .sidebar::before {
+                content: '';
+                display: block;
+                width: 36px;
+                height: 3px;
+                background: #cbd5e1;
+                border-radius: 2px;
+                margin: 0 auto 0.75rem;
             }
 
-            .top-performers {
-                grid-template-columns: 1fr;
+            /* Compact user items inside drawer */
+            .user-item {
+                padding: 0.6rem 0.75rem !important;
+                margin-bottom: 0.3rem !important;
+                border-radius: 8px !important;
+            }
+
+            .user-name {
+                font-size: 0.78rem !important;
+                margin-bottom: 1px !important;
+            }
+
+            .user-meta-small {
+                font-size: 0.62rem !important;
+            }
+
+            /* Search box inside drawer */
+            .search-box input {
+                padding: 9px 9px 9px 2.4rem !important;
+                font-size: 0.85rem;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr !important;
+                height: auto !important;
             }
         }
 
@@ -726,193 +1071,30 @@
                 gap: 16px;
             }
         }
-
-        /* ── Mobile Sidebar Drawer ── */
-        .mob-sidebar-btn {
-            display: none;
-            position: fixed;
-            bottom: 1.25rem;
-            right: 1.25rem;
-            z-index: 200;
-            background: var(--primary);
-            color: #041e42;
-            border: none;
-            border-radius: 50%;
-            width: 46px;
-            height: 46px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 188, 242, 0.45);
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .mob-sidebar-btn:hover {
-            transform: scale(1.08);
-        }
-
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(4, 30, 66, 0.5);
-            z-index: 150;
-            backdrop-filter: blur(2px);
-        }
-
-        .sidebar-overlay.open {
-            display: block;
-        }
-
-        @media (max-width: 1024px) {
-            .mob-sidebar-btn {
-                display: flex;
-            }
-
-            .sidebar {
-                position: fixed !important;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                height: auto !important;
-                max-height: 55vh;
-                z-index: 160;
-                border-radius: 18px 18px 0 0 !important;
-                transform: translateY(100%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18) !important;
-                padding: 0.75rem 1rem 1rem !important;
-                overflow-y: auto;
-            }
-
-            .sidebar.open {
-                transform: translateY(0);
-            }
-
-            /* Drag handle */
-            .sidebar::before {
-                content: '';
-                display: block;
-                width: 36px;
-                height: 3px;
-                background: #cbd5e1;
-                border-radius: 2px;
-                margin: 0 auto 0.75rem;
-            }
-
-            /* Compact user items inside drawer */
-            .user-item {
-                padding: 0.6rem 0.75rem !important;
-                margin-bottom: 0.3rem !important;
-                border-radius: 8px !important;
-            }
-
-            .user-name {
-                font-size: 0.78rem !important;
-                margin-bottom: 1px !important;
-            }
-
-            .user-meta-small {
-                font-size: 0.62rem !important;
-            }
-
-            /* Search box inside drawer */
-            .search-box input {
-                padding: 9px 9px 9px 2.4rem !important;
-                font-size: 0.85rem;
-            }
-
-            .main-grid {
-                grid-template-columns: 1fr !important;
-                height: auto !important;
-            }
-        }
-
-        /* Header Section Card (Premium Design) */
-        .header-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 3rem !important;
-            background: var(--accent);
-            border-radius: 24px;
-            padding: 3.5rem !important;
-            border-bottom: 5px solid var(--primary);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header-content-left {
-            flex: 1.2;
-        }
-
-        .header-content-right {
-            flex: 1;
-            max-width: 550px;
-            text-align: right;
-        }
-
-        h1 {
-            font-family: 'Outfit';
-            font-size: 3.4rem;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            color: white;
-            line-height: 1;
-            margin: 0;
-        }
-
-        h1 span {
-            display: block;
-            background: linear-gradient(135deg, #a78bfa, #3b82f6, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-desc {
-            font-size: 1.15rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.5;
-            margin: 0;
-            font-weight: 400;
-        }
-
-        @media (max-width: 1024px) {
-            .header-section {
-                flex-direction: column;
-                text-align: center;
-                padding: 2.5rem !important;
-            }
-
-            .header-content-right {
-                text-align: center;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <div id="security-login-overlay" style="position: fixed; inset: 0; background: rgba(4, 30, 66, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); transition: opacity 0.5s;">
-        <div style="background: white; padding: 3rem; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); max-width: 400px; width: 90%; text-align: center;">
-            <img src="rhapsody_logo.png" alt="rhapsody" style="height: 50px; margin-bottom: 2rem;">
-            <h2 style="font-family: 'Outfit'; margin-bottom: 1rem; color: #041e42; font-size: 1.5rem;">Acesso Restrito</h2>
-            <p style="color: #64748b; margin-bottom: 2rem; font-size: 0.9rem;" id="login-desc">Insira seu e-mail corporativo para receber o código de validação.</p>
+    <div id="security-login-overlay" style="position: fixed; inset: 0; background: radial-gradient(circle at center, #0a254d 0%, #041e42 100%); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(15px); transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+        <div style="background: rgba(255, 255, 255, 0.98); padding: 3.5rem; border-radius: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.5); max-width: 440px; width: 90%; text-align: center; border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #00bcf2, #041e42);"></div>
+            <img src="rhapsody_logo.png" alt="rhapsody" style="height: 55px; margin-bottom: 2.5rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+            <h2 style="font-family: 'Outfit'; margin-bottom: 1rem; color: #041e42; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em;">Acesso Restrito</h2>
+            <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1rem; line-height: 1.5;" id="login-desc">Para garantir a segurança dos dados, insira seu e-mail corporativo.</p>
             
             <div id="login-step-1">
-                <input type="email" id="login-email" placeholder="E-mail corporativo" style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 1rem; outline: none; font-family: 'Inter'; font-size: 1rem;">
-                <button onclick="sendCode()" style="width: 100%; padding: 12px; background: #00bcf2; color: #041e42; border: none; border-radius: 12px; font-weight: 700; font-family: 'Outfit'; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,188,242,0.3);">ENVIAR CÓDIGO</button>
+                <div style="position: relative; margin-bottom: 1.5rem;">
+                    <input type="email" id="login-email" placeholder="nome@rhapsody.run" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #f1f5f9; outline: none; font-family: 'Inter'; font-size: 1rem; transition: all 0.3s; background: #f8fafc;">
+                </div>
+                <button onclick="sendCode()" style="width: 100%; padding: 16px; background: #00bcf2; color: #041e42; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,188,242,0.3); letter-spacing: 0.05em;">SOLICITAR CÓDIGO</button>
             </div>
             
             <div id="login-step-2" style="display: none;">
-                <input type="text" id="login-code" placeholder="Código de 6 dígitos" maxlength="6" style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 1rem; outline: none; font-family: 'Inter'; font-size: 1rem; text-align: center; letter-spacing: 0.2em; font-weight: bold;">
-                <button onclick="validateCode()" style="width: 100%; padding: 12px; background: #00bcf2; color: #041e42; border: none; border-radius: 12px; font-weight: 700; font-family: 'Outfit'; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,188,242,0.3);">VALIDAR ACESSO</button>
+                <div style="margin-bottom: 1.5rem;">
+                    <input type="text" id="login-code" placeholder="0 0 0 0 0 0" maxlength="6" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #00bcf2; outline: none; font-family: 'Outfit'; font-size: 1.8rem; text-align: center; letter-spacing: 0.3em; font-weight: 800; background: #f0f9ff; color: #041e42;">
+                </div>
+                <button onclick="validateCode()" style="width: 100%; padding: 16px; background: #041e42; color: #ffffff; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s; box-shadow: 0 8px 20px rgba(4,30,66,0.3); letter-spacing: 0.05em;">VALIDAR ACESSO</button>
+                <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8; cursor: pointer;" onclick="location.reload()">Reenviar e-mail</p>
             </div>
         </div>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -999,25 +1181,21 @@
         <div class="wave wave-2"></div>
         <div class="wave wave-3"></div>
     </div>
-
     <div class="container">
         <header>
             <div class="logo-area">
                 <img src="rhapsody_logo.png" alt="rhapsody Intelligence" style="height: 48px;">
             </div>
             <nav class="nav-menu">
-                <a href="#" class="nav-link active"><span id="t-menuDashboard">Dashboard</span></a>
-                <a href="fairmont_resumo.html" class="nav-link" id="t-menuReport">Resumo</a>
+                <a href="fairmont_dashboard.html" class="nav-link"><span id="t-menuDashboard">Dashboard</span></a>
+                <a href="#" class="nav-link active"><span id="t-menuReport">Resumo</span></a>
             </nav>
             <div class="header-controls">
                 <div class="lang-switch">
                     <button id="btn-pt" class="active" onclick="setLang('pt')">PT-BR</button>
                     <button id="btn-fr" onclick="setLang('fr')">FRANÇAIS</button>
                 </div>
-                <button class="btn-header" onclick="exportCSV()">
-                    <i class="fas fa-file-excel"></i> <span id="t-export">Exportar Excel</span>
-                </button>
-                <button class="btn-header" onclick="showGlobalStats()">
+                <button class="btn-header" onclick="showGlobalSummary()">
                     <i class="fas fa-home"></i> <span id="t-generalBtn">Geral</span>
                 </button>
             </div>
@@ -1035,7 +1213,7 @@
                         <input type="text" id="userSearch" placeholder="Buscar..." oninput="renderUserList()"
                             style="width: 100%; padding-left: 2.8rem;">
                     </div>
-                    <button onclick="showGlobalStats(); closeSidebar();"
+                    <button onclick="showGlobalSummary(); closeSidebar();"
                         style="padding: 10px; border-radius: 12px; border: 1px solid var(--border); background: #f8fafc; cursor: pointer; color: var(--text-main);">
                         <i class="fas fa-home"></i>
                     </button>
@@ -1044,7 +1222,7 @@
             </aside>
 
             <main class="dashboard-content" id="mainContent">
-                <!-- Content will be injected here: Global Stats or User Profile -->
+                <!-- Content will be injected here -->
             </main>
         </div>
     </div>
@@ -1079,17 +1257,9 @@
             if (btn) btn.innerHTML = '<i class="fas fa-users"></i>';
         }
 
-        // Global Data Cleaning
         function fixEnc(s) {
             if (!s) return "";
             return s.replace(/Ã§/g, 'ç').replace(/Ã£/g, 'ã').replace(/Ã©/g, 'é').replace(/Ãª/g, 'ê').replace(/Ã³/g, 'ó').replace(/Ã¡/g, 'á').replace(/Ã­/g, 'í').replace(/Ã /g, 'à');
-        }
-
-        function fmtDate(d) {
-            if (!d || typeof d !== 'string') return d;
-            const parts = d.split('-');
-            if (parts.length !== 3) return d;
-            return `${parts[2]}/${parts[1]}/${parts[0]}`;
         }
 
         function animateValue(obj, start, end, duration, suffix = '') {
@@ -1115,12 +1285,18 @@
             });
         }
 
-        const activeUsers = users.filter(u => u.count > 0).map(u => {
+        const excludedNames = ['Fernando Godoy', 'Tabajara Dias', 'Sophie Géraud', 'Philippe de Langlais'];
+        const activeUsers = users.filter(u => u.count > 0 && !excludedNames.includes(u.name)).map(u => {
+            function fmt(d) {
+                if (!d || typeof d !== 'string') return d;
+                const p = d.split('-');
+                return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : d;
+            }
             let userDates = [];
             if (Array.isArray(u.dates)) {
-                userDates = u.dates.map(fmtDate);
+                userDates = u.dates.map(fmt);
             } else if (typeof u.dates === 'string' && u.dates.length > 0) {
-                userDates = [fmtDate(u.dates)];
+                userDates = [fmt(u.dates)];
             }
             return {
                 ...u,
@@ -1137,37 +1313,34 @@
             pt: {
                 menuDashboard: "Dashboard",
                 menuReport: "Resumo",
-                export: "Exportar Excel",
                 sessions: "Simulações",
-                avgScore: "Média Global",
+                avgScore: "Score Técnico",
                 lqa: "Padrão LQA",
-                time: "Média Tempo",
-                behavior: "Resumo Comportamental Técnico",
-                skills: "Matriz de Competências",
-                dates: "Datas Ativas",
+                time: "Duração",
                 trend: "Evolução Histórica",
-                teamStats: "Resumo Geral da Operação",
-                topPerformers: "Destaques Técnicos",
-                avgTeamScore: "Média do Time",
-                totalMinutes: "Minutos Totais",
                 collaborators: "Colaboradores",
                 search: "Buscar...",
-                globalMetrics: "Métricas Globais da",
-                operation: "Operação",
-                execVision: "Visão executiva da performance técnica e aderência aos padrões LQA de todo o time Fairmont.",
+                globalMetrics: "Transforme treinamento em",
+                operation: "Performance Real",
+                execVision: "Visão panorâmica da performance LQA e Técnica de todos os colaboradores ativos na operação Fairmont.",
                 perfDistribution: "Distribuição de Performance",
                 generalAvg: "MÉDIA GERAL",
                 lqaPattern: "PADRÃO LQA",
                 performanceOf: "Performance de",
                 behaviorAnalysis: "Análise comportamental baseada em",
                 simulationsDone: "simulações realizadas com a rhapsody IA.",
-                languagesLabel: "Idiomas",
                 lastSimulation: "Última Simulação",
                 aiFeedback: "Feedback da IA",
                 realTimeSession: "Sessão em Tempo Real",
                 sessionPerf: "Performance da Sessão",
-                waitingData: "Aguardando dados históricos...",
                 generalBtn: "Geral",
+                techDomain: "Domínio Técnico",
+                volOperation: "Volume da Operação",
+                totCollaborators: "Total de Colaboradores",
+                totSimulations: "Total de Simulações",
+                simulationsUser: "Simulações/Usuário",
+                avgTech: "Média Técnica",
+                waitingData: "Aguardando dados históricos...",
                 skillNames: {
                     Escuta: "Escuta Ativa",
                     Empatia: "Empatia & Acolhimento",
@@ -1179,37 +1352,34 @@
             fr: {
                 menuDashboard: "Dashboard",
                 menuReport: "Résumé",
-                export: "Exporter Excel",
                 sessions: "Simulations",
-                avgScore: "Score Global",
+                avgScore: "Score Technique",
                 lqa: "Standard LQA",
-                time: "Temps Moyen",
-                behavior: "Résumé Comportemental Technique",
-                skills: "Matrice de Compétences",
-                dates: "Dates Actives",
+                time: "Durée",
                 trend: "Évolution Historique",
-                teamStats: "Résumé Général de l'Opération",
-                topPerformers: "Points Forts Techniques",
-                avgTeamScore: "Moyenne Équipe",
-                totalMinutes: "Minutes Totales",
                 collaborators: "Collaborateurs",
                 search: "Rechercher...",
-                globalMetrics: "Métriques Globales de",
-                operation: "l'Opération",
-                execVision: "Vision exécutive des performances techniques et de l'adhésion aux normes LQA de toute l'équipe Fairmont.",
+                globalMetrics: "Transformer la formation en",
+                operation: "Performance Réelle",
+                execVision: "Vue panoramique des performances LQA et techniques de tous les collaborateurs actifs de l'opération Fairmont.",
                 perfDistribution: "Distribution des Performances",
                 generalAvg: "MOYENNE GÉNÉRALE",
                 lqaPattern: "STANDARD LQA",
                 performanceOf: "Performance de",
                 behaviorAnalysis: "Analyse comportementale basée sur",
                 simulationsDone: "simulations réalisées avec rhapsody IA.",
-                languagesLabel: "Langues",
                 lastSimulation: "Dernière Simulation",
                 aiFeedback: "Retour de l'IA",
                 realTimeSession: "Session en Temps Réel",
                 sessionPerf: "Performance de la Session",
-                waitingData: "En attente de données historiques...",
                 generalBtn: "Général",
+                techDomain: "Domaine Technique",
+                volOperation: "Volume de l'Opération",
+                totCollaborators: "Total de Collaborateurs",
+                totSimulations: "Total de Simulations",
+                simulationsUser: "Simulations/Utilisateur",
+                avgTech: "Moyenne Technique",
+                waitingData: "En attente de données historiques...",
                 skillNames: {
                     Escuta: "Écoute Active",
                     Empatia: "Empathie & Accueil",
@@ -1236,7 +1406,7 @@
 
             renderUserList();
             if (window.activeUser) selectUser(window.activeUser);
-            else showGlobalStats();
+            else showGlobalSummary();
         }
 
         function renderUserList() {
@@ -1251,7 +1421,7 @@
                     <span class="user-name">${u.name}</span>
                     <div class="user-meta-small">
                         <span>${u.count} ${ui[currentLang].sessions.toLowerCase()}</span>
-                        <span style="color: var(--primary); font-weight: 700;">${u.avgScore}%</span>
+                        <span style="color: var(--accent); font-weight: 700;">${u.avgScore}%</span>
                     </div>
                 `;
                 item.onclick = () => { selectUser(u); closeSidebar(); };
@@ -1259,16 +1429,13 @@
             });
         }
 
-        function showGlobalStats() {
+        function showGlobalSummary() {
             window.activeUser = null;
             renderUserList();
 
-            const totalSessions = activeUsers.reduce((a, b) => a + b.count, 0);
+            const totalSess = activeUsers.reduce((a, b) => a + b.count, 0);
             const avgScore = Math.round(activeUsers.reduce((a, b) => a + b.avgScore, 0) / activeUsers.length);
-            const totalMinutes = Math.round(activeUsers.reduce((a, b) => a + (b.avgDurMin * b.count), 0));
             const avgLqa = Math.round(activeUsers.reduce((a, b) => a + b.lqaScore, 0) / activeUsers.length);
-
-            const top5 = [...activeUsers].sort((a, b) => b.avgScore - a.avgScore).slice(0, 5);
 
             const content = document.getElementById('mainContent');
             content.innerHTML = `
@@ -1283,18 +1450,20 @@
                     </header>
 
                     <div class="stats-grid" style="margin-bottom: 3rem;">
-                        <div class="stat-card-big"><span class="val count-up" data-val="${activeUsers.length}">0</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].collaborators}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${totalSessions}">0</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].sessions}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${avgScore}" data-suffix="%">0%</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].avgTeamScore}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${totalMinutes}" data-suffix="m">0m</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].totalMinutes}</span></div>
+                        <div class="stat-card-big"><span class="val count-up" data-val="${activeUsers.length}">0</span><span class="lab">${ui[currentLang].collaborators}</span></div>
+                        <div class="stat-card-big"><span class="val count-up" data-val="${totalSess}">0</span><span class="lab">${ui[currentLang].sessions}</span></div>
+                        <div class="stat-card-big"><span class="val count-up" data-val="${avgScore}" data-suffix="%">0%</span><span class="lab">${ui[currentLang].avgTech}</span></div>
+                        <div class="stat-card-big"><span class="val count-up" data-val="${avgLqa}" data-suffix="%">0%</span><span class="lab">${ui[currentLang].lqa}</span></div>
                     </div>
-                    
+
                     <div class="grid grid-2">
-                        <div class="card perf-card">
-                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].topPerformers}</h3>
-                            <div id="topList"></div>
+                        <div class="card">
+                            <h3>${ui[currentLang].volOperation}</h3>
+                            <div class="skill-item"><span class="skill-name">${ui[currentLang].totCollaborators}</span><span class="skill-score">${activeUsers.length}</span></div>
+                            <div class="skill-item"><span class="skill-name">${ui[currentLang].totSimulations}</span><span class="skill-score">${totalSess}</span></div>
+                            <div class="skill-item"><span class="skill-name">${ui[currentLang].simulationsUser}</span><span class="skill-score">${(totalSess / activeUsers.length).toFixed(1)}</span></div>
                         </div>
-                        <div class="card perf-card">
+                        <div class="card">
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem;">${ui[currentLang].perfDistribution}</h3>
                             <div class="donut-grid">
                                 <div class="donut-wrap">
@@ -1312,49 +1481,21 @@
                     </div>
                 </div>
             `;
-
-            const topList = document.getElementById('topList');
-            top5.forEach(u => {
-                topList.innerHTML += `<div class="perf-item"><span>${u.name}</span><strong>${u.avgScore}%</strong></div>`;
-            });
-
             document.getElementById('chartValue').innerText = avgScore + '%';
             document.getElementById('lqaValue').innerText = avgLqa + '%';
-            renderGlobalChart('globalChart', avgScore, '#00bcf2');
-            renderGlobalChart('lqaChart', avgLqa, '#8b5cf6');
+            renderDoughnut('globalChart', avgScore);
+            renderDoughnut('lqaChart', avgLqa);
 
             runCountUp();
         }
 
-        function renderGlobalChart(id, val, color) {
-            const canvas = document.getElementById(id);
-            const ctx = canvas.getContext('2d');
-            const grad = ctx.createLinearGradient(0, 0, canvas.width || 180, 0);
-            grad.addColorStop(0, '#00bcf2');
-            grad.addColorStop(1, '#041e42');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [val, 100 - val],
-                        backgroundColor: [color, '#f1f5f9'],
-                        borderWidth: 0,
-                        cutout: '75%'
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                    animation: { duration: 2000, easing: 'easeOutQuart' }
-                }
-            });
-        }
-
         function selectUser(user) {
             window.activeUser = user;
+            renderUserList();
+
             const content = document.getElementById('mainContent');
             content.innerHTML = `
-                <div id="userProfile">
+                <div class="user-profile">
                     <header class="header-section">
                         <div class="header-content-left">
                             <h1>${ui[currentLang].performanceOf} <span>${user.name}</span></h1>
@@ -1364,17 +1505,16 @@
                         </div>
                     </header>
 
-                    <div class="stats-grid" style="margin-bottom: 3.5rem;">
+                    <div class="stats-grid" style="margin-bottom: 3rem;">
                         <div class="stat-card-big"><span class="val count-up" data-val="${user.avgScore}" data-suffix="%">0%</span><span class="lab">${ui[currentLang].avgScore}</span></div>
                         <div class="stat-card-big"><span class="val count-up" data-val="${user.lqaScore}" data-suffix="%">0%</span><span class="lab">${ui[currentLang].lqa}</span></div>
                         <div class="stat-card-big"><span class="val count-up" data-val="${user.avgDurMin}" data-suffix="m">0m</span><span class="lab">${ui[currentLang].time}</span></div>
-                        <div class="stat-card-big"><span class="val" id="u-langs" style="display: flex; gap: 8px; justify-content: center; font-size: 0.85rem; flex-wrap: wrap;"></span><span class="lab">${ui[currentLang].languagesLabel}</span></div>
                         <div class="stat-card-big"><span class="val" style="font-size: 1.1rem; margin-top: 12px; color: var(--text-muted);">${user.dates.length ? user.dates[user.dates.length - 1] : '--'}</span><span class="lab">${ui[currentLang].lastSimulation}</span></div>
                     </div>
 
                     <div class="grid grid-2">
                         <div class="card">
-                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].skills}</h3>
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].techDomain}</h3>
                             <div id="u-skills"></div>
                         </div>
                         <div class="card">
@@ -1405,34 +1545,26 @@
                 </div>
             `;
 
-            // Bullet Summary
-            const insightBox = document.getElementById('u-insight');
-            (user.insights[currentLang] || []).forEach(txt => {
+            const list = document.getElementById('u-insight');
+            (user.insights[currentLang] || user.insights.pt || []).forEach(txt => {
                 const li = document.createElement('li');
                 li.innerText = fixEnc(txt);
-                insightBox.appendChild(li);
-            });
-
-            // Flags
-            const langBox = document.getElementById('u-langs');
-            const flags = { PT: '🇧🇷 PT-BR', FR: '🇫🇷 FR', EN: '🇺🇸 EN' };
-            (user.languages || []).forEach(l => {
-                langBox.innerHTML += `<span class="lang-badge">${flags[l] || l}</span>`;
+                list.appendChild(li);
             });
 
             // Skills
             const skillBox = document.getElementById('u-skills');
             Object.entries(user.skills).forEach(([k, v]) => {
+                const sName = ui[currentLang].skillNames[k] || k;
                 skillBox.innerHTML += `
                     <div class="skill-bar-container">
-                        <div class="skill-label-row"><span>${ui[currentLang].skillNames[k] || k}</span><span>${v}%</span></div>
+                        <div class="skill-label-row"><span>${sName}</span><span>${v}%</span></div>
                         <div class="skill-track"><div class="skill-bar-fill" style="width: ${v}%"></div></div>
                     </div>
                 `;
             });
 
             renderUserChart(user);
-            renderUserList();
             runCountUp();
         }
 
@@ -1485,16 +1617,33 @@
             });
         }
 
-        function exportCSV() {
-            let csv = 'Nome,Simulacoes,Media Score,LQA,Tempo Medio,Idiomas,Ultima Sessao\n';
-            activeUsers.forEach(u => {
-                csv += `"${u.name}",${u.count},${u.avgScore},${u.lqaScore},"${u.avgDurMin}m ${u.avgDurSec}s","${(u.languages || []).join('/')}","${u.dates[u.dates.length - 1]}"\n`;
+        function clearSearch() {
+            document.getElementById('userSearch').value = '';
+            renderUserList();
+        }
+
+        function renderDoughnut(id, val) {
+            const canvas = document.getElementById(id);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const grad = ctx.createLinearGradient(0, 0, canvas.width || 180, 0);
+            grad.addColorStop(0, '#00bcf2');
+            grad.addColorStop(1, '#041e42');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [val, 100 - val],
+                        backgroundColor: [grad, '#f1f5f9'],
+                        borderWidth: 0, cutout: '75%'
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    animation: { duration: 2000, easing: 'easeOutQuart' }
+                }
             });
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.setAttribute('download', 'fairmont_ia_report.csv');
-            link.click();
         }
 
         // Initialize
