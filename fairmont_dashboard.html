@@ -731,21 +731,26 @@
         .mob-sidebar-btn {
             display: none;
             position: fixed;
-            bottom: 1.25rem;
-            right: 1.25rem;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 200;
             background: var(--primary);
             color: #041e42;
             border: none;
-            border-radius: 50%;
-            width: 46px;
-            height: 46px;
-            font-size: 1rem;
+            border-radius: 30px;
+            padding: 0 1.5rem;
+            height: 50px;
+            font-family: 'Outfit';
+            font-weight: 700;
+            font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 188, 242, 0.45);
+            box-shadow: 0 8px 25px rgba(0, 188, 242, 0.5);
             align-items: center;
             justify-content: center;
+            gap: 10px;
             transition: var(--transition);
+            letter-spacing: 0.05em;
         }
 
         .mob-sidebar-btn:hover {
@@ -772,22 +777,23 @@
 
             .sidebar {
                 position: fixed !important;
-                bottom: 0;
+                top: 0;
                 left: 0;
-                right: 0;
-                height: auto !important;
-                max-height: 55vh;
-                z-index: 160;
-                border-radius: 18px 18px 0 0 !important;
-                transform: translateY(100%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18) !important;
-                padding: 0.75rem 1rem 1rem !important;
-                overflow-y: auto;
+                bottom: 0;
+                width: 300px !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                z-index: 210;
+                border-radius: 0 24px 24px 0 !important;
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 20px 0 50px rgba(0, 0, 0, 0.25) !important;
+                padding: 2rem 1.5rem !important;
+                background: white !important;
             }
 
             .sidebar.open {
-                transform: translateY(0);
+                transform: translateX(0);
             }
 
             /* Drag handle */
@@ -1056,8 +1062,9 @@
     </div>
 
     <!-- Mobile FAB to open sidebar -->
-    <button class="mob-sidebar-btn" id="mobSidebarBtn" onclick="toggleSidebar()" aria-label="Lista de colaboradores">
+    <button class="mob-sidebar-btn" id="mobSidebarBtn" onclick="toggleSidebar()">
         <i class="fas fa-users"></i>
+        <span>USUÁRIOS</span>
     </button>
 
     <script>
@@ -1070,19 +1077,21 @@
             if (isOpen) {
                 sidebar.classList.remove('open');
                 overlay.classList.remove('open');
-                btn.innerHTML = '<i class="fas fa-users"></i>';
+                btn.innerHTML = '<i class="fas fa-users"></i> <span>USUÁRIOS</span>';
             } else {
                 sidebar.classList.add('open');
                 overlay.classList.add('open');
-                btn.innerHTML = '<i class="fas fa-times"></i>';
+                btn.innerHTML = '<i class="fas fa-times"></i> <span>FECHAR</span>';
                 document.getElementById('userSearch').focus();
             }
         }
         function closeSidebar() {
-            document.getElementById('mainSidebar').classList.remove('open');
-            document.getElementById('sidebarOverlay').classList.remove('open');
+            const sidebar = document.getElementById('mainSidebar');
+            if (sidebar) sidebar.classList.remove('open');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (overlay) overlay.classList.remove('open');
             const btn = document.getElementById('mobSidebarBtn');
-            if (btn) btn.innerHTML = '<i class="fas fa-users"></i>';
+            if (btn) btn.innerHTML = '<i class="fas fa-users"></i> <span>USUÁRIOS</span>';
         }
 
         // Global Data Cleaning
