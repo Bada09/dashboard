@@ -1266,8 +1266,13 @@
             activeUsers.filter(u => u.name.toLowerCase().includes(search)).forEach(u => {
                 const item = document.createElement('div');
                 item.className = 'user-item' + (window.activeUser && window.activeUser.name === u.name ? ' active' : '');
+                const flagIcons = { PT: '🇧🇷', FR: '🇫🇷', EN: '🇺🇸' };
+                const userFlags = (u.languages || []).map(l => flagIcons[l] || l).join(' ');
                 item.innerHTML = `
-                    <span class="user-name">${u.name}</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="user-name">${u.name}</span>
+                        <span style="font-size: 0.8rem;">${userFlags}</span>
+                    </div>
                     <div class="user-meta-small">
                         <span>${u.count} ${ui[currentLang].sessions.toLowerCase()}</span>
                         <span style="color: var(--primary); font-weight: 700;">${u.avgScore}%</span>
