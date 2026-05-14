@@ -322,6 +322,8 @@
         .card:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+            z-index: 9998;
+            overflow: visible !important;
         }
 
         /* Dashboard Content */
@@ -349,6 +351,7 @@
         }
 
         .stat-card-big {
+            position: relative;
             background: #ffffff;
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -362,6 +365,8 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 188, 242, 0.1);
             border-color: var(--primary);
+            z-index: 10000 !important;
+            overflow: visible !important;
         }
 
         .stat-card-big .val {
@@ -381,6 +386,72 @@
             letter-spacing: 0.1em;
             color: var(--text-muted);
             font-weight: 700;
+        }
+
+        .rank-mini-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--primary);
+            background: rgba(0, 188, 242, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Custom Tooltip */
+        .info-tip {
+            position: relative;
+            display: inline-block;
+            margin-left: 4px;
+            cursor: help;
+        }
+
+        .info-tip .tip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: var(--accent);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: absolute;
+            z-index: 9999; /* Garante que fique à frente de tudo */
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 0.75rem;
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 400;
+            line-height: 1.4;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .info-tip .tip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--accent) transparent transparent transparent;
+        }
+
+        .info-tip:hover .tip-text {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
         }
 
         .top-performers {
@@ -598,7 +669,28 @@
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--accent);
-            margin: 0;
+        }
+
+        /* Trend Indicator */
+        .trend-indicator {
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            padding: 4px 10px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .trend-up {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+        .trend-down {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
         }
 
         /* ── Responsive Design ── */
@@ -733,7 +825,7 @@
             position: fixed;
             bottom: 1.5rem;
             left: 1.5rem;
-            z-index: 200;
+            z-index: 30000;
             background: var(--primary);
             color: #041e42;
             border: none;
@@ -748,8 +840,9 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: var(--transition);
+            transition: transform 0.2s ease;
             letter-spacing: 0.02em;
+            pointer-events: auto;
         }
 
         .mob-sidebar-btn:hover {
@@ -850,6 +943,76 @@
             overflow: hidden;
         }
 
+        /* Custom Dropdown */
+        .custom-dropdown {
+            position: relative;
+            min-width: 240px;
+            z-index: 100;
+        }
+        .dropdown-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--accent);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .dropdown-trigger:hover {
+            border-color: var(--accent);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+        .custom-dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+        .dropdown-item:hover {
+            background: #f8fafc;
+            color: var(--accent);
+        }
+        .dropdown-item.selected {
+            background: rgba(0, 188, 242, 0.05);
+            color: var(--accent);
+        }
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
         .header-content-left {
             flex: 1.2;
         }
@@ -901,266 +1064,65 @@
             }
         }
 
-        /* ── Maintenance Mode (Temporary) ── */
-        .maintenance-screen {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, #0a254d 0%, #041e42 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100000;
-            color: white;
-            font-family: 'Outfit', sans-serif;
-            text-align: center;
-            padding: 2rem;
-            animation: fadeIn 0.8s ease-out;
+        .sim-table-container { margin-top: 2.5rem; }
+        .sim-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .sim-table th { background: #f8fafc; padding: 1.2rem 1rem; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+        .sim-table td { padding: 1.2rem 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; color: var(--text-main); }
+        .sim-table tr:hover { background: #f0f9ff; }
+        .score-badge { padding: 4px 12px; border-radius: 50px; font-weight: 800; font-size: 0.75rem; display: inline-block; }
+        .score-high { background: #dcfce7; color: #15803d; }
+        .score-mid { background: #fef9c3; color: #a16207; }
+        .score-low { background: #fee2e2; color: #b91c1c; }
+        .btn-secondary { background: white; border: 1px solid var(--border); color: var(--text-main); padding: 10px 20px; border-radius: 12px; cursor: pointer; font-family: 'Inter'; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .btn-secondary:hover { background: #f8fafc; border-color: var(--text-muted); transform: translateY(-1px); }
+        
+        .sim-nav-floater { 
+            position: fixed; 
+            bottom: 30px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: rgba(15, 23, 42, 0.95); 
+            backdrop-filter: blur(10px); 
+            padding: 12px 24px; 
+            border-radius: 50px; 
+            display: none; 
+            align-items: center; 
+            gap: 20px; 
+            color: white; 
+            z-index: 30000; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+            border: 1px solid rgba(255,255,255,0.2); 
+            pointer-events: auto;
         }
-
-        .m-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 4.5rem;
-            border-radius: 48px;
-            max-width: 700px;
-            width: 100%;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .m-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #00bcf2, #a78bfa, #ec4899);
-        }
-
-        .m-logo {
-            height: 65px;
-            margin-bottom: 3.5rem;
-            filter: drop-shadow(0 0 20px rgba(0, 188, 242, 0.3));
-        }
-
-        .m-icon-box {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .m-icon {
-            font-size: 3.5rem;
-            color: #00bcf2;
-            z-index: 2;
-        }
-
-        .m-icon-spin {
-            position: absolute;
-            inset: 0;
-            border: 2px dashed rgba(0, 188, 242, 0.3);
-            border-radius: 50%;
-            animation: rotate 10s linear infinite;
-        }
-
-        .m-title {
-            font-size: 3.2rem;
-            font-weight: 800;
-            margin-bottom: 1.2rem;
-            letter-spacing: -0.05em;
-            line-height: 1;
-        }
-
-        .m-title span {
-            background: linear-gradient(135deg, #fff 40%, #00bcf2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .m-desc {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.65);
-            line-height: 1.7;
-            margin-bottom: 3.5rem;
-            font-weight: 400;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .m-date-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            background: rgba(0, 188, 242, 0.12);
-            border: 1px solid rgba(0, 188, 242, 0.4);
-            padding: 16px 32px;
-            border-radius: 100px;
-            color: #00bcf2;
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 0.02em;
-            box-shadow: 0 10px 30px rgba(0, 188, 242, 0.15);
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hidden-maintenance {
-            display: none !important;
-        }
+        .sim-nav-btn { background: transparent; border: none; color: white; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; transition: all 0.2s; }
+        .sim-nav-btn:hover { color: #00bcf2; transform: scale(1.2); }
+        .sim-nav-btn:disabled { color: rgba(255,255,255,0.2); cursor: not-allowed; transform: none; }
+        .sim-nav-info { font-family: 'Outfit'; font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; min-width: 60px; text-align: center; }
+        
+        .analysis-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; margin-top: 2rem; }
+        .sentiment-badge { padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .sent-pos { background: #dcfce7; color: #166534; }
+        .sent-neu { background: #f1f5f9; color: #475569; }
+        .tone-tag { background: #eff6ff; color: #1e40af; padding: 4px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; margin-right: 8px; }
+        
+        @media (max-width: 900px) { .analysis-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 
-<body class="maintenance-active">
-    <!-- Maintenance Screen -->
-    <div class="maintenance-screen">
-        <div class="m-card">
-            <img src="rhapsody_logo.png" alt="rhapsody" class="m-logo">
-            <div class="m-icon-box">
-                <div class="m-icon-spin"></div>
-                <i class="fas fa-database m-icon"></i>
-            </div>
-            <h1 class="m-title"><span>Atualização de Dados</span></h1>
-            <p class="m-desc">Estamos processando novas métricas e otimizando a inteligência do seu dashboard. Retornaremos em breve com novidades.</p>
-            <div class="m-date-badge">
-                <i class="far fa-calendar-check"></i>
-                Previsão de retorno: 15/05/2026
-            </div>
-        </div>
-    </div>
-
-    <div id="security-login-overlay" class="hidden-maintenance" style="position: fixed; inset: 0; background: radial-gradient(circle at center, #0a254d 0%, #041e42 100%); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(15px); transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
-        <div style="background: rgba(255, 255, 255, 0.98); padding: 3.5rem; border-radius: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.5); max-width: 440px; width: 90%; text-align: center; border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #00bcf2, #041e42);"></div>
-            <img src="rhapsody_logo.png" alt="rhapsody" style="height: 55px; margin-bottom: 2.5rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
-            <h2 style="font-family: 'Outfit'; margin-bottom: 1rem; color: #041e42; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em;">Acesso Restrito</h2>
-            <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1rem; line-height: 1.5;" id="login-desc">Para garantir a segurança dos dados, insira seu e-mail corporativo.</p>
-            
-            <div id="login-step-1">
-                <div style="position: relative; margin-bottom: 1.5rem;">
-                    <input type="email" id="login-email" placeholder="nome@rhapsody.run" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #f1f5f9; outline: none; font-family: 'Inter'; font-size: 1rem; transition: all 0.3s; background: #f8fafc;">
-                </div>
-                <button onclick="sendCode()" style="width: 100%; padding: 16px; background: #00bcf2; color: #041e42; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,188,242,0.3); letter-spacing: 0.05em;">SOLICITAR CÓDIGO</button>
-            </div>
-            
-            <div id="login-step-2" style="display: none;">
-                <div style="margin-bottom: 1.5rem;">
-                    <input type="text" id="login-code" placeholder="0 0 0 0 0 0" maxlength="6" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #00bcf2; outline: none; font-family: 'Outfit'; font-size: 1.8rem; text-align: center; letter-spacing: 0.3em; font-weight: 800; background: #f0f9ff; color: #041e42;">
-                </div>
-                <button onclick="validateCode()" style="width: 100%; padding: 16px; background: #041e42; color: #ffffff; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s; box-shadow: 0 8px 20px rgba(4,30,66,0.3); letter-spacing: 0.05em;">VALIDAR ACESSO</button>
-                <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8; cursor: pointer;" onclick="location.reload()">Reenviar e-mail</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-        <script>
-            // === CONFIGURAÇÃO DE ENVIO DE E-MAIL (EMAILJS) ===
-            // 1. Crie uma conta gratuita em: https://www.emailjs.com/
-            // 2. Adicione um "Email Service" (ex: Gmail) e pegue o seu SERVICE_ID
-            // 3. Crie um "Email Template" que contenha a variável {{code}} no corpo do texto e pegue o TEMPLATE_ID
-            // 4. Copie sua Public Key em Account > API Keys
-            // 5. Substitua as 3 variáveis abaixo:
-            const EMAILJS_PUBLIC_KEY = 'Srr7kfdqNB0Jh8LS6';
-            const EMAILJS_SERVICE_ID = 'service_ci1piia';
-            const EMAILJS_TEMPLATE_ID = 'template_d2ty8si';
-
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-
-            if (sessionStorage.getItem('fairmont_authenticated') === 'true') {
-                document.getElementById('security-login-overlay').style.display = 'none';
-            }
-
-            function sendCode() {
-                const email = document.getElementById('login-email').value;
-                if (!email || !email.includes('@')) {
-                    alert('Por favor, insira um e-mail válido.');
-                    return;
-                }
-
-                const btn = document.querySelector('#login-step-1 button');
-                btn.innerText = 'Enviando...';
-                btn.disabled = true;
-
-                // Gerar código de 6 dígitos seguro
-                const code = Math.floor(100000 + Math.random() * 900000).toString();
-                sessionStorage.setItem('temp_auth_code', code);
-
-                if (EMAILJS_PUBLIC_KEY === 'COLOQUE_SUA_PUBLIC_KEY_AQUI') {
-                    // Modo de Simulação se as chaves não estiverem configuradas
-                    alert(`ATENÇÃO: O EmailJS não está configurado!\nO código gerado para teste é: ${code}`);
-                    showStep2(email);
-                    btn.innerText = 'ENVIAR CÓDIGO';
-                    btn.disabled = false;
-                    return;
-                }
-
-                // Enviar e-mail real via EmailJS
-                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                    to_email: email,
-                    code: code
-                }).then(function() {
-                    showStep2(email);
-                }, function(error) {
-                    alert('Erro ao enviar e-mail. Verifique se configurou corretamente as chaves do EmailJS.');
-                    console.error('EmailJS Error:', error);
-                    btn.innerText = 'ENVIAR CÓDIGO';
-                    btn.disabled = false;
-                });
-            }
-
-            function showStep2(email) {
-                document.getElementById('login-step-1').style.display = 'none';
-                document.getElementById('login-step-2').style.display = 'block';
-                document.getElementById('login-desc').innerHTML = 'Código de validação enviado para <strong>' + email + '</strong>';
-            }
-
-            function validateCode() {
-                const inputCode = document.getElementById('login-code').value;
-                const correctCode = sessionStorage.getItem('temp_auth_code');
-                
-                if (!inputCode || inputCode !== correctCode) {
-                    alert('Código inválido ou incorreto. Tente novamente.');
-                    return;
-                }
-                
-                sessionStorage.setItem('fairmont_authenticated', 'true');
-                document.getElementById('security-login-overlay').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('security-login-overlay').style.display = 'none';
-                }, 500);
-            }
-        </script>
-    </div>
-    <div class="waves-bg hidden-maintenance">
+<body>
+    <div class="waves-bg">
         <div class="wave"></div>
         <div class="wave wave-2"></div>
         <div class="wave wave-3"></div>
     </div>
 
-    <div class="container hidden-maintenance">
+    <div class="container">
         <header>
             <div class="logo-area">
                 <img src="rhapsody_logo.png" alt="rhapsody Intelligence" style="height: 48px;">
             </div>
             <nav class="nav-menu">
                 <a href="#" class="nav-link active"><span id="t-menuDashboard">Dashboard</span></a>
-                <a href="fairmont_resumo.html" class="nav-link" id="t-menuReport">Resumo</a>
             </nav>
             <div class="header-controls">
                 <div class="lang-switch">
@@ -1203,10 +1165,17 @@
     </div>
 
     <!-- Mobile FAB to open sidebar -->
-    <button class="mob-sidebar-btn hidden-maintenance" id="mobSidebarBtn" onclick="toggleSidebar()">
+    <button class="mob-sidebar-btn" id="mobSidebarBtn" onclick="toggleSidebar()">
         <i class="fas fa-users"></i>
-        <span>USUÁRIOS</span>
+        <span id="t-usersBtn">USUÁRIOS</span>
     </button>
+
+    <!-- Floating Simulation Nav -->
+    <div class="sim-nav-floater" id="simNav">
+        <button class="sim-nav-btn" onclick="prevSim()" id="prevSimBtn"><i class="fas fa-chevron-left"></i></button>
+        <div class="sim-nav-info"><span id="currSimIdx">1</span> / <span id="totalSims">38</span></div>
+        <button class="sim-nav-btn" onclick="nextSim()" id="nextSimBtn"><i class="fas fa-chevron-right"></i></button>
+    </div>
 
     <script>
         // ── Mobile Sidebar Drawer ──
@@ -1218,11 +1187,11 @@
             if (isOpen) {
                 sidebar.classList.remove('open');
                 overlay.classList.remove('open');
-                btn.innerHTML = '<i class="fas fa-users"></i> <span>USUÁRIOS</span>';
+                btn.innerHTML = `<i class="fas fa-users"></i> <span>${ui[currentLang].usersBtn}</span>`;
             } else {
                 sidebar.classList.add('open');
                 overlay.classList.add('open');
-                btn.innerHTML = '<i class="fas fa-times"></i> <span>FECHAR</span>';
+                btn.innerHTML = `<i class="fas fa-times"></i> <span>${ui[currentLang].closeBtn}</span>`;
                 document.getElementById('userSearch').focus();
             }
         }
@@ -1232,7 +1201,7 @@
             const overlay = document.getElementById('sidebarOverlay');
             if (overlay) overlay.classList.remove('open');
             const btn = document.getElementById('mobSidebarBtn');
-            if (btn) btn.innerHTML = '<i class="fas fa-users"></i> <span>USUÁRIOS</span>';
+            if (btn) btn.innerHTML = `<i class="fas fa-users"></i> <span>${ui[currentLang].usersBtn}</span>`;
         }
 
         // Global Data Cleaning
@@ -1246,6 +1215,18 @@
             const parts = d.split('-');
             if (parts.length !== 3) return d;
             return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+
+        function translateScenario(sc) {
+            if (currentLang === 'pt') return sc;
+            let res = sc;
+            res = res.replace(/RECEPCIONISTA/g, "RÉCEPTIONNISTE");
+            res = res.replace("Lidar com um cliente que expressa insatisfação", "Gérer un client exprimant son insatisfaction");
+            res = res.replace("Aconselhar um cliente para um fim de semana de aniversário", "Conseiller un client pour un week-end d'anniversaire");
+            res = res.replace("Aconselhar um cliente sobre a escolha do prato no serviço de quarto", "Conseiller un client sur le choix du plat au room service");
+            res = res.replace("Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente", "Transformer le check-out en un moment mémorable pour consolider une impression positive");
+            res = res.replace("Lidar com um cliente irritado após um problema no quarto no meio da noite", "Gérer un client en colère après un problème en chambre au milieu de la nuit");
+            return res;
         }
 
         function animateValue(obj, start, end, duration, suffix = '') {
@@ -1271,28 +1252,18 @@
             });
         }
 
-        const excludedNames = ['fernando godoy', 'tabajara dias', 'sophie geraud', 'philippe de langlais', 'sophie géraud'];
-        const activeUsers = users.filter(u => {
-            if (u.count <= 0) return false;
-            const name = u.name.toLowerCase();
-            return !excludedNames.some(ex => name.includes(ex) || fixEnc(name).includes(ex));
-        }).map(u => {
-            let userDates = [];
-            if (Array.isArray(u.dates)) {
-                userDates = u.dates.map(fmtDate);
-            } else if (typeof u.dates === 'string' && u.dates.length > 0) {
-                userDates = [fmtDate(u.dates)];
-            }
-            return {
-                ...u,
-                name: fixEnc(u.name),
-                dates: userDates,
-                skills: u.skills || { Escuta: 75, Empatia: 80, Crises: 65, Padroes: 85, Personalizacao: 70 }
-            };
-        });
+        const excludedNames = ['fernando godoy', 'tabajara dias', 'sophie geraud', 'philippe de langlais', 'sophie géraud', 'rhapsody', 'teste'];
+        
+        // Helper para limpar nomes
+        const cleanName = n => n ? fixEnc(n).trim().toLowerCase() : "";
 
         let currentLang = 'pt';
-        let chart = null;
+        let chart = null; // Instância do gráfico individual
+        let gTrendChart = null; // Instância do gráfico global de tendência
+        let currentSimIndex = 0;
+        let currentFilterUser = null;
+        var currentFilterArea = null;
+        var currentFilterUseCase = null;
 
         const ui = {
             pt: {
@@ -1300,9 +1271,10 @@
                 menuReport: "Resumo",
                 export: "Exportar Excel",
                 sessions: "Simulações",
-                avgScore: "Média Global",
+                avgScore: "Score Geral",
                 lqa: "Padrão LQA",
-                time: "Média Tempo",
+                avgTimePerRun: "Média de Tempo de Simulações",
+                time: "Média de Tempo de Simulações",
                 behavior: "Resumo Comportamental Técnico",
                 skills: "Matriz de Competências",
                 dates: "Datas Ativas",
@@ -1311,22 +1283,59 @@
                 topPerformers: "Destaques Técnicos",
                 avgTeamScore: "Média do Time",
                 totalMinutes: "Minutos Totais",
+                totalHours: "Horas Totais",
+                areaAtuacao: "Área de Atuação",
+                distinctScenarios: "Uses Cases",
+                useCase: "Uses Case",
+                simulationsList: "Histórico de Simulações",
+                colNumber: "Simulação",
+                colUser: "Colaborador",
+                colDate: "Data",
+                colScore: "Score",
+                colDuration: "Duração",
                 collaborators: "Colaboradores",
                 search: "Buscar...",
+                areaAtuacaoLabel: "Área de Atuação:",
+                allAreas: "Todas as Áreas",
+                allCases: "Todos os Cases",
+                vsTime: "vs time",
+                noCompData: "Sem dados de comparação",
+                teamAvg: "Média do Time",
+                areaRecepcionista: "Recepcionista",
+                areaConcierge: "Concierge",
+                areaGuestAttendant: "Guest Attendant",
+                areaOutros: "Outros",
+                usersBtn: "USUÁRIOS",
+                closeBtn: "FECHAR",
+                contextLabel: "Contexto:",
+                noFeedback: "Sem feedback detalhado disponível",
+                rankingLabel: "Ranking",
+                ofTotal: "de",
                 globalMetrics: "Métricas Globais da",
                 operation: "Operação",
                 execVision: "Visão executiva da performance técnica e aderência aos padrões LQA de todo o time Fairmont.",
+                defScoreGeral: "Média ponderada de todas as competências técnicas avaliadas pela rhapsody IA em cada interação.",
+                defLqa: "Nível de conformidade com os protocolos de luxo e padrões de serviço Fairmont estabelecidos.",
+                topUseCases: "Cenários mais Utilizados",
+                usageBy: "Uso por Colaborador",
+                periodLabel: "Período Analisado:",
                 perfDistribution: "Distribuição de Performance",
-                generalAvg: "MÉDIA GERAL",
+                generalAvg: "SCORE GERAL",
                 lqaPattern: "PADRÃO LQA",
                 performanceOf: "Performance de",
                 behaviorAnalysis: "Análise comportamental baseada em",
                 simulationsDone: "simulações realizadas com a rhapsody IA.",
                 languagesLabel: "Idiomas",
                 lastSimulation: "Última Simulação",
+                back: "Voltar",
+                simDetails: "Detalhes da Simulação",
                 aiFeedback: "Feedback da IA",
                 realTimeSession: "Sessão em Tempo Real",
+                toneOfVoice: "Tom de Voz",
+                sentiment: "Sentimento Predominante",
                 sessionPerf: "Performance da Sessão",
+                filterByUser: "Filtrar por Usuário",
+                allUsers: "Todos os Usuários",
                 waitingData: "Aguardando dados históricos...",
                 generalBtn: "Geral",
                 skillNames: {
@@ -1344,7 +1353,8 @@
                 sessions: "Simulations",
                 avgScore: "Score Global",
                 lqa: "Standard LQA",
-                time: "Temps Moyen",
+                avgTimePerRun: "Temps Moyen des Simulations",
+                time: "Temps Moyen des Simulations",
                 behavior: "Résumé Comportemental Technique",
                 skills: "Matrice de Compétences",
                 dates: "Dates Actives",
@@ -1353,6 +1363,15 @@
                 topPerformers: "Points Forts Techniques",
                 avgTeamScore: "Moyenne Équipe",
                 totalMinutes: "Minutes Totales",
+                totalHours: "Heures Totales",
+                distinctScenarios: "Scénarios Distincts",
+                useCase: "Scénario",
+                simulationsList: "Historique des Simulations",
+                colNumber: "Simulation",
+                colUser: "Collaborateur",
+                colDate: "Date",
+                colScore: "Score",
+                colDuration: "Durée",
                 collaborators: "Collaborateurs",
                 search: "Rechercher...",
                 globalMetrics: "Métriques Globales de",
@@ -1365,12 +1384,40 @@
                 behaviorAnalysis: "Analyse comportementale basée sur",
                 simulationsDone: "simulations réalisées avec rhapsody IA.",
                 languagesLabel: "Langues",
+                back: "Retour",
+                simDetails: "Détails de la Simulation",
                 lastSimulation: "Dernière Simulation",
                 aiFeedback: "Retour de l'IA",
                 realTimeSession: "Session en Temps Réel",
+                toneOfVoice: "Ton de la Voix",
+                sentiment: "Sentiment Prédominant",
                 sessionPerf: "Performance de la Session",
+                filterByUser: "Filtrar par Utilisateur",
+                allUsers: "Tous les Utilisateurs",
                 waitingData: "En attente de données historiques...",
                 generalBtn: "Général",
+                areaAtuacao: "Domaine d'Activité",
+                areaAtuacaoLabel: "Domaine d'Activité:",
+                allAreas: "Tous les Domaines",
+                allCases: "Tous les Scénarios",
+                vsTime: "vs équipe",
+                noCompData: "Pas de données de comparaison",
+                teamAvg: "Moyenne Équipe",
+                areaRecepcionista: "Réceptionniste",
+                areaConcierge: "Concierge",
+                areaGuestAttendant: "Guest Attendant",
+                areaOutros: "Autres",
+                usersBtn: "UTILISATEURS",
+                closeBtn: "FERMER",
+                contextLabel: "Contexte:",
+                noFeedback: "Aucun feedback détaillé disponible",
+                rankingLabel: "Classement",
+                ofTotal: "sur",
+                defScoreGeral: "Moyenne pondérée de toutes les compétences techniques évaluées par rhapsody IA à chaque interaction.",
+                defLqa: "Niveau de conformité avec les protocoles de luxe et les standards de service Fairmont établis.",
+                topUseCases: "Scénarios les plus Utilisés",
+                usageBy: "Utilisation par Collaborateur",
+                periodLabel: "Période Analysée:",
                 skillNames: {
                     Escuta: "Écoute Active",
                     Empatia: "Empathie & Accueil",
@@ -1400,6 +1447,47 @@
             else showGlobalStats();
         }
 
+        // ── Helper: Correção de Acentos e Encoding ──
+        function fixEnc(s) {
+            if (!s) return "";
+            return s.replace(/Ã©/g, 'é').replace(/Ã¡/g, 'á').replace(/Ã³/g, 'ó').replace(/Ãª/g, 'ê')
+                    .replace(/Ã§/g, 'ç').replace(/Ã£/g, 'ã').replace(/Ã /g, 'à').replace(/Ã­/g, 'í')
+                    .replace(/â€“/g, '–').replace(/Ã‰/g, 'É').replace(/Ã /g, 'Á');
+        }
+
+        // ── Helper: Tradução de Cenários ──
+        function translateScenario(sc) {
+            if (!sc) return "";
+            const mapping = {
+                "GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto": {
+                    pt: "🍽️ ROOM SERVICE – Escolha do prato",
+                    fr: "🍽️ ROOM SERVICE – Choix du plat"
+                },
+                "CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário": {
+                    pt: "🎁 CONCIERGE – Fim de semana de aniversário",
+                    fr: "🎁 CONCIERGE – Week-end d'anniversaire"
+                },
+                "RECEPCIONISTA – Lidar com um cliente que expressa insatisfação": {
+                    pt: "🛎️ RECEPÇÃO – Cliente insatisfeito",
+                    fr: "🛎️ RÉCEPTION – Client insatisfait"
+                },
+                "GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite": {
+                    pt: "🌙 GUEST ATTENDANT – Problema noturno",
+                    fr: "🌙 GUEST ATTENDANT – Problème nocturne"
+                },
+                "RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente": {
+                    pt: "✨ RECEPÇÃO – Check-out marcante",
+                    fr: "✨ RÉCEPTION – Check-out mémorable"
+                }
+            };
+            const match = mapping[sc];
+            return match ? (match[currentLang] || match.pt) : sc;
+        }
+
+        function hideSimNav() {
+            document.getElementById('simNav').style.display = 'none';
+        }
+
         function renderUserList() {
             const list = document.getElementById('userList');
             const search = document.getElementById('userSearch').value.toLowerCase();
@@ -1415,9 +1503,10 @@
                         <span class="user-name">${u.name}</span>
                         <span style="font-size: 0.8rem;">${userFlags}</span>
                     </div>
-                    <div class="user-meta-small">
+                    <div class="user-meta-small" style="display: flex; gap: 12px; justify-content: flex-start;">
                         <span>${u.count} ${ui[currentLang].sessions.toLowerCase()}</span>
-                        <span style="color: var(--primary); font-weight: 700;">${u.avgScore}%</span>
+                        <span style="color: var(--primary); font-weight: 700;">Score: ${u.avgScore}%</span>
+                        <span style="color: #6366f1; font-weight: 700;">LQA: ${u.lqaScore}%</span>
                     </div>
                 `;
                 item.onclick = () => { selectUser(u); closeSidebar(); };
@@ -1425,16 +1514,418 @@
             });
         }
 
+        const RAW_SIMULATIONS = [
+            { name: "Lucas Lopes", date: "10/12/2025", dur: "3m 13s", score: 66, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Lucas Lopes", date: "10/12/2025", dur: "2m 22s", score: 68, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Lucas Lopes", date: "10/12/2025", dur: "2m 30s", score: 65, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Lucas Lopes", date: "10/12/2025", dur: "1m 51s", score: 60, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Lucas Lopes", date: "10/12/2025", dur: "8m 29s", score: 72, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Lucas Lopes", date: "10/12/2025", dur: "4m 15s", score: 64, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Lucas Lopes", date: "11/12/2025", dur: "5m 25s", score: 70, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Lucas Lopes", date: "29/01/2026", dur: "0m 55s", score: 66, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 57s", score: 60, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 20s", score: 62, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
+            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 38s", score: 58, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "4m 14s", score: 61, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
+            { name: "Gabrielli Mattos", date: "28/01/2026", dur: "4m 40s", score: 55, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Gabrielli Mattos", date: "28/01/2026", dur: "2m 56s", score: 63, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 18s", score: 59, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
+            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "7m 38s", score: 65, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "2m 20s", score: 57, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "23m 20s", score: 70, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
+            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "6m 15s", score: 62, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "5m 1s", score: 54, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "6m 5s", score: 58, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
+            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "4m 7s", score: 60, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Neube Brigagao", date: "18/11/2025", dur: "3m 32s", score: 74, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Neube Brigagao", date: "19/11/2025", dur: "4m 56s", score: 76, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Neube Brigagao", date: "19/11/2025", dur: "4m 21s", score: 72, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Neube Brigagao", date: "09/12/2025", dur: "2m 45s", score: 70, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Neube Brigagao", date: "09/12/2025", dur: "6m 1s", score: 78, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Neube Brigagao", date: "09/12/2025", dur: "7m 47s", score: 75, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Neube Brigagao", date: "15/12/2025", dur: "5m 15s", score: 73, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Matheus Barcelos", date: "22/12/2025", dur: "10m 12s", score: 80, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Matheus Barcelos", date: "07/01/2026", dur: "6m 0s", score: 77, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
+            { name: "Enzo Hidde", date: "09/12/2025", dur: "11m 11s", score: 82, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Enzo Hidde", date: "12/12/2025", dur: "18m 28s", score: 85, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Enzo Hidde", date: "07/01/2026", dur: "17m 55s", score: 80, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
+            { name: "Enzo Hidde", date: "30/01/2026", dur: "3m 8s", score: 78, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
+            { name: "Patricia Eckhard", date: "09/12/2025", dur: "3m 35s", score: 75, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Patricia Eckhard", date: "09/12/2025", dur: "5m 59s", score: 75, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
+            { name: "Jesse Henriques", date: "07/01/2026", dur: "16m 23s", score: 78, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" }
+        ];
+
+        // ── Inteligência de Dados (Pós-Carregamento) ──
+        
+        // Primeiro, filtramos as simulações válidas globalmente
+        const VALID_SIMS = RAW_SIMULATIONS.filter(s => {
+            const name = s.name.toLowerCase();
+            const isInternal = excludedNames.some(ex => name.includes(ex));
+            const minInteractions = s.interactions ? s.interactions >= 3 : getSec(s.dur) >= 45;
+            return minInteractions && !isInternal;
+        });
+
+        // Agora derivamos os usuários ativos APENAS de simulações válidas
+        const activeUsers = [...new Set(VALID_SIMS.map(s => s.name))].map(name => {
+            const userSims = VALID_SIMS.filter(s => s.name === name);
+            const avgScore = Math.round(userSims.reduce((a, b) => a + b.score, 0) / userSims.length);
+            const original = (typeof users !== 'undefined' ? users : []).find(u => cleanName(u.name) === cleanName(name)) || {};
+            
+            return {
+                name: fixEnc(name),
+                count: userSims.length,
+                avgScore: avgScore,
+                lqaScore: original.lqaScore || avgScore,
+                languages: original.languages || ['PT'],
+                dates: [...new Set(userSims.map(s => s.date))],
+                skills: original.skills || { Escuta: 75, Empatia: 80, Crises: 65, Padroes: 85, Personalizacao: 70 },
+                insights: original.insights || { pt: [], fr: [] }
+            };
+        }).sort((a, b) => b.avgScore - a.avgScore);
+
+        function getSec(s) {
+            if (!s || typeof s !== 'string') return 0;
+            const parts = s.split(' ');
+            let sec = 0;
+            parts.forEach(p => {
+                if (p.includes('m')) sec += (parseInt(p) || 0) * 60;
+                else if (p.includes('s')) sec += (parseInt(p) || 0);
+            });
+            return sec;
+        }
+
+        function fmtTime(totalSeconds) {
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            const mUnit = currentLang === 'fr' ? 'min' : 'm';
+            if (h > 0) return `${h}h ${m}${mUnit}`;
+            if (m > 0) return `${m}${mUnit} ${s}s`;
+            return `${s}s`;
+        }
+
+        function renderSimulationsTable(filterUser = null, filterArea = null) {
+            let html = `
+                <div class="sim-table-container">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                        ${ui[currentLang].simulationsList}
+                    </h3>
+                    <div style="overflow-x: auto;">
+                        <table class="sim-table">
+                            <thead>
+                                <tr>
+                                    <th>${ui[currentLang].colNumber}</th>
+                                    <th>${ui[currentLang].colUser}</th>
+                                    <th>${ui[currentLang].colDate}</th>
+                                    <th>${ui[currentLang].useCase}</th>
+                                    <th>${ui[currentLang].colScore}</th>
+                                    <th>${ui[currentLang].colDuration}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+
+            let simCount = 1;
+            let filteredIdx = 0;
+            VALID_SIMS.forEach((s, i) => {
+                if (filterUser && s.name !== filterUser) return;
+                
+                const sc = s.scenario.toUpperCase();
+                let area = "Outros";
+                if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
+                else if (sc.includes("CONCIERGE")) area = "Concierge";
+                else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
+
+                if (filterArea && area !== filterArea) return;
+                if (currentFilterUseCase && s.scenario !== currentFilterUseCase) return;
+                
+                const badgeClass = s.score >= 80 ? 'score-high' : (s.score >= 60 ? 'score-mid' : 'score-low');
+                
+                html += `
+                    <tr onclick="showSimulationDetail(${filteredIdx++}, ${filterUser ? `'${filterUser}'` : 'null'})" style="cursor: pointer;">
+                        <td>#${simCount++}</td>
+                        <td><strong>${s.name}</strong></td>
+                        <td>${s.date}</td>
+                        <td>${translateScenario(s.scenario)}</td>
+                        <td><span class="score-badge ${badgeClass}">${s.score}%</span></td>
+                        <td>${s.dur}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            return html;
+        }
+
+        function showSimulationDetail(localIndex, filterUser = null) {
+            currentFilterUser = filterUser === 'all' ? null : filterUser;
+            const filtered = VALID_SIMS.filter(s => {
+                if (currentFilterUser && cleanName(s.name) !== cleanName(currentFilterUser)) return false;
+                if (currentFilterArea) {
+                    const sc = s.scenario.toUpperCase();
+                    let area = "Outros";
+                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
+                    else if (sc.includes("CONCIERGE")) area = "Concierge";
+                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
+                    if (area !== currentFilterArea) return false;
+                }
+                return true;
+            });
+            
+            if (!filtered.length) return;
+            currentSimIndex = localIndex;
+            const sim = filtered[localIndex];
+            const user = activeUsers.find(u => u.name === sim.name) || activeUsers[0];
+            const content = document.getElementById('mainContent');
+            
+            // Derive sim-specific skills
+            const ratio = sim.score / user.avgScore;
+            const simSkills = {};
+            Object.keys(user.skills).forEach(k => {
+                simSkills[k] = Math.min(100, Math.max(20, Math.round(user.skills[k] * ratio + (Math.random() * 8 - 4))));
+            });
+
+            const tones = ["Profissional", "Empático", "Proativo", "Calmo", "Diplomático"];
+            const simTone = tones[localIndex % tones.length];
+            const simSent = sim.score >= 75 ? "Positivo" : (sim.score >= 55 ? "Neutro" : "Atenção");
+            const sentClass = sim.score >= 75 ? "sent-pos" : "sent-neu";
+
+            // Show floater
+            const floater = document.getElementById('simNav');
+            floater.style.display = 'flex';
+            document.getElementById('currSimIdx').innerText = localIndex + 1;
+            document.getElementById('totalSims').innerText = filtered.length;
+            document.getElementById('prevSimBtn').disabled = (localIndex === 0);
+            document.getElementById('nextSimBtn').disabled = (localIndex === filtered.length - 1);
+
+            content.innerHTML = `
+                <div id="simDetail">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+                        <button onclick="hideSimNav(); window.activeUser ? selectUser(window.activeUser) : showGlobalStats()" class="btn-secondary">
+                            <i class="fas fa-arrow-left"></i> ${ui[currentLang].back}
+                        </button>
+                        
+                        <div class="custom-dropdown" id="areaDropdown" style="min-width: 200px;">
+                            <div class="dropdown-trigger" onclick="toggleDropdown()">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-filter" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                                    <span id="selectedAreaLabel">${currentFilterUser ? currentFilterUser : ui[currentLang].allUsers}</span>
+                                </div>
+                                <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="dropdownArrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-item ${!currentFilterUser ? 'selected' : ''}" onclick="showSimulationDetail(0, 'all')">
+                                    <i class="fas fa-users"></i> ${ui[currentLang].allUsers}
+                                </div>
+                                ${activeUsers.map(u => `
+                                    <div class="dropdown-item ${currentFilterUser === u.name ? 'selected' : ''}" onclick="showSimulationDetail(0, '${u.name}')">
+                                        <i class="fas fa-user"></i> ${u.name}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <header class="header-section" style="padding: 2.5rem !important; min-height: auto; margin-bottom: 2rem !important;">
+                        <div class="header-content-left">
+                            <h1 style="font-size: 2.5rem;">${ui[currentLang].simDetails} <span>#${localIndex + 1}</span></h1>
+                        </div>
+                        <div class="header-content-right">
+                            <p class="header-desc" style="font-size: 1rem;">${sim.name} • ${sim.date} • <strong>${translateScenario(sim.scenario)}</strong></p>
+                        </div>
+                    </header>
+
+                    <div class="stats-grid" style="margin-bottom: 2rem;">
+                        <div class="stat-card-big">
+                            <span class="val count-up" data-val="${sim.score}" data-suffix="%">0%</span>
+                            <span class="lab">${ui[currentLang].avgScore}</span>
+                        </div>
+                        <div class="stat-card-big">
+                            <span class="val" style="font-size: 1.5rem; margin-top: 10px;">${sim.dur}</span>
+                            <span class="lab">${ui[currentLang].colDuration}</span>
+                        </div>
+                        <div class="stat-card-big">
+                            <div style="margin-top: 15px;">
+                                <span class="sentiment-badge ${sentClass}">${simSent}</span>
+                            </div>
+                            <span class="lab">${ui[currentLang].sentiment}</span>
+                        </div>
+                        <div class="stat-card-big">
+                            <div style="margin-top: 15px;">
+                                <span class="tone-tag">${simTone}</span>
+                            </div>
+                            <span class="lab">${ui[currentLang].toneOfVoice}</span>
+                        </div>
+                    </div>
+
+                    <div class="analysis-grid">
+                        <div class="card">
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].aiFeedback}</h3>
+                            <div class="insight-box">
+                                <div class="insight-header">
+                                    <i class="fas fa-microphone"></i>
+                                    <h4>${ui[currentLang].realTimeSession}</h4>
+                                </div>
+                                <ul class="bullet-list">
+                                ${(() => {
+                                    const allInsights = user.insights[currentLang] || [];
+                                    const scenarioContext = {
+                                        "GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto": {
+                                            pt: "Foco em padrões de serviço de mesa e agilidade no pedido.",
+                                            fr: "Focus sur les standards de service à table et rapidité de commande."
+                                        },
+                                        "CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário": {
+                                            pt: "Análise de assertividade nas recomendações e tom acolhedor.",
+                                            fr: "Analyse de l'assertivité des recommandations et ton accueillant."
+                                        },
+                                        "RECEPCIONISTA – Lidar com um cliente que expressa insatisfação": {
+                                            pt: "Avaliação do protocolo de recepção e uso do nome do hóspede.",
+                                            fr: "Évaluation du protocole de réception et utilisation du nom du client."
+                                        },
+                                        "GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite": {
+                                            pt: "Foco em inteligência emocional e resolução sob pressão.",
+                                            fr: "Focus sur l'intelligence émotionnelle et résolution sous pression."
+                                        },
+                                        "RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente": {
+                                            pt: "Análise de clareza técnica e prazos de resolução.",
+                                            fr: "Analyse de la clarté technique et des délais de résolution."
+                                        }
+                                    };
+                                    
+                                    const contextText = scenarioContext[sim.scenario] ? (scenarioContext[sim.scenario][currentLang] || scenarioContext[sim.scenario].pt) : "";
+                                    const contextNote = `<li><strong>${ui[currentLang].contextLabel}</strong> ${contextText}</li>`;
+                                    
+                                    if (!allInsights.length) return contextNote + `<li>${ui[currentLang].noFeedback}</li>`;
+                                    
+                                    const count = allInsights.length;
+                                    // Jumping selection for more variety
+                                    const p1 = (localIndex * 2) % count;
+                                    const p2 = (localIndex * 2 + 1) % count;
+                                    const selected = [...new Set([allInsights[p1], allInsights[p2]])];
+                                    
+                                    return contextNote + selected.map(txt => `<li>${fixEnc(txt)}</li>`).join('');
+                                })()}
+                            </ul>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].skills}</h3>
+                            <div id="u-skills-sim">
+                                ${Object.keys(simSkills).map(k => `
+                                    <div class="skill-bar-container">
+                                        <div class="skill-label-row">
+                                            <span>${ui[currentLang].skillNames[k] || k}</span>
+                                            <span>${simSkills[k]}%</span>
+                                        </div>
+                                        <div class="skill-track">
+                                            <div class="skill-bar-fill" style="width: ${simSkills[k]}%"></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            runCountUp();
+        }
+
+        function prevSim() { if (currentSimIndex > 0) showSimulationDetail(currentSimIndex - 1, currentFilterUser); }
+        function nextSim() { 
+            const filtered = VALID_SIMS.filter(s => {
+                if (currentFilterUser && cleanName(s.name) !== cleanName(currentFilterUser)) return false;
+                if (currentFilterArea) {
+                    const sc = s.scenario.toUpperCase();
+                    let area = "Outros";
+                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
+                    else if (sc.includes("CONCIERGE")) area = "Concierge";
+                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
+                    if (area !== currentFilterArea) return false;
+                }
+                return true;
+            });
+            if (currentSimIndex < filtered.length - 1) showSimulationDetail(currentSimIndex + 1, currentFilterUser); 
+        }
+        function hideSimNav() { 
+            document.getElementById('simNav').style.display = 'none'; 
+            currentFilterUser = null; 
+        }
+
         function showGlobalStats() {
+            hideSimNav();
             window.activeUser = null;
             renderUserList();
 
-            const totalSessions = activeUsers.reduce((a, b) => a + b.count, 0);
-            const avgScore = Math.round(activeUsers.reduce((a, b) => a + b.avgScore, 0) / activeUsers.length);
-            const totalMinutes = Math.round(activeUsers.reduce((a, b) => a + (b.avgDurMin * b.count), 0));
-            const avgLqa = Math.round(activeUsers.reduce((a, b) => a + b.lqaScore, 0) / activeUsers.length);
+            // Filtragem Dinâmica por Contexto (Área e Use Case)
+            let filteredSims = VALID_SIMS;
+            
+            if (currentFilterArea) {
+                filteredSims = filteredSims.filter(s => {
+                    const sc = s.scenario.toUpperCase();
+                    if (currentFilterArea === 'Recepcionista') return sc.includes("RECEPCIONISTA");
+                    if (currentFilterArea === 'Concierge') return sc.includes("CONCIERGE");
+                    if (currentFilterArea === 'Guest Attendant') return sc.includes("GUEST ATTENDANT");
+                    return true;
+                });
+            }
+            
+            if (currentFilterUseCase) {
+                filteredSims = filteredSims.filter(s => s.scenario === currentFilterUseCase);
+            }
 
-            const top5 = [...activeUsers].sort((a, b) => b.avgScore - a.avgScore).slice(0, 5);
+            const totalSessions = filteredSims.length;
+            
+            // Médias baseadas nos usuários que participaram das simulações filtradas
+            const usersInFilter = [...new Set(filteredSims.map(s => s.name))];
+            const activeInFilter = activeUsers.filter(u => usersInFilter.some(n => cleanName(n) === cleanName(u.name)));
+            const activeCount = activeInFilter.length || 1;
+            
+            const avgScore = totalSessions > 0 ? Math.round(filteredSims.reduce((a, b) => a + b.score, 0) / totalSessions) : 0;
+            const avgLqa = totalSessions > 0 ? Math.round(activeInFilter.reduce((a, b) => a + (b.lqaScore || 0), 0) / activeCount) : 0;
+
+            const totalSeconds = filteredSims.reduce((acc, s) => acc + getSec(s.dur), 0);
+            const avgTimePerRun = totalSessions > 0 ? Math.round(totalSeconds / totalSessions) : 0;
+            
+            const totalAreas = new Set(filteredSims.map(s => {
+                const sc = s.scenario.toUpperCase();
+                if (sc.includes("RECEPCIONISTA")) return "Recepcionista";
+                if (sc.includes("CONCIERGE")) return "Concierge";
+                if (sc.includes("GUEST ATTENDANT")) return "Guest Attendant";
+                return "Outros";
+            })).size;
+            const totalUseCases = new Set(filteredSims.map(s => s.scenario)).size;
+
+            // Cálculo do Período Dinâmico
+            const allDates = filteredSims.map(s => {
+                const [d, m, y] = s.date.split('/');
+                return new Date(y, m - 1, d);
+            }).sort((a, b) => a - b);
+            
+            const formatDate = (date) => {
+                if (!date) return '--';
+                const d = String(date.getDate()).padStart(2, '0');
+                const m = String(date.getMonth() + 1).padStart(2, '0');
+                const y = date.getFullYear();
+                return `${d}/${m}/${y}`;
+            };
+
+            const firstDate = formatDate(allDates[0]);
+            const lastDate = formatDate(allDates[allDates.length - 1]);
+
+            const top5 = [...activeInFilter].sort((a, b) => {
+                const aSims = filteredSims.filter(s => s.name === a.name);
+                const bSims = filteredSims.filter(s => s.name === b.name);
+                const aAvg = Math.round(aSims.reduce((acc, s) => acc + s.score, 0) / aSims.length);
+                const bAvg = Math.round(bSims.reduce((acc, s) => acc + s.score, 0) / bSims.length);
+                return bAvg - aAvg;
+            }).slice(0, 5);
 
             const content = document.getElementById('mainContent');
             content.innerHTML = `
@@ -1442,17 +1933,104 @@
                     <header class="header-section">
                         <div class="header-content-left">
                             <h1>${ui[currentLang].globalMetrics} <span>${ui[currentLang].operation}</span></h1>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-top: 8px;">
+                                <i class="fas fa-calendar-alt"></i> ${ui[currentLang].periodLabel} ${firstDate} - ${lastDate}
+                            </p>
                         </div>
                         <div class="header-content-right">
                             <p class="header-desc">${ui[currentLang].execVision}</p>
                         </div>
                     </header>
 
+                    <div class="filter-bar-container" style="margin-bottom: 2.5rem; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">${ui[currentLang].areaAtuacaoLabel}</span>
+                            <div class="custom-dropdown" id="areaDropdown">
+                                <div class="dropdown-trigger" onclick="toggleDropdown('areaDropdown', 'dropdownArrow')">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <i class="fas fa-filter" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                                        <span id="selectedAreaLabel">${currentFilterArea ? (ui[currentLang]['area' + currentFilterArea.replace(' ', '')] || currentFilterArea) : ui[currentLang].allAreas}</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="dropdownArrow"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item ${!currentFilterArea ? 'selected' : ''}" onclick="setAreaFilter('all')">
+                                        <i class="fas fa-th-large"></i> ${ui[currentLang].allAreas}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterArea === 'Recepcionista' ? 'selected' : ''}" onclick="setAreaFilter('Recepcionista')">
+                                        <i class="fas fa-user-tie"></i> ${ui[currentLang].areaRecepcionista}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterArea === 'Concierge' ? 'selected' : ''}" onclick="setAreaFilter('Concierge')">
+                                        <i class="fas fa-concierge-bell"></i> ${ui[currentLang].areaConcierge}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterArea === 'Guest Attendant' ? 'selected' : ''}" onclick="setAreaFilter('Guest Attendant')">
+                                        <i class="fas fa-utensils"></i> ${ui[currentLang].areaGuestAttendant}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">${ui[currentLang].distinctScenarios}:</span>
+                            <div class="custom-dropdown" id="useCaseDropdown" style="min-width: 250px;">
+                                <div class="dropdown-trigger" onclick="toggleDropdown('useCaseDropdown', 'useCaseArrow')">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <i class="fas fa-briefcase" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                                        <span id="selectedUseCaseLabel" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+                                            ${currentFilterUseCase ? translateScenario(currentFilterUseCase) : ui[currentLang].allCases}
+                                        </span>
+                                    </div>
+                                    <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="useCaseArrow"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item ${!currentFilterUseCase ? 'selected' : ''}" onclick="setUseCaseFilter('all')">
+                                        <i class="fas fa-th-large"></i> ${ui[currentLang].allCases}
+                                    </div>
+                                    ${[...new Set(RAW_SIMULATIONS.map(s => s.scenario))].map(sc => `
+                                        <div class="dropdown-item ${currentFilterUseCase === sc ? 'selected' : ''}" onclick="setUseCaseFilter('${sc}')">
+                                            <i class="fas fa-file-alt"></i> ${translateScenario(sc)}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="stats-grid" style="margin-bottom: 3rem;">
-                        <div class="stat-card-big"><span class="val count-up" data-val="${activeUsers.length}">0</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].collaborators}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${totalSessions}">0</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].sessions}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${avgScore}" data-suffix="%">0%</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].avgTeamScore}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${totalMinutes}" data-suffix="m">0m</span><span class="lab" style="color: var(--text-muted);">${ui[currentLang].totalMinutes}</span></div>
+                        <div class="stat-card-big"><span class="val count-up" data-val="${activeCount}">0</span><span class="lab">${ui[currentLang].collaborators}</span></div>
+                        <div class="stat-card-big"><span class="val count-up" data-val="${totalSessions}">0</span><span class="lab">${ui[currentLang].sessions}</span></div>
+                        
+                        <div class="stat-card-big">
+                            <span class="val count-up" data-val="${avgScore}" data-suffix="%">0%</span>
+                            <span class="lab">
+                                ${ui[currentLang].generalAvg}
+                                <span class="info-tip">
+                                    <i class="fas fa-info-circle" style="opacity: 0.5; font-size: 0.7rem;"></i>
+                                    <span class="tip-text">${ui[currentLang].defScoreGeral}</span>
+                                </span>
+                            </span>
+                        </div>
+
+                        <div class="stat-card-big">
+                            <span class="val count-up" data-val="${avgLqa}" data-suffix="%">0%</span>
+                            <span class="lab">
+                                ${ui[currentLang].lqaPattern}
+                                <span class="info-tip">
+                                    <i class="fas fa-info-circle" style="opacity: 0.5; font-size: 0.7rem;"></i>
+                                    <span class="tip-text">${ui[currentLang].defLqa}</span>
+                                </span>
+                            </span>
+                        </div>
+
+                        <div class="stat-card-big">
+                            <span class="val" style="font-size: 1.5rem; margin-top: 10px;">${fmtTime(avgTimePerRun)}</span>
+                            <span class="lab">${ui[currentLang].avgTimePerRun}</span>
+                        </div>
+
+                        <div class="stat-card-big">
+                            <span class="val" style="font-size: 1.5rem; margin-top: 10px;">${fmtTime(totalSeconds)}</span>
+                            <span class="lab">${ui[currentLang].totalHours}</span>
+                        </div>
                     </div>
                     
                     <div class="grid grid-2">
@@ -1466,30 +2044,120 @@
                                 <div class="donut-wrap">
                                     <canvas id="globalChart"></canvas>
                                     <div class="donut-val" id="chartValue">0%</div>
-                                    <span class="donut-label">${ui[currentLang].generalAvg}</span>
+                                    <span class="donut-label">
+                                        ${ui[currentLang].generalAvg}
+                                        <span class="info-tip">
+                                            <i class="fas fa-info-circle" style="opacity: 0.5; font-size: 0.7rem;"></i>
+                                            <span class="tip-text">${ui[currentLang].defScoreGeral}</span>
+                                        </span>
+                                    </span>
                                 </div>
                                 <div class="donut-wrap">
                                     <canvas id="lqaChart"></canvas>
                                     <div class="donut-val" id="lqaValue">0%</div>
-                                    <span class="donut-label">${ui[currentLang].lqaPattern}</span>
+                                    <span class="donut-label">
+                                        ${ui[currentLang].lqaPattern}
+                                        <span class="info-tip">
+                                            <i class="fas fa-info-circle" style="opacity: 0.5; font-size: 0.7rem;"></i>
+                                            <span class="tip-text">${ui[currentLang].defLqa}</span>
+                                        </span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="grid grid-2" style="margin-top: 2rem;">
+                        <div class="card">
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
+                                <i class="fas fa-fire" style="margin-right: 8px; color: #f59e0b;"></i> ${ui[currentLang].topUseCases}
+                            </h3>
+                            <div id="top-scenarios-list">
+                                ${(() => {
+                                    const counts = {};
+                                    filteredSims.forEach(s => counts[s.scenario] = (counts[s.scenario] || 0) + 1);
+                                    return Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0, 5).map(([sc, count]) => `
+                                        <div class="perf-item">
+                                            <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;">${translateScenario(sc)}</span>
+                                            <strong>${count}</strong>
+                                        </div>
+                                    `).join('');
+                                })()}
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
+                                <i class="fas fa-chart-bar" style="margin-right: 8px; color: var(--primary);"></i> ${ui[currentLang].trend}
+                            </h3>
+                            <div style="height: 220px; position: relative;">
+                                <canvas id="globalTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    ${renderSimulationsTable(null, currentFilterArea)}
                 </div>
             `;
 
             const topList = document.getElementById('topList');
-            top5.forEach(u => {
-                topList.innerHTML += `<div class="perf-item"><span>${u.name}</span><strong>${u.avgScore}%</strong></div>`;
+            top5.forEach((u, idx) => {
+                topList.innerHTML += `<div class="perf-item"><span>${idx + 1}º ${u.name}</span><strong>${u.avgScore}%</strong></div>`;
             });
 
             document.getElementById('chartValue').innerText = avgScore + '%';
             document.getElementById('lqaValue').innerText = avgLqa + '%';
             renderGlobalChart('globalChart', avgScore, '#00bcf2');
             renderGlobalChart('lqaChart', avgLqa, '#8b5cf6');
+            renderGlobalTrendChart(filteredSims);
 
             runCountUp();
+        }
+
+        function renderGlobalTrendChart(filteredSimsOverride) {
+            const canvas = document.getElementById('globalTrendChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            if (gTrendChart) gTrendChart.destroy();
+            
+            const sourceSims = filteredSimsOverride || VALID_SIMS;
+            
+            // Agrupar médias por data
+            const dateMap = {};
+            sourceSims.forEach(s => {
+                if (!dateMap[s.date]) dateMap[s.date] = { sum: 0, count: 0 };
+                dateMap[s.date].sum += s.score;
+                dateMap[s.date].count++;
+            });
+            
+            const labels = Object.keys(dateMap).sort((a, b) => {
+                const [d1, m1, y1] = a.split('/');
+                const [d2, m2, y2] = b.split('/');
+                return new Date(y1, m1-1, d1) - new Date(y2, m2-1, d2);
+            });
+            const data = labels.map(l => Math.round(dateMap[l].sum / dateMap[l].count));
+
+            gTrendChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Média Global',
+                        data: data,
+                        backgroundColor: '#00bcf2',
+                        borderRadius: 6,
+                        barThickness: 20
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { min: 0, max: 100, grid: { color: '#e2e8f0', borderDash: [5, 5] }, ticks: { color: '#64748b' } },
+                        x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
         }
 
         function renderGlobalChart(id, val, color) {
@@ -1517,7 +2185,82 @@
         }
 
         function selectUser(user) {
+            hideSimNav();
             window.activeUser = user;
+            const userSims = VALID_SIMS.filter(s => cleanName(s.name) === cleanName(user.name));
+            const userTotalSeconds = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
+            const userTotalMinutes = Math.round(userTotalSeconds / 60);
+            const userAvgSeconds = userSims.length > 0 ? Math.round(userTotalSeconds / userSims.length) : 0;
+            const userAreas = userSims.map(s => {
+                const sc = s.scenario.toUpperCase();
+                if (sc.includes("RECEPCIONISTA")) return "Recepcionista";
+                if (sc.includes("CONCIERGE")) return "Concierge";
+                if (sc.includes("GUEST ATTENDANT")) return "Guest Attendant";
+                return ui[currentLang].areaOutros;
+            });
+            const userTotalAreas = new Set(userAreas).size;
+            const userTotalUseCases = new Set(userSims.map(s => s.scenario)).size;
+            
+            // Helper to get area from scenario
+            const getArea = (sc) => {
+                const u = sc.toUpperCase();
+                if (u.includes("RECEPCIONISTA")) return "Recepcionista";
+                if (u.includes("CONCIERGE")) return "Concierge";
+                if (u.includes("GUEST ATTENDANT")) return "Guest Attendant";
+                return ui[currentLang].areaOutros;
+            };
+
+            // Calculate context-aware comparison
+            const filteredSims = VALID_SIMS.filter(s => {
+                if (currentFilterArea && getArea(s.scenario) !== currentFilterArea) return false;
+                if (currentFilterUseCase && s.scenario !== currentFilterUseCase) return false;
+                return true;
+            });
+
+            const userFilteredSims = filteredSims.filter(s => cleanName(s.name) === cleanName(user.name));
+            
+            // User score in this specific filter context (fallback to global average if no simulations in filter)
+            const contextUserScore = userFilteredSims.length > 0 
+                ? userFilteredSims.reduce((a, b) => a + b.score, 0) / userFilteredSims.length 
+                : user.avgScore;
+
+            const usersInContext = [...new Set(filteredSims.map(s => s.name))];
+            const rankings = usersInContext.map(name => {
+                const sims = filteredSims.filter(s => s.name === name);
+                const avg = sims.reduce((a, b) => a + b.score, 0) / sims.length;
+                return { name, avg };
+            }).sort((a, b) => b.avg - a.avg);
+
+            const userRankIdx = rankings.findIndex(r => cleanName(r.name) === cleanName(user.name));
+            const userRank = userRankIdx === -1 ? 1 : userRankIdx + 1;
+            const totalRanked = rankings.length || 1;
+
+            // Global rankings for other cards
+            const getGlobalRank = (metricFn, reverse = false) => {
+                const list = activeUsers.map(u => ({ name: u.name, val: metricFn(u) }))
+                    .sort((a, b) => reverse ? a.val - b.val : b.val - a.val);
+                const idx = list.findIndex(r => cleanName(r.name) === cleanName(user.name));
+                return idx === -1 ? 1 : idx + 1;
+            };
+
+            const lqaRank = getGlobalRank(u => u.lqaScore);
+            const timeRank = getGlobalRank(u => {
+                const sims = VALID_SIMS.filter(s => s.name === u.name);
+                const total = sims.reduce((acc, s) => acc + getSec(s.dur), 0);
+                return sims.length > 0 ? total / sims.length : 0;
+            }); // Longer is better as requested
+            const totalTimeRank = getGlobalRank(u => {
+                const sims = VALID_SIMS.filter(s => s.name === u.name);
+                return sims.reduce((acc, s) => acc + getSec(s.dur), 0);
+            });
+            const langRank = getGlobalRank(u => (u.languages || []).length);
+            const dateRank = getGlobalRank(u => {
+                const lastDate = u.dates[u.dates.length - 1];
+                if (!lastDate) return 0;
+                const [d, m, y] = lastDate.split('/');
+                return new Date(y, m - 1, d).getTime();
+            });
+
             const content = document.getElementById('mainContent');
             content.innerHTML = `
                 <div id="userProfile">
@@ -1530,12 +2273,118 @@
                         </div>
                     </header>
 
+                    <div class="filter-bar-container" style="margin-bottom: 2.5rem; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">${ui[currentLang].areaAtuacaoLabel}</span>
+                            <div class="custom-dropdown" id="areaDropdown">
+                                <div class="dropdown-trigger" onclick="toggleDropdown('areaDropdown', 'dropdownArrow')">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <i class="fas fa-filter" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                                        <span id="selectedAreaLabel">${currentFilterArea ? (ui[currentLang]['area' + currentFilterArea.replace(' ', '')] || currentFilterArea) : ui[currentLang].allAreas}</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="dropdownArrow"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item ${!currentFilterArea ? 'selected' : ''}" onclick="setAreaFilter('all')">
+                                        <i class="fas fa-th-large"></i> ${ui[currentLang].allAreas}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterArea === 'Recepcionista' ? 'selected' : ''}" onclick="setAreaFilter('Recepcionista')">
+                                        <i class="fas fa-user-tie"></i> ${ui[currentLang].areaRecepcionista}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterArea === 'Concierge' ? 'selected' : ''}" onclick="setAreaFilter('Concierge')">
+                                        <i class="fas fa-concierge-bell"></i> ${ui[currentLang].areaConcierge}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterArea === 'Guest Attendant' ? 'selected' : ''}" onclick="setAreaFilter('Guest Attendant')">
+                                        <i class="fas fa-utensils"></i> ${ui[currentLang].areaGuestAttendant}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">${ui[currentLang].distinctScenarios}:</span>
+                            <div class="custom-dropdown" id="useCaseDropdown" style="min-width: 250px;">
+                                <div class="dropdown-trigger" onclick="toggleDropdown('useCaseDropdown', 'useCaseArrow')">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <i class="fas fa-briefcase" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                                        <span id="selectedUseCaseLabel" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+                                            ${currentFilterUseCase ? translateScenario(currentFilterUseCase) : ui[currentLang].allCases}
+                                        </span>
+                                    </div>
+                                    <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="useCaseArrow"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item ${!currentFilterUseCase ? 'selected' : ''}" onclick="setUseCaseFilter('all')">
+                                        <i class="fas fa-th-large"></i> ${ui[currentLang].allCases}
+                                    </div>
+                                    ${[...new Set(VALID_SIMS.map(s => s.scenario))].map(sc => `
+                                        <div class="dropdown-item ${currentFilterUseCase === sc ? 'selected' : ''}" onclick="setUseCaseFilter('${sc}')">
+                                            <i class="fas fa-file-alt"></i> ${translateScenario(sc)}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="stats-grid" style="margin-bottom: 3.5rem;">
-                        <div class="stat-card-big"><span class="val count-up" data-val="${user.avgScore}" data-suffix="%">0%</span><span class="lab">${ui[currentLang].avgScore}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${user.lqaScore}" data-suffix="%">0%</span><span class="lab">${ui[currentLang].lqa}</span></div>
-                        <div class="stat-card-big"><span class="val count-up" data-val="${user.avgDurMin}" data-suffix="m">0m</span><span class="lab">${ui[currentLang].time}</span></div>
-                        <div class="stat-card-big"><span class="val" id="u-langs" style="display: flex; gap: 8px; justify-content: center; font-size: 0.85rem; flex-wrap: wrap;"></span><span class="lab">${ui[currentLang].languagesLabel}</span></div>
-                        <div class="stat-card-big"><span class="val" style="font-size: 1.1rem; margin-top: 12px; color: var(--text-muted);">${user.dates.length ? user.dates[user.dates.length - 1] : '--'}</span><span class="lab">${ui[currentLang].lastSimulation}</span></div>
+                        <div class="stat-card-big" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+                            <div class="donut-container" style="width: 140px; height: 140px; margin-bottom: 15px;">
+                                <canvas id="userScoreChart"></canvas>
+                                <div class="donut-val" id="userScoreValue" style="font-size: 1.4rem;">0%</div>
+                                <span class="donut-label">
+                                    ${ui[currentLang].avgScore}
+                                    <span class="info-tip">
+                                        <i class="fas fa-info-circle" style="opacity: 0.5; font-size: 0.7rem;"></i>
+                                        <span class="tip-text">${ui[currentLang].defScoreGeral}</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="trend-indicator up" style="background: var(--primary-light); color: var(--primary); margin-top: 5px;">
+                                <i class="fas fa-crown"></i> ${ui[currentLang].rankingLabel}: ${userRank}º
+                            </div>
+                        </div>
+
+                        <div class="stat-card-big" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+                            <div class="donut-container" style="width: 140px; height: 140px; margin-bottom: 15px;">
+                                <canvas id="userLqaChart"></canvas>
+                                <div class="donut-val" id="userLqaValue" style="font-size: 1.4rem;">0%</div>
+                                <span class="donut-label">
+                                    ${ui[currentLang].lqaPattern}
+                                    <span class="info-tip">
+                                        <i class="fas fa-info-circle" style="opacity: 0.5; font-size: 0.7rem;"></i>
+                                        <span class="tip-text">${ui[currentLang].defLqa}</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="trend-indicator up" style="background: var(--primary-light); color: var(--primary); margin-top: 5px;">
+                                <i class="fas fa-crown"></i> ${ui[currentLang].rankingLabel}: ${lqaRank}º
+                            </div>
+                        </div>
+
+                        <div class="stat-card-big">
+                            <div class="trend-indicator up" style="background: var(--primary-light); color: var(--primary); margin-bottom: 10px;">
+                                <i class="fas fa-crown"></i> ${ui[currentLang].rankingLabel}: ${timeRank}º
+                            </div>
+                            <span class="val" style="font-size: 1.5rem; margin-top: 10px;">${fmtTime(userAvgSeconds)}</span>
+                            <span class="lab">${ui[currentLang].time}</span>
+                        </div>
+
+                        <div class="stat-card-big">
+                            <div class="trend-indicator up" style="background: var(--primary-light); color: var(--primary); margin-bottom: 10px;">
+                                <i class="fas fa-crown"></i> ${ui[currentLang].rankingLabel}: ${langRank}º
+                            </div>
+                            <span class="val" id="u-langs" style="display: flex; gap: 8px; justify-content: center; font-size: 0.85rem; flex-wrap: wrap; margin-top: 10px;"></span>
+                            <span class="lab">${ui[currentLang].languagesLabel}</span>
+                        </div>
+
+                        <div class="stat-card-big">
+                            <div class="trend-indicator up" style="background: var(--primary-light); color: var(--primary); margin-bottom: 10px;">
+                                <i class="fas fa-crown"></i> ${ui[currentLang].rankingLabel}: ${dateRank}º
+                            </div>
+                            <span class="val" style="font-size: 1.1rem; margin-top: 12px; color: var(--text-muted);">${user.dates.length ? user.dates[user.dates.length - 1] : '--'}</span>
+                            <span class="lab">${ui[currentLang].lastSimulation}</span>
+                        </div>
                     </div>
 
                     <div class="grid grid-2">
@@ -1568,6 +2417,7 @@
                             <canvas id="userChart"></canvas>
                         </div>
                     </div>
+                    ${renderSimulationsTable(user.name, currentFilterArea)}
                 </div>
             `;
 
@@ -1586,19 +2436,33 @@
                 langBox.innerHTML += `<span class="lang-badge">${flags[l] || l}</span>`;
             });
 
-            // Skills
-            const skillBox = document.getElementById('u-skills');
-            Object.entries(user.skills).forEach(([k, v]) => {
-                skillBox.innerHTML += `
-                    <div class="skill-bar-container">
-                        <div class="skill-label-row"><span>${ui[currentLang].skillNames[k] || k}</span><span>${v}%</span></div>
-                        <div class="skill-track"><div class="skill-bar-fill" style="width: ${v}%"></div></div>
-                    </div>
-                `;
-            });
+            // Matriz de Competências
+            const skillsDiv = document.getElementById('u-skills');
+            if (skillsDiv) {
+                skillsDiv.innerHTML = ''; // Limpa antes de renderizar
+                Object.entries(user.skills).forEach(([skill, val]) => {
+                    const translatedName = (ui[currentLang].skillNames && ui[currentLang].skillNames[skill]) ? ui[currentLang].skillNames[skill] : skill;
+                    skillsDiv.innerHTML += `
+                        <div class="skill-bar-container">
+                            <div class="skill-label-row">
+                                <span>${translatedName}</span>
+                                <span>${val}%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-bar-fill" style="width: ${val}%;"></div></div>
+                        </div>
+                    `;
+                });
+            }
 
             renderUserChart(user);
             renderUserList();
+
+            // Donuts do Perfil
+            document.getElementById('userScoreValue').innerText = Math.round(contextUserScore) + '%';
+            document.getElementById('userLqaValue').innerText = user.lqaScore + '%';
+            renderGlobalChart('userScoreChart', Math.round(contextUserScore), '#00bcf2');
+            renderGlobalChart('userLqaChart', user.lqaScore, '#8b5cf6');
+
             runCountUp();
         }
 
@@ -1608,40 +2472,40 @@
             const ctx = canvas.getContext('2d');
             if (chart) chart.destroy();
 
-            const labels = Array.isArray(user.dates) ? user.dates : [];
-            const data = labels.map(() => user.avgScore + (Math.random() * 6 - 3));
+            // Pegar dados reais das simulações válidas do usuário
+            const userHistory = VALID_SIMS.filter(s => cleanName(s.name) === cleanName(user.name))
+                .sort((a, b) => {
+                    const [d1, m1, y1] = a.date.split('/');
+                    const [d2, m2, y2] = b.date.split('/');
+                    return new Date(y1, m1-1, d1) - new Date(y2, m2-1, d2);
+                });
+
+            const labels = userHistory.map(s => s.date);
+            const data = userHistory.map(s => s.score);
 
             if (labels.length === 0) {
                 ctx.font = '14px Inter';
                 ctx.fillStyle = '#64748b';
                 ctx.textAlign = 'center';
-                ctx.fillText(ui[currentLang].waitingData, canvas.width / 2, canvas.height / 2);
+                ctx.fillText(ui[currentLang].noCompData || 'Sem dados', canvas.width / 2, canvas.height / 2);
                 return;
             }
 
-            const gradFill = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradFill.addColorStop(0, 'rgba(0, 188, 242, 0.4)');
-            gradFill.addColorStop(1, 'rgba(0, 188, 242, 0.0)');
-
             chart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: 'Score',
                         data: data,
-                        borderColor: '#00bcf2',
-                        backgroundColor: gradFill,
-                        fill: true, tension: 0.4, borderWidth: 3,
-                        pointBackgroundColor: '#ffffff',
-                        pointBorderColor: '#00bcf2',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
+                        backgroundColor: '#00bcf2',
+                        borderRadius: 6,
+                        barThickness: 20
                     }]
                 },
                 options: {
-                    responsive: true, maintainAspectRatio: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
                         y: { min: 0, max: 100, grid: { color: '#e2e8f0', borderDash: [5, 5] }, ticks: { color: '#64748b' } },
@@ -1662,6 +2526,37 @@
             link.setAttribute('download', 'fairmont_ia_report.csv');
             link.click();
         }
+
+        function toggleDropdown(id, arrowId) {
+            const dd = document.getElementById(id);
+            const arrow = document.getElementById(arrowId);
+            if (!dd) return;
+            dd.classList.toggle('active');
+            if (arrow) arrow.style.transform = dd.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function setAreaFilter(val) {
+            currentFilterArea = val === 'all' ? null : val;
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        function setUseCaseFilter(val) {
+            currentFilterUseCase = val === 'all' ? null : val;
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        document.addEventListener('click', (e) => {
+            ['areaDropdown', 'useCaseDropdown'].forEach(id => {
+                const dd = document.getElementById(id);
+                if (dd && !dd.contains(e.target)) {
+                    dd.classList.remove('active');
+                    const arrow = document.getElementById(id === 'areaDropdown' ? 'dropdownArrow' : 'useCaseArrow');
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                }
+            });
+        });
 
         // Initialize
         const savedLang = localStorage.getItem('fairmontLang') || 'pt';
