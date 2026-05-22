@@ -1246,12 +1246,12 @@
             }
         }
 
-                /* ── LOGIN OVERLAY ── */
+                        /* ── LOGIN OVERLAY ── */
         #loginOverlay {
             position: fixed;
             inset: 0;
             z-index: 99999;
-            background-color: #f8f9fa;
+            background-color: #ffffff; /* Fundo branco */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1260,31 +1260,51 @@
             overflow: hidden;
         }
 
-        #loginOverlay::before {
+        /* Siri Apple style blurred animated blobs */
+        #loginOverlay::before, #loginOverlay::after, .siri-blob {
             content: '';
             position: absolute;
-            bottom: 0; left: 0; width: 200%; height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%2300bcf2" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
-            background-size: 50% 100%;
-            animation: moveWaves 15s linear infinite;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: moveBlobs 12s infinite alternate ease-in-out;
             pointer-events: none;
             z-index: 0;
+        }
+
+        #loginOverlay::before {
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(255,59,48,0.5) 0%, rgba(255,149,0,0.2) 100%);
+            top: -10vw; left: -10vw;
+            animation-delay: 0s;
         }
 
         #loginOverlay::after {
-            content: '';
-            position: absolute;
-            bottom: -20px; left: 0; width: 200%; height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%230090c0" fill-opacity="0.15" d="M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
-            background-size: 50% 100%;
-            animation: moveWaves 20s linear infinite reverse;
-            pointer-events: none;
-            z-index: 0;
+            width: 45vw; height: 45vw;
+            background: radial-gradient(circle, rgba(0,122,255,0.4) 0%, rgba(88,86,214,0.2) 100%);
+            bottom: -15vw; right: -5vw;
+            animation-delay: -4s;
         }
 
-        @keyframes moveWaves {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .login-bg-particles {
+            position: absolute; inset: 0;
+            overflow: hidden; pointer-events: none; z-index: 0;
+        }
+        
+        .login-bg-particles::before {
+            content: ''; position: absolute;
+            width: 60vw; height: 40vw;
+            background: radial-gradient(circle, rgba(52,199,89,0.3) 0%, rgba(0,199,190,0.1) 100%);
+            top: 40%; left: 20%;
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: moveBlobs 15s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(10vw, -5vw) scale(1.1); }
+            100% { transform: translate(-5vw, 15vw) scale(0.9); }
         }
 
         #loginOverlay.hidden {
@@ -1293,16 +1313,16 @@
             pointer-events: none;
         }
 
-        .login-bg-particles { display: none; } /* Hide particles */
-
         .login-card {
             position: relative;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border-radius: 28px;
             padding: 3rem 3.5rem;
             width: 100%;
             max-width: 440px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.5);
             animation: loginCardIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
             z-index: 1;
         }
@@ -1313,7 +1333,7 @@
         }
 
         .login-logo { text-align: center; margin-bottom: 2.2rem; }
-        .login-logo img { height: 52px; filter: brightness(0) invert(0); }
+        .login-logo img { height: 52px; }
 
         .login-title {
             text-align: center;
@@ -1321,14 +1341,14 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.6rem;
             font-weight: 700;
-            color: #041e42;
+            color: #1d1d1f; /* Cor Apple escuro */
             letter-spacing: -0.03em;
         }
 
         .login-sub {
             text-align: center;
             font-size: 0.82rem;
-            color: #64748b;
+            color: #86868b;
             margin-bottom: 2.4rem;
             letter-spacing: 0.02em;
         }
@@ -1340,37 +1360,37 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: #64748b;
+            color: #86868b;
             margin-bottom: 0.5rem;
         }
 
         .login-field input {
             width: 100%;
             padding: 14px 18px;
-            background: #f8f9fa;
-            border: 1px solid #e2e8f0;
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(0,0,0,0.1);
             border-radius: 14px;
-            color: #041e42;
+            color: #1d1d1f;
             font-size: 0.95rem;
             font-family: 'Inter', sans-serif;
             outline: none;
             transition: all 0.3s ease;
         }
 
-        .login-field input::placeholder { color: #94a3b8; }
+        .login-field input::placeholder { color: #86868b; }
         .login-field input:focus {
-            border-color: #00bcf2;
+            border-color: #0071e3; /* Apple Blue */
             background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(0, 188, 242, 0.15);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
         }
 
         .login-error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.2);
             border-radius: 10px;
             padding: 10px 14px;
             font-size: 0.8rem;
-            color: #ef4444;
+            color: #ff3b30;
             margin-bottom: 1.2rem;
             display: none;
             align-items: center;
@@ -1381,18 +1401,18 @@
         .btn-login {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #00bcf2 0%, #0090c0 100%);
+            background: linear-gradient(135deg, #1d1d1f 0%, #434345 100%);
             color: #ffffff;
             font-family: 'Outfit', sans-serif;
             font-size: 1rem;
-            font-weight: 800;
+            font-weight: 600;
             border: none;
             border-radius: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 0.5rem;
             letter-spacing: 0.02em;
-            box-shadow: 0 8px 25px rgba(0, 188, 242, 0.35);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1400,8 +1420,8 @@
         }
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(0, 188, 242, 0.5);
-            background: linear-gradient(135deg, #12d0ff 0%, #00a8d9 100%);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, #000000 0%, #222222 100%);
         }
         .btn-login:active { transform: translateY(0); }
 
@@ -1420,11 +1440,29 @@
             text-align: center;
             margin-top: 1.8rem;
             font-size: 0.72rem;
-            color: #64748b;
+            color: #86868b;
             letter-spacing: 0.04em;
         }
-        .login-footer span { color: #00bcf2; font-weight: 600; }
-    </style>
+        .login-footer span { color: #1d1d1f; font-weight: 600; }
+    
+        /* ── PRINT (PDF) STYLES ── */
+        @media print {
+            body { background: #ffffff !important; color: #000000 !important; }
+            .sidebar { display: none !important; }
+            .main-content { margin-left: 0 !important; width: 100% !important; padding: 0 !important; }
+            .header-actions { display: none !important; }
+            .filter-bar-container { display: none !important; }
+            #loginOverlay { display: none !important; }
+            .stat-card-big, .user-profile-header, .sim-history-card {
+                box-shadow: none !important;
+                border: 1px solid #e2e8f0 !important;
+                page-break-inside: avoid;
+            }
+            .grid-overview { grid-template-columns: repeat(4, 1fr) !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .donut-container canvas { max-width: 120px !important; max-height: 120px !important; }
+        }
+</style>
 </head>
 
 <body>
@@ -1448,7 +1486,7 @@
 
             <div class="login-field">
                 <label>E-mail</label>
-                <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="email"
+                <input type="email" id="loginEmail" placeholder="admin@rhapsody.run" autocomplete="email"
                     onkeydown="if(event.key==='Enter') doLogin()">
             </div>
             <div class="login-field">
@@ -1485,6 +1523,9 @@
                     <button id="btn-pt" class="active" onclick="setLang('pt')">PT-BR</button>
                     <button id="btn-fr" onclick="setLang('fr')">FRANÇAIS</button>
                 </div>
+                <button class="btn-header" onclick="window.print()">
+                    <i class="fas fa-file-pdf"></i> <span id="t-export-pdf">Exportar PDF</span>
+                </button>
                 <button class="btn-header" onclick="exportCSV()">
                     <i class="fas fa-file-excel"></i> <span id="t-export">Exportar Excel</span>
                 </button>
@@ -2539,60 +2580,6 @@
     },
     {
         "name": "Sophie Géraud",
-        "date": "14/11/2025",
-        "dur": "0m 0s",
-        "score": 74,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Sophie Géraud",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 65,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 8
-    },
-    {
-        "name": "Sophie Géraud",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 72,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 5
-    },
-    {
-        "name": "Sophie Géraud",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 65,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 6
-    },
-    {
-        "name": "Sophie Géraud",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 73,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 7
-    },
-    {
-        "name": "Sophie Géraud",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 55,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 5
-    },
-    {
-        "name": "Sophie Géraud",
         "date": "15/11/2025",
         "dur": "0m 0s",
         "score": 65,
@@ -3448,204 +3435,6 @@
     },
     {
         "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 73,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 14
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 78,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 8
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 55,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 73,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 77,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 4
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 75,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 77,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 4
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 47,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 55,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 65,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 72,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 25,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 35,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 55,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 35,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 53,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 25,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 25,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "15/11/2025",
-        "dur": "0m 0s",
-        "score": 61,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "16/11/2025",
-        "dur": "0m 0s",
-        "score": 15,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "16/11/2025",
-        "dur": "0m 0s",
-        "score": 35,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
-        "date": "16/11/2025",
-        "dur": "0m 0s",
-        "score": 25,
-        "scenario": "🗑️ [à supprimer]",
-        "lqa": "N/A",
-        "interactions": 3
-    },
-    {
-        "name": "Philippe Lepeuple",
         "date": "09/12/2025",
         "dur": "0m 0s",
         "score": 65,
@@ -3666,10 +3455,26 @@
         });
 
         // Agora derivamos os usuários ativos APENAS de simulações válidas
-        const activeUsers = [...new Set(VALID_SIMS.map(s => s.name))].map(name => {
+                const activeUsers = [...new Set(VALID_SIMS.map(s => s.name))].map(name => {
             const userSims = VALID_SIMS.filter(s => s.name === name);
             const avgScore = Math.round(userSims.reduce((a, b) => a + b.score, 0) / userSims.length);
             const original = (typeof users !== 'undefined' ? users : []).find(u => cleanName(u.name) === cleanName(name)) || {};
+
+            const totalSecs = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
+            const avgSecs = totalSecs / userSims.length;
+            const langsCount = (Array.isArray(original.languages) ? original.languages : (original.languages ? [original.languages] : [])).length || 1;
+            
+            const sortedDates = userSims.map(s => s.date).sort((a, b) => {
+                const [d1, m1, y1] = a.split('/');
+                const [d2, m2, y2] = b.split('/');
+                return new Date(y1, m1 - 1, d1) - new Date(y2, m2 - 1, d2);
+            });
+            const lastDateStr = sortedDates[sortedDates.length - 1];
+            let recencyScore = 0;
+            if (lastDateStr) {
+                const [d, m, y] = lastDateStr.split('/');
+                recencyScore = new Date(y, m - 1, d).getTime();
+            }
 
             return {
                 name: fixEnc(name),
@@ -3677,11 +3482,32 @@
                 avgScore: avgScore,
                 lqaScore: original.lqaScore || avgScore,
                 languages: original.languages || ['PT'],
+                langsCount: langsCount,
                 dates: [...new Set(userSims.map(s => s.date))],
                 skills: original.skills || { Escuta: 75, Empatia: 80, Crises: 65, Padroes: 85, Personalizacao: 70 },
-                insights: original.insights || { pt: [], fr: [] }
+                insights: original.insights || { pt: [], fr: [] },
+                avgSecs: avgSecs,
+                recencyScore: recencyScore
             };
-        }).sort((a, b) => b.avgScore - a.avgScore);
+        });
+
+        const maxAvgSecs = Math.max(...activeUsers.map(u => u.avgSecs)) || 1;
+        const maxCount = Math.max(...activeUsers.map(u => u.count)) || 1;
+        const maxLangs = Math.max(...activeUsers.map(u => u.langsCount)) || 1;
+        const minRecency = Math.min(...activeUsers.map(u => u.recencyScore));
+        const maxRecency = Math.max(...activeUsers.map(u => u.recencyScore));
+        const recencyRange = (maxRecency - minRecency) || 1;
+
+        activeUsers.forEach(u => {
+            u.engagementScore = Math.round(
+                ((u.avgSecs / maxAvgSecs) * 25) +
+                ((u.count / maxCount) * 25) +
+                ((u.langsCount / maxLangs) * 25) +
+                (((u.recencyScore - minRecency) / recencyRange) * 25)
+            );
+        });
+
+        activeUsers.sort((a, b) => b.engagementScore - a.engagementScore);
 
         function getSec(s) {
             if (!s || typeof s !== 'string') return 0;
@@ -4590,4 +4416,186 @@
             renderUserList();
 
             // Donuts do Perfil
-            document.getElementById('userScoreValue').innerText = Math.round(contex
+            document.getElementById('userScoreValue').innerText = Math.round(contextUserScore) + '%';
+            document.getElementById('userLqaValue').innerText = user.lqaScore + '%';
+            renderGlobalChart('userScoreChart', Math.round(contextUserScore), '#00bcf2');
+            renderGlobalChart('userLqaChart', user.lqaScore, '#8b5cf6');
+
+            runCountUp();
+        }
+
+        function renderUserChart(user) {
+            const canvas = document.getElementById('userChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (chart) chart.destroy();
+
+            // Pegar dados reais das simulações válidas do usuário
+            const userHistory = VALID_SIMS.filter(s => cleanName(s.name) === cleanName(user.name))
+                .sort((a, b) => {
+                    const [d1, m1, y1] = a.date.split('/');
+                    const [d2, m2, y2] = b.date.split('/');
+                    return new Date(y1, m1 - 1, d1) - new Date(y2, m2 - 1, d2);
+                });
+
+            const labels = userHistory.map(s => s.date);
+            const data = userHistory.map(s => s.score);
+
+            if (labels.length === 0) {
+                ctx.font = '14px Inter';
+                ctx.fillStyle = '#64748b';
+                ctx.textAlign = 'center';
+                ctx.fillText(ui[currentLang].noCompData || 'Sem dados', canvas.width / 2, canvas.height / 2);
+                return;
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Score',
+                        data: data,
+                        backgroundColor: '#00bcf2',
+                        borderRadius: 6,
+                        barThickness: 20
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { min: 0, max: 100, grid: { color: '#e2e8f0', borderDash: [5, 5] }, ticks: { color: '#64748b' } },
+                        x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+        }
+
+                function exportCSV() {
+            let csv = 'Nome;Rank;Engajamento;Score Geral;LQA;Tempo Medio;Simulacoes;Idiomas;Ultima Sessao;Escuta Ativa;Personalizacao;Empatia;Gestao de Crises;Padroes\n';
+            activeUsers.forEach((u, idx) => {
+                const rank = idx + 1;
+                const langs = (Array.isArray(u.languages) ? u.languages : (u.languages ? [u.languages] : [])).join('/');
+                const tempo = `${Math.floor(u.avgSecs / 60)}m ${Math.floor(u.avgSecs % 60)}s`;
+                csv += `"${u.name}";${rank};${u.engagementScore};${u.avgScore};${u.lqaScore};"${tempo}";${u.count};"${langs}";"${u.dates[u.dates.length - 1]}";${u.skills.Escuta};${u.skills.Personalizacao};${u.skills.Empatia};${u.skills.Crises};${u.skills.Padroes}\n`;
+            });
+            
+            // Generate BOM so Excel reads UTF-8 correctly
+            const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+            const blob = new Blob([bom, csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', 'fairmont_ia_report.csv');
+            link.click();
+        }
+
+        function toggleDropdown(id, arrowId) {
+            const dd = document.getElementById(id);
+            const arrow = document.getElementById(arrowId);
+            if (!dd) return;
+            dd.classList.toggle('active');
+            if (arrow) arrow.style.transform = dd.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function setAreaFilter(val) {
+            currentFilterArea = val === 'all' ? null : val;
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        function setUseCaseFilter(val) {
+            currentFilterUseCase = val === 'all' ? null : val;
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        document.addEventListener('click', (e) => {
+            ['areaDropdown', 'useCaseDropdown'].forEach(id => {
+                const dd = document.getElementById(id);
+                if (dd && !dd.contains(e.target)) {
+                    dd.classList.remove('active');
+                    const arrow = document.getElementById(id === 'areaDropdown' ? 'dropdownArrow' : 'useCaseArrow');
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                }
+            });
+        });
+
+        // ══════════════════ LOGIN SYSTEM ══════════════════
+        const CREDENTIALS = [
+            { email: 'rhapsody@fairmont.com', password: 'fairmont2026' },
+            { email: 'admin@rhapsody.run', password: 'rhapsody2026' }
+        ];
+
+        function doLogin() {
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('btnLogin');
+            const errBox = document.getElementById('loginError');
+            const errMsg = document.getElementById('loginErrorMsg');
+
+            // Basic validation
+            if (!email || !password) {
+                errMsg.textContent = 'Preencha e-mail e senha.';
+                errBox.classList.add('show');
+                return;
+            }
+
+            // Loading state
+            btn.classList.add('loading');
+            errBox.classList.remove('show');
+
+            setTimeout(() => {
+                const match = CREDENTIALS.find(c =>
+                    c.email === email && c.password === password
+                );
+
+                if (match) {
+                    sessionStorage.setItem('fhLoggedIn', '1');
+                    const overlay = document.getElementById('loginOverlay');
+                    overlay.classList.add('hidden');
+                    setTimeout(() => overlay.remove(), 650);
+                } else {
+                    btn.classList.remove('loading');
+                    errMsg.textContent = 'E-mail ou senha incorretos.';
+                    errBox.classList.add('show');
+                    document.getElementById('loginPassword').value = '';
+                    document.getElementById('loginPassword').focus();
+                }
+            }, 800);
+        }
+
+        // Generate floating particles
+        (function () {
+            const container = document.getElementById('loginParticles');
+            if (!container) return;
+            const colors = ['#00bcf2', '#0090c0', '#ffffff'];
+            for (let i = 0; i < 18; i++) {
+                const s = document.createElement('span');
+                const size = Math.random() * 60 + 10;
+                s.style.cssText = `
+                    width:${size}px; height:${size}px;
+                    left:${Math.random() * 100}%;
+                    background:${colors[Math.floor(Math.random() * colors.length)]};
+                    animation-duration:${Math.random() * 15 + 8}s;
+                    animation-delay:${Math.random() * 10}s;
+                `;
+                container.appendChild(s);
+            }
+        })();
+
+        // Check session on load
+        if (sessionStorage.getItem('fhLoggedIn') === '1') {
+            const overlay = document.getElementById('loginOverlay');
+            if (overlay) overlay.remove();
+        }
+        // ═══════════════════════════════════════════════════
+
+        // Initialize
+        const savedLang = localStorage.getItem('fairmontLang') || 'pt';
+        setLang(savedLang);
+    </script>
+</body>
+
+</html>
