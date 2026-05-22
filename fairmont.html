@@ -1670,7 +1670,7 @@
             });
         }
 
-        const excludedNames = ['fernando godoy', 'tabajara dias', 'sophie geraud', 'philippe de langlais', 'sophie géraud', 'rhapsody', 'teste'];
+        const excludedNames = ['fernando godoy', 'tabajara dias', 'sophie geraud', 'philippe de langlais', 'philippe lepeuple', 'sophie géraud', 'rhapsody', 'teste'];
 
         // Helper para limpar nomes
         const cleanName = n => n ? fixEnc(n).trim().toLowerCase() : "";
@@ -1933,51 +1933,1413 @@
         }
 
         const RAW_SIMULATIONS = [
-            { name: "Lucas Lopes", date: "10/12/2025", dur: "3m 13s", score: 66, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Lucas Lopes", date: "10/12/2025", dur: "2m 22s", score: 68, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Lucas Lopes", date: "10/12/2025", dur: "2m 30s", score: 65, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Lucas Lopes", date: "10/12/2025", dur: "1m 51s", score: 60, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Lucas Lopes", date: "10/12/2025", dur: "8m 29s", score: 72, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Lucas Lopes", date: "10/12/2025", dur: "4m 15s", score: 64, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Lucas Lopes", date: "11/12/2025", dur: "5m 25s", score: 70, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Lucas Lopes", date: "29/01/2026", dur: "0m 55s", score: 66, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 57s", score: 60, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 20s", score: 62, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
-            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 38s", score: 58, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "4m 14s", score: 61, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
-            { name: "Gabrielli Mattos", date: "28/01/2026", dur: "4m 40s", score: 55, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Gabrielli Mattos", date: "28/01/2026", dur: "2m 56s", score: 63, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "3m 18s", score: 59, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
-            { name: "Gabrielli Mattos", date: "17/04/2026", dur: "7m 38s", score: 65, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "2m 20s", score: 57, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "23m 20s", score: 70, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
-            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "6m 15s", score: 62, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "5m 1s", score: 54, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "6m 5s", score: 58, scenario: "✨ RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente" },
-            { name: "Gabrielli Mattos", date: "13/04/2026", dur: "4m 7s", score: 60, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Neube Brigagao", date: "18/11/2025", dur: "3m 32s", score: 74, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Neube Brigagao", date: "19/11/2025", dur: "4m 56s", score: 76, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Neube Brigagao", date: "19/11/2025", dur: "4m 21s", score: 72, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Neube Brigagao", date: "09/12/2025", dur: "2m 45s", score: 70, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Neube Brigagao", date: "09/12/2025", dur: "6m 1s", score: 78, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Neube Brigagao", date: "09/12/2025", dur: "7m 47s", score: 75, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Neube Brigagao", date: "15/12/2025", dur: "5m 15s", score: 73, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Matheus Barcelos", date: "22/12/2025", dur: "10m 12s", score: 80, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Matheus Barcelos", date: "07/01/2026", dur: "6m 0s", score: 77, scenario: "🍽️ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto" },
-            { name: "Enzo Hidde", date: "09/12/2025", dur: "11m 11s", score: 82, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Enzo Hidde", date: "12/12/2025", dur: "18m 28s", score: 85, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Enzo Hidde", date: "07/01/2026", dur: "17m 55s", score: 80, scenario: "🌙 GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite" },
-            { name: "Enzo Hidde", date: "30/01/2026", dur: "3m 8s", score: 78, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" },
-            { name: "Patricia Eckhard", date: "09/12/2025", dur: "3m 35s", score: 75, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Patricia Eckhard", date: "09/12/2025", dur: "5m 59s", score: 75, scenario: "😠 RECEPCIONISTA – Lidar com um cliente que expressa insatisfação" },
-            { name: "Jesse Henriques", date: "07/01/2026", dur: "16m 23s", score: 78, scenario: "🎁 CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário" }
-        ];
+    {
+        "name":  "Fernando Godoy",
+        "date":  "23/12/2025",
+        "dur":  "3m 27s",
+        "score":  58,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Fernando Godoy",
+        "date":  "23/12/2025",
+        "dur":  "2m 59s",
+        "score":  45,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Fernando Godoy",
+        "date":  "17/01/2026",
+        "dur":  "1m 23s",
+        "score":  25,
+        "scenario":  "ðŸ›Žï¸ RECEPCIONISTA - Lidar com um cliente alcoolizado"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "26/02/2026",
+        "dur":  "4m 4s",
+        "score":  32,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "20/02/2026",
+        "dur":  "1m 53s",
+        "score":  70,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "17/04/2026",
+        "dur":  "6m 5s",
+        "score":  73,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "29/01/2026",
+        "dur":  "3m 16s",
+        "score":  75,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "17/04/2026",
+        "dur":  "7m 16s",
+        "score":  53,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "26/03/2026",
+        "dur":  "3m 55s",
+        "score":  12,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "08/04/2026",
+        "dur":  "5m 5s",
+        "score":  33,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "17/04/2026",
+        "dur":  "3m 54s",
+        "score":  52,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "17/04/2026",
+        "dur":  "3m 2s",
+        "score":  41,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "16/04/2026",
+        "dur":  "4m 19s",
+        "score":  52,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "28/04/2026",
+        "dur":  "1m 45s",
+        "score":  10,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Tabajara Dias",
+        "date":  "21/05/2026",
+        "dur":  "3m 33s",
+        "score":  56,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Lucas Lopes",
+        "date":  "10/12/2025",
+        "dur":  "3m 13s",
+        "score":  75,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Lucas Lopes",
+        "date":  "10/12/2025",
+        "dur":  "2m 22s",
+        "score":  55,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Lucas Lopes",
+        "date":  "10/12/2025",
+        "dur":  "2m 30s",
+        "score":  75,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Lucas Lopes",
+        "date":  "10/12/2025",
+        "dur":  "8m 29s",
+        "score":  89,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Lucas Lopes",
+        "date":  "10/12/2025",
+        "dur":  "4m 15s",
+        "score":  74,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Lucas Lopes",
+        "date":  "11/12/2025",
+        "dur":  "5m 25s",
+        "score":  72,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Lucas Lopes",
+        "date":  "29/01/2026",
+        "dur":  "0m 55s",
+        "score":  25,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "17/04/2026",
+        "dur":  "3m 57s",
+        "score":  63,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "17/04/2026",
+        "dur":  "3m 20s",
+        "score":  57,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "17/04/2026",
+        "dur":  "3m 38s",
+        "score":  46,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "17/04/2026",
+        "dur":  "4m 14s",
+        "score":  68,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "28/01/2026",
+        "dur":  "4m 40s",
+        "score":  75,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "28/01/2026",
+        "dur":  "2m 56s",
+        "score":  60,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "17/04/2026",
+        "dur":  "3m 18s",
+        "score":  65,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "17/04/2026",
+        "dur":  "7m 38s",
+        "score":  42,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "13/04/2026",
+        "dur":  "6m 15s",
+        "score":  56,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "13/04/2026",
+        "dur":  "5m 1s",
+        "score":  63,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Gabrielli Mattos",
+        "date":  "13/04/2026",
+        "dur":  "4m 7s",
+        "score":  61,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "12/02/2026",
+        "dur":  "1m 36s",
+        "score":  30,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "12/02/2026",
+        "dur":  "2m 35s",
+        "score":  30,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "12/02/2026",
+        "dur":  "1m 11s",
+        "score":  72,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "1m 21s",
+        "score":  32,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "0m 50s",
+        "score":  25,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "0m 57s",
+        "score":  15,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "2m 3s",
+        "score":  25,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "1m 9s",
+        "score":  35,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "1m 31s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "16/11/2025",
+        "dur":  "10m 23s",
+        "score":  73,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "0m 47s",
+        "score":  20,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "0m 50s",
+        "score":  10,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "10/11/2025",
+        "dur":  "1m 21s",
+        "score":  25,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer] #Ã  tester# ðŸ”µ GUEST SERVICE AGENT - Satisfaire un client fidÃ¨le malgrÃ© une demande de repas indisponible"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "10/11/2025",
+        "dur":  "3m 3s",
+        "score":  72,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer] #Ã  tester# ðŸ”µ GUEST SERVICE AGENT - Satisfaire un client fidÃ¨le malgrÃ© une demande de repas indisponible"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "4m 29s",
+        "score":  74,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "5m 9s",
+        "score":  68,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "3m 51s",
+        "score":  74,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 3s",
+        "score":  25,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 22s",
+        "score":  25,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 11s",
+        "score":  25,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "3m 15s",
+        "score":  74,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "3m 5s",
+        "score":  62,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 25s",
+        "score":  30,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 52s",
+        "score":  30,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 27s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 20s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 5s",
+        "score":  25,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "0m 58s",
+        "score":  15,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "0m 47s",
+        "score":  30,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "0m 57s",
+        "score":  30,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/11/2025",
+        "dur":  "1m 24s",
+        "score":  30,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "2m 34s",
+        "score":  23,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "1m 20s",
+        "score":  38,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "3m 2s",
+        "score":  72,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "1m 6s",
+        "score":  25,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "1m 7s",
+        "score":  15,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "3m 20s",
+        "score":  37,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "3m 14s",
+        "score":  45,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "1m 55s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "5m 43s",
+        "score":  72,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "3m 33s",
+        "score":  78,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "3m 36s",
+        "score":  68,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "2m 58s",
+        "score":  27,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "14/11/2025",
+        "dur":  "1m 27s",
+        "score":  74,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/11/2025",
+        "dur":  "3m 34s",
+        "score":  65,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/11/2025",
+        "dur":  "2m 16s",
+        "score":  72,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/11/2025",
+        "dur":  "2m 25s",
+        "score":  65,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/11/2025",
+        "dur":  "2m 0s",
+        "score":  73,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/11/2025",
+        "dur":  "2m 20s",
+        "score":  55,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/11/2025",
+        "dur":  "3m 23s",
+        "score":  65,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/11/2025",
+        "dur":  "11m 50s",
+        "score":  75,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "0m 58s",
+        "score":  65,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "25/02/2026",
+        "dur":  "1m 7s",
+        "score":  21,
+        "scenario":  "ðŸ›Žï¸ RECEPCIONISTA - Lidar com um cliente alcoolizado"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "25/02/2026",
+        "dur":  "0m 48s",
+        "score":  46,
+        "scenario":  "ðŸ›Žï¸ RECEPCIONISTA - Lidar com um cliente alcoolizado"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/02/2026",
+        "dur":  "1m 55s",
+        "score":  50,
+        "scenario":  "ðŸ›Žï¸ RECEPCIONISTA - Lidar com um cliente alcoolizado"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/11/2025",
+        "dur":  "0m 52s",
+        "score":  65,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "18/11/2025",
+        "dur":  "1m 1s",
+        "score":  55,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "18/11/2025",
+        "dur":  "1m 24s",
+        "score":  35,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "18/11/2025",
+        "dur":  "0m 58s",
+        "score":  25,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "18/11/2025",
+        "dur":  "1m 12s",
+        "score":  17,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "18/11/2025",
+        "dur":  "1m 19s",
+        "score":  35,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "28/11/2025",
+        "dur":  "1m 3s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "01/12/2025",
+        "dur":  "0m 51s",
+        "score":  45,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/04/2026",
+        "dur":  "1m 28s",
+        "score":  31,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "09/12/2025",
+        "dur":  "1m 46s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "09/12/2025",
+        "dur":  "0m 43s",
+        "score":  25,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "09/12/2025",
+        "dur":  "1m 0s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "09/12/2025",
+        "dur":  "0m 55s",
+        "score":  65,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "09/12/2025",
+        "dur":  "0m 45s",
+        "score":  35,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "17/12/2025",
+        "dur":  "1m 30s",
+        "score":  12,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "22/12/2025",
+        "dur":  "2m 24s",
+        "score":  72,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "25/12/2025",
+        "dur":  "1m 52s",
+        "score":  25,
+        "scenario":  "ðŸ›Žï¸ RECEPCIONISTA - Lidar com um cliente alcoolizado"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "12/02/2026",
+        "dur":  "1m 40s",
+        "score":  30,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "05/02/2026",
+        "dur":  "1m 46s",
+        "score":  35,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "05/02/2026",
+        "dur":  "1m 2s",
+        "score":  25,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "25/02/2026",
+        "dur":  "1m 5s",
+        "score":  72,
+        "scenario":  "ðŸ›Žï¸ RECEPCIONISTA - Lidar com um cliente alcoolizado"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "24/04/2026",
+        "dur":  "2m 25s",
+        "score":  52,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "30/03/2026",
+        "dur":  "1m 11s",
+        "score":  52,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "01/04/2026",
+        "dur":  "2m 41s",
+        "score":  52,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "10/04/2026",
+        "dur":  "3m 5s",
+        "score":  41,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "10/04/2026",
+        "dur":  "3m 14s",
+        "score":  42,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "10/04/2026",
+        "dur":  "4m 44s",
+        "score":  52,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "10/04/2026",
+        "dur":  "4m 19s",
+        "score":  52,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "1m 40s",
+        "score":  21,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "3m 45s",
+        "score":  42,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "3m 21s",
+        "score":  57,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "2937m 18s",
+        "score":  41,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "1m 2s",
+        "score":  22,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "2m 40s",
+        "score":  28,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "0m 57s",
+        "score":  48,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/04/2026",
+        "dur":  "1m 9s",
+        "score":  31,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/04/2026",
+        "dur":  "3m 11s",
+        "score":  54,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/04/2026",
+        "dur":  "1m 59s",
+        "score":  46,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/04/2026",
+        "dur":  "5m 38s",
+        "score":  53,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/04/2026",
+        "dur":  "5m 42s",
+        "score":  75,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "15/04/2026",
+        "dur":  "2m 0s",
+        "score":  68,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "16/04/2026",
+        "dur":  "2m 19s",
+        "score":  64,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "16/04/2026",
+        "dur":  "0m 55s",
+        "score":  62,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "16/04/2026",
+        "dur":  "1m 25s",
+        "score":  51,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "13/05/2026",
+        "dur":  "0m 50s",
+        "score":  20,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "20/05/2026",
+        "dur":  "0m 55s",
+        "score":  30,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Sophie GÃ©raud",
+        "date":  "20/05/2026",
+        "dur":  "0m 57s",
+        "score":  21,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "18/11/2025",
+        "dur":  "3m 32s",
+        "score":  74,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "19/11/2025",
+        "dur":  "4m 56s",
+        "score":  74,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "19/11/2025",
+        "dur":  "4m 21s",
+        "score":  72,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "09/12/2025",
+        "dur":  "2m 45s",
+        "score":  75,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "09/12/2025",
+        "dur":  "6m 1s",
+        "score":  72,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "09/12/2025",
+        "dur":  "7m 47s",
+        "score":  78,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "15/12/2025",
+        "dur":  "5m 15s",
+        "score":  72,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "21/05/2026",
+        "dur":  "3m 2s",
+        "score":  77,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Neube Brigagao",
+        "date":  "21/05/2026",
+        "dur":  "9m 9s",
+        "score":  47,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Matheus Barcelos",
+        "date":  "22/12/2025",
+        "dur":  "10m 12s",
+        "score":  85,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Matheus Barcelos",
+        "date":  "07/01/2026",
+        "dur":  "6m 0s",
+        "score":  72,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Enzo Hidde",
+        "date":  "09/12/2025",
+        "dur":  "11m 11s",
+        "score":  78,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Enzo Hidde",
+        "date":  "12/12/2025",
+        "dur":  "18m 28s",
+        "score":  85,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Enzo Hidde",
+        "date":  "07/01/2026",
+        "dur":  "17m 55s",
+        "score":  87,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Enzo Hidde",
+        "date":  "30/01/2026",
+        "dur":  "3m 8s",
+        "score":  75,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Patricia Eckhard",
+        "date":  "09/12/2025",
+        "dur":  "3m 35s",
+        "score":  75,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Jesse Henriques",
+        "date":  "07/01/2026",
+        "dur":  "16m 23s",
+        "score":  78,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "17/11/2025",
+        "dur":  "8m 18s",
+        "score":  75,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "14/11/2025",
+        "dur":  "3m 53s",
+        "score":  75,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "17/11/2025",
+        "dur":  "6m 0s",
+        "score":  70,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "25/02/2026",
+        "dur":  "2m 26s",
+        "score":  41,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "03/03/2026",
+        "dur":  "1m 45s",
+        "score":  57,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "18/11/2025",
+        "dur":  "3m 36s",
+        "score":  75,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "22/12/2025",
+        "dur":  "2m 41s",
+        "score":  72,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "29/12/2025",
+        "dur":  "2m 54s",
+        "score":  75,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "03/02/2026",
+        "dur":  "2m 3s",
+        "score":  55,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "17/04/2026",
+        "dur":  "4m 44s",
+        "score":  74,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "10/03/2026",
+        "dur":  "2m 18s",
+        "score":  41,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "17/04/2026",
+        "dur":  "1m 50s",
+        "score":  42,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "27/04/2026",
+        "dur":  "2m 23s",
+        "score":  51,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "12/04/2026",
+        "dur":  "3m 27s",
+        "score":  69,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "12/04/2026",
+        "dur":  "3m 57s",
+        "score":  67,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "12/04/2026",
+        "dur":  "4m 22s",
+        "score":  53,
+        "scenario":  "âœ¨ RECEPCIONISTA - Transformar o check-out em um momento marcante para consolidar uma impressÃ£o positiva no cliente"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "17/04/2026",
+        "dur":  "2m 56s",
+        "score":  38,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "13/04/2026",
+        "dur":  "3m 56s",
+        "score":  41,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "13/04/2026",
+        "dur":  "4m 11s",
+        "score":  54,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "13/04/2026",
+        "dur":  "6m 1s",
+        "score":  32,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "13/04/2026",
+        "dur":  "4m 14s",
+        "score":  32,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "13/04/2026",
+        "dur":  "4m 53s",
+        "score":  38,
+        "scenario":  "ðŸŽ CONCIERGE - Aconselhar um cliente para um fim de semana de aniversÃ¡rio"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "16/04/2026",
+        "dur":  "2m 41s",
+        "score":  62,
+        "scenario":  "ðŸŒ™ GUEST ATTENDANT - Lidar com um cliente irritado apÃ³s um problema no quarto no meio da noite"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "16/04/2026",
+        "dur":  "3m 13s",
+        "score":  45,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    },
+    {
+        "name":  "Philippe de Langlais",
+        "date":  "12/05/2026",
+        "dur":  "3m 31s",
+        "score":  54,
+        "scenario":  "ðŸ˜  RECEPCIONISTA - Lidar com um cliente que expressa insatisfaÃ§Ã£o"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "5m 51s",
+        "score":  73,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "3m 16s",
+        "score":  78,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "1m 2s",
+        "score":  55,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "1m 0s",
+        "score":  73,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "1m 6s",
+        "score":  77,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 48s",
+        "score":  75,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "1m 7s",
+        "score":  77,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 44s",
+        "score":  47,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 41s",
+        "score":  55,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 44s",
+        "score":  65,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 45s",
+        "score":  72,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 46s",
+        "score":  25,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 43s",
+        "score":  35,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 43s",
+        "score":  55,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 44s",
+        "score":  35,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 36s",
+        "score":  53,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 31s",
+        "score":  25,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 33s",
+        "score":  25,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "15/11/2025",
+        "dur":  "0m 49s",
+        "score":  61,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "16/11/2025",
+        "dur":  "0m 53s",
+        "score":  15,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "16/11/2025",
+        "dur":  "1m 17s",
+        "score":  35,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "16/11/2025",
+        "dur":  "0m 31s",
+        "score":  25,
+        "scenario":  "ðŸ—‘ï¸ [Ã  supprimer]"
+    },
+    {
+        "name":  "Philippe Lepeuple",
+        "date":  "09/12/2025",
+        "dur":  "1m 58s",
+        "score":  65,
+        "scenario":  "ðŸ½ï¸ GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviÃ§o de quarto"
+    }
+];
 
         // ── Inteligência de Dados (Pós-Carregamento) ──
 
         // Primeiro, filtramos as simulações válidas globalmente
         const VALID_SIMS = RAW_SIMULATIONS.filter(s => {
-            const name = s.name.toLowerCase();
+            const name = cleanName(s.name);
             const isInternal = excludedNames.some(ex => name.includes(ex));
             const minInteractions = s.interactions ? s.interactions >= 3 : getSec(s.dur) >= 45;
             return minInteractions && !isInternal;
@@ -2485,7 +3847,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-2" style="margin-top: 2rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
                         <div class="card">
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
                                 <i class="fas fa-fire" style="margin-right: 8px; color: #f59e0b;"></i> ${ui[currentLang].topUseCases}
@@ -2504,6 +3866,23 @@
                             </div>
                         </div>
                         <div class="card">
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
+                                <i class="fas fa-users" style="margin-right: 8px; color: #10b981;"></i> ${ui[currentLang].usageBy}
+                            </h3>
+                            <div id="usage-by-user-list">
+                                ${(() => {
+                    const counts = {};
+                    filteredSims.forEach(s => counts[s.name] = (counts[s.name] || 0) + 1);
+                    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([name, count]) => `
+                                        <div class="perf-item">
+                                            <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;">${name}</span>
+                                            <strong>${count}</strong>
+                                        </div>
+                                    `).join('');
+                })()}
+                            </div>
+                        </div>
+                        <div class="card" style="grid-column: 1 / -1;">
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
                                 <i class="fas fa-chart-bar" style="margin-right: 8px; color: var(--primary);"></i> ${ui[currentLang].trend}
                             </h3>
@@ -2800,7 +4179,17 @@
                             <div class="trend-indicator up" style="background: var(--primary-light); color: var(--primary); margin-bottom: 10px;">
                                 <i class="fas fa-crown"></i> ${ui[currentLang].rankingLabel}: ${dateRank}º
                             </div>
-                            <span class="val" style="font-size: 1.1rem; margin-top: 12px; color: var(--text-muted);">${user.dates.length ? user.dates[user.dates.length - 1] : '--'}</span>
+                            <span class="val" style="font-size: 1.1rem; margin-top: 12px; color: var(--text-muted);">${
+                                (() => {
+                                    if (userFilteredSims.length === 0) return '--';
+                                    const sortedDates = userFilteredSims.map(s => s.date).sort((a, b) => {
+                                        const [d1, m1, y1] = a.split('/');
+                                        const [d2, m2, y2] = b.split('/');
+                                        return new Date(y1, m1 - 1, d1) - new Date(y2, m2 - 1, d2);
+                                    });
+                                    return sortedDates[sortedDates.length - 1];
+                                })()
+                            }</span>
                             <span class="lab">${ui[currentLang].lastSimulation}</span>
                         </div>
                     </div>
