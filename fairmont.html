@@ -1607,24 +1607,33 @@
             return s.replace(/Ã§/g, 'ç').replace(/Ã£/g, 'ã').replace(/Ã©/g, 'é').replace(/Ãª/g, 'ê').replace(/Ã³/g, 'ó').replace(/Ã¡/g, 'á').replace(/Ã­/g, 'í').replace(/Ã /g, 'à');
         }
 
-        function fmtDate(d) {
-            if (!d || typeof d !== 'string') return d;
-            const parts = d.split('-');
-            if (parts.length !== 3) return d;
-            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        function translateScenario(sc) {
+            if (!sc) return "";
+            const scl = sc.toLowerCase();
+            if (scl.includes("anivers") || scl.includes("annivers")) {
+                return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
+            }
+            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("room service")) {
+                return currentLang === 'pt' ? "🍽️ ROOM SERVICE – Escolha do prato" : "🍽️ ROOM SERVICE – Choix du plat";
+            }
+            if (scl.includes("insatis")) {
+                return currentLang === 'pt' ? "🛎️ RECEPÇÃO – Cliente insatisfeito" : "🛎️ RÉCEPTION – Client insatisfait";
+            }
+            if (scl.includes("check")) {
+                return currentLang === 'pt' ? "✨ RECEPÇÃO – Check-out marcante" : "✨ RÉCEPTION – Check-out mémorable";
+            }
+            if (scl.includes("noite") || scl.includes("nuit")) {
+                return currentLang === 'pt' ? "🌙 GUEST ATTENDANT – Problema noturno" : "🌙 GUEST ATTENDANT – Problème nocturne";
+            }
+            if (scl.includes("alcool") || scl.includes("ivre")) {
+                return currentLang === 'pt' ? "🛌 RECEPÇÃO – Cliente alcoolizado" : "🛌 RÉCEPTION – Client alcoolisé";
+            }
+            if (scl.includes("minibar")) {
+                return currentLang === 'pt' ? "🍷 RECEPÇÃO – Consumo minibar" : "🍷 RÉCEPTION – Consommation minibar";
+            }
+            return sc;
         }
 
-        function translateScenario(sc) {
-            if (currentLang === 'pt') return sc;
-            let res = sc;
-            res = res.replace(/RECEPCIONISTA/g, "RÉCEPTIONNISTE");
-            res = res.replace("Lidar com um cliente que expressa insatisfação", "Gérer un client exprimant son insatisfaction");
-            res = res.replace("Aconselhar um cliente para um fim de semana de aniversário", "Conseiller un client pour un week-end d'anniversaire");
-            res = res.replace("Aconselhar um cliente sobre a escolha do prato no serviço de quarto", "Conseiller un client sur le choix du plat au room service");
-            res = res.replace("Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente", "Transformer le check-out en un moment mémorable pour consolider une impression positive");
-            res = res.replace("Lidar com um cliente irritado após um problema no quarto no meio da noite", "Gérer un client en colère après un problème en chambre au milieu de la nuit");
-            return res;
-        }
 
         function animateValue(obj, start, end, duration, suffix = '') {
             let startTimestamp = null;
@@ -1855,30 +1864,29 @@
         // ── Helper: Tradução de Cenários ──
         function translateScenario(sc) {
             if (!sc) return "";
-            const mapping = {
-                "GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto": {
-                    pt: "🍽️ ROOM SERVICE – Escolha do prato",
-                    fr: "🍽️ ROOM SERVICE – Choix du plat"
-                },
-                "CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário": {
-                    pt: "🎁 CONCIERGE – Fim de semana de aniversário",
-                    fr: "🎁 CONCIERGE – Week-end d'anniversaire"
-                },
-                "RECEPCIONISTA – Lidar com um cliente que expressa insatisfação": {
-                    pt: "🛎️ RECEPÇÃO – Cliente insatisfeito",
-                    fr: "🛎️ RÉCEPTION – Client insatisfait"
-                },
-                "GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite": {
-                    pt: "🌙 GUEST ATTENDANT – Problema noturno",
-                    fr: "🌙 GUEST ATTENDANT – Problème nocturne"
-                },
-                "RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente": {
-                    pt: "✨ RECEPÇÃO – Check-out marcante",
-                    fr: "✨ RÉCEPTION – Check-out mémorable"
-                }
-            };
-            const match = mapping[sc];
-            return match ? (match[currentLang] || match.pt) : sc;
+            const scl = sc.toLowerCase();
+            if (scl.includes("anivers") || scl.includes("annivers")) {
+                return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
+            }
+            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("room service")) {
+                return currentLang === 'pt' ? "🍽️ ROOM SERVICE – Escolha do prato" : "🍽️ ROOM SERVICE – Choix du plat";
+            }
+            if (scl.includes("insatis")) {
+                return currentLang === 'pt' ? "🛎️ RECEPÇÃO – Cliente insatisfeito" : "🛎️ RÉCEPTION – Client insatisfait";
+            }
+            if (scl.includes("check")) {
+                return currentLang === 'pt' ? "✨ RECEPÇÃO – Check-out marcante" : "✨ RÉCEPTION – Check-out mémorable";
+            }
+            if (scl.includes("noite") || scl.includes("nuit")) {
+                return currentLang === 'pt' ? "🌙 GUEST ATTENDANT – Problema noturno" : "🌙 GUEST ATTENDANT – Problème nocturne";
+            }
+            if (scl.includes("alcool") || scl.includes("ivre")) {
+                return currentLang === 'pt' ? "🛌 RECEPÇÃO – Cliente alcoolizado" : "🛌 RÉCEPTION – Client alcoolisé";
+            }
+            if (scl.includes("minibar")) {
+                return currentLang === 'pt' ? "🍷 RECEPÇÃO – Consumo minibar" : "🍷 RÉCEPTION – Consommation minibar";
+            }
+            return sc;
         }
 
         function hideSimNav() {
