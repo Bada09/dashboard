@@ -13675,11 +13675,7 @@
             VALID_SIMS.forEach((s, i) => {
                 if (filterUser && s.name !== filterUser) return;
 
-                const sc = s.scenario.toUpperCase();
-                let area = "Outros";
-                if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
-                else if (sc.includes("CONCIERGE")) area = "Concierge";
-                else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
+                let area = getArea(s.scenario);
 
                 if (filterArea && area !== filterArea) return;
                 if (currentFilterUseCase && s.scenario !== currentFilterUseCase) return;
@@ -13717,11 +13713,7 @@
             const filtered = VALID_SIMS.filter(s => {
                 if (currentFilterUser && cleanName(s.name) !== cleanName(currentFilterUser)) return false;
                 if (currentFilterArea) {
-                    const sc = s.scenario.toUpperCase();
-                    let area = "Outros";
-                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
-                    else if (sc.includes("CONCIERGE")) area = "Concierge";
-                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
+                    let area = getArea(s.scenario);
                     if (area !== currentFilterArea) return false;
                 }
                 if (currentFilterStatus) {
@@ -13935,11 +13927,7 @@
             const filtered = VALID_SIMS.filter(s => {
                 if (currentFilterUser && cleanName(s.name) !== cleanName(currentFilterUser)) return false;
                 if (currentFilterArea) {
-                    const sc = s.scenario.toUpperCase();
-                    let area = "Outros";
-                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
-                    else if (sc.includes("CONCIERGE")) area = "Concierge";
-                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
+                    let area = getArea(s.scenario);
                     if (area !== currentFilterArea) return false;
                 }
                 return true;
@@ -14593,6 +14581,15 @@
                 li.innerText = fixEnc(txt);
                 insightBox.appendChild(li);
             });
+
+            // Flags
+            const langBox = document.getElementById('u-langs');
+            if (langBox) {
+                const flags = { PT: '🇧🇷 PT-BR', FR: '🇫🇷 FR', EN: '🇺🇸 EN' };
+                (user.languages || []).forEach(l => {
+                    langBox.innerHTML += `<span class="lang-badge">${flags[l] || l}</span>`;
+                });
+            }
 
             // Matriz de Competências
             const skillsDiv = document.getElementById('u-skills');
