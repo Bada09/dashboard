@@ -1,6 +1,8 @@
 const RAW_SIMULATIONS = [
     {
         "name": "Juliana Pedrão",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "19/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -21,6 +23,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Juliana Pedrão",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "19/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -53,6 +57,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Juliana Pedrão",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "25/06/2026",
         "dur": "0m 50s",
         "score": 32,
@@ -93,6 +99,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "16/06/2026",
         "dur": "2m 46s",
         "score": 46,
@@ -153,6 +161,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "16/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -169,6 +179,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "16/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -185,6 +197,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "16/06/2026",
         "dur": "0m 23s",
         "score": 0,
@@ -205,6 +219,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "16/06/2026",
         "dur": "1m 31s",
         "score": 41,
@@ -257,6 +273,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "1m 54s",
         "score": 15,
@@ -297,6 +315,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "6m 2s",
         "score": 77,
@@ -365,6 +385,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "3m 25s",
         "score": 47,
@@ -417,6 +439,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "6m 29s",
         "score": 68,
@@ -529,6 +553,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "2m 14s",
         "score": 23,
@@ -589,6 +615,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "22/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -605,6 +633,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "22/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -625,6 +655,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "22/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -653,6 +685,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "22/06/2026",
         "dur": "5m 32s",
         "score": 58,
@@ -749,6 +783,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "22/06/2026",
         "dur": "4m 6s",
         "score": 41,
@@ -813,6 +849,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "22/06/2026",
         "dur": "3m 1s",
         "score": 81,
@@ -861,6 +899,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -893,6 +933,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -917,6 +959,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "24/06/2026",
         "dur": "8m 11s",
         "score": 83,
@@ -1008,7 +1052,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorilla01",
+        "name": "Monique",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "05/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1028,7 +1074,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Inside3a12",
+        "name": "Eliana",
+        "agency": "Inside",
+        "region": "Rio de Janeiro",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1044,7 +1092,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Inside3a12",
+        "name": "Eliana",
+        "agency": "Inside",
+        "region": "Rio de Janeiro",
         "date": "02/07/2026",
         "dur": "5m 12s",
         "score": 73,
@@ -1124,7 +1174,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Inside3a12",
+        "name": "Eliana",
+        "agency": "Inside",
+        "region": "Rio de Janeiro",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1140,7 +1192,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Inside3a12",
+        "name": "Eliana",
+        "agency": "Inside",
+        "region": "Rio de Janeiro",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1156,7 +1210,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1184,7 +1240,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1208,7 +1266,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "2m 13s",
         "score": 52,
@@ -1260,7 +1320,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "5m 47s",
         "score": 54,
@@ -1348,7 +1410,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1368,7 +1432,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "06/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1388,7 +1454,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "06/07/2026",
         "dur": "13m 55s",
         "score": 45,
@@ -1580,7 +1648,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "06/07/2026",
         "dur": "4m 39s",
         "score": 55,
@@ -1684,7 +1754,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "06/07/2026",
         "dur": "3m 55s",
         "score": 78,
@@ -1768,7 +1840,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "06/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1800,7 +1874,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "date": "06/07/2026",
         "dur": "4m 13s",
         "score": 41,
@@ -1872,7 +1948,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1888,7 +1966,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -1908,7 +1988,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -2052,7 +2134,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "1m 44s",
         "score": 31,
@@ -2104,7 +2188,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -2120,7 +2206,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -2136,7 +2224,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -2152,7 +2242,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "5m 25s",
         "score": 42,
@@ -2264,7 +2356,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Marcelo Bernardes",
+        "name": "Marcelo",
+        "agency": "Rivo Rio",
+        "region": "Rio de Janeiro",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -2280,7 +2374,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Marcelo Bernardes",
+        "name": "Marcelo",
+        "agency": "Rivo Rio",
+        "region": "Rio de Janeiro",
         "date": "04/07/2026",
         "dur": "3m 0s",
         "score": 56,
@@ -2364,7 +2460,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Marcelo Bernardes",
+        "name": "Marcelo",
+        "agency": "Rivo Rio",
+        "region": "Rio de Janeiro",
         "date": "06/07/2026",
         "dur": "4m 56s",
         "score": 56,
@@ -2516,7 +2614,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "2m 49s",
         "score": 0,
@@ -2584,7 +2684,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -2600,7 +2702,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "3m 36s",
         "score": 41,
@@ -2712,7 +2816,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "5m 39s",
         "score": 0,
@@ -2832,7 +2938,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "6m 15s",
         "score": 0,
@@ -2928,7 +3036,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "6m 2s",
         "score": 0,
@@ -3084,7 +3194,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "13m 21s",
         "score": 65,
@@ -3336,7 +3448,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "5m 12s",
         "score": 79,
@@ -3476,7 +3590,9 @@ const RAW_SIMULATIONS = [
         "finished": true
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -3540,7 +3656,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -3620,7 +3738,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "date": "03/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -3697,6 +3817,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "João Pedro",
+        "agency": "Apice",
+        "region": "Salvador",
         "date": "02/07/2026",
         "dur": "7m 7s",
         "score": 0,
@@ -3785,6 +3907,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "João Pedro",
+        "agency": "Apice",
+        "region": "Salvador",
         "date": "02/07/2026",
         "dur": "6m 38s",
         "score": 0,
@@ -3825,6 +3949,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "João Pedro",
+        "agency": "Apice",
+        "region": "Salvador",
         "date": "02/07/2026",
         "dur": "4m 19s",
         "score": 0,
@@ -3848,7 +3974,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Michele Geracao12a24",
+        "name": "Michele",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -3868,7 +3996,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Michele Geracao12a24",
+        "name": "Michele",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -3924,7 +4054,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Michele Geracao12a24",
+        "name": "Michele",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "06/07/2026",
         "dur": "1379m 13s",
         "score": 0,
@@ -3940,7 +4072,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Geracao Lu.Parceiro",
+        "name": "Alexandre Feitosa",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -3960,7 +4094,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Geracao Lu.Parceiro",
+        "name": "Alexandre Feitosa",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -3996,7 +4132,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Geracao Lu.Parceiro",
+        "name": "Alexandre Feitosa",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4060,7 +4198,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Geracao Lu.Parceiro",
+        "name": "Alexandre Feitosa",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4144,7 +4284,9 @@ const RAW_SIMULATIONS = [
         "finished": false
     },
     {
-        "name": "Parceira Ark",
+        "name": "Aline Almeida",
+        "agency": "Ark",
+        "region": "São Paulo",
         "date": "07/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4177,6 +4319,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "06/05/2026",
         "dur": "1m 55s",
         "score": 23,
@@ -4213,6 +4357,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "06/05/2026",
         "dur": "0m 52s",
         "score": 25,
@@ -4257,6 +4403,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "06/05/2026",
         "dur": "1m 24s",
         "score": 35,
@@ -4301,6 +4449,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "06/05/2026",
         "dur": "0m 57s",
         "score": 21,
@@ -4337,6 +4487,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4353,6 +4505,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4369,6 +4523,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4385,6 +4541,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4401,6 +4559,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4417,6 +4577,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4433,6 +4595,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4449,6 +4613,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4465,6 +4631,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4481,6 +4649,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4497,6 +4667,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4513,6 +4685,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4529,6 +4703,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4545,6 +4721,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4561,6 +4739,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4581,6 +4761,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "9m 23s",
         "score": 54,
@@ -4757,6 +4939,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -4857,6 +5041,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "1m 45s",
         "score": 24,
@@ -4901,6 +5087,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "1m 36s",
         "score": 0,
@@ -4937,6 +5125,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 54s",
         "score": 30,
@@ -4973,6 +5163,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -5045,6 +5237,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -5065,6 +5259,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -5125,6 +5321,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "GerenteSp Parceira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "06/07/2026",
         "dur": "1m 44s",
         "score": 61,
@@ -5165,6 +5363,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/04/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -5193,6 +5393,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/04/2026",
         "dur": "6m 15s",
         "score": 0,
@@ -5333,6 +5535,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -5469,6 +5673,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "6m 41s",
         "score": 64,
@@ -5573,6 +5779,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -5697,6 +5905,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "10m 59s",
         "score": 67,
@@ -5861,6 +6071,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "5m 4s",
         "score": 86,
@@ -5957,6 +6169,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6117,6 +6331,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "4m 22s",
         "score": 88,
@@ -6205,6 +6421,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "19/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6233,6 +6451,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6253,6 +6473,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6281,6 +6503,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6317,6 +6541,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6345,6 +6571,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6365,6 +6593,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6409,6 +6639,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6485,6 +6717,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6521,6 +6755,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -6589,6 +6825,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "12m 4s",
         "score": 48,
@@ -6689,6 +6927,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "9m 55s",
         "score": 72,
@@ -6853,6 +7093,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "01/07/2026",
         "dur": "9m 20s",
         "score": 52,
@@ -7009,6 +7251,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "01/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -7045,6 +7289,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "01/07/2026",
         "dur": "8m 57s",
         "score": 55,
@@ -7217,6 +7463,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "01/07/2026",
         "dur": "8m 51s",
         "score": 36,
@@ -7365,6 +7613,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "01/07/2026",
         "dur": "1m 39s",
         "score": 12,
@@ -7409,6 +7659,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "7m 35s",
         "score": 49,
@@ -7549,6 +7801,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "9m 32s",
         "score": 37,
@@ -7713,6 +7967,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "6m 54s",
         "score": 54,
@@ -7853,6 +8109,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "6m 36s",
         "score": 42,
@@ -7969,6 +8227,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8041,6 +8301,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "7m 13s",
         "score": 83,
@@ -8189,6 +8451,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8273,6 +8537,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8373,6 +8639,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8409,6 +8677,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "6m 17s",
         "score": 85,
@@ -8525,6 +8795,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "7m 9s",
         "score": 54,
@@ -8649,6 +8921,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8765,6 +9039,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8793,6 +9069,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "15/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8869,6 +9147,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "15/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8897,6 +9177,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8913,6 +9195,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "19/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -8933,6 +9217,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "2m 17s",
         "score": 28,
@@ -8981,6 +9267,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9009,6 +9297,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9041,6 +9331,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "6m 9s",
         "score": 41,
@@ -9141,6 +9433,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9161,6 +9455,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9177,6 +9473,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9193,6 +9491,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9213,6 +9513,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "6m 19s",
         "score": 0,
@@ -9293,6 +9595,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9317,6 +9621,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9337,6 +9643,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "2m 55s",
         "score": 56,
@@ -9393,6 +9701,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "23/06/2026",
         "dur": "6m 11s",
         "score": 84,
@@ -9465,6 +9775,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "24/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9501,6 +9813,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "24/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9537,6 +9851,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9561,6 +9877,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9581,6 +9899,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "5m 16s",
         "score": 0,
@@ -9653,6 +9973,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "2m 15s",
         "score": 0,
@@ -9705,6 +10027,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "1m 45s",
         "score": 93,
@@ -9741,6 +10065,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9761,6 +10087,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -9789,6 +10117,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "2m 44s",
         "score": 37,
@@ -9841,6 +10171,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "2m 34s",
         "score": 0,
@@ -9897,6 +10229,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "5m 30s",
         "score": 81,
@@ -9953,6 +10287,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "16m 32s",
         "score": 85,
@@ -10009,6 +10345,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "29/06/2026",
         "dur": "377m 59s",
         "score": 72,
@@ -10081,6 +10419,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "3m 16s",
         "score": 68,
@@ -10153,6 +10493,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "1m 33s",
         "score": 0,
@@ -10193,6 +10535,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -10213,6 +10557,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "2m 34s",
         "score": 0,
@@ -10269,6 +10615,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "3m 24s",
         "score": 0,
@@ -10329,6 +10677,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "04/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -10365,6 +10715,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "04/05/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -10481,6 +10833,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "4m 20s",
         "score": 38,
@@ -10609,6 +10963,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "3m 58s",
         "score": 32,
@@ -10677,6 +11033,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "12/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -10701,6 +11059,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "19/06/2026",
         "dur": "2m 8s",
         "score": 38,
@@ -10749,6 +11109,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "28/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -10773,6 +11135,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "4m 55s",
         "score": 37,
@@ -10869,6 +11233,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -10897,6 +11263,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "02/07/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -10913,6 +11281,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe de Langlais",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "04/05/2026",
         "dur": "1m 53s",
         "score": 32,
@@ -10973,6 +11343,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe de Langlais",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "05/05/2026",
         "dur": "3m 16s",
         "score": 44,
@@ -11049,6 +11421,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe de Langlais",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "13/05/2026",
         "dur": "8m 54s",
         "score": 34,
@@ -11193,6 +11567,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe de Langlais",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "18/06/2026",
         "dur": "0m 0s",
         "score": 0,
@@ -11245,6 +11621,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe de Langlais",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "7m 28s",
         "score": 48,
@@ -11377,6 +11755,8 @@ const RAW_SIMULATIONS = [
     },
     {
         "name": "Philippe de Langlais",
+        "agency": "Outros",
+        "region": "Outros",
         "date": "30/06/2026",
         "dur": "7m 5s",
         "score": 41,

@@ -23,6 +23,8 @@ const users = [
             ]
         },
         "name": "Juliana Pedrão",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 20.0,
         "languages": [
             "PT"
@@ -67,6 +69,8 @@ const users = [
             ]
         },
         "name": "Carolina Bandeliauskas",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 51.2,
         "languages": [
             "PT"
@@ -107,7 +111,9 @@ const users = [
                 "Améliorer la posture éthique et l'empathie à l'ouverture."
             ]
         },
-        "name": "Parceiro Gorilla01",
+        "name": "Monique",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "PT"
@@ -148,7 +154,9 @@ const users = [
                 "Utiliser le choix forcé pour proposer des créneaux."
             ]
         },
-        "name": "Parceiro Inside3a12",
+        "name": "Eliana",
+        "agency": "Inside",
+        "region": "Rio de Janeiro",
         "lqaScore": 58.0,
         "languages": [
             "PT"
@@ -191,7 +199,9 @@ const users = [
                 "Utiliser le choix forcé pour proposer des créneaux."
             ]
         },
-        "name": "Parceiro Apice24mais",
+        "name": "Debora Alves",
+        "agency": "Apice",
+        "region": "São Paulo",
         "lqaScore": 58.0,
         "languages": [
             "PT",
@@ -226,7 +236,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Gorilla12a24",
+        "name": "Suelen Arrigo",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -257,7 +269,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Gorilla24mais",
+        "name": "Luis Jorge",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -288,7 +302,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Insidelu",
+        "name": "Mauro Omarini",
+        "agency": "Inside",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -329,7 +345,9 @@ const users = [
                 "Utiliser le choix forcé pour proposer des créneaux."
             ]
         },
-        "name": "Parceiro Geracao3a12",
+        "name": "Fabi",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "lqaScore": 21.5,
         "languages": [
             "PT",
@@ -371,7 +389,9 @@ const users = [
                 "Utiliser le choix forcé pour proposer des créneaux."
             ]
         },
-        "name": "Marcelo Bernardes",
+        "name": "Marcelo",
+        "agency": "Rivo Rio",
+        "region": "Rio de Janeiro",
         "lqaScore": 82.5,
         "languages": [
             "PT"
@@ -406,7 +426,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Apice12a24",
+        "name": "Lucas Mendes",
+        "agency": "Apice",
+        "region": "Salvador",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -437,7 +459,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Apice3a12",
+        "name": "Leonardo Oliveira",
+        "agency": "Apice",
+        "region": "Salvador",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -478,7 +502,9 @@ const users = [
                 "Utiliser le choix forcé pour proposer des créneaux."
             ]
         },
-        "name": "Parceiro Gorillalu",
+        "name": "João Maldonado",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "lqaScore": 61.4,
         "languages": [
             "PT",
@@ -512,7 +538,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Inside24mais",
+        "name": "Wilson Arita",
+        "agency": "Inside",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -552,6 +580,8 @@ const users = [
             ]
         },
         "name": "João Pedro",
+        "agency": "Apice",
+        "region": "Salvador",
         "lqaScore": 57.0,
         "languages": [
             "PT"
@@ -584,7 +614,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Geracao0a3",
+        "name": "Yan",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -619,7 +651,9 @@ const users = [
                 "Améliorer la posture éthique et l'empathie à l'ouverture."
             ]
         },
-        "name": "Michele Geracao12a24",
+        "name": "Michele",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "lqaScore": null,
         "languages": [
             "PT",
@@ -658,7 +692,9 @@ const users = [
                 "Améliorer la posture éthique et l'empathie à l'ouverture."
             ]
         },
-        "name": "Geracao Lu.Parceiro",
+        "name": "Alexandre Feitosa",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "lqaScore": null,
         "languages": [
             "PT",
@@ -697,7 +733,9 @@ const users = [
                 "Améliorer la posture éthique et l'empathie à l'ouverture."
             ]
         },
-        "name": "Parceira Ark",
+        "name": "Aline Almeida",
+        "agency": "Ark",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "PT"
@@ -730,7 +768,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Ark Parceiro",
+        "name": "Luis Sertoni",
+        "agency": "Ark",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -772,10 +812,12 @@ const users = [
             ]
         },
         "name": "Sophie Géraud",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 24.9,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar as 8 etapas MetLife",
@@ -815,6 +857,8 @@ const users = [
             ]
         },
         "name": "GerenteSp Parceira",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 57.0,
         "languages": [
             "PT"
@@ -847,7 +891,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Rivorio3a12",
+        "name": "Camila Barbosa",
+        "agency": "Rivo Rio",
+        "region": "Rio de Janeiro",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -878,7 +924,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "parceiro inside0a3",
+        "name": "Maicon",
+        "agency": "Inside",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -909,7 +957,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Geracao24mais",
+        "name": "Thiago Montes",
+        "agency": "Geração",
+        "region": "Belo Horizonte",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -940,7 +990,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Gorilla Parceiro3a12",
+        "name": "Maysa",
+        "agency": "Gorilla",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -971,7 +1023,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Apice Lu.2026",
+        "name": "Ivo Cabral",
+        "agency": "Apice",
+        "region": "Salvador",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -1002,7 +1056,9 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Parceiro Luark",
+        "name": "Felipe Prestes",
+        "agency": "Ark",
+        "region": "São Paulo",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -1044,10 +1100,12 @@ const users = [
             ]
         },
         "name": "Philippe Lepeuple",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 55.8,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar as 8 etapas MetLife",
@@ -1085,6 +1143,8 @@ const users = [
             ]
         },
         "name": "Tom Landes",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -1126,6 +1186,8 @@ const users = [
             ]
         },
         "name": "Sabrina Oliveira",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 65.3,
         "languages": [
             "PT"
@@ -1177,6 +1239,8 @@ const users = [
             ]
         },
         "name": "Tabajara Dias",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 35.2,
         "languages": [
             "PT"
@@ -1216,6 +1280,8 @@ const users = [
             ]
         },
         "name": "Fernando Godoy",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": null,
         "languages": [
             "FR"
@@ -1257,6 +1323,8 @@ const users = [
             ]
         },
         "name": "Philippe de Langlais",
+        "agency": "Outros",
+        "region": "Outros",
         "lqaScore": 27.8,
         "languages": [
             "PT"
