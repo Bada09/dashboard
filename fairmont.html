@@ -8994,13 +8994,17 @@
             const name = s.name.toLowerCase();
             const isInternal = excludedNames.some(ex => name.includes(ex));
             const minInteractions = s.interactions ? s.interactions >= 3 : getSec(s.dur) >= 45;
-            return minInteractions && !isInternal;
+            const hasScore = s.score !== null && s.score !== undefined;
+            return minInteractions && !isInternal && hasScore;
         });
 
         // Agora derivamos os usuários ativos APENAS de simulações válidas
         const activeUsers = [...new Set(VALID_SIMS.map(s => s.name))].map(name => {
             const userSims = VALID_SIMS.filter(s => s.name === name);
-            const avgScore = Math.round(userSims.reduce((a, b) => a + b.score, 0) / userSims.length);
+            const scoredSims = userSims.filter(s => s.score !== null && s.score !== undefined);
+            const avgScore = scoredSims.length > 0
+                ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length)
+                : 0;
             const original = (typeof users !== 'undefined' ? users : []).find(u => cleanName(u.name) === cleanName(name)) || {};
             
             return {
@@ -9205,42 +9209,21 @@
                                 </div>
                                 <ul class="bullet-list">
                                 ${(() => {
-                                    const allInsights = user.insights[currentLang] || [];
-                                    const scenarioContext = {
-                                        "GUEST ATTENDANT - Aconselhar um cliente sobre a escolha do prato no serviço de quarto": {
-                                            pt: "Foco em padrões de serviço de mesa e agilidade no pedido.",
-                                            fr: "Focus sur les standards de service à table et rapidité de commande."
-                                        },
-                                        "CONCIERGE – Aconselhar um cliente para um fim de semana de aniversário": {
-                                            pt: "Análise de assertividade nas recomendações e tom acolhedor.",
-                                            fr: "Analyse de l'assertivité des recommandations et ton accueillant."
-                                        },
-                                        "RECEPCIONISTA – Lidar com um cliente que expressa insatisfação": {
-                                            pt: "Avaliação do protocolo de recepção e uso do nome do hóspede.",
-                                            fr: "Évaluation du protocole de réception et utilisation du nom du client."
-                                        },
-                                        "GUEST ATTENDANT - Lidar com um cliente irritado após um problema no quarto no meio da noite": {
-                                            pt: "Foco em inteligência emocional e resolução sob pressão.",
-                                            fr: "Focus sur l'intelligence émotionnelle et résolution sous pression."
-                                        },
-                                        "RECEPCIONISTA – Transformar o check-out em um momento marcante para consolidar uma impressão positiva no cliente": {
-                                            pt: "Análise de clareza técnica e prazos de resolução.",
-                                            fr: "Analyse de la clarté technique et des délais de résolution."
-                                        }
-                                    };
-                                    
-                                    const contextText = scenarioContext[sim.scenario] ? (scenarioContext[sim.scenario][currentLang] || scenarioContext[sim.scenario].pt) : "";
-                                    const contextNote = `<li><strong>${ui[currentLang].contextLabel}</strong> ${contextText}</li>`;
-                                    
-                                    if (!allInsights.length) return contextNote + `<li>${ui[currentLang].noFeedback}</li>`;
-                                    
-                                    const count = allInsights.length;
-                                    // Jumping selection for more variety
-                                    const p1 = (localIndex * 2) % count;
-                                    const p2 = (localIndex * 2 + 1) % count;
-                                    const selected = [...new Set([allInsights[p1], allInsights[p2]])];
-                                    
-                                    return contextNote + selected.map(txt => `<li>${fixEnc(txt)}</li>`).join('');
+                                    const rawFeedback = sim.feedback || '';
+                                    if (!rawFeedback) {
+                                        return `<li>${ui[currentLang].noFeedback}</li>`;
+                                    }
+                                    // Converter markdown basico para HTML legivel
+                                    const fb = rawFeedback
+                                        .replace(/\{\{[^}]+\}\}/g, '')
+                                        .replace(/###\s*(.+)/g, '<br><strong style="color:var(--accent);font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;">$1</strong><br>')
+                                        .replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0.5rem 0;">')
+                                        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                                        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                                        .replace(/^[\-•]\s+(.+)/gm, '<li style="margin-bottom:0.3rem;">$1</li>')
+                                        .replace(/\n{2,}/g, '<br><br>')
+                                        .replace(/\n/g, '<br>');
+                                    return `<div style="font-size:0.88rem;line-height:1.65;color:var(--text-secondary);">${fixEnc(fb)}</div>`;
                                 })()}
                             </ul>
                             </div>
