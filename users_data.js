@@ -69,8 +69,8 @@ const users = [
         "name": "Sophie Géraud",
         "lqaScore": 42.6,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -315,8 +315,8 @@ const users = [
         "name": "Tabajara Dias",
         "lqaScore": 53.7,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -515,8 +515,8 @@ const users = [
         "name": "Gabrielli Mattos",
         "lqaScore": 61.6,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -570,8 +570,8 @@ const users = [
         "name": "Neube Brigagao",
         "lqaScore": 72.3,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -615,8 +615,8 @@ const users = [
         "name": "Matheus Barcelos",
         "lqaScore": 78.5,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -657,8 +657,8 @@ const users = [
         "name": "Enzo Hidde",
         "lqaScore": 75.8,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -703,8 +703,8 @@ const users = [
         "name": "Patricia Eckhard",
         "lqaScore": 52.7,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -855,8 +855,8 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {

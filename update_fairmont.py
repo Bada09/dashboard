@@ -4,10 +4,12 @@ import datetime
 import math
 import random
 import os
+import subprocess
 
 DUMP_FILE = 'dump-Fairmont-10aug26-10h28.json'
 HTML_FILE = 'fairmont.html'
 USERS_DATA_FILE = 'users_data.js'
+GITHUB_PAGES_URL = 'https://bada09.github.io/dashboard/fairmont.html'
 
 print(f"=== Carregando dump: {DUMP_FILE} ===")
 with open(DUMP_FILE, 'r', encoding='utf-8') as f:
@@ -158,14 +160,12 @@ def translate_feedback_to_portuguese(fb):
     if not fb:
         return ""
     
-    # 1. Checagem exata por prefixo/conteúdo mapeado
     fb_clean = fb.replace('\n', ' ').replace('’', "'").strip()
     for prefix, pt_text in TRANSLATIONS.items():
         prefix_clean = prefix.replace('\n', ' ').replace('’', "'").strip()[:35]
         if prefix_clean.lower() in fb_clean.lower():
             return pt_text
 
-    # 2. Tradução / Ajuste de cabeçalhos e termos em francês/espanhol/inglês
     res = fb
     res = res.replace("Voici le debriefing de notre échange.", "Aqui está o debriefing da nossa conversa.")
     res = res.replace("Voici le débriefing de notre échange.", "Aqui está o debriefing da nossa conversa.")
@@ -180,7 +180,6 @@ def translate_feedback_to_portuguese(fb):
     res = res.replace("Aquí está el debriefing de nuestra interacción.", "Aqui está o debriefing da nossa interação.")
     res = res.replace("Aquí está el debriefing de nuestra conversación.", "Aqui está o debriefing da nossa conversa.")
 
-    # Seções
     res = res.replace("Points forts de l'intervention", "Pontos fortes da intervenção")
     res = res.replace("Points forts de l’intervention", "Pontos fortes da intervenção")
     res = res.replace("Point fort de l’intervention", "Ponto forte da intervenção")
@@ -501,3 +500,24 @@ print(f"   Simulações inseridas: {len(simulations)}")
 print(f"   Com score avaliado  : {scored_count}")
 unique_colabs = len(set(s['name'] for s in simulations if s['name'].lower() not in excluded_names))
 print(f"   Colaboradores únicos: {unique_colabs}")
+
+# ─── 6. Publicação Automática no GitHub ───────────────────────────────────────
+print("\n=== Publicando alterações no GitHub... ===")
+try:
+    now_str = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+    commit_msg = f"Auto-update Fairmont dashboard ({now_str})"
+    
+    subprocess.run(["git", "add", HTML_FILE, USERS_DATA_FILE, "update_fairmont.py", "update_fairmont_data.ps1"], check=True)
+    
+    # Commit se houver alterações
+    diff_status = subprocess.run(["git", "diff", "--staged", "--quiet"])
+    if diff_status.returncode != 0:
+        subprocess.run(["git", "commit", "-m", commit_msg], check=True)
+        subprocess.run(["git", "push", "origin", "main"], check=True)
+        print("✅ Publicação concluída com sucesso no GitHub!")
+    else:
+        print("ℹ️ Nenhuma alteração pendente para commit.")
+        
+    print(f"🌐 Link online: {GITHUB_PAGES_URL}")
+except Exception as ex:
+    print(f"⚠️ Atenção ao publicar no Git: {ex}")
