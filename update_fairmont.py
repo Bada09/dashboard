@@ -4,7 +4,14 @@ import datetime
 import math
 import random
 import os
+import sys
 import subprocess
+
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 DUMP_FILE = 'dump-Fairmont-10aug26-10h28.json'
 HTML_FILE = 'fairmont.html'
@@ -509,15 +516,14 @@ try:
     
     subprocess.run(["git", "add", HTML_FILE, USERS_DATA_FILE, "update_fairmont.py", "update_fairmont_data.ps1"], check=True)
     
-    # Commit se houver alterações
     diff_status = subprocess.run(["git", "diff", "--staged", "--quiet"])
     if diff_status.returncode != 0:
         subprocess.run(["git", "commit", "-m", commit_msg], check=True)
         subprocess.run(["git", "push", "origin", "main"], check=True)
-        print("✅ Publicação concluída com sucesso no GitHub!")
+        print(">> Publicacao concluida com sucesso no GitHub!")
     else:
-        print("ℹ️ Nenhuma alteração pendente para commit.")
+        print(">> Nenhuma alteracao pendente para commit (ja esta sincronizado).")
         
-    print(f"🌐 Link online: {GITHUB_PAGES_URL}")
+    print(f">> Link online: {GITHUB_PAGES_URL}")
 except Exception as ex:
-    print(f"⚠️ Atenção ao publicar no Git: {ex}")
+    print(f">> Atencao ao publicar no Git: {ex}")
