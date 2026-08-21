@@ -81,8 +81,8 @@ const users = [
         "lqaScore": 42.6,
         "languages": [
             "FR",
-            "EN",
-            "PT"
+            "PT",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -956,8 +956,8 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "FR",
             "EN",
+            "FR",
             "PT"
         ],
         "improvement": {
@@ -1260,8 +1260,8 @@ const users = [
         "lqaScore": 74.7,
         "languages": [
             "FR",
-            "EN",
-            "PT"
+            "PT",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1716,8 +1716,8 @@ const users = [
         "lqaScore": 52.0,
         "languages": [
             "FR",
-            "EN",
-            "PT"
+            "PT",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",

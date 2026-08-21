@@ -12796,20 +12796,43 @@
         }
 
         function loadSheetJS(callback) {
-            if (window.XLSX) {
+            if (window.XLSX && window.XLSX.utils && window.XLSX.utils.book_new) {
+                // If already loaded xlsx-js-style, invoke callback
                 callback();
                 return;
             }
+            // Reset standard sheetjs if loaded previously
+            window.XLSX = undefined;
             const script = document.createElement('script');
-            script.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
+            script.src = "https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js";
             script.onload = callback;
             document.head.appendChild(script);
         }
 
         function exportExcel() {
             loadSheetJS(() => {
-                const rows = [];
-                rows.push([
+                const worksheet = {};
+                worksheet['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 8 } }];
+                
+                // Row 1 - Merged Title
+                const titleCell = {
+                    v: "CONTROLE USUÁRIOS RHAPSODY",
+                    t: "s",
+                    s: {
+                        fill: { patternType: "solid", fgColor: { rgb: "B7DEE8" } },
+                        font: { sz: 14, bold: true, color: { rgb: "17365D" } },
+                        alignment: { horizontal: "center", vertical: "center" }
+                    }
+                };
+                worksheet['A1'] = titleCell;
+                // Fill other merged cells with light blue fill style
+                for (let c = 1; c <= 8; c++) {
+                    const cellRef = XLSX.utils.encode_cell({ r: 0, c: c });
+                    worksheet[cellRef] = { v: "", t: "s", s: { fill: { patternType: "solid", fgColor: { rgb: "B7DEE8" } } } };
+                }
+
+                // Row 2 - Headers
+                const headers = [
                     'Equipe',
                     'Usuário',
                     'Nome',
@@ -12819,8 +12842,25 @@
                     'Totais de acesso',
                     'Média de tempo',
                     'Classificação no ranking'
-                ]);
+                ];
                 
+                const headerStyle = {
+                    fill: { patternType: "solid", fgColor: { rgb: "17365D" } },
+                    font: { sz: 11, bold: true, color: { rgb: "FFFFFF" } },
+                    alignment: { horizontal: "center", vertical: "center" }
+                };
+
+                headers.forEach((h, idx) => {
+                    const cellRef = XLSX.utils.encode_cell({ r: 1, c: idx });
+                    worksheet[cellRef] = {
+                        v: h,
+                        t: "s",
+                        s: headerStyle
+                    };
+                });
+
+                // Row 3 onwards - Data
+                let rowIdx = 2;
                 activeUsers.forEach((u, idx) => {
                     const userSims = getFilteredSimulations(u.name);
                     const totalSec = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
@@ -12831,8 +12871,8 @@
                     
                     const lastAccess = u.dates.length > 0 ? u.dates[u.dates.length - 1] : '--';
                     const ranking = idx + 1;
-                    
-                    rows.push([
+
+                    const rowData = [
                         u.equipe,
                         u.username,
                         u.firstName,
@@ -12842,10 +12882,49 @@
                         u.count,
                         mediaTempo,
                         ranking
-                    ]);
+                    ];
+
+                    rowData.forEach((val, colIdx) => {
+                        const cellRef = XLSX.utils.encode_cell({ r: rowIdx, c: colIdx });
+                        const isNum = typeof val === 'number';
+                        worksheet[cellRef] = {
+                            v: val,
+                            t: isNum ? "n" : "s",
+                            s: {
+                                alignment: {
+                                    horizontal: isNum ? "center" : "left",
+                                    vertical: "center"
+                                }
+                            }
+                        };
+                    });
+                    rowIdx++;
                 });
-                
-                const worksheet = XLSX.utils.aoa_to_sheet(rows);
+
+                // Set sheet references
+                worksheet['!ref'] = `A1:I${rowIdx}`;
+                worksheet['!autofilter'] = { ref: `A2:I${rowIdx}` };
+
+                // Row heights
+                const rowHeights = [{ hpt: 35 }, { hpt: 25 }];
+                for (let r = 2; r < rowIdx; r++) {
+                    rowHeights.push({ hpt: 20 });
+                }
+                worksheet['!rows'] = rowHeights;
+
+                // Column widths
+                worksheet['!cols'] = [
+                    { wch: 18 }, // Equipe
+                    { wch: 34 }, // Usuário
+                    { wch: 18 }, // Nome
+                    { wch: 18 }, // Sobrenome
+                    { wch: 38 }, // Email
+                    { wch: 25 }, // Último acesso
+                    { wch: 18 }, // Totais de acesso
+                    { wch: 18 }, // Média de tempo
+                    { wch: 22 }  // Classificação no ranking
+                ];
+
                 const workbook = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(workbook, worksheet, "Relatório Fairmont");
                 
