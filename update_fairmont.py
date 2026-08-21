@@ -459,7 +459,37 @@ for member in dump.get('members', []):
     else:
         skills = { "Crises": 0, "Padroes": 0, "Empatia": 5, "Personalizacao": 0, "Escuta": 0 }
 
+    # Determine Equipe (primary area of activity)
+    areas = []
+    for conv_member in u.get('conversations', []):
+        c = conv_member.get('conversation')
+        if not c:
+            continue
+        tmpl_id = c.get('templateId')
+        scenario = uc_map.get(tmpl_id, "")
+        sc_upper = scenario.upper()
+        if "RECEPCIONISTA" in sc_upper:
+            areas.append("Recepcionista")
+        elif "CONCIERGE" in sc_upper:
+            areas.append("Concierge")
+        elif "GUEST ATTENDANT" in sc_upper:
+            areas.append("Guest Attendant")
+    
+    if areas:
+        from collections import Counter
+        equipe = Counter(areas).most_common(1)[0][0]
+    else:
+        equipe = "Recepção"
+
+    email = u.get('email', '') or ''
+    username = email.split('@')[0] if email else ''
+
     user_obj = {
+        "firstName": first_name,
+        "lastName": last_name,
+        "email": email,
+        "username": username,
+        "equipe": equipe,
         "avgDurSec": math.floor(avg_dur_sec % 60),
         "avgScore": avg_s,
         "skills": skills,
@@ -474,8 +504,10 @@ for member in dump.get('members', []):
     }
     users_list.append(user_obj)
 
+now_str = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
 print(f"Escrevendo {USERS_DATA_FILE}...")
 with open(USERS_DATA_FILE, 'w', encoding='utf-8') as f:
+    f.write(f"const lastUpdate = '{now_str}';\n")
     f.write("const users = " + json.dumps(users_list, indent=4, ensure_ascii=False) + ";\n")
 
 # ─── 5. Substituir RAW_SIMULATIONS em fairmont.html ──────────────────────────

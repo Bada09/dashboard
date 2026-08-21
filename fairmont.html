@@ -11779,25 +11779,150 @@
         });
 
         // Agora derivamos os usuários ativos APENAS de simulações válidas
-        const activeUsers = [...new Set(VALID_SIMS.map(s => s.name))].map(name => {
-            const userSims = VALID_SIMS.filter(s => s.name === name);
-            const scoredSims = userSims.filter(s => s.score !== null && s.score !== undefined);
-            const avgScore = scoredSims.length > 0
-                ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length)
-                : 0;
-            const original = (typeof users !== 'undefined' ? users : []).find(u => cleanName(u.name) === cleanName(name)) || {};
+        let activeUsers = [];
+
+        let currentDateFilter = 'all'; // 'all', 'month', '7days', '30days', 'custom'
+        let customStartDate = null;
+        let customEndDate = null;
+
+        function getRefDate() {
+            if (VALID_SIMS.length === 0) return new Date();
+            const dates = VALID_SIMS.map(s => {
+                const [d, m, y] = s.date.split('/');
+                return new Date(y, m - 1, d);
+            }).sort((a, b) => b - a);
+            return dates[0];
+        }
+
+        function getFilteredSimulations(filterUser = null) {
+            return VALID_SIMS.filter(s => {
+                if (filterUser && cleanName(s.name) !== cleanName(filterUser)) return false;
+                
+                // Filter by Area
+                if (currentFilterArea) {
+                    const sc = s.scenario.toUpperCase();
+                    let area = "Outros";
+                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
+                    else if (sc.includes("CONCIERGE")) area = "Concierge";
+                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
+                    
+                    if (area !== currentFilterArea) return false;
+                }
+                
+                // Filter by UseCase
+                if (currentFilterUseCase && s.scenario !== currentFilterUseCase) return false;
+                
+                // Filter by Date
+                if (currentDateFilter !== 'all') {
+                    const [d, m, y] = s.date.split('/');
+                    const simDate = new Date(y, m - 1, d);
+                    const refDate = getRefDate();
+                    
+                    if (currentDateFilter === 'month') {
+                        if (simDate.getMonth() !== refDate.getMonth() || simDate.getFullYear() !== refDate.getFullYear()) return false;
+                    } else if (currentDateFilter === '7days') {
+                        const diffDays = Math.ceil((refDate - simDate) / (1000 * 60 * 60 * 24));
+                        if (diffDays < 0 || diffDays > 7) return false;
+                    } else if (currentDateFilter === '30days') {
+                        const diffDays = Math.ceil((refDate - simDate) / (1000 * 60 * 60 * 24));
+                        if (diffDays < 0 || diffDays > 30) return false;
+                    } else if (currentDateFilter === 'custom') {
+                        if (customStartDate) {
+                            const start = new Date(customStartDate + 'T00:00:00');
+                            if (simDate < start) return false;
+                        }
+                        if (customEndDate) {
+                            const end = new Date(customEndDate + 'T23:59:59');
+                            if (simDate > end) return false;
+                        }
+                    }
+                }
+                return true;
+            });
+        }
+
+        function getActiveUsers() {
+            const filtered = getFilteredSimulations();
+            return [...new Set(filtered.map(s => s.name))].map(name => {
+                const userSims = filtered.filter(s => s.name === name);
+                const scoredSims = userSims.filter(s => s.score !== null && s.score !== undefined);
+                const avgScore = scoredSims.length > 0
+                    ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length)
+                    : 0;
+                const original = (typeof users !== 'undefined' ? users : []).find(u => cleanName(u.name) === cleanName(name)) || {};
+                
+                return {
+                    name: fixEnc(name),
+                    firstName: original.firstName || name.split(' ')[0] || '',
+                    lastName: original.lastName || name.split(' ').slice(1).join(' ') || '',
+                    email: original.email || '',
+                    username: original.username || '',
+                    equipe: original.equipe || 'Recepção',
+                    count: userSims.length,
+                    avgScore: avgScore,
+                    lqaScore: original.lqaScore || avgScore,
+                    languages: original.languages || ['PT'],
+                    dates: [...new Set(userSims.map(s => s.date))],
+                    skills: original.skills || { Escuta: 75, Empatia: 80, Crises: 65, Padroes: 85, Personalizacao: 70 },
+                    insights: original.insights || { pt: [], fr: [] }
+                };
+            }).sort((a, b) => b.avgScore - a.avgScore);
+        }
+
+        function setDateFilter(filter) {
+            currentDateFilter = filter;
+            if (filter !== 'custom') {
+                customStartDate = null;
+                customEndDate = null;
+            }
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        function setCustomDates() {
+            const startVal = document.getElementById('custom-start-date').value;
+            const endVal = document.getElementById('custom-end-date').value;
+            customStartDate = startVal ? startVal : null;
+            customEndDate = endVal ? endVal : null;
+            currentDateFilter = 'custom';
             
-            return {
-                name: fixEnc(name),
-                count: userSims.length,
-                avgScore: avgScore,
-                lqaScore: original.lqaScore || avgScore,
-                languages: original.languages || ['PT'],
-                dates: [...new Set(userSims.map(s => s.date))],
-                skills: original.skills || { Escuta: 75, Empatia: 80, Crises: 65, Padroes: 85, Personalizacao: 70 },
-                insights: original.insights || { pt: [], fr: [] }
-            };
-        }).sort((a, b) => b.avgScore - a.avgScore);
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        function renderDateFilterHTML() {
+            return `
+                <div class="date-filter-section" style="background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 8px;">Período:</span>
+                        
+                        <button class="btn-secondary date-filter-btn" 
+                            onclick="setDateFilter('month')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === 'month' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
+                            Mês Atual
+                        </button>
+                        <button class="btn-secondary date-filter-btn" 
+                            onclick="setDateFilter('7days')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === '7days' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
+                            Últimos 7 Dias
+                        </button>
+                        <button class="btn-secondary date-filter-btn" 
+                            onclick="setDateFilter('30days')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === '30days' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
+                            Últimos 30 Dias
+                        </button>
+                        <button class="btn-secondary date-filter-btn" 
+                            onclick="setDateFilter('all')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === 'all' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
+                            Todo o Período
+                        </button>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Personalizar:</span>
+                        <input type="date" id="custom-start-date" value="${customStartDate || ''}" onchange="setCustomDates()" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.8rem; font-weight: 500; font-family: 'Inter'; outline: none;">
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">até</span>
+                        <input type="date" id="custom-end-date" value="${customEndDate || ''}" onchange="setCustomDates()" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.8rem; font-weight: 500; font-family: 'Inter'; outline: none;">
+                    </div>
+                </div>
+            `;
+        }
 
         function getSec(s) {
             if (!s || typeof s !== 'string') return 0;
@@ -11820,7 +11945,7 @@
             return `${s}s`;
         }
 
-        function renderSimulationsTable(filterUser = null, filterArea = null) {
+        function renderSimulationsTable(filterUser = null) {
             let html = `
                 <div class="sim-table-container">
                     <h3 style="margin-bottom: 1.5rem; color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;">
@@ -11843,18 +11968,8 @@
 
             let simCount = 1;
             let filteredIdx = 0;
-            VALID_SIMS.forEach((s, i) => {
-                if (filterUser && s.name !== filterUser) return;
-                
-                const sc = s.scenario.toUpperCase();
-                let area = "Outros";
-                if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
-                else if (sc.includes("CONCIERGE")) area = "Concierge";
-                else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
-
-                if (filterArea && area !== filterArea) return;
-                if (currentFilterUseCase && s.scenario !== currentFilterUseCase) return;
-                
+            const filteredList = getFilteredSimulations(filterUser);
+            filteredList.forEach((s, i) => {
                 const badgeClass = s.score >= 80 ? 'score-high' : (s.score >= 60 ? 'score-mid' : 'score-low');
                 
                 html += `
@@ -11880,18 +11995,7 @@
 
         function showSimulationDetail(localIndex, filterUser = null) {
             currentFilterUser = filterUser === 'all' ? null : filterUser;
-            const filtered = VALID_SIMS.filter(s => {
-                if (currentFilterUser && cleanName(s.name) !== cleanName(currentFilterUser)) return false;
-                if (currentFilterArea) {
-                    const sc = s.scenario.toUpperCase();
-                    let area = "Outros";
-                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
-                    else if (sc.includes("CONCIERGE")) area = "Concierge";
-                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
-                    if (area !== currentFilterArea) return false;
-                }
-                return true;
-            });
+            const filtered = getFilteredSimulations(currentFilterUser);
             
             if (!filtered.length) return;
             currentSimIndex = localIndex;
@@ -12034,18 +12138,7 @@
 
         function prevSim() { if (currentSimIndex > 0) showSimulationDetail(currentSimIndex - 1, currentFilterUser); }
         function nextSim() { 
-            const filtered = VALID_SIMS.filter(s => {
-                if (currentFilterUser && cleanName(s.name) !== cleanName(currentFilterUser)) return false;
-                if (currentFilterArea) {
-                    const sc = s.scenario.toUpperCase();
-                    let area = "Outros";
-                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
-                    else if (sc.includes("CONCIERGE")) area = "Concierge";
-                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
-                    if (area !== currentFilterArea) return false;
-                }
-                return true;
-            });
+            const filtered = getFilteredSimulations(currentFilterUser);
             if (currentSimIndex < filtered.length - 1) showSimulationDetail(currentSimIndex + 1, currentFilterUser); 
         }
         function hideSimNav() { 
@@ -12056,30 +12149,18 @@
         function showGlobalStats() {
             hideSimNav();
             window.activeUser = null;
+            
+            // Re-evaluate active users and update sidebar
+            activeUsers = getActiveUsers();
             renderUserList();
 
-            // Filtragem Dinâmica por Contexto (Área e Use Case)
-            let filteredSims = VALID_SIMS;
-            
-            if (currentFilterArea) {
-                filteredSims = filteredSims.filter(s => {
-                    const sc = s.scenario.toUpperCase();
-                    if (currentFilterArea === 'Recepcionista') return sc.includes("RECEPCIONISTA");
-                    if (currentFilterArea === 'Concierge') return sc.includes("CONCIERGE");
-                    if (currentFilterArea === 'Guest Attendant') return sc.includes("GUEST ATTENDANT");
-                    return true;
-                });
-            }
-            
-            if (currentFilterUseCase) {
-                filteredSims = filteredSims.filter(s => s.scenario === currentFilterUseCase);
-            }
+            // Filtragem Dinâmica por Contexto (Área, Use Case e Data)
+            let filteredSims = getFilteredSimulations();
 
             const totalSessions = filteredSims.length;
             
-            // Médias baseadas nos usuários que participaram das simulações filtradas
-            const usersInFilter = [...new Set(filteredSims.map(s => s.name))];
-            const activeInFilter = activeUsers.filter(u => usersInFilter.some(n => cleanName(n) === cleanName(u.name)));
+            // Médias baseadas nos usuários ativos filtrados
+            const activeInFilter = activeUsers;
             const activeCount = activeInFilter.length || 1;
             
             const avgScore = totalSessions > 0 ? Math.round(filteredSims.reduce((a, b) => a + b.score, 0) / totalSessions) : 0;
@@ -12117,8 +12198,8 @@
             const top5 = [...activeInFilter].sort((a, b) => {
                 const aSims = filteredSims.filter(s => s.name === a.name);
                 const bSims = filteredSims.filter(s => s.name === b.name);
-                const aAvg = Math.round(aSims.reduce((acc, s) => acc + s.score, 0) / aSims.length);
-                const bAvg = Math.round(bSims.reduce((acc, s) => acc + s.score, 0) / bSims.length);
+                const aAvg = aSims.length > 0 ? Math.round(aSims.reduce((acc, s) => acc + s.score, 0) / aSims.length) : 0;
+                const bAvg = bSims.length > 0 ? Math.round(bSims.reduce((acc, s) => acc + s.score, 0) / bSims.length) : 0;
                 return bAvg - aAvg;
             }).slice(0, 5);
 
@@ -12136,6 +12217,8 @@
                             <p class="header-desc">${ui[currentLang].execVision}</p>
                         </div>
                     </header>
+
+                    ${renderDateFilterHTML()}
 
                     <div class="filter-bar-container" style="margin-bottom: 2.5rem; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
                         <div style="display: flex; align-items: center; gap: 10px;">
@@ -12382,7 +12465,12 @@
         function selectUser(user) {
             hideSimNav();
             window.activeUser = user;
-            const userSims = VALID_SIMS.filter(s => cleanName(s.name) === cleanName(user.name));
+            
+            // Re-evaluate active users
+            activeUsers = getActiveUsers();
+            renderUserList();
+
+            const userSims = getFilteredSimulations(user.name);
             const userTotalSeconds = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
             const userTotalMinutes = Math.round(userTotalSeconds / 60);
             const userAvgSeconds = userSims.length > 0 ? Math.round(userTotalSeconds / userSims.length) : 0;
@@ -12406,13 +12494,8 @@
             };
 
             // Calculate context-aware comparison
-            const filteredSims = VALID_SIMS.filter(s => {
-                if (currentFilterArea && getArea(s.scenario) !== currentFilterArea) return false;
-                if (currentFilterUseCase && s.scenario !== currentFilterUseCase) return false;
-                return true;
-            });
-
-            const userFilteredSims = filteredSims.filter(s => cleanName(s.name) === cleanName(user.name));
+            const filteredSims = getFilteredSimulations();
+            const userFilteredSims = userSims;
             
             // User score in this specific filter context (fallback to global average if no simulations in filter)
             const contextUserScore = userFilteredSims.length > 0 
@@ -12440,12 +12523,12 @@
 
             const lqaRank = getGlobalRank(u => u.lqaScore);
             const timeRank = getGlobalRank(u => {
-                const sims = VALID_SIMS.filter(s => s.name === u.name);
+                const sims = getFilteredSimulations(u.name);
                 const total = sims.reduce((acc, s) => acc + getSec(s.dur), 0);
                 return sims.length > 0 ? total / sims.length : 0;
-            }); // Longer is better as requested
+            });
             const totalTimeRank = getGlobalRank(u => {
-                const sims = VALID_SIMS.filter(s => s.name === u.name);
+                const sims = getFilteredSimulations(u.name);
                 return sims.reduce((acc, s) => acc + getSec(s.dur), 0);
             });
             const langRank = getGlobalRank(u => (u.languages || []).length);
@@ -12467,6 +12550,8 @@
                             <p class="header-desc">${ui[currentLang].behaviorAnalysis} ${user.count} ${ui[currentLang].simulationsDone}</p>
                         </div>
                     </header>
+
+                    ${renderDateFilterHTML()}
 
                     <div class="filter-bar-container" style="margin-bottom: 2.5rem; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
                         <div style="display: flex; align-items: center; gap: 10px;">
@@ -12711,10 +12796,23 @@
         }
 
         function exportCSV() {
-            let csv = 'Nome,Simulacoes,Media Score,LQA,Tempo Medio,Idiomas,Ultima Sessao\n';
-            activeUsers.forEach(u => {
-                csv += `"${u.name}",${u.count},${u.avgScore},${u.lqaScore},"${u.avgDurMin}m ${u.avgDurSec}s","${(u.languages || []).join('/')}","${u.dates[u.dates.length - 1]}"\n`;
+            let csv = '\uFEFF';
+            csv += 'Equipe,Usuário,Nome,Sobrenome,Email,Último acesso,Totais de acesso,Média de tempo,Classificação no ranking\n';
+            
+            activeUsers.forEach((u, idx) => {
+                const userSims = getFilteredSimulations(u.name);
+                const totalSec = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
+                const avgSec = userSims.length > 0 ? Math.round(totalSec / userSims.length) : 0;
+                const avgMin = Math.floor(avgSec / 60);
+                const remSec = avgSec % 60;
+                const mediaTempo = `${avgMin}m ${remSec}s`;
+                
+                const lastAccess = u.dates.length > 0 ? u.dates[u.dates.length - 1] : '--';
+                const ranking = idx + 1;
+                
+                csv += `"${u.equipe}","${u.username}","${u.firstName}","${u.lastName}","${u.email}","${lastAccess}",${u.count},"${mediaTempo}",${ranking}\n`;
             });
+            
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
