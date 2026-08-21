@@ -504,7 +504,21 @@ for member in dump.get('members', []):
     }
     users_list.append(user_obj)
 
-now_str = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+import re
+dump_filename = os.path.basename(DUMP_FILE)
+match = re.search(r'(\d{1,2})([a-zA-Z]{3})(\d{2})-([0-9]{1,2})h([0-9]{2})', dump_filename, re.IGNORECASE)
+if match:
+    day, month_str, year_2d, hour, minute = match.groups()
+    months_map = {
+        'jan': '01', 'feb': '02', 'mar': '03', 'apr': '04', 'may': '05', 'jun': '06',
+        'jul': '07', 'aug': '08', 'sep': '09', 'oct': '10', 'nov': '11', 'dec': '12'
+    }
+    month = months_map.get(month_str.lower(), '08')
+    year = f"20{year_2d}"
+    now_str = f"{str(day).zfill(2)}/{month}/{year} {str(hour).zfill(2)}:{str(minute).zfill(2)}"
+else:
+    mtime = os.path.getmtime(DUMP_FILE)
+    now_str = datetime.datetime.fromtimestamp(mtime).strftime("%d/%m/%Y %H:%M")
 print(f"Escrevendo {USERS_DATA_FILE}...")
 with open(USERS_DATA_FILE, 'w', encoding='utf-8') as f:
     f.write(f"const lastUpdate = '{now_str}';\n")
