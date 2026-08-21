@@ -215,6 +215,14 @@
             transform: translateY(-2px);
         }
 
+        @keyframes spin-anim {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spin-active {
+            animation: spin-anim 1s linear infinite;
+        }
+
         .main-grid {
             display: grid;
             grid-template-columns: 270px 1fr;
@@ -1583,6 +1591,9 @@
                 <button class="btn-header" onclick="showGlobalStats()">
                     <i class="fas fa-home"></i> <span id="t-generalBtn">Geral</span>
                 </button>
+                <button class="btn-header" id="btn-update-dashboard" onclick="triggerManualUpdate()">
+                    <i class="fas fa-sync-alt" id="update-icon"></i> <span id="t-updateData">Atualizar Dados</span>
+                </button>
             </div>
         </header>
 
@@ -1795,6 +1806,7 @@
                 allUsers: "Todos os Usuários",
                 waitingData: "Aguardando dados históricos...",
                 generalBtn: "Geral",
+                updateData: "Atualizar Dados",
                 skillNames: {
                     Escuta: "Escuta Ativa",
                     Empatia: "Empatia & Acolhimento",
@@ -1853,6 +1865,7 @@
                 allUsers: "Tous les Utilisateurs",
                 waitingData: "En attente de données historiques...",
                 generalBtn: "Général",
+                updateData: "Mise à jour",
                 areaAtuacao: "Domaine d'Activité",
                 areaAtuacaoLabel: "Domaine d'Activité:",
                 allAreas: "Tous les Domaines",
@@ -6986,6 +6999,16 @@
     },
     {
         "name": "Sophie Géraud",
+        "date": "13/08/2026",
+        "dur": "N/A",
+        "score": null,
+        "scenario": "[CONCIERGE] Aconselhar um cliente",
+        "lqa": "N/A",
+        "interactions": 0,
+        "feedback": ""
+    },
+    {
+        "name": "Sophie Géraud",
         "date": "04/05/2026",
         "dur": "N/A",
         "score": null,
@@ -9406,6 +9429,16 @@
     },
     {
         "name": "Leonel  Leandro",
+        "date": "12/08/2026",
+        "dur": "0m 30s",
+        "score": null,
+        "scenario": "[CONCIERGE] Aconselhar um cliente",
+        "lqa": "N/A",
+        "interactions": 7,
+        "feedback": ""
+    },
+    {
+        "name": "Leonel  Leandro",
         "date": "16/07/2026",
         "dur": "5m 10s",
         "score": 34,
@@ -9422,6 +9455,36 @@
         "scenario": "[CONCIERGE] Aconselhar um cliente",
         "lqa": "N/A",
         "interactions": 1,
+        "feedback": ""
+    },
+    {
+        "name": "Leonel  Leandro",
+        "date": "12/08/2026",
+        "dur": "7m 36s",
+        "score": 51,
+        "scenario": "[CONCIERGE] Aconselhar um cliente",
+        "lqa": "N/A",
+        "interactions": 48,
+        "feedback": "⟪ **Aqui está o debriefing da nossa conversa.** ⟫\n\n[linha em branco]\n\n## 🎬 VISÃO GERAL\n\n🎯 Objetivo: 🟡 Parcialmente atingido\n\n💬 Postura predominante: acolhedora\n\n⭐ Ponto marcante: Foco total na customização do percurso de corrida da hóspede ao longo da orla.\n\n[linha em branco]\n\n## 📊 MAPA DE COMPETÊNCIAS\n\n  Qualificação da necessidade              ▰▰▰▱▱  3/5\n  Domínio da oferta                        ▰▰▰▰▱  4/5\n  Construção do percurso                   ▰▰▱▱▱  2/5\n  Personalização                           ▰▰▰▰▱  4/5\n  Postura e narrativa sensorial            ▰▰▰▰▱  4/5\n  Encerramento e projeção                  ▰▰▱▱▱  2/5\n\n──────────────\n\n## 🤓 PERSONA\n\nExecutiva americana, maratonista experiente, extremamente exigente, busca total precisão, alto padrão e atendimento voltado à performance.\n\n[linha em branco]\n\n## 🎯 OBJETIVO PRINCIPAL\n\nParcialmente atingido, pois houve grande dedicação ao roteiro de corrida, mas sem propor uma manhã Fairmont completa e integrada de esporte e relaxamento.\n\n[linha em branco]\n\n## ➕ PONTOS FORTES\n\n🟢 Você demonstrou genuíno interesse em entender a expectativa da hóspede e buscou adaptar o percurso ao nível exigido.\n\n[linha em branco]\n\n🟢 Trouxe detalhes práticos, como sugestões de hidratação ao longo da orla e horários do nascer do sol, enriquecendo a experiência sensorial.\n\n[linha em branco]\n\n🟢 Personalizou o atendimento oferecendo squeeze, indicação de pontos de água e preocupação com o conforto da hóspede.\n\n[linha em branco]\n\n## ⚠️ PONTOS DE MELHORIA\n\n🟡 Faltou estruturar um percurso completo “esporte + relaxamento“, focando praticamente só na corrida, sem sugerir a transição para relaxamento (piscinas, spa, Tropik).\n\n[linha em branco]\n\n🟡 Faltou apresentar de forma clara, no final, como seria a sequência da manhã - a hóspede poderia sair ainda sem uma visão inspirada de um “momento Fairmont”.\n\n[linha em branco]\n\n🟡 Expressões como “ééé”, “hããã”, uso excessivo de formalidade (“a senhora”), e frases longas tiraram naturalidade e fluidez do atendimento premium esperado.\n\n[linha em branco]\n\n## 🔎 VERIFICAÇÕES FACTUAIS\n\n🔴 **Horário do spa**\n  Informado pelo Concierge (): « posso programar para o horário da abertura o primeiro horário, caso deseje, que seria às 10h da manhã »\n  Realidade do referencial: o spa abre às 11h durante a semana, não às 10h.\n\n[linha em branco]\n\n🔴 **Oferta de massagem no apartamento**\n  Informado pelo Concierge (): « é possível, ééé, tá promovendo esse atendimento no seu apartamento [...] posso sim providenciar e já posso considerar reservado »\n  Realidade do referencial: este serviço não faz parte da oferta documentada, e não deveria ser prometido sem checagem formal.\n\n[linha em branco]\n\n## 💡 OPORTUNIDADES PERDIDAS & PISTAS DE ENRIQUECIMENTO\n\n💡 Você também poderia ter sugerido uma transição relaxante pós-corrida, como um mergulho na Infinity Pool ao nascer do sol.\n\n[linha em branco]\n\n💡 Uma excelente opção adicional teria sido mencionar o Tropik Beach Club para um café da manhã ou pausa elegante pós-treino, valorizando o cenário.\n\n[linha em branco]\n\n💡 Para hóspedes que treinam cedo, destacar o Fairmont Fit (aberto das 6h) como aquecimento ou complemento teria sido sofisticado.\n\n[linha em branco]\n\n## 🩵 ANÁLISE EMOCIONAL\n\nApesar de acolhedor e solícito, você parecia inseguro em alguns momentos, vacilando na construção de frases e interpretações de procedimentos.\n\n[linha em branco]\n\n## 🛅 MOMENTO-CHAVE\n\n📍 Situação: A hóspede pergunta como garantir hidratação durante a corrida matinal.\n🎬 Ação: Você detalha a logística de pegar água com o capataz do hotel em diferentes passagens.\n💡 Desafio: Atentar para soluções personalizadas dentro da limitação dos quiosques fechados cedo.\n🎯 Impacto: Reforçou o senso premium, mas também explicitou certa falta de domínio operacional ao improvisar.\n\n[linha em branco]\n\n## 🚀 PARA LEMBRAR NA PRÓXIMA VEZ\n\n▶ Esporte premium pede sequência: sempre associe percurso, relaxamento e um toque Fairmont no encerramento."
+    },
+    {
+        "name": "Leonel  Leandro",
+        "date": "12/08/2026",
+        "dur": "0m 9s",
+        "score": null,
+        "scenario": "[CONCIERGE] Aconselhar um cliente",
+        "lqa": "N/A",
+        "interactions": 2,
+        "feedback": ""
+    },
+    {
+        "name": "Leonel  Leandro",
+        "date": "12/08/2026",
+        "dur": "3m 9s",
+        "score": null,
+        "scenario": "[CONCIERGE] Aconselhar um cliente",
+        "lqa": "N/A",
+        "interactions": 50,
         "feedback": ""
     },
     {
@@ -10466,6 +10529,26 @@
     },
     {
         "name": "Gabrielli Mattos",
+        "date": "11/08/2026",
+        "dur": "N/A",
+        "score": null,
+        "scenario": "[GUEST ATTENDANT] Escolha do prato no servico de quarto",
+        "lqa": "N/A",
+        "interactions": 0,
+        "feedback": ""
+    },
+    {
+        "name": "Gabrielli Mattos",
+        "date": "11/08/2026",
+        "dur": "N/A",
+        "score": null,
+        "scenario": "[GUEST ATTENDANT] Escolha do prato no servico de quarto",
+        "lqa": "N/A",
+        "interactions": 0,
+        "feedback": ""
+    },
+    {
+        "name": "Gabrielli Mattos",
         "date": "28/05/2026",
         "dur": "0m 29s",
         "score": null,
@@ -10503,6 +10586,16 @@
         "lqa": "N/A",
         "interactions": 2,
         "feedback": ""
+    },
+    {
+        "name": "Gabrielli Mattos",
+        "date": "11/08/2026",
+        "dur": "1m 11s",
+        "score": 48,
+        "scenario": "[GUEST ATTENDANT] Escolha do prato no servico de quarto",
+        "lqa": "N/A",
+        "interactions": 13,
+        "feedback": "Aqui está o debriefing da nossa conversa.\n\nEu interpretei o papel de Nadia Halimi, trinta e seis anos, residente habitual de Marrakech, perfil sócioeconômico elevado, uma hóspede sozinha.\n\nEntre os pontos fortes da sua atuação, destaco a preocupação inicial em verificar restrições alimentares, a menção a opções sem álcool, suco, refrigerantes e massas, a sugestão espontânea de entrada e sobremesa e o fornecimento do prazo de entrega de trinta minutos. Você mostrou iniciativa ao perguntar duas vezes se eu desejava mais alguma coisa, o que demonstra proatividade na busca de satisfação total.\n\nEntretanto, há pontos que merecem atenção. Faltou detalhamento e personalização nas sugestões, considerando o perfil vegetariano da cliente: a salada Caesar tradicionalmente leva frango e molho com anchovas, não sendo vegetariana. Não foram contempladas restrições religiosas, como ausência de alcoól em preparo de pratos ou ingredientes com carne de porco. Nenhuma menção foi feita a pratos vegetarianos do cardápio, como risoto de cogumelos, salada de quinoa ou sanduíche vegetariano. Os preços dos itens sugeridos não foram informados, descumprindo o critério factual e a transparência. O uso do nome da cliente não ocorreu em nenhum momento, prejudicando a personalização. Por fim, não foi feito o registro detalhado do pedido nem a recapitulação, o que reduz a segurança quanto ao correto atendimento.\n\n❌ Informação dada: Salada Caesar sugerida para uma vegetariana.  \n✅ Informação correta: Deveria ter proposto salada de quinoa, folhas verdes ou pratos à base de vegetais, explicitando ingredientes para evitar proteína animal.\n\nEmoção geral: A conversa transmitiu boa vontade, porém careceu de conexão e entusiasmo, gerando sensação de padronização em vez de acolhimento inspirador.\n\nSugiro aprimorar o domínio do menu e personalizar ativamente as recomendações conforme restrições e preferências informadas, detalhar ingredientes e preços, recapitular o pedido e utilizar o nome do hóspede. Aprofunde sua escuta: clientes criativos e sensoriais buscam experiências, não apenas refeições. Você possui potencial, perseverança e presença de espírito para se tornar referência em atendimento atencioso!"
     },
     {
         "name": "Gabrielli Mattos",
@@ -11076,6 +11169,16 @@
     },
     {
         "name": "Wendy Cruz",
+        "date": "11/08/2026",
+        "dur": "0m 1s",
+        "score": null,
+        "scenario": "[RECEPCIONISTA] Transformar o check-out em momento marcante",
+        "lqa": "N/A",
+        "interactions": 1,
+        "feedback": ""
+    },
+    {
+        "name": "Wendy Cruz",
         "date": "15/06/2026",
         "dur": "3m 26s",
         "score": 69,
@@ -11086,6 +11189,16 @@
     },
     {
         "name": "Wendy Cruz",
+        "date": "11/08/2026",
+        "dur": "2m 23s",
+        "score": 72,
+        "scenario": "[RECEPCIONISTA] Transformar o check-out em momento marcante",
+        "lqa": "N/A",
+        "interactions": 21,
+        "feedback": "Aqui está o debriefing da nossa interação.\n\n---\n---\n🌟Pontos fortes da intervenção\nVocê conduziu a interação de maneira cordial e demonstrou interesse genuíno em compreender a experiência do cliente, convidando-o a compartilhar detalhes positivos da estadia. Foi ágil na revisão e ajuste da fatura, reconheceu e valorizou os relatos de frustração, além de apresentar uma solução rápida ao retirar a cobrança incorreta. Também ofereceu assistência adicional de transporte e concluiu com uma despedida calorosa, incentivando o retorno do hóspede ao hotel em tom próximo e positivo.\n\n---\n---\n🚀Áreas de melhoria\nApesar do esforço em personalizar, houve inconsistência no uso do nome do cliente ao longo da conversa (“Elvis”, “Elvid”, “Alves”), o que compromete a sensação de reconhecimento VIP e pode gerar desconforto. Faltou reforçar de modo mais assertivo que a situação relatada seria acompanhada para evitar recorrências. Em alguns momentos, foram utilizadas expressões excessivamente informais (“tá bem?””ééé”), que podem diminui o tom de sofisticação esperado em hotéis de luxo. A oferta de assistência foi direta, mas poderia ser mais personalizada, perguntando por itens específicos (bagagem, direção, preferências).\n\n---\n---\n🩵Análise emocional\nO seu tom foi acolhedor, o ritmo manteve-se consistente e o vocabulário majoritariamente simpático e acessível. Predominou um estado emocional empático, com leve hesitação em momentos de ajuste da fatura, porém sem perder o controle da situação.\n\n---\n---\n📝Recomendações\nNo futuro, mantenha o uso correto e consistente do nome do cliente ao longo de toda a interação. Prefira um vocabulário que combine calor humano com sofisticação, evitando termos informais demais. Ao registrar frustrações, reforce o compromisso institucional. Continue valorizando o momento da despedida com emoção. Você está no caminho certo: siga aprimorando sua atenção aos detalhes!"
+    },
+    {
+        "name": "Wendy Cruz",
         "date": "01/08/2026",
         "dur": "3m 20s",
         "score": 73,
@@ -11093,6 +11206,26 @@
         "lqa": "N/A",
         "interactions": 35,
         "feedback": "Aqui está o debriefing da nossa interação.\n\n---\n🌟Pontos fortes da intervenção\n\nVocê demonstrou boa capacidade de solucionar rapidamente o problema relacionado à cobrança do minibar, oferecendo o estorno e uma explicação objetiva. Durante todo o atendimento, foi atencioso ao oferecer assistência tanto para bagagens quanto para transporte, além de informar detalhadamente sobre o serviço de motorista, horários e valor, o que transmite segurança operacional ao cliente. O uso do nome da cliente na despedida foi um ponto positivo de personalização e cordialidade, encerrando a experiência de forma respeitosa e educada.\n\n---\n🚀Áreas de melhoria\n\nHouve excesso de hesitações e repetições (\"há uma a intercorrência\", \"a-acabou de imprimir\"), que causaram uma sensação de insegurança e falta de fluidez, impactando a percepção de controle da situação. A estrutura das frases evidenciou insegurança, principalmente nos momentos mais críticos, como na explicação dos procedimentos do estorno e na organização do transporte. Além disso, faltou convidar a cliente de maneira aberta a compartilhar feedback completo sobre a experiência dela, perdendo a oportunidade de criar um vínculo mais forte ou identificar outras possíveis insatisfações. Em certos momentos, o discurso ficou excessivamente mecânico e não houve um comentário caloroso para deixar uma última impressão emocional marcante.\n\n---\n🩵Análise emocional\n\nO tom foi educado, mas um pouco tenso e hesitante. O ritmo foi interrompido por repetições e pausas, e o vocabulário mostrou esforço para formalidade. O estado emocional dominante foi de nervosismo com busca de agradar.\n\n---\n📝Recomendações\n\nTrabalhe o controle emocional e a segurança na fala, usando frases mais diretas e evitando hesitações. Aproxime-se ainda mais do cliente com perguntas abertas sobre a experiência e invista em uma despedida mais calorosa, com desejo de retorno. Continue praticando: avance sempre!"
+    },
+    {
+        "name": "Carlos Conde",
+        "date": "12/08/2026",
+        "dur": "3m 26s",
+        "score": null,
+        "scenario": "[CONCIERGE] Fim de semana de aniversario",
+        "lqa": "N/A",
+        "interactions": 20,
+        "feedback": ""
+    },
+    {
+        "name": "Carlos Conde",
+        "date": "12/08/2026",
+        "dur": "4m 17s",
+        "score": 53,
+        "scenario": "[CONCIERGE] Fim de semana de aniversario",
+        "lqa": "N/A",
+        "interactions": 30,
+        "feedback": "O presente debriefing começa assim:\n\nEu interpretei o papel de Thomas Padrão, quarenta e oito anos, residente em São Paulo, investidor, um hóspede buscando criar para a esposa uma estadia surpresa de três dias no Fairmont Rio de Janeiro Copacabana, por ocasião do aniversário dela.\n\nPontos fortes da intervenção:\n\nVocê demonstrou organização ao propor duas tipologias de acomodações com detalhes de metragem, vistas e valores totais, incluindo café da manhã e taxas, o que facilita a comparação pelo cliente. Acolheu o motivo especial da viagem com cortesia, garantindo um registro do aniversário para um tratamento diferenciado. Ofereceu alternativas logísticas, como o serviço de transfer, e as informações de check-in, criando segurança operacional para o cliente. Manteve um tom respeitoso, anotando observações especiais, como horário de chegada e desejo por early check-in.\n\nPontos de melhoria:\n\n❌ Informação fornecida: One Bedroom Suite com vista mar, setenta e cinco metros quadrados.  \n✅ Informação correta: One Bedroom Suite com setenta metros quadrados, duas varandas com vista frontal para o mar ou Pão de Açúcar, sala separada.  \n❌ Informação fornecida: Deluxe Room, trinta e cinco metros quadrados, vista mar.  \n✅ Informação correta: Deluxe Room, trinta e cinco metros quadrados, varanda com vista parcial ou frontal para o mar, piso de madeira.  \nVocê não mencionou os amenities Le Labo, cofre digital, televisão de cinquenta e cinco polegadas e Wi-Fi, detalhes que reforçam o padrão de luxo da hospedagem. Faltou explorar experiências diferenciadas, como Jantar ao Luar na varanda do quarto, chá da tarde com piano, acesso Fairmont Spa ou programação musical ao vivo para elevar o valor emocional e econômico da estadia. Também não coletou os nomes completos dos hóspedes nem perguntou sobre preferências como tipo de cama ou restrições alimentares. Ausência de narrativa sobre gastronomia, sustentabilidade, ou personalização detalhada, essenciais para um cliente VIP em ocasião tão especial.\n\nAnálise emocional:\n\nSua escuta foi cordial, porém houve pouca construção de expectativa ou encantamento do cliente. Faltou conexão emocional mais profunda para transformar a proposta em uma experiência memorável.\n\nRecomendações:\n\nAprofunde a personalização perguntando sobre preferências e restrições, apresentando experiências exclusivas e detalhando os serviços premium em linha com o luxo atual. Domine as características dos quartos e sugira sempre detalhes que valorizem o momento e ampliem o ticket médio da reserva. Nunca esqueça de criar uma narrativa inspiradora, convidando o cliente a imaginar cada etapa da experiência. Seja sempre protagonista na condução e vá além do esperado!"
     },
     {
         "name": "Carlos Conde",
@@ -12736,6 +12869,55 @@
             if (overlay) overlay.remove();
         }
         // ═══════════════════════════════════════════════════
+
+        async function triggerManualUpdate() {
+            const btn = document.getElementById('btn-update-dashboard');
+            const icon = document.getElementById('update-icon');
+            const label = document.getElementById('t-updateData');
+            
+            if (!btn) return;
+            
+            // Desabilita o botao e comeca a animacao
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+            if (icon) icon.classList.add('spin-active');
+            
+            const origText = label ? label.innerText : 'Atualizar Dados';
+            if (label) {
+                label.innerText = currentLang === 'fr' ? 'Mise à jour...' : 'Atualizando...';
+            }
+            
+            try {
+                // Faz a requisicao HTTP para o daemon local
+                const response = await fetch('http://127.0.0.1:8080/update');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (label) {
+                        label.innerText = currentLang === 'fr' ? 'Succès!' : 'Sucesso!';
+                    }
+                    alert(currentLang === 'fr' 
+                        ? 'Dashboard mis à jour avec succès! La page va se recharger.' 
+                        : 'Dashboard atualizado com sucesso! A página será recarregada.');
+                    location.reload();
+                } else {
+                    const errData = await response.json().catch(() => ({}));
+                    const detail = errData.detail || 'Erro desconhecido';
+                    throw new Error(detail);
+                }
+            } catch (error) {
+                console.error(error);
+                if (label) label.innerText = origText;
+                if (icon) icon.classList.remove('spin-active');
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+                
+                alert(currentLang === 'fr' 
+                    ? 'Erreur lors de la mise à jour. Assurez-vous que le service local (daemon) est en cours d\'exécution.\nDétail : ' + error.message
+                    : 'Erro ao atualizar dados. Certifique-se de que o daemon local está rodando.\nDetalhe: ' + error.message);
+            }
+        }
 
         // Initialize
         const savedLang = localStorage.getItem('fairmontLang') || 'pt';

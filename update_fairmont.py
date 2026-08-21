@@ -13,7 +13,17 @@ if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
     except Exception:
         pass
 
-DUMP_FILE = 'dump-Fairmont-10aug26-10h28.json'
+DUMP_FILE = 'dump-Fairmont-19aug26-22h42.json'
+if len(sys.argv) > 1:
+    DUMP_FILE = sys.argv[1]
+else:
+    import glob
+    dumps = glob.glob('dump-Fairmont-*.json')
+    if dumps:
+        # Sort by modification time to get the newest
+        dumps.sort(key=os.path.getmtime, reverse=True)
+        DUMP_FILE = dumps[0]
+
 HTML_FILE = 'fairmont.html'
 USERS_DATA_FILE = 'users_data.js'
 GITHUB_PAGES_URL = 'https://bada09.github.io/dashboard/fairmont.html'

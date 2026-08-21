@@ -69,9 +69,9 @@ const users = [
         "name": "Sophie Géraud",
         "lqaScore": 42.6,
         "languages": [
-            "EN",
+            "FR",
             "PT",
-            "FR"
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -146,7 +146,8 @@ const users = [
             "2026-07-13",
             "2026-07-14",
             "2026-07-15",
-            "2026-08-02"
+            "2026-08-02",
+            "2026-08-13"
         ],
         "avgDurMin": 1
     },
@@ -180,8 +181,8 @@ const users = [
         "name": "Philippe Lepeuple",
         "lqaScore": 52.2,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -202,16 +203,16 @@ const users = [
         "avgDurMin": 1
     },
     {
-        "avgDurSec": 40,
-        "avgScore": 34.0,
+        "avgDurSec": 47,
+        "avgScore": 42.5,
         "skills": {
-            "Escuta": 40.9,
-            "Empatia": 39.0,
-            "Crises": 24.0,
-            "Padroes": 34.0,
-            "Personalizacao": 26.3
+            "Escuta": 49.4,
+            "Empatia": 47.5,
+            "Crises": 32.5,
+            "Padroes": 42.5,
+            "Personalizacao": 34.8
         },
-        "count": 2,
+        "count": 6,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -227,7 +228,7 @@ const users = [
             ]
         },
         "name": "Leonel  Leandro",
-        "lqaScore": 34.0,
+        "lqaScore": 42.5,
         "languages": [
             "PT",
             "FR"
@@ -236,7 +237,10 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-07-16",
+        "dates": [
+            "2026-07-16",
+            "2026-08-12"
+        ],
         "avgDurMin": 2
     },
     {
@@ -315,8 +319,8 @@ const users = [
         "name": "Tabajara Dias",
         "lqaScore": 53.7,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -484,16 +488,16 @@ const users = [
         "avgDurMin": 3
     },
     {
-        "avgDurSec": 56,
-        "avgScore": 58.2,
+        "avgDurSec": 49,
+        "avgScore": 57.5,
         "skills": {
-            "Escuta": 62.3,
-            "Empatia": 63.2,
-            "Crises": 48.2,
-            "Padroes": 61.6,
-            "Personalizacao": 52.4
+            "Escuta": 61.6,
+            "Empatia": 62.5,
+            "Crises": 47.5,
+            "Padroes": 60.5,
+            "Personalizacao": 51.7
         },
-        "count": 22,
+        "count": 23,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -513,10 +517,10 @@ const users = [
             ]
         },
         "name": "Gabrielli Mattos",
-        "lqaScore": 61.6,
+        "lqaScore": 60.5,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -534,7 +538,8 @@ const users = [
             "2026-06-02",
             "2026-07-15",
             "2026-07-30",
-            "2026-08-07"
+            "2026-08-07",
+            "2026-08-11"
         ],
         "avgDurMin": 3
     },
@@ -570,8 +575,8 @@ const users = [
         "name": "Neube Brigagao",
         "lqaScore": 72.3,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -615,8 +620,8 @@ const users = [
         "name": "Matheus Barcelos",
         "lqaScore": 78.5,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -657,8 +662,8 @@ const users = [
         "name": "Enzo Hidde",
         "lqaScore": 75.8,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -703,8 +708,8 @@ const users = [
         "name": "Patricia Eckhard",
         "lqaScore": 52.7,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -1091,16 +1096,16 @@ const users = [
         "avgDurMin": 0
     },
     {
-        "avgDurSec": 19,
-        "avgScore": 71.0,
+        "avgDurSec": 17,
+        "avgScore": 71.3,
         "skills": {
-            "Escuta": 75.4,
-            "Empatia": 76.0,
-            "Crises": 61.0,
-            "Padroes": 71.0,
-            "Personalizacao": 65.6
+            "Escuta": 75.7,
+            "Empatia": 76.3,
+            "Crises": 61.3,
+            "Padroes": 74.7,
+            "Personalizacao": 65.9
         },
-        "count": 7,
+        "count": 9,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -1116,10 +1121,11 @@ const users = [
             ]
         },
         "name": "Wendy Cruz",
-        "lqaScore": 71.0,
+        "lqaScore": 74.7,
         "languages": [
+            "FR",
             "PT",
-            "FR"
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1128,7 +1134,8 @@ const users = [
         "dates": [
             "2026-06-06",
             "2026-06-15",
-            "2026-08-01"
+            "2026-08-01",
+            "2026-08-11"
         ],
         "avgDurMin": 1
     },
@@ -1485,16 +1492,16 @@ const users = [
         "avgDurMin": 0
     },
     {
-        "avgDurSec": 58,
-        "avgScore": 41.5,
+        "avgDurSec": 56,
+        "avgScore": 45.3,
         "skills": {
-            "Escuta": 48.9,
-            "Empatia": 46.5,
-            "Crises": 31.5,
-            "Padroes": 46.5,
-            "Personalizacao": 34.1
+            "Escuta": 52.7,
+            "Empatia": 50.3,
+            "Crises": 35.3,
+            "Padroes": 52.0,
+            "Personalizacao": 37.9
         },
-        "count": 4,
+        "count": 6,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1510,10 +1517,11 @@ const users = [
             ]
         },
         "name": "Carlos Conde",
-        "lqaScore": 46.5,
+        "lqaScore": 52.0,
         "languages": [
+            "FR",
             "PT",
-            "FR"
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1521,7 +1529,8 @@ const users = [
         },
         "dates": [
             "2026-05-25",
-            "2026-05-27"
+            "2026-05-27",
+            "2026-08-12"
         ],
         "avgDurMin": 3
     },
