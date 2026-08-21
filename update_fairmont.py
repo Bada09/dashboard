@@ -510,12 +510,15 @@ match = re.search(r'(\d{1,2})([a-zA-Z]{3})(\d{2})-([0-9]{1,2})h([0-9]{2})', dump
 if match:
     day, month_str, year_2d, hour, minute = match.groups()
     months_map = {
-        'jan': '01', 'feb': '02', 'mar': '03', 'apr': '04', 'may': '05', 'jun': '06',
-        'jul': '07', 'aug': '08', 'sep': '09', 'oct': '10', 'nov': '11', 'dec': '12'
+        'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
+        'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12
     }
-    month = months_map.get(month_str.lower(), '08')
-    year = f"20{year_2d}"
-    now_str = f"{str(day).zfill(2)}/{month}/{year} {str(hour).zfill(2)}:{str(minute).zfill(2)}"
+    month = months_map.get(month_str.lower(), 8)
+    year = int(f"20{year_2d}")
+    
+    dt_france = datetime.datetime(year, month, int(day), int(hour), int(minute))
+    dt_brasilia = dt_france - datetime.timedelta(hours=5)
+    now_str = dt_brasilia.strftime("%d/%m/%Y %H:%M")
 else:
     mtime = os.path.getmtime(DUMP_FILE)
     now_str = datetime.datetime.fromtimestamp(mtime).strftime("%d/%m/%Y %H:%M")

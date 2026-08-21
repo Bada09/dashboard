@@ -1571,8 +1571,11 @@
 
     <div class="container">
         <header>
-            <div class="logo-area">
+            <div class="logo-area" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px;">
                 <img src="rhapsody_logo.png" alt="rhapsody Intelligence" style="height: 48px;">
+                <div class="update-label" style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.03em;">
+                    <span id="t-last-update">Última atualização: --</span>
+                </div>
             </div>
             <nav class="nav-menu">
                 <a href="#" class="nav-link active"><span id="t-menuDashboard">Dashboard</span></a>
@@ -1895,6 +1898,30 @@
             }
         };
 
+        function renderLastUpdate() {
+            if (typeof lastUpdate === 'undefined') return;
+            const [dateStr, timeStr] = lastUpdate.split(' ');
+            const [d, m, y] = dateStr.split('/');
+            const monthsPt = [
+                'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+                'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
+            ];
+            const monthsFr = [
+                'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+            ];
+            const monthIdx = parseInt(m) - 1;
+            const hourMin = timeStr.replace(':', 'h');
+            
+            const labelPt = `Última atualização: ${parseInt(d)} de ${monthsPt[monthIdx]} às ${hourMin}`;
+            const labelFr = `Dernière mise à jour: ${parseInt(d)} ${monthsFr[monthIdx]} à ${hourMin}`;
+            
+            const el = document.getElementById('t-last-update');
+            if (el) {
+                el.innerText = currentLang === 'fr' ? labelFr : labelPt;
+            }
+        }
+
         function setLang(lang) {
             currentLang = lang;
             localStorage.setItem('fairmontLang', lang);
@@ -1908,6 +1935,8 @@
 
             const searchEl = document.getElementById('userSearch');
             if (searchEl) searchEl.placeholder = ui[lang].search;
+
+            renderLastUpdate();
 
             if (typeof activeUsers !== 'undefined') {
                 renderUserList();
