@@ -12809,7 +12809,7 @@
         function exportExcel() {
             loadSheetJS(() => {
                 const worksheet = {};
-                worksheet['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 8 } }];
+                worksheet['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 9 } }];
                 
                 // Row 1 - Merged Title
                 const titleCell = {
@@ -12823,7 +12823,7 @@
                 };
                 worksheet['A1'] = titleCell;
                 // Fill other merged cells with light blue fill style
-                for (let c = 1; c <= 8; c++) {
+                for (let c = 1; c <= 9; c++) {
                     const cellRef = XLSX.utils.encode_cell({ r: 0, c: c });
                     worksheet[cellRef] = { v: "", t: "s", s: { fill: { patternType: "solid", fgColor: { rgb: "B7DEE8" } } } };
                 }
@@ -12836,6 +12836,7 @@
                     'Sobrenome',
                     'Email',
                     'Último acesso',
+                    'Dias sem uso',
                     'Totais de acesso',
                     'Média de tempo',
                     'Classificação no ranking'
@@ -12869,6 +12870,19 @@
                     const lastAccess = u.dates.length > 0 ? u.dates[u.dates.length - 1] : '--';
                     const ranking = idx + 1;
 
+                    let diasSemUso = '--';
+                    if (lastAccess !== '--') {
+                        const [laD, laM, laY] = lastAccess.split('/');
+                        const lastAccessDate = new Date(laY, laM - 1, laD);
+                        // lastUpdate represents the dump date
+                        const [upDate, upTime] = lastUpdate.split(' ');
+                        const [upD, upM, upY] = upDate.split('/');
+                        const refDate = new Date(upY, upM - 1, upD);
+                        const diffTime = refDate - lastAccessDate;
+                        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                        diasSemUso = diffDays >= 0 ? diffDays : 0;
+                    }
+
                     const rowData = [
                         u.equipe,
                         u.username,
@@ -12876,6 +12890,7 @@
                         u.lastName,
                         u.email,
                         lastAccess,
+                        diasSemUso,
                         u.count,
                         mediaTempo,
                         ranking
@@ -12899,8 +12914,8 @@
                 });
 
                 // Set sheet references
-                worksheet['!ref'] = `A1:I${rowIdx}`;
-                worksheet['!autofilter'] = { ref: `A2:I${rowIdx}` };
+                worksheet['!ref'] = `A1:J${rowIdx}`;
+                worksheet['!autofilter'] = { ref: `A2:J${rowIdx}` };
 
                 // Row heights
                 const rowHeights = [{ hpt: 35 }, { hpt: 25 }];
@@ -12917,6 +12932,7 @@
                     { wch: 18 }, // Sobrenome
                     { wch: 38 }, // Email
                     { wch: 25 }, // Último acesso
+                    { wch: 15 }, // Dias sem uso
                     { wch: 18 }, // Totais de acesso
                     { wch: 18 }, // Média de tempo
                     { wch: 22 }  // Classificação no ranking
