@@ -1585,7 +1585,7 @@
                 <button class="btn-header" onclick="window.print()">
                     <i class="fas fa-file-pdf"></i> <span id="t-export-pdf">Exportar PDF</span>
                 </button>
-                <button class="btn-header" onclick="exportCSV()">
+                <button class="btn-header" onclick="exportExcel()">
                     <i class="fas fa-file-excel"></i> <span id="t-export">Exportar Excel</span>
                 </button>
                 <button class="btn-header" onclick="showGlobalStats()">
@@ -12795,29 +12795,62 @@
             });
         }
 
-        function exportCSV() {
-            let csv = '\uFEFF';
-            csv += 'Equipe,Usuário,Nome,Sobrenome,Email,Último acesso,Totais de acesso,Média de tempo,Classificação no ranking\n';
-            
-            activeUsers.forEach((u, idx) => {
-                const userSims = getFilteredSimulations(u.name);
-                const totalSec = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
-                const avgSec = userSims.length > 0 ? Math.round(totalSec / userSims.length) : 0;
-                const avgMin = Math.floor(avgSec / 60);
-                const remSec = avgSec % 60;
-                const mediaTempo = `${avgMin}m ${remSec}s`;
+        function loadSheetJS(callback) {
+            if (window.XLSX) {
+                callback();
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+
+        function exportExcel() {
+            loadSheetJS(() => {
+                const rows = [];
+                rows.push([
+                    'Equipe',
+                    'Usuário',
+                    'Nome',
+                    'Sobrenome',
+                    'Email',
+                    'Último acesso',
+                    'Totais de acesso',
+                    'Média de tempo',
+                    'Classificação no ranking'
+                ]);
                 
-                const lastAccess = u.dates.length > 0 ? u.dates[u.dates.length - 1] : '--';
-                const ranking = idx + 1;
+                activeUsers.forEach((u, idx) => {
+                    const userSims = getFilteredSimulations(u.name);
+                    const totalSec = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
+                    const avgSec = userSims.length > 0 ? Math.round(totalSec / userSims.length) : 0;
+                    const avgMin = Math.floor(avgSec / 60);
+                    const remSec = avgSec % 60;
+                    const mediaTempo = `${avgMin}m ${remSec}s`;
+                    
+                    const lastAccess = u.dates.length > 0 ? u.dates[u.dates.length - 1] : '--';
+                    const ranking = idx + 1;
+                    
+                    rows.push([
+                        u.equipe,
+                        u.username,
+                        u.firstName,
+                        u.lastName,
+                        u.email,
+                        lastAccess,
+                        u.count,
+                        mediaTempo,
+                        ranking
+                    ]);
+                });
                 
-                csv += `"${u.equipe}","${u.username}","${u.firstName}","${u.lastName}","${u.email}","${lastAccess}",${u.count},"${mediaTempo}",${ranking}\n`;
+                const worksheet = XLSX.utils.aoa_to_sheet(rows);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Relatório Fairmont");
+                
+                XLSX.writeFile(workbook, "fairmont_ia_report.xlsx");
             });
-            
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.setAttribute('download', 'fairmont_ia_report.csv');
-            link.click();
         }
 
         function toggleDropdown(id, arrowId) {
