@@ -1,4 +1,4 @@
-const lastUpdate = '19/08/2026 17:42';
+const lastUpdate = '24/08/2026 05:10';
 const users = [
     {
         "firstName": "Tom",
@@ -80,8 +80,8 @@ const users = [
         "name": "Sophie Géraud",
         "lqaScore": 42.6,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -350,8 +350,8 @@ const users = [
         "name": "Tabajara Dias",
         "lqaScore": 53.7,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -575,8 +575,8 @@ const users = [
         "name": "Gabrielli Mattos",
         "lqaScore": 60.5,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -636,8 +636,8 @@ const users = [
         "name": "Neube Brigagao",
         "lqaScore": 72.3,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -686,8 +686,8 @@ const users = [
         "name": "Matheus Barcelos",
         "lqaScore": 78.5,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -733,8 +733,8 @@ const users = [
         "name": "Enzo Hidde",
         "lqaScore": 75.8,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -784,8 +784,8 @@ const users = [
         "name": "Patricia Eckhard",
         "lqaScore": 52.7,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -956,8 +956,8 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -1232,16 +1232,16 @@ const users = [
         "email": "wendy.cruz@fairmont.com",
         "username": "wendy.cruz",
         "equipe": "Recepcionista",
-        "avgDurSec": 17,
-        "avgScore": 71.3,
+        "avgDurSec": 25,
+        "avgScore": 64.2,
         "skills": {
-            "Escuta": 75.7,
-            "Empatia": 76.3,
-            "Crises": 61.3,
-            "Padroes": 74.7,
-            "Personalizacao": 65.9
+            "Escuta": 68.6,
+            "Empatia": 69.2,
+            "Crises": 54.2,
+            "Padroes": 66.8,
+            "Personalizacao": 58.8
         },
-        "count": 9,
+        "count": 10,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -1257,10 +1257,10 @@ const users = [
             ]
         },
         "name": "Wendy Cruz",
-        "lqaScore": 74.7,
+        "lqaScore": 66.8,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -1271,7 +1271,8 @@ const users = [
             "2026-06-06",
             "2026-06-15",
             "2026-08-01",
-            "2026-08-11"
+            "2026-08-11",
+            "2026-08-23"
         ],
         "avgDurMin": 1
     },
@@ -1715,8 +1716,8 @@ const users = [
         "name": "Carlos Conde",
         "lqaScore": 52.0,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -1962,8 +1963,8 @@ const users = [
         "lastName": "Fabricio",
         "email": "jose.fabricio@fairmont.com",
         "username": "jose.fabricio",
-        "equipe": "Recepção",
-        "avgDurSec": 0,
+        "equipe": "Recepcionista",
+        "avgDurSec": 2,
         "avgScore": 0,
         "skills": {
             "Crises": 0,
@@ -1972,13 +1973,17 @@ const users = [
             "Personalizacao": 0,
             "Escuta": 0
         },
-        "count": 0,
+        "count": 1,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle."
             ]
         },
         "name": "Jose Fabricio",
@@ -1991,7 +1996,7 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
+        "dates": "2026-08-21",
         "avgDurMin": 0
     },
     {
