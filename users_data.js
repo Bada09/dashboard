@@ -117,8 +117,8 @@ const users = [
         "name": "Sophie Géraud",
         "lqaScore": 42.6,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -388,8 +388,8 @@ const users = [
         "lqaScore": 53.7,
         "languages": [
             "PT",
-            "EN",
-            "FR"
+            "FR",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -613,8 +613,8 @@ const users = [
         "lqaScore": 60.5,
         "languages": [
             "PT",
-            "EN",
-            "FR"
+            "FR",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -674,8 +674,8 @@ const users = [
         "lqaScore": 72.3,
         "languages": [
             "PT",
-            "EN",
-            "FR"
+            "FR",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -724,8 +724,8 @@ const users = [
         "lqaScore": 65.2,
         "languages": [
             "PT",
-            "EN",
-            "FR"
+            "FR",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -772,8 +772,8 @@ const users = [
         "lqaScore": 75.8,
         "languages": [
             "PT",
-            "EN",
-            "FR"
+            "FR",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -823,8 +823,8 @@ const users = [
         "lqaScore": 52.7,
         "languages": [
             "PT",
-            "EN",
-            "FR"
+            "FR",
+            "EN"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -994,8 +994,8 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -1301,8 +1301,8 @@ const users = [
         "name": "Wendy Cruz",
         "lqaScore": 66.8,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {
@@ -1764,8 +1764,8 @@ const users = [
         "name": "Carlos Conde",
         "lqaScore": 48.2,
         "languages": [
-            "PT",
             "EN",
+            "PT",
             "FR"
         ],
         "improvement": {

@@ -2,7 +2,7 @@
 # Executa a atualizacao completa do fairmont.html e users_data.js e publica no GitHub
 
 param(
-    [string]$DumpFile = "dump-Fairmont-10aug26-10h28.json",
+    [string]$DumpFile = "dump-Fairmont-07sep26-17h27.json",
     [string]$HtmlFile = "fairmont.html"
 )
 
