@@ -1,4 +1,4 @@
-const lastUpdate = '24/08/2026 05:10';
+const lastUpdate = '07/09/2026 12:27';
 const users = [
     {
         "firstName": "Tom",
@@ -47,6 +47,43 @@ const users = [
     },
     {
         "firstName": "Sophie",
+        "lastName": "GTest",
+        "email": "sgeraud@gmail.com",
+        "username": "sgeraud",
+        "equipe": "Recepção",
+        "avgDurSec": 0,
+        "avgScore": 0,
+        "skills": {
+            "Crises": 0,
+            "Padroes": 0,
+            "Empatia": 5,
+            "Personalizacao": 0,
+            "Escuta": 0
+        },
+        "count": 0,
+        "insights": {
+            "pt": [
+                "Aguardando início das simulações."
+            ],
+            "fr": [
+                "En attente du début des simulations."
+            ]
+        },
+        "name": "Sophie GTest",
+        "lqaScore": 0,
+        "languages": [
+            "PT",
+            "FR"
+        ],
+        "improvement": {
+            "pt": "Reforçar padrões LQA",
+            "fr": "Renforcer les standards LQA"
+        },
+        "dates": "",
+        "avgDurMin": 0
+    },
+    {
+        "firstName": "Sophie",
         "lastName": "Géraud",
         "email": "sophie.geraud@rhapsody.run",
         "username": "sophie.geraud",
@@ -80,8 +117,8 @@ const users = [
         "name": "Sophie Géraud",
         "lqaScore": 42.6,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -350,8 +387,8 @@ const users = [
         "name": "Tabajara Dias",
         "lqaScore": 53.7,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -575,8 +612,8 @@ const users = [
         "name": "Gabrielli Mattos",
         "lqaScore": 60.5,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -636,8 +673,8 @@ const users = [
         "name": "Neube Brigagao",
         "lqaScore": 72.3,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -659,16 +696,16 @@ const users = [
         "email": "matheus.barcelos@fairmont.com",
         "username": "matheus.barcelos",
         "equipe": "Concierge",
-        "avgDurSec": 6,
-        "avgScore": 78.5,
+        "avgDurSec": 19,
+        "avgScore": 62.8,
         "skills": {
-            "Escuta": 83.4,
-            "Empatia": 83.5,
-            "Crises": 68.5,
-            "Padroes": 78.5,
-            "Personalizacao": 71.1
+            "Escuta": 67.7,
+            "Empatia": 67.8,
+            "Crises": 52.8,
+            "Padroes": 65.2,
+            "Personalizacao": 55.4
         },
-        "count": 2,
+        "count": 5,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -684,10 +721,10 @@ const users = [
             ]
         },
         "name": "Matheus Barcelos",
-        "lqaScore": 78.5,
+        "lqaScore": 65.2,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -696,9 +733,10 @@ const users = [
         },
         "dates": [
             "2025-12-22",
-            "2026-01-07"
+            "2026-01-07",
+            "2026-08-26"
         ],
-        "avgDurMin": 8
+        "avgDurMin": 5
     },
     {
         "firstName": "Enzo",
@@ -733,8 +771,8 @@ const users = [
         "name": "Enzo Hidde",
         "lqaScore": 75.8,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -784,8 +822,8 @@ const users = [
         "name": "Patricia Eckhard",
         "lqaScore": 52.7,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -956,8 +994,8 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -1120,8 +1158,8 @@ const users = [
         "lastName": "Gomes",
         "email": "silvio.gomes@fairmont.com",
         "username": "silvio.gomes",
-        "equipe": "Recepção",
-        "avgDurSec": 0,
+        "equipe": "Concierge",
+        "avgDurSec": 16,
         "avgScore": 0,
         "skills": {
             "Crises": 0,
@@ -1130,13 +1168,17 @@ const users = [
             "Personalizacao": 0,
             "Escuta": 0
         },
-        "count": 0,
+        "count": 1,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle."
             ]
         },
         "name": "Silvio Gomes",
@@ -1149,7 +1191,7 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
+        "dates": "2026-08-31",
         "avgDurMin": 0
     },
     {
@@ -1259,8 +1301,8 @@ const users = [
         "name": "Wendy Cruz",
         "lqaScore": 66.8,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -1281,27 +1323,33 @@ const users = [
         "lastName": "Bignon",
         "email": "isadora.bignon@fairmont.com",
         "username": "isadora.bignon",
-        "equipe": "Recepção",
-        "avgDurSec": 0,
-        "avgScore": 0,
+        "equipe": "Concierge",
+        "avgDurSec": 36,
+        "avgScore": 43.5,
         "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
+            "Escuta": 50.9,
+            "Empatia": 48.5,
+            "Crises": 33.5,
+            "Padroes": 48.5,
+            "Personalizacao": 36.1
         },
-        "count": 0,
+        "count": 2,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Isadora Bignon",
-        "lqaScore": 0,
+        "lqaScore": 48.5,
         "languages": [
             "PT",
             "FR"
@@ -1310,8 +1358,8 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": "2026-08-27",
+        "avgDurMin": 4
     },
     {
         "firstName": "Luceanne",
@@ -1689,16 +1737,16 @@ const users = [
         "email": "carlos.conde@fairmont.com",
         "username": "carlos.conde",
         "equipe": "Concierge",
-        "avgDurSec": 56,
-        "avgScore": 45.3,
+        "avgDurSec": 22,
+        "avgScore": 40.8,
         "skills": {
-            "Escuta": 52.7,
-            "Empatia": 50.3,
-            "Crises": 35.3,
-            "Padroes": 52.0,
-            "Personalizacao": 37.9
+            "Escuta": 48.0,
+            "Empatia": 45.8,
+            "Crises": 30.8,
+            "Padroes": 48.2,
+            "Personalizacao": 32.9
         },
-        "count": 6,
+        "count": 7,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1714,10 +1762,10 @@ const users = [
             ]
         },
         "name": "Carlos Conde",
-        "lqaScore": 52.0,
+        "lqaScore": 48.2,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -1727,9 +1775,10 @@ const users = [
         "dates": [
             "2026-05-25",
             "2026-05-27",
-            "2026-08-12"
+            "2026-08-12",
+            "2026-08-26"
         ],
-        "avgDurMin": 3
+        "avgDurMin": 4
     },
     {
         "firstName": "Pedro",
@@ -1818,11 +1867,11 @@ const users = [
         "avgDurSec": 58,
         "avgScore": 53.1,
         "skills": {
-            "Escuta": 60.3,
+            "Escuta": 59.2,
             "Empatia": 58.1,
             "Crises": 43.1,
             "Padroes": 57.1,
-            "Personalizacao": 45.2
+            "Personalizacao": 44.2
         },
         "count": 37,
         "insights": {
@@ -2115,27 +2164,33 @@ const users = [
         "lastName": "Maranhao",
         "email": "pedro.maranhao@fairmont.com",
         "username": "pedro.maranhao",
-        "equipe": "Recepção",
-        "avgDurSec": 0,
-        "avgScore": 0,
+        "equipe": "Recepcionista",
+        "avgDurSec": 56,
+        "avgScore": 63.0,
         "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
+            "Escuta": 68.5,
+            "Empatia": 68.0,
+            "Crises": 53.0,
+            "Padroes": 73.0,
+            "Personalizacao": 55.8
         },
-        "count": 0,
+        "count": 1,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Bom engajamento com o hóspede.",
+                "Conhecimento técnico em evolução.",
+                "Necessita refinar tom de voz em crises.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Bon engagement avec le client.",
+                "Connaissances techniques en évolution.",
+                "Besoin de raffiner le ton en cas de crise.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Pedro Maranhao",
-        "lqaScore": 0,
+        "lqaScore": 73.0,
         "languages": [
             "PT",
             "FR"
@@ -2144,35 +2199,41 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": "2026-08-30",
+        "avgDurMin": 2
     },
     {
         "firstName": "Thiago",
         "lastName": "Lobo",
         "email": "thiago.lobo@fairmont.com",
         "username": "thiago.lobo",
-        "equipe": "Recepção",
-        "avgDurSec": 0,
-        "avgScore": 0,
+        "equipe": "Guest Attendant",
+        "avgDurSec": 34,
+        "avgScore": 43.0,
         "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
+            "Escuta": 50.3,
+            "Empatia": 48.0,
+            "Crises": 33.0,
+            "Padroes": 43.0,
+            "Personalizacao": 35.5
         },
-        "count": 0,
+        "count": 1,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Thiago Lobo",
-        "lqaScore": 0,
+        "lqaScore": 43.0,
         "languages": [
             "PT",
             "FR"
@@ -2181,7 +2242,7 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
+        "dates": "2026-08-25",
         "avgDurMin": 0
     },
     {
