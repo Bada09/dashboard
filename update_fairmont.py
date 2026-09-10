@@ -13,12 +13,12 @@ if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
     except Exception:
         pass
 
-DUMP_FILE = 'dump-Fairmont-07sep26-17h27.json'
+DUMP_FILE = 'Dump-Fairmont-10sep26-16h44.json'
 if len(sys.argv) > 1:
     DUMP_FILE = sys.argv[1]
 else:
     import glob
-    dumps = glob.glob('dump-Fairmont-*.json')
+    dumps = glob.glob('[dD]ump-[fF]airmont-*.json')
     if dumps:
         # Sort by modification time to get the newest
         dumps.sort(key=os.path.getmtime, reverse=True)

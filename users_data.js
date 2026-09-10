@@ -31,8 +31,8 @@ const users = [
         "name": "Tom Landes",
         "lqaScore": 0,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -117,9 +117,9 @@ const users = [
         "name": "Sophie Géraud",
         "lqaScore": 42.6,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -234,8 +234,8 @@ const users = [
         "name": "Philippe Lepeuple",
         "lqaScore": 52.2,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -288,8 +288,8 @@ const users = [
         "name": "Leonel  Leandro",
         "lqaScore": 42.5,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -336,8 +336,8 @@ const users = [
         "name": "Fernando Godoy",
         "lqaScore": 42.7,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -387,9 +387,9 @@ const users = [
         "name": "Tabajara Dias",
         "lqaScore": 53.7,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -561,8 +561,8 @@ const users = [
         "name": "Lucas Lopes",
         "lqaScore": 67.9,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -612,9 +612,9 @@ const users = [
         "name": "Gabrielli Mattos",
         "lqaScore": 61.9,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -674,9 +674,9 @@ const users = [
         "name": "Neube Brigagao",
         "lqaScore": 72.3,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -724,9 +724,9 @@ const users = [
         "name": "Matheus Barcelos",
         "lqaScore": 65.2,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -772,9 +772,9 @@ const users = [
         "name": "Enzo Hidde",
         "lqaScore": 75.8,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -823,9 +823,9 @@ const users = [
         "name": "Patricia Eckhard",
         "lqaScore": 52.7,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -872,8 +872,8 @@ const users = [
         "name": "Jesse Henriques",
         "lqaScore": 78.0,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -995,9 +995,9 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1185,8 +1185,8 @@ const users = [
         "name": "Silvio Gomes",
         "lqaScore": 0,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1302,9 +1302,9 @@ const users = [
         "name": "Wendy Cruz",
         "lqaScore": 66.8,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1352,8 +1352,8 @@ const users = [
         "name": "Isadora Bignon",
         "lqaScore": 48.5,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1765,9 +1765,9 @@ const users = [
         "name": "Carlos Conde",
         "lqaScore": 48.2,
         "languages": [
-            "PT",
+            "FR",
             "EN",
-            "FR"
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1812,8 +1812,8 @@ const users = [
         "name": "Pedro Jorge",
         "lqaScore": 0,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -1896,8 +1896,8 @@ const users = [
         "name": "Philippe de Langlais",
         "lqaScore": 57.1,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -2039,8 +2039,8 @@ const users = [
         "name": "Jose Fabricio",
         "lqaScore": 0,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -2193,8 +2193,8 @@ const users = [
         "name": "Pedro Maranhao",
         "lqaScore": 73.0,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -2236,8 +2236,8 @@ const users = [
         "name": "Thiago Lobo",
         "lqaScore": 43.0,
         "languages": [
-            "PT",
-            "FR"
+            "FR",
+            "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",

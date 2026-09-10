@@ -2,7 +2,7 @@
 # Executa a atualizacao completa do fairmont.html e users_data.js e publica no GitHub
 
 param(
-    [string]$DumpFile = "dump-Fairmont-07sep26-17h27.json",
+    [string]$DumpFile = "Dump-Fairmont-10sep26-16h44.json",
     [string]$HtmlFile = "fairmont.html"
 )
 
@@ -12,7 +12,7 @@ Set-Location $PSScriptRoot
 Write-Host "=== Atualizando Fairmont Dashboard e Publicando no GitHub ===" -ForegroundColor Cyan
 
 # Executar script python que atualiza os dados e faz git add / commit / push automaticamente
-python update_fairmont.py
+python update_fairmont.py $DumpFile
 
 Write-Host "`nProcesso concluido com sucesso!" -ForegroundColor Green
 Write-Host "Link Online: https://bada09.github.io/dashboard/fairmont.html" -ForegroundColor Yellow
