@@ -1,4 +1,4 @@
-const lastUpdate = '07/09/2026 12:27';
+const lastUpdate = '10/09/2026 11:44';
 const users = [
     {
         "firstName": "Tom",
@@ -117,8 +117,8 @@ const users = [
         "name": "Sophie Géraud",
         "lqaScore": 42.6,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -388,8 +388,8 @@ const users = [
         "lqaScore": 53.7,
         "languages": [
             "PT",
-            "FR",
-            "EN"
+            "EN",
+            "FR"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -581,16 +581,16 @@ const users = [
         "email": "gabrielli.mattos@fairmont.com",
         "username": "gabrielli.mattos",
         "equipe": "Guest Attendant",
-        "avgDurSec": 49,
-        "avgScore": 57.5,
+        "avgDurSec": 46,
+        "avgScore": 58.3,
         "skills": {
-            "Escuta": 61.6,
-            "Empatia": 62.5,
-            "Crises": 47.5,
-            "Padroes": 60.5,
-            "Personalizacao": 51.7
+            "Escuta": 62.4,
+            "Empatia": 63.3,
+            "Crises": 48.3,
+            "Padroes": 61.9,
+            "Personalizacao": 52.5
         },
-        "count": 23,
+        "count": 24,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -610,11 +610,11 @@ const users = [
             ]
         },
         "name": "Gabrielli Mattos",
-        "lqaScore": 60.5,
+        "lqaScore": 61.9,
         "languages": [
             "PT",
-            "FR",
-            "EN"
+            "EN",
+            "FR"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -632,7 +632,8 @@ const users = [
             "2026-07-15",
             "2026-07-30",
             "2026-08-07",
-            "2026-08-11"
+            "2026-08-11",
+            "2026-09-09"
         ],
         "avgDurMin": 3
     },
@@ -674,8 +675,8 @@ const users = [
         "lqaScore": 72.3,
         "languages": [
             "PT",
-            "FR",
-            "EN"
+            "EN",
+            "FR"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -724,8 +725,8 @@ const users = [
         "lqaScore": 65.2,
         "languages": [
             "PT",
-            "FR",
-            "EN"
+            "EN",
+            "FR"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -772,8 +773,8 @@ const users = [
         "lqaScore": 75.8,
         "languages": [
             "PT",
-            "FR",
-            "EN"
+            "EN",
+            "FR"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -823,8 +824,8 @@ const users = [
         "lqaScore": 52.7,
         "languages": [
             "PT",
-            "FR",
-            "EN"
+            "EN",
+            "FR"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
@@ -994,8 +995,8 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -1301,8 +1302,8 @@ const users = [
         "name": "Wendy Cruz",
         "lqaScore": 66.8,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
@@ -1764,8 +1765,8 @@ const users = [
         "name": "Carlos Conde",
         "lqaScore": 48.2,
         "languages": [
-            "EN",
             "PT",
+            "EN",
             "FR"
         ],
         "improvement": {
