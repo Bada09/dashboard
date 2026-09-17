@@ -1957,6 +1957,21 @@
 
         const ui = {
             pt: {
+                statusLabel: "Status:",
+                statusAll: "Todas as Simulações",
+                statusFinished: "Concluídas",
+                statusUnfinished: "Não Concluídas",
+                transcriptTitle: "Transcrição da Simulação",
+                playAudio: "Ouvir conversa",
+                pauseAudio: "Pausar",
+                resumeAudio: "Continuar",
+                stopAudio: "Parar",
+                playMessage: "Ouvir fala",
+                searchSimPlaceholder: "Buscar colaborador ou fala na transcrição...",
+                searchBtn: "Buscar",
+                clearSearch: "Limpar busca",
+                noTranscript: "Nenhuma transcrição disponível para esta simulação.",
+    
                 menuDashboard: "Dashboard",
                 menuReport: "Resumo",
                 export: "Exportar Excel",
@@ -2038,6 +2053,21 @@
                 }
             },
             fr: {
+                statusLabel: "Statut :",
+                statusAll: "Toutes les Simulations",
+                statusFinished: "Terminées",
+                statusUnfinished: "Non Terminées",
+                transcriptTitle: "Transcription de la Simulation",
+                playAudio: "Écouter la conversation",
+                pauseAudio: "Pause",
+                resumeAudio: "Reprendre",
+                stopAudio: "Arrêter",
+                playMessage: "Écouter ce message",
+                searchSimPlaceholder: "Rechercher par collaborateur ou dialogue...",
+                searchBtn: "Rechercher",
+                clearSearch: "Effacer la recherche",
+                noTranscript: "Aucune transcription disponible pour cette simulation.",
+    
                 menuDashboard: "Dashboard",
                 menuReport: "Résumé",
                 export: "Exporter Excel",
@@ -39768,75 +39798,174 @@
 ];
 
         // Primeiro, filtramos as simulações válidas globalmente
-        const VALID_SIMS = RAW_SIMULATIONS.filter(s => {
+                const VALID_SIMS = RAW_SIMULATIONS.filter(s => {
             const name = s.name.toLowerCase();
             const isInternal = excludedNames.some(ex => name.includes(ex));
             const minInteractions = s.interactions ? s.interactions >= 3 : getSec(s.dur) >= 45;
-            const hasScore = s.score !== null && s.score !== undefined;
-            return minInteractions && !isInternal && hasScore;
+            return minInteractions && !isInternal;
         });
 
-        // Agora derivamos os usuários ativos APENAS de simulações válidas
         let activeUsers = [];
 
-        let currentDateFilter = 'all'; // 'all', 'month', '7days', '30days', 'custom'
-        let customStartDate = null;
-        let customEndDate = null;
+        var currentFilterStatus = 'finished'; // 'finished' | 'unfinished' | null
+        var currentFilterPeriodPreset = 'all'; // 'yesterday' | 'all' | 'last7' | 'last30' | 'custom'
+        var currentFilterStartDate = null;
+        var currentFilterEndDate = null;
+        var currentSimSearchKeyword = '';
+        var sortField = 'date'; // 'date' | 'score' | 'name'
+        var sortAsc = false;
 
-        function getRefDate() {
-            if (VALID_SIMS.length === 0) return new Date();
-            const dates = VALID_SIMS.map(s => {
-                const [d, m, y] = s.date.split('/');
-                return new Date(y, m - 1, d);
-            }).sort((a, b) => b - a);
-            return dates[0];
+        function parseDateBR(str) {
+            if (!str) return new Date(0);
+            const parts = str.split('/');
+            if (parts.length === 3) {
+                return new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+            }
+            return new Date(str);
+        }
+
+        function getYesterdayDateStr() {
+            const d = new Date();
+            d.setDate(d.getDate() - 1);
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = d.getFullYear();
+            const calcYesterday = `${day}/${month}/${year}`;
+
+            if (typeof VALID_SIMS !== 'undefined' && VALID_SIMS.some(s => s.date === calcYesterday)) {
+                return calcYesterday;
+            }
+
+            if (typeof VALID_SIMS !== 'undefined' && VALID_SIMS.length > 0) {
+                const sortedDates = [...new Set(VALID_SIMS.map(s => s.date))].sort((a, b) => {
+                    const [d1, m1, y1] = a.split('/');
+                    const [d2, m2, y2] = b.split('/');
+                    return new Date(y2, m2 - 1, d2) - new Date(y1, m1 - 1, d1);
+                });
+                if (sortedDates.length > 0) return sortedDates[0];
+            }
+            return calcYesterday;
+        }
+
+        function highlightSearchTerm(text, term) {
+            if (!term || !text) return text;
+            const cleanTerm = term.trim();
+            if (!cleanTerm) return text;
+            const regex = new RegExp(`(${cleanTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<mark style="background: #fef08a; color: #854d0e; padding: 1px 4px; border-radius: 3px; font-weight: 700;">$1</mark>');
+        }
+
+        function getArea(scenario) {
+            if (!scenario) return "Outros";
+            const sc = scenario.toUpperCase();
+            if (sc.includes("RECEPCIONISTA") || sc.includes("RECEPÇÃO")) return "Recepcionista";
+            if (sc.includes("CONCIERGE")) return "Concierge";
+            if (sc.includes("GUEST ATTENDANT") || sc.includes("ROOM SERVICE")) return "Guest Attendant";
+            return "Outros";
+        }
+
+        function getFilteredSims(sims) {
+            let result = sims;
+            if (currentFilterArea) {
+                result = result.filter(s => getArea(s.scenario) === currentFilterArea);
+            }
+            if (currentFilterUseCase) {
+                result = result.filter(s => s.scenario === currentFilterUseCase);
+            }
+            if (currentFilterStatus) {
+                if (currentFilterStatus === 'finished') {
+                    result = result.filter(s => s.finished);
+                } else if (currentFilterStatus === 'unfinished') {
+                    result = result.filter(s => !s.finished);
+                }
+            }
+            if (currentFilterPeriodPreset !== 'all') {
+                const today = new Date();
+                if (currentFilterPeriodPreset === 'yesterday') {
+                    const yStr = getYesterdayDateStr();
+                    result = result.filter(s => s.date === yStr);
+                } else if (currentFilterPeriodPreset === 'last7') {
+                    const limit = new Date();
+                    limit.setDate(today.getDate() - 7);
+                    limit.setHours(0, 0, 0, 0);
+                    result = result.filter(s => parseDateBR(s.date) >= limit);
+                } else if (currentFilterPeriodPreset === 'last30') {
+                    const limit = new Date();
+                    limit.setDate(today.getDate() - 30);
+                    limit.setHours(0, 0, 0, 0);
+                    result = result.filter(s => parseDateBR(s.date) >= limit);
+                } else if (currentFilterPeriodPreset === 'custom') {
+                    if (currentFilterStartDate) {
+                        const start = new Date(currentFilterStartDate + 'T00:00:00');
+                        result = result.filter(s => parseDateBR(s.date) >= start);
+                    }
+                    if (currentFilterEndDate) {
+                        const end = new Date(currentFilterEndDate + 'T23:59:59');
+                        result = result.filter(s => parseDateBR(s.date) <= end);
+                    }
+                }
+            }
+            if (currentSimSearchKeyword && currentSimSearchKeyword.trim()) {
+                const rawTerm = currentSimSearchKeyword.trim().toLowerCase();
+                const normTerm = rawTerm.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                result = result.filter(s => {
+                    const nameNorm = (s.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    const scNorm = (s.scenario || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    if (nameNorm.includes(normTerm) || scNorm.includes(normTerm)) return true;
+                    if (s.messages && s.messages.length) {
+                        return s.messages.some(m => {
+                            const txtNorm = (m.text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                            return txtNorm.includes(normTerm);
+                        });
+                    }
+                    return false;
+                });
+            }
+            return result;
         }
 
         function getFilteredSimulations(filterUser = null) {
-            return VALID_SIMS.filter(s => {
-                if (filterUser && cleanName(s.name) !== cleanName(filterUser)) return false;
-                
-                // Filter by Area
-                if (currentFilterArea) {
-                    const sc = s.scenario.toUpperCase();
-                    let area = "Outros";
-                    if (sc.includes("RECEPCIONISTA")) area = "Recepcionista";
-                    else if (sc.includes("CONCIERGE")) area = "Concierge";
-                    else if (sc.includes("GUEST ATTENDANT")) area = "Guest Attendant";
-                    
-                    if (area !== currentFilterArea) return false;
+            let result = VALID_SIMS;
+            if (filterUser) {
+                result = result.filter(s => cleanName(s.name) === cleanName(filterUser));
+            }
+            return getFilteredSims(result);
+        }
+
+        function getSortedAndFilteredSims(filterUser = null, filterArea = null) {
+            let indexedSims = VALID_SIMS.map((s, idx) => ({ originalIdx: idx, ...s }));
+            if (filterUser) {
+                indexedSims = indexedSims.filter(s => cleanName(s.name) === cleanName(filterUser));
+            }
+            const areaToFilter = filterArea !== undefined && filterArea !== null ? filterArea : currentFilterArea;
+            if (areaToFilter) {
+                indexedSims = indexedSims.filter(s => getArea(s.scenario) === areaToFilter);
+            }
+            let simList = getFilteredSims(indexedSims);
+
+            // Sorting logic
+            simList.sort((a, b) => {
+                let valA, valB;
+                if (sortField === 'date') {
+                    const [d1, m1, y1] = (a.date || '01/01/2000').split('/');
+                    const [d2, m2, y2] = (b.date || '01/01/2000').split('/');
+                    valA = new Date(y1, m1 - 1, d1).getTime();
+                    valB = new Date(y2, m2 - 1, d2).getTime();
+                } else if (sortField === 'score') {
+                    valA = a.finished ? a.score : -1;
+                    valB = b.finished ? b.score : -1;
+                } else if (sortField === 'name') {
+                    valA = (a.name || '').toLowerCase();
+                    valB = (b.name || '').toLowerCase();
+                } else {
+                    return 0;
                 }
-                
-                // Filter by UseCase
-                if (currentFilterUseCase && s.scenario !== currentFilterUseCase) return false;
-                
-                // Filter by Date
-                if (currentDateFilter !== 'all') {
-                    const [d, m, y] = s.date.split('/');
-                    const simDate = new Date(y, m - 1, d);
-                    const refDate = getRefDate();
-                    
-                    if (currentDateFilter === 'month') {
-                        if (simDate.getMonth() !== refDate.getMonth() || simDate.getFullYear() !== refDate.getFullYear()) return false;
-                    } else if (currentDateFilter === '7days') {
-                        const diffDays = Math.ceil((refDate - simDate) / (1000 * 60 * 60 * 24));
-                        if (diffDays < 0 || diffDays > 7) return false;
-                    } else if (currentDateFilter === '30days') {
-                        const diffDays = Math.ceil((refDate - simDate) / (1000 * 60 * 60 * 24));
-                        if (diffDays < 0 || diffDays > 30) return false;
-                    } else if (currentDateFilter === 'custom') {
-                        if (customStartDate) {
-                            const start = new Date(customStartDate + 'T00:00:00');
-                            if (simDate < start) return false;
-                        }
-                        if (customEndDate) {
-                            const end = new Date(customEndDate + 'T23:59:59');
-                            if (simDate > end) return false;
-                        }
-                    }
-                }
-                return true;
+
+                if (valA < valB) return sortAsc ? -1 : 1;
+                if (valA > valB) return sortAsc ? 1 : -1;
+                return 0;
             });
+            return simList;
         }
 
         function getActiveUsers() {
@@ -39867,59 +39996,86 @@
             }).sort((a, b) => b.avgScore - a.avgScore);
         }
 
-        function setDateFilter(filter) {
-            currentDateFilter = filter;
-            if (filter !== 'custom') {
-                customStartDate = null;
-                customEndDate = null;
+        function setPeriodFilter(val) {
+            currentFilterPeriodPreset = val;
+            if (val !== 'custom') {
+                currentFilterStartDate = null;
+                currentFilterEndDate = null;
             }
             if (window.activeUser) selectUser(window.activeUser);
             else showGlobalStats();
         }
 
-        function setCustomDates() {
-            const startVal = document.getElementById('custom-start-date').value;
-            const endVal = document.getElementById('custom-end-date').value;
-            customStartDate = startVal ? startVal : null;
-            customEndDate = endVal ? endVal : null;
-            currentDateFilter = 'custom';
-            
+        function handleCustomDateChange() {
+            const s = document.getElementById('input-start-date');
+            const e = document.getElementById('input-end-date');
+            currentFilterStartDate = s ? s.value : null;
+            currentFilterEndDate = e ? e.value : null;
             if (window.activeUser) selectUser(window.activeUser);
             else showGlobalStats();
         }
 
-        function renderDateFilterHTML() {
-            return `
-                <div class="date-filter-section" style="background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;">
-                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 8px;">Período:</span>
-                        
-                        <button class="btn-secondary date-filter-btn" 
-                            onclick="setDateFilter('month')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === 'month' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
-                            Mês Atual
-                        </button>
-                        <button class="btn-secondary date-filter-btn" 
-                            onclick="setDateFilter('7days')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === '7days' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
-                            Últimos 7 Dias
-                        </button>
-                        <button class="btn-secondary date-filter-btn" 
-                            onclick="setDateFilter('30days')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === '30days' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
-                            Últimos 30 Dias
-                        </button>
-                        <button class="btn-secondary date-filter-btn" 
-                            onclick="setDateFilter('all')" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; font-weight: 600; ${currentDateFilter === 'all' ? 'background: var(--primary) !important; color: #041e42 !important; border-color: var(--primary) !important;' : ''}">
-                            Todo o Período
-                        </button>
-                    </div>
-                    
-                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Personalizar:</span>
-                        <input type="date" id="custom-start-date" value="${customStartDate || ''}" onchange="setCustomDates()" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.8rem; font-weight: 500; font-family: 'Inter'; outline: none;">
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">até</span>
-                        <input type="date" id="custom-end-date" value="${customEndDate || ''}" onchange="setCustomDates()" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.8rem; font-weight: 500; font-family: 'Inter'; outline: none;">
-                    </div>
-                </div>
-            `;
+        function setStatusFilter(val) {
+            currentFilterStatus = val === 'all' ? null : val;
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        function setAreaFilter(val) {
+            currentFilterArea = val === 'all' ? null : val;
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        function setUseCaseFilter(val) {
+            currentFilterUseCase = val === 'all' ? null : val;
+            if (window.activeUser) selectUser(window.activeUser);
+            else showGlobalStats();
+        }
+
+        function triggerSimSearch() {
+            const input = document.getElementById('simSearchInput');
+            if (input) {
+                currentSimSearchKeyword = input.value.trim();
+            }
+            refreshSimTable();
+        }
+
+        function clearSimSearch() {
+            currentSimSearchKeyword = '';
+            const input = document.getElementById('simSearchInput');
+            if (input) input.value = '';
+            refreshSimTable();
+        }
+
+        function refreshSimTable(filterUser = null, filterArea = null) {
+            const userName = filterUser !== undefined && filterUser !== null ? filterUser : (window.activeUser ? window.activeUser.name : null);
+            const area = filterArea !== undefined && filterArea !== null ? filterArea : currentFilterArea;
+            const wrapper = document.getElementById('simTableWrapper');
+            if (wrapper) {
+                wrapper.innerHTML = renderSimulationsTable(userName, area);
+                const input = document.getElementById('simSearchInput');
+                if (input) {
+                    input.focus();
+                    const len = input.value.length;
+                    input.setSelectionRange(len, len);
+                }
+            } else {
+                if (window.activeUser) selectUser(window.activeUser);
+                else showGlobalStats();
+            }
+        }
+
+        function toggleTableSort(field, filterUser, filterArea) {
+            const u = filterUser === 'null' ? null : filterUser;
+            const a = filterArea === 'null' ? null : filterArea;
+            if (sortField === field) {
+                sortAsc = !sortAsc;
+            } else {
+                sortField = field;
+                sortAsc = (field === 'name') ? true : false;
+            }
+            refreshSimTable(u, a);
         }
 
         function getSec(s) {
@@ -39943,44 +40099,194 @@
             return `${s}s`;
         }
 
-        function renderSimulationsTable(filterUser = null) {
+        function renderDateFilterHTML() {
+            return `
+                <div class="card" style="margin-bottom: 2.5rem; background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.4rem 1.6rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-calendar-alt" style="font-size: 1.1rem; color: var(--primary);"></i>
+                            <h3 style="font-size: 0.85rem; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent);">
+                                ${currentLang === 'pt' ? 'Período de Análise' : 'Période d\'Analyse'}
+                            </h3>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button class="btn-period ${currentFilterPeriodPreset === 'yesterday' ? 'active' : ''}" onclick="setPeriodFilter('yesterday')">
+                                ${currentLang === 'pt' ? 'Ontem' : 'Hier'}
+                            </button>
+                            <button class="btn-period ${currentFilterPeriodPreset === 'all' ? 'active' : ''}" onclick="setPeriodFilter('all')">
+                                ${currentLang === 'pt' ? 'Todo o histórico' : 'Tout l\'historique'}
+                            </button>
+                            <button class="btn-period ${currentFilterPeriodPreset === 'last7' ? 'active' : ''}" onclick="setPeriodFilter('last7')">
+                                ${currentLang === 'pt' ? 'Últimos 7 dias' : '7 derniers jours'}
+                            </button>
+                            <button class="btn-period ${currentFilterPeriodPreset === 'last30' ? 'active' : ''}" onclick="setPeriodFilter('last30')">
+                                ${currentLang === 'pt' ? 'Últimos 30 dias' : '30 derniers jours'}
+                            </button>
+                            <button class="btn-period ${currentFilterPeriodPreset === 'custom' ? 'active' : ''}" onclick="setPeriodFilter('custom')">
+                                ${currentLang === 'pt' ? 'Personalizado' : 'Personnalisé'}
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="custom-date-inputs" style="display: ${currentFilterPeriodPreset === 'custom' ? 'flex' : 'none'}; gap: 20px; margin-top: 1.2rem; align-items: center; flex-wrap: wrap; padding-top: 1rem; border-top: 1px dashed var(--border);">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em;">
+                                ${currentLang === 'pt' ? 'De:' : 'Du :'}
+                            </span>
+                            <input type="date" id="input-start-date" value="${currentFilterStartDate || ''}" onchange="handleCustomDateChange()" style="padding: 8px 12px; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em;">
+                                ${currentLang === 'pt' ? 'Até:' : 'Au :'}
+                            </span>
+                            <input type="date" id="input-end-date" value="${currentFilterEndDate || ''}" onchange="handleCustomDateChange()" style="padding: 8px 12px; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'">
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSimulationsTable(filterUser = null, filterArea = null) {
+            const hasKeyword = currentSimSearchKeyword && currentSimSearchKeyword.trim();
             let html = `
                 <div class="sim-table-container">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;">
-                        ${ui[currentLang].simulationsList}
-                    </h3>
+                    <div class="sim-table-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h3 style="margin: 0; color: var(--accent); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-history" style="color: var(--primary);"></i> ${ui[currentLang].simulationsList}
+                            </h3>
+                            ${hasKeyword ? `
+                                <div style="margin-top: 5px; font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+                                    <span>${currentLang === 'pt' ? 'Filtrando por:' : 'Filtré par :'}</span>
+                                    <span style="background: rgba(0, 188, 242, 0.12); color: var(--primary-dark); font-weight: 700; padding: 2px 8px; border-radius: 12px;">
+                                        "${fixEnc(currentSimSearchKeyword)}"
+                                    </span>
+                                    <button onclick="clearSimSearch()" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.75rem; font-weight: 600; padding: 0 4px; display: inline-flex; align-items: center; gap: 3px;">
+                                        <i class="fas fa-times-circle"></i> ${ui[currentLang].clearSearch}
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="sim-search-bar" style="display: flex; align-items: center; gap: 8px; max-width: 380px; width: 100%;">
+                            <div style="position: relative; flex: 1;">
+                                <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.8rem;"></i>
+                                <input type="text" id="simSearchInput" value="${fixEnc(currentSimSearchKeyword)}"
+                                    placeholder="${ui[currentLang].searchSimPlaceholder}"
+                                    onkeydown="if(event.key === 'Enter') triggerSimSearch(); else if(event.key === 'Escape') clearSimSearch();"
+                                    style="width: 100%; padding: 8px 32px 8px 34px; font-size: 0.82rem; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); outline: none; transition: all 0.2s;"
+                                    onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 0 0 3px rgba(0, 188, 242, 0.15)';"
+                                    onblur="this.style.borderColor='var(--border)'; this.style.boxShadow='none';"
+                                />
+                                ${hasKeyword ? `
+                                    <button onclick="clearSimSearch()" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; font-size: 0.8rem;" title="${ui[currentLang].clearSearch}">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                            <button onclick="triggerSimSearch()" class="btn-period active" style="padding: 9px 18px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; white-space: nowrap; cursor: pointer; font-size: 0.82rem;">
+                                <i class="fas fa-search"></i>
+                                <span>${ui[currentLang].searchBtn}</span>
+                            </button>
+                        </div>
+                    </div>
                     <div style="overflow-x: auto;">
                         <table class="sim-table">
                             <thead>
                                 <tr>
-                                    <th>${ui[currentLang].colNumber}</th>
-                                    <th>${ui[currentLang].colUser}</th>
-                                    <th>${ui[currentLang].colDate}</th>
+                                    <th style="cursor: pointer;" onclick="toggleTableSort('id', '${filterUser || 'null'}', '${filterArea || 'null'}')">
+                                        ${ui[currentLang].colNumber} 
+                                    </th>
+                                    <th style="cursor: pointer;" onclick="toggleTableSort('name', '${filterUser || 'null'}', '${filterArea || 'null'}')">
+                                        ${ui[currentLang].colUser} <i class="fas ${sortField === 'name' ? (sortAsc ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'}" style="margin-left: 4px; font-size: 0.8em; opacity: 0.7;"></i>
+                                    </th>
+                                    <th style="cursor: pointer;" onclick="toggleTableSort('date', '${filterUser || 'null'}', '${filterArea || 'null'}')">
+                                        ${ui[currentLang].colDate} <i class="fas ${sortField === 'date' ? (sortAsc ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'}" style="margin-left: 4px; font-size: 0.8em; opacity: 0.7;"></i>
+                                    </th>
                                     <th>${ui[currentLang].useCase}</th>
-                                    <th>${ui[currentLang].colScore}</th>
+                                    <th style="cursor: pointer;" onclick="toggleTableSort('score', '${filterUser || 'null'}', '${filterArea || 'null'}')">
+                                        ${ui[currentLang].colScore} <i class="fas ${sortField === 'score' ? (sortAsc ? 'fa-sort-up' : 'fa-sort-down') : 'fa-sort'}" style="margin-left: 4px; font-size: 0.8em; opacity: 0.7;"></i>
+                                    </th>
                                     <th>${ui[currentLang].colDuration}</th>
                                 </tr>
                             </thead>
                             <tbody>
             `;
 
+            let simList = getSortedAndFilteredSims(filterUser, filterArea);
+
             let simCount = 1;
-            let filteredIdx = 0;
-            const filteredList = getFilteredSimulations(filterUser);
-            filteredList.forEach((s, i) => {
-                const badgeClass = s.score >= 80 ? 'score-high' : (s.score >= 60 ? 'score-mid' : 'score-low');
-                
+            simList.forEach((s) => {
+                const badgeClass = !s.finished ? 'score-low' : (s.score >= 80 ? 'score-high' : (s.score >= 60 ? 'score-mid' : 'score-low'));
+                const scoreText = !s.finished ? 'N/A' : `${s.score}%`;
+
+                let matchSnippet = '';
+                if (hasKeyword) {
+                    const rawTerm = currentSimSearchKeyword.trim().toLowerCase();
+                    const normTerm = rawTerm.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    if (s.messages && s.messages.length) {
+                        for (const m of s.messages) {
+                            const text = m.text || '';
+                            const txtNorm = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                            const idx = txtNorm.indexOf(normTerm);
+                            if (idx !== -1) {
+                                const start = Math.max(0, idx - 25);
+                                const end = Math.min(text.length, idx + normTerm.length + 35);
+                                const prefix = start > 0 ? '…' : '';
+                                const suffix = end < text.length ? '…' : '';
+                                const rawMatch = text.substring(idx, idx + normTerm.length);
+                                const beforeMatch = text.substring(start, idx);
+                                const afterMatch = text.substring(idx + normTerm.length, end);
+                                const roleLabel = m.role === 'HUMAN' ? (currentLang === 'pt' ? 'Colaborador' : 'Collaborateur') : 'rhapsody IA';
+                                matchSnippet = `<strong>${roleLabel}:</strong> "${prefix}${fixEnc(beforeMatch)}<mark style="background: #fef08a; color: #854d0e; padding: 1px 4px; border-radius: 3px; font-weight: 700;">${fixEnc(rawMatch)}</mark>${fixEnc(afterMatch)}${suffix}"`;
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 html += `
-                    <tr onclick="showSimulationDetail(${filteredIdx++}, ${filterUser ? `'${filterUser}'` : 'null'})" style="cursor: pointer;">
+                    <tr onclick="showSimulationDetail(${s.originalIdx}, ${filterUser ? `'${filterUser}'` : 'null'}, true)" style="cursor: pointer;">
                         <td>#${simCount++}</td>
-                        <td><strong>${s.name}</strong></td>
+                        <td><strong>${highlightSearchTerm(s.name, currentSimSearchKeyword)}</strong></td>
                         <td>${s.date}</td>
-                        <td>${translateScenario(s.scenario)}</td>
-                        <td><span class="score-badge ${badgeClass}">${s.score}%</span></td>
+                        <td>
+                            <div>${translateScenario(s.scenario)}</div>
+                            ${matchSnippet ? `
+                                <div style="font-size: 0.74rem; color: var(--text-main); background: #f0f9ff; border-left: 3px solid var(--primary); padding: 4px 8px; border-radius: 4px; margin-top: 6px; line-height: 1.35; max-width: 480px;">
+                                    <i class="fas fa-comment-dots" style="color: var(--primary); font-size: 0.7rem; margin-right: 4px;"></i>${matchSnippet}
+                                </div>
+                            ` : ''}
+                        </td>
+                        <td><span class="score-badge ${badgeClass}">${scoreText}</span></td>
                         <td>${s.dur}</td>
                     </tr>
                 `;
             });
+
+            if (simList.length === 0) {
+                const emptyMsg = hasKeyword 
+                    ? (currentLang === 'pt' 
+                        ? `Nenhuma simulação encontrada com a palavra-chave "${fixEnc(currentSimSearchKeyword)}".` 
+                        : `Aucune simulation trouvée avec le mot-clé "${fixEnc(currentSimSearchKeyword)}".`)
+                    : (currentLang === 'pt' 
+                        ? 'Nenhuma simulação encontrada para os filtros selecionados.' 
+                        : 'Aucune simulation trouvée pour les filtres sélectionnés.');
+                html += `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                            <i class="fas fa-search" style="font-size: 1.8rem; display: block; margin-bottom: 8px; opacity: 0.4;"></i>
+                            ${emptyMsg}
+                            ${hasKeyword ? `
+                                <div style="margin-top: 10px;">
+                                    <button onclick="clearSimSearch()" class="btn-secondary" style="padding: 6px 14px; font-size: 0.8rem;">
+                                        <i class="fas fa-times"></i> ${currentLang === 'pt' ? 'Limpar busca' : 'Effacer la recherche'}
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+            }
 
             html += `
                             </tbody>
@@ -39991,67 +40297,451 @@
             return html;
         }
 
-        function showSimulationDetail(localIndex, filterUser = null) {
-            currentFilterUser = filterUser === 'all' ? null : filterUser;
-            const filtered = getFilteredSimulations(currentFilterUser);
+        // ── CONTROLE DE REPRODUÇÃO DE ÁUDIO DA TRANSCRIÇÃO ──
+        let isAudioPlaying = false;
+        let isAudioPaused = false;
+        let currentPlayingMsgIndex = -1;
+        let audioSpeed = 1.0;
+        let currentAudioElement = null;
+        let currentActiveSimOriginalIndex = 0;
+        let currentActiveSimBrokerName = '';
+
+        let availableSpeechVoices = [];
+        let userVoicePreference = localStorage.getItem('fairmontPreferredVoice') || 'auto';
+        if (userVoicePreference && userVoicePreference !== 'auto' && !userVoicePreference.startsWith('single_') && !userVoicePreference.startsWith('dual_')) {
+            userVoicePreference = 'auto';
+            localStorage.setItem('fairmontPreferredVoice', 'auto');
+        }
+
+        function setUserVoicePreference(val) {
+            userVoicePreference = val;
+            localStorage.setItem('fairmontPreferredVoice', val);
+        }
+
+        function isBrokerFemale(name) {
+            if (!name) return false;
+            const clean = name.trim().split(/\s+/)[0].toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const femaleNames = [
+                'juliana', 'sabrina', 'carolina', 'ana', 'maria', 'patricia', 'fernanda', 'amanda',
+                'beatriz', 'camila', 'daniela', 'debora', 'gabriela', 'helena', 'isabela', 'jessica',
+                'larissa', 'leticia', 'luana', 'marina', 'natalia', 'paula', 'renata', 'sophie',
+                'tatiana', 'vanessa', 'yara', 'thais', 'aline', 'bruna', 'claudia', 'elaine',
+                'fabiana', 'giselle', 'luciana', 'mariana', 'monica', 'priscila', 'simone', 'valeria'
+            ];
+            if (femaleNames.includes(clean)) return true;
+            if (clean.endsWith('a') && !['luca', 'lucas', 'nicola', 'elias', 'jonas', 'ayrton'].includes(clean)) {
+                return true;
+            }
+            return false;
+        }
+
+        function isFemaleVoice(v) {
+            const n = ((v && v.name) || '').toLowerCase();
+            return /francisca|thalita|brenda|giovanna|leila|leticia|manuela|raquel|ysabella|maria|heloisa|yara|denise|celine|sylvie|female|mulher/i.test(n)
+                || (n.includes('google') && !n.includes('male') && !n.includes('homem'));
+        }
+
+        function isMaleVoice(v) {
+            const n = ((v && v.name) || '').toLowerCase();
+            return /antonio|donato|fabio|julio|nicolau|valerio|daniel|felipe|alain|henri|paul|male|homem/i.test(n);
+        }
+
+        function getVoiceScore(voice) {
+            const name = (voice.name || '').toLowerCase();
+            let score = 0;
+            if (name.includes('natural')) score += 120;
+            if (name.includes('neural')) score += 100;
+            if (name.includes('online')) score += 80;
+            if (name.includes('google')) score += 90;
+            if (!voice.localService) score += 30;
+            return score;
+        }
+
+        function populateVoiceSelector() {
+            const select = document.getElementById('selectVoiceOption');
+            if (!select || !('speechSynthesis' in window)) return;
             
-            if (!filtered.length) return;
-            currentSimIndex = localIndex;
-            const sim = filtered[localIndex];
+            let voices = availableSpeechVoices.length ? availableSpeechVoices : (window.speechSynthesis.getVoices() || []);
+            const prefix = currentLang === 'fr' ? 'fr' : 'pt';
+            const matching = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith(prefix));
+
+            matching.sort((a, b) => {
+                const isNatA = /natural|neural|online|google/i.test(a.name);
+                const isNatB = /natural|neural|online|google/i.test(b.name);
+                if (isNatA && !isNatB) return -1;
+                if (!isNatA && isNatB) return 1;
+                return a.name.localeCompare(b.name);
+            });
+
+            let optionsHtml = '';
+            if (currentLang === 'pt') {
+                optionsHtml += `<option value="auto">🎭 Diálogo Automático (Alterna Você & rhapsody)</option>`;
+                optionsHtml += `<option value="dual_fem_ia_male_human">👩 rhapsody (Francisca) & 👨 Você (Antonio)</option>`;
+                optionsHtml += `<option value="dual_male_ia_fem_human">👨 rhapsody (Antonio) & 👩 Você (Francisca)</option>`;
+                optionsHtml += `<optgroup label="── Voz Fixa Única ──">`;
+            } else {
+                optionsHtml += `<option value="auto">🎭 Dialogue Automatique (Alterné)</option>`;
+                optionsHtml += `<optgroup label="── Voix Fixe ──">`;
+            }
+
+            matching.forEach(v => {
+                const isNatural = /natural|neural|online|google/i.test(v.name);
+                const tag = isNatural ? '⭐ ' : '';
+                const cleanName = v.name.replace(/ - Portuguese \(Brazil\)| - French \(France\)/gi, '').trim();
+                optionsHtml += `<option value="single_${v.voiceURI || v.name}">${tag}${cleanName}</option>`;
+            });
+
+            optionsHtml += `</optgroup>`;
+
+            select.innerHTML = optionsHtml;
+            if (userVoicePreference && [...select.options].some(o => o.value === userVoicePreference)) {
+                select.value = userVoicePreference;
+            } else {
+                select.value = 'auto';
+            }
+        }
+
+        function initVoices() {
+            if (!('speechSynthesis' in window)) return;
+            availableSpeechVoices = window.speechSynthesis.getVoices() || [];
+            populateVoiceSelector();
+        }
+        if ('speechSynthesis' in window) {
+            initVoices();
+            window.speechSynthesis.onvoiceschanged = initVoices;
+        }
+
+        function getBestVoice(lang, isHuman) {
+            if (!('speechSynthesis' in window)) return null;
+            let voices = availableSpeechVoices.length ? availableSpeechVoices : (window.speechSynthesis.getVoices() || []);
+            if (!voices.length) return null;
+
+            if (userVoicePreference && userVoicePreference.startsWith('single_')) {
+                const targetName = userVoicePreference.replace('single_', '');
+                const explicitVoice = voices.find(v => (v.voiceURI === targetName || v.name === targetName));
+                if (explicitVoice) return explicitVoice;
+            }
+            
+            const prefix = lang === 'fr' ? 'fr' : 'pt';
+            const matching = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith(prefix));
+            if (!matching.length) return null;
+
+            const sorted = matching.slice().sort((a, b) => getVoiceScore(b) - getVoiceScore(a));
+
+            const femaleVoices = sorted.filter(isFemaleVoice);
+            const maleVoices = sorted.filter(isMaleVoice);
+
+            const bestFemale = femaleVoices[0] || sorted[0];
+            const bestMale = maleVoices[0] || (sorted.length > 1 ? sorted[1] : sorted[0]);
+
+            if (userVoicePreference === 'dual_fem_ia_male_human') {
+                return isHuman ? bestMale : bestFemale;
+            }
+            if (userVoicePreference === 'dual_male_ia_fem_human') {
+                return isHuman ? bestFemale : bestMale;
+            }
+
+            const brokerName = currentActiveSimBrokerName || (window.activeUser ? window.activeUser.name : '');
+            const brokerFemale = isBrokerFemale(brokerName);
+
+            if (brokerFemale) {
+                return isHuman ? bestFemale : bestMale;
+            } else {
+                return isHuman ? bestMale : bestFemale;
+            }
+        }
+
+        function prepareSpeechText(rawText) {
+            if (!rawText) return '';
+            let t = rawText;
+            t = t.replace(/<[^>]+>/g, '');
+            if (currentLang === 'pt') {
+                t = t.replace(/\bR\$\s*(\d+)/gi, '$1 reais');
+                t = t.replace(/\b(\d+)%/g, '$1 por cento');
+                t = t.replace(/\bFairmont\b/gi, 'Férmon');
+                t = t.replace(/\brhapsody\b/gi, 'Rápsodi');
+                t = t.replace(/\bIA\b/g, 'I.A.');
+                t = t.replace(/\bDr\./gi, 'Doutor');
+                t = t.replace(/\bDra\./gi, 'Doutora');
+                t = t.replace(/\bSr\./gi, 'Senhor');
+                t = t.replace(/\bSra\./gi, 'Senhora');
+                t = t.replace(/\bvc\b/gi, 'você');
+                t = t.replace(/\btbm\b/gi, 'também');
+                t = t.replace(/\bpq\b/gi, 'porque');
+            }
+            return t;
+        }
+
+        function clearAudioHighlights() {
+            document.querySelectorAll('.transcript-bubble').forEach(b => {
+                b.classList.remove('playing-bubble');
+            });
+        }
+
+        function stopTranscriptAudio() {
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+                currentAudioElement = null;
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            isAudioPlaying = false;
+            isAudioPaused = false;
+            currentPlayingMsgIndex = -1;
+            clearAudioHighlights();
+            updateAudioControlsUI();
+        }
+
+        function updateAudioControlsUI() {
+            const playBtn = document.getElementById('btnAudioPlay');
+            const stopBtn = document.getElementById('btnAudioStop');
+            const playIcon = document.getElementById('audioPlayIcon');
+            const playLabel = document.getElementById('audioPlayLabel');
+            const waveAnim = document.getElementById('audioWaveAnim');
+            if (!playBtn) return;
+
+            const playAudioText = (ui[currentLang] && ui[currentLang].playAudio) ? ui[currentLang].playAudio : 'Ouvir conversa';
+            const pauseAudioText = (ui[currentLang] && ui[currentLang].pauseAudio) ? ui[currentLang].pauseAudio : 'Pausar';
+            const resumeAudioText = (ui[currentLang] && ui[currentLang].resumeAudio) ? ui[currentLang].resumeAudio : 'Continuar';
+
+            if (isAudioPlaying && !isAudioPaused) {
+                if (playIcon) playIcon.className = 'fas fa-pause';
+                if (playLabel) playLabel.innerText = pauseAudioText;
+                if (stopBtn) stopBtn.style.display = 'inline-flex';
+                if (waveAnim) waveAnim.style.display = 'inline-flex';
+            } else if (isAudioPaused) {
+                if (playIcon) playIcon.className = 'fas fa-play';
+                if (playLabel) playLabel.innerText = resumeAudioText;
+                if (stopBtn) stopBtn.style.display = 'inline-flex';
+                if (waveAnim) waveAnim.style.display = 'none';
+            } else {
+                if (playIcon) playIcon.className = 'fas fa-play';
+                if (playLabel) playLabel.innerText = playAudioText;
+                if (stopBtn) stopBtn.style.display = 'none';
+                if (waveAnim) waveAnim.style.display = 'none';
+            }
+        }
+
+        function toggleTranscriptAudio() {
+            if (isAudioPlaying && !isAudioPaused) {
+                if (currentAudioElement) {
+                    currentAudioElement.pause();
+                } else if ('speechSynthesis' in window) {
+                    window.speechSynthesis.pause();
+                }
+                isAudioPlaying = false;
+                isAudioPaused = true;
+                updateAudioControlsUI();
+            } else if (isAudioPaused) {
+                if (currentAudioElement) {
+                    currentAudioElement.play().catch(() => {});
+                } else if ('speechSynthesis' in window) {
+                    window.speechSynthesis.resume();
+                }
+                isAudioPlaying = true;
+                isAudioPaused = false;
+                updateAudioControlsUI();
+            } else {
+                playSimulationAudio(0);
+            }
+        }
+
+        function playSimulationAudio(startIndex = 0) {
+            stopTranscriptAudio();
+            isAudioPlaying = true;
+            isAudioPaused = false;
+            currentPlayingMsgIndex = startIndex;
+            updateAudioControlsUI();
+            playNextTranscriptMessage();
+        }
+
+        function playNextTranscriptMessage() {
+            if (!isAudioPlaying || isAudioPaused) return;
+            const bubbles = document.querySelectorAll('.transcript-bubble');
+            if (currentPlayingMsgIndex >= bubbles.length) {
+                stopTranscriptAudio();
+                return;
+            }
+
+            clearAudioHighlights();
+            const activeBubble = bubbles[currentPlayingMsgIndex];
+            if (activeBubble) {
+                activeBubble.classList.add('playing-bubble');
+                activeBubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            const textEl = activeBubble ? activeBubble.querySelector('.transcript-text') : null;
+            const isHuman = activeBubble && activeBubble.classList.contains('human');
+            const text = textEl ? textEl.innerText.trim() : '';
+            const speechText = prepareSpeechText(text);
+
+            if (!speechText) {
+                currentPlayingMsgIndex++;
+                playNextTranscriptMessage();
+                return;
+            }
+
+            const fallbackToSynth = () => {
+                currentAudioElement = null;
+                const utt = new SpeechSynthesisUtterance(speechText);
+                const lang = currentLang === 'fr' ? 'fr' : 'pt';
+                utt.lang = lang === 'fr' ? 'fr-FR' : 'pt-BR';
+                utt.rate = (audioSpeed || 1.0) * (isHuman ? 0.98 : 1.02);
+                utt.pitch = isHuman ? 0.98 : 1.02;
+
+                const voice = getBestVoice(lang, isHuman);
+                if (voice) utt.voice = voice;
+
+                utt.onend = () => {
+                    if (isAudioPlaying && !isAudioPaused) {
+                        currentPlayingMsgIndex++;
+                        playNextTranscriptMessage();
+                    }
+                };
+                utt.onerror = (e) => {
+                    console.warn('SpeechSynthesis error:', e);
+                    if (isAudioPlaying && !isAudioPaused) {
+                        currentPlayingMsgIndex++;
+                        playNextTranscriptMessage();
+                    }
+                };
+                window.speechSynthesis.speak(utt);
+            };
+
+            fallbackToSynth();
+        }
+
+        function speakSingleMessage(index) {
+            stopTranscriptAudio();
+
+            const bubble = document.getElementById(`transcriptBubble-${index}`);
+            if (!bubble) return;
+
+            bubble.classList.add('playing-bubble');
+            isAudioPlaying = true;
+            isAudioPaused = false;
+            currentPlayingMsgIndex = index;
+            updateAudioControlsUI();
+
+            const textEl = bubble.querySelector('.transcript-text');
+            const isHuman = bubble.classList.contains('human');
+            const text = textEl ? textEl.innerText.trim() : '';
+            const speechText = prepareSpeechText(text);
+
+            if (!speechText) {
+                stopTranscriptAudio();
+                return;
+            }
+
+            const utt = new SpeechSynthesisUtterance(speechText);
+            const lang = currentLang === 'fr' ? 'fr' : 'pt';
+            utt.lang = lang === 'fr' ? 'fr-FR' : 'pt-BR';
+            utt.rate = (audioSpeed || 1.0) * (isHuman ? 0.98 : 1.02);
+            utt.pitch = isHuman ? 0.98 : 1.02;
+
+            const voice = getBestVoice(lang, isHuman);
+            if (voice) utt.voice = voice;
+
+            utt.onend = () => {
+                stopTranscriptAudio();
+            };
+            utt.onerror = () => {
+                stopTranscriptAudio();
+            };
+            window.speechSynthesis.speak(utt);
+        }
+
+        function setAudioSpeed(speed) {
+            audioSpeed = speed;
+            if (currentAudioElement) {
+                currentAudioElement.playbackRate = speed;
+            }
+            document.querySelectorAll('.audio-speed-btn').forEach(b => {
+                b.classList.toggle('active', parseFloat(b.dataset.speed) === speed);
+            });
+            if (isAudioPlaying && !isAudioPaused && currentPlayingMsgIndex >= 0 && !currentAudioElement) {
+                window.speechSynthesis.cancel();
+                playNextTranscriptMessage();
+            }
+        }
+
+        function showSimulationDetail(originalIndex, filterUser = null, skipTableSortChange = false) {
+            stopTranscriptAudio();
+            currentFilterUser = filterUser === 'all' ? null : filterUser;
+            const filtered = getSortedAndFilteredSims(currentFilterUser);
+
+            let localIndex = -1;
+            let sim = null;
+
+            if (filtered && filtered.length > 0) {
+                localIndex = filtered.findIndex(s => s.originalIdx === originalIndex);
+                if (localIndex === -1 && typeof originalIndex === 'number' && originalIndex >= 0 && originalIndex < filtered.length) {
+                    localIndex = originalIndex;
+                }
+                if (localIndex !== -1) {
+                    sim = filtered[localIndex];
+                }
+            }
+
+            if (!sim) {
+                if (VALID_SIMS[originalIndex]) {
+                    sim = VALID_SIMS[originalIndex];
+                    localIndex = 0;
+                } else {
+                    return;
+                }
+            }
+
+            currentSimIndex = localIndex >= 0 ? localIndex : 0;
+            currentActiveSimOriginalIndex = (sim.originalIdx !== undefined) ? sim.originalIdx : originalIndex;
+            currentActiveSimBrokerName = sim.name || '';
+            const totalSimsCount = (filtered && filtered.length > 0) ? filtered.length : 1;
             const user = activeUsers.find(u => u.name === sim.name) || activeUsers[0];
             const content = document.getElementById('mainContent');
-            
-            // Derive sim-specific skills
-            const ratio = sim.score / user.avgScore;
+
+            const userScoreBase = (user && user.avgScore > 0) ? user.avgScore : 60;
+            const simScoreBase = (sim && sim.score > 0) ? sim.score : (sim.finished ? 58 : 30);
+            const ratio = sim.finished ? (simScoreBase / userScoreBase) : 0.5;
             const simSkills = {};
-            Object.keys(user.skills).forEach(k => {
-                simSkills[k] = Math.min(100, Math.max(20, Math.round(user.skills[k] * ratio + (Math.random() * 8 - 4))));
+            const userSkills = (user && user.skills) ? user.skills : { Escuta: 70, Empatia: 75, Crises: 65, Padroes: 70, Personalizacao: 70 };
+            Object.keys(userSkills).forEach(k => {
+                const baseVal = userSkills[k] > 0 ? userSkills[k] : 65;
+                simSkills[k] = Math.min(100, Math.max(20, Math.round(baseVal * ratio + (Math.random() * 6 - 3))));
             });
 
             const tones = ["Profissional", "Empático", "Proativo", "Calmo", "Diplomático"];
-            const simTone = tones[localIndex % tones.length];
-            const simSent = sim.score >= 75 ? "Positivo" : (sim.score >= 55 ? "Neutro" : "Atenção");
-            const sentClass = sim.score >= 75 ? "sent-pos" : "sent-neu";
+            const simTone = sim.finished ? tones[currentSimIndex % tones.length] : "N/A";
+            const simSent = !sim.finished ? "N/A" : (sim.score >= 75 ? "Positivo" : (sim.score >= 55 ? "Neutro" : "Atenção"));
+            const sentClass = !sim.finished ? "sent-neu" : (sim.score >= 75 ? "sent-pos" : "sent-neu");
 
-            // Show floater
             const floater = document.getElementById('simNav');
-            floater.style.display = 'flex';
-            document.getElementById('currSimIdx').innerText = localIndex + 1;
-            document.getElementById('totalSims').innerText = filtered.length;
-            document.getElementById('prevSimBtn').disabled = (localIndex === 0);
-            document.getElementById('nextSimBtn').disabled = (localIndex === filtered.length - 1);
+            if (floater) floater.style.display = 'flex';
+            const currEl = document.getElementById('currSimIdx');
+            if (currEl) currEl.innerText = currentSimIndex + 1;
+            const totEl = document.getElementById('totalSims');
+            if (totEl) totEl.innerText = totalSimsCount;
+            const prevBtn = document.getElementById('prevSimBtn');
+            if (prevBtn) prevBtn.disabled = (currentSimIndex === 0);
+            const nextBtn = document.getElementById('nextSimBtn');
+            if (nextBtn) nextBtn.disabled = (currentSimIndex === totalSimsCount - 1);
+
+            const scoreDisplay = sim.finished ? `${sim.score}%` : 'N/A';
+            const scoreVal = sim.finished ? sim.score : 0;
 
             content.innerHTML = `
                 <div id="simDetail">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
-                        <button onclick="hideSimNav(); window.activeUser ? selectUser(window.activeUser) : showGlobalStats()" class="btn-secondary">
+                        <button onclick="hideSimNav(); window.activeUser ? selectUser(window.activeUser) : showGlobalStats();" class="btn-secondary" style="font-size: 0.85rem; padding: 10px 18px; border-radius: 10px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
                             <i class="fas fa-arrow-left"></i> ${ui[currentLang].back}
                         </button>
-                        
-                        <div class="custom-dropdown" id="areaDropdown" style="min-width: 200px;">
-                            <div class="dropdown-trigger" onclick="toggleDropdown()">
-                                <div style="display: flex; align-items: center; gap: 12px;">
-                                    <i class="fas fa-filter" style="font-size: 0.8rem; opacity: 0.6;"></i>
-                                    <span id="selectedAreaLabel">${currentFilterUser ? currentFilterUser : ui[currentLang].allUsers}</span>
-                                </div>
-                                <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="dropdownArrow"></i>
-                            </div>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-item ${!currentFilterUser ? 'selected' : ''}" onclick="showSimulationDetail(0, 'all')">
-                                    <i class="fas fa-users"></i> ${ui[currentLang].allUsers}
-                                </div>
-                                ${activeUsers.map(u => `
-                                    <div class="dropdown-item ${currentFilterUser === u.name ? 'selected' : ''}" onclick="showSimulationDetail(0, '${u.name}')">
-                                        <i class="fas fa-user"></i> ${u.name}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
                     </div>
                     
                     <header class="header-section" style="padding: 2.5rem !important; min-height: auto; margin-bottom: 2rem !important;">
                         <div class="header-content-left">
-                            <h1 style="font-size: 2.5rem;">${ui[currentLang].simDetails} <span>#${localIndex + 1}</span></h1>
+                            <h1 style="font-size: 2.5rem;">${ui[currentLang].simDetails} <span>#${currentSimIndex + 1}</span></h1>
                         </div>
                         <div class="header-content-right">
                             <p class="header-desc" style="font-size: 1rem;">${sim.name} • ${sim.date} • <strong>${translateScenario(sim.scenario)}</strong></p>
@@ -40060,7 +40750,7 @@
 
                     <div class="stats-grid" style="margin-bottom: 2rem;">
                         <div class="stat-card-big">
-                            <span class="val count-up" data-val="${sim.score}" data-suffix="%">0%</span>
+                            <span class="val count-up" data-val="${scoreVal}" data-suffix="%">${scoreDisplay}</span>
                             <span class="lab">${ui[currentLang].avgScore}</span>
                         </div>
                         <div class="stat-card-big">
@@ -40095,9 +40785,8 @@
                                     if (!rawFeedback) {
                                         return `<li>${ui[currentLang].noFeedback}</li>`;
                                     }
-                                    // Converter markdown basico para HTML legivel
                                     const fb = rawFeedback
-                                        .replace(/\{\{[^}]+\}\}/g, '')
+                                        .replace(/\{\{[^}]+\}/g, '')
                                         .replace(/###\s*(.+)/g, '<br><strong style="color:var(--accent);font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;">$1</strong><br>')
                                         .replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0.5rem 0;">')
                                         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
@@ -40107,7 +40796,7 @@
                                         .replace(/\n/g, '<br>');
                                     return `<div style="font-size:0.88rem;line-height:1.65;color:var(--text-secondary);">${fixEnc(fb)}</div>`;
                                 })()}
-                            </ul>
+                                </ul>
                             </div>
                         </div>
 
@@ -40117,7 +40806,7 @@
                                 ${Object.keys(simSkills).map(k => `
                                     <div class="skill-bar-container">
                                         <div class="skill-label-row">
-                                            <span>${ui[currentLang].skillNames[k] || k}</span>
+                                            <span>${(ui[currentLang].skillNames && ui[currentLang].skillNames[k]) || k}</span>
                                             <span>${simSkills[k]}%</span>
                                         </div>
                                         <div class="skill-track">
@@ -40128,74 +40817,166 @@
                             </div>
                         </div>
                     </div>
+
+                    ${(() => {
+                        const transcriptTitle = (ui[currentLang] && ui[currentLang].transcriptTitle) || 'Transcrição da Simulação';
+                        const playAudioText = (ui[currentLang] && ui[currentLang].playAudio) || 'Ouvir conversa';
+                        const stopAudioText = (ui[currentLang] && ui[currentLang].stopAudio) || 'Parar';
+                        const playMsgText = (ui[currentLang] && ui[currentLang].playMessage) || 'Ouvir fala';
+                        
+                        if (sim.messages && sim.messages.length > 0) {
+                            return `
+                                <div class="card" style="margin-top: 2rem;">
+                                    <div class="transcript-header-row">
+                                        <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin: 0; display: flex; align-items: center; gap: 8px;">
+                                            <i class="fas fa-comments" style="color: var(--primary);"></i> ${transcriptTitle}
+                                        </h3>
+                                        <div class="audio-player-toolbar">
+                                            <button id="btnAudioPlay" class="btn-audio-play" onclick="toggleTranscriptAudio()">
+                                                <i class="fas fa-play" id="audioPlayIcon"></i>
+                                                <span id="audioPlayLabel">${playAudioText}</span>
+                                                <span class="audio-wave-anim" id="audioWaveAnim" style="display: none;">
+                                                    <span class="bar"></span>
+                                                    <span class="bar"></span>
+                                                    <span class="bar"></span>
+                                                </span>
+                                            </button>
+                                            <button id="btnAudioStop" class="btn-audio-stop" onclick="stopTranscriptAudio()" style="display: none;" title="${stopAudioText}">
+                                                <i class="fas fa-stop"></i>
+                                            </button>
+                                            <div class="audio-speed-group">
+                                                <button class="audio-speed-btn active" data-speed="1" onclick="setAudioSpeed(1)">1x</button>
+                                                <button class="audio-speed-btn" data-speed="1.25" onclick="setAudioSpeed(1.25)">1.25x</button>
+                                                <button class="audio-speed-btn" data-speed="1.5" onclick="setAudioSpeed(1.5)">1.5x</button>
+                                            </div>
+                                            <div class="voice-selector-box" style="display: inline-flex; align-items: center; gap: 6px; margin-left: 6px;">
+                                                <i class="fas fa-headset" style="font-size: 0.75rem; color: var(--text-muted);" title="Seletor de Voz"></i>
+                                                <select id="selectVoiceOption" onchange="setUserVoicePreference(this.value)" style="padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); outline: none; cursor: pointer; max-width: 250px;" title="Alternância de Vozes (rhapsody ↔ Você)">
+                                                    <option value="auto">🎭 ${currentLang === 'pt' ? 'Diálogo Automático (Alterna Você & rhapsody)' : 'Dialogue Automatique'}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="transcript-container" id="transcriptContainer">
+                                        ${sim.messages.map((msg, mIdx) => {
+                                            const isHuman = msg.role === 'HUMAN';
+                                            const bubbleClass = isHuman ? 'human' : 'ai';
+                                            const label = isHuman ? (currentLang === 'pt' ? 'Você' : 'Vous') : 'rhapsody';
+                                            const icon = isHuman ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+                                            const cleanMsgText = fixEnc(msg.text || '');
+                                            const normMsg = cleanMsgText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                                            const normTerm = (currentSimSearchKeyword || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                                            const isMatch = normTerm && normMsg.includes(normTerm);
+                                            const matchedClass = isMatch ? ' search-matched-bubble' : '';
+                                            const displayText = isMatch ? highlightSearchTerm(cleanMsgText, currentSimSearchKeyword) : cleanMsgText;
+                                            return `
+                                                <div class="transcript-bubble ${bubbleClass}${matchedClass}" id="transcriptBubble-${mIdx}">
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                                        <span class="transcript-label ${bubbleClass}" style="margin-bottom: 0;">
+                                                            ${isHuman ? label + ' ' + icon : icon + ' ' + label}
+                                                            ${isMatch ? `<span style="margin-left: 8px; font-size: 0.68rem; background: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase;"><i class="fas fa-search"></i> ${currentLang === 'pt' ? 'Correspondência' : 'Correspondance'}</span>` : ''}
+                                                        </span>
+                                                        <button class="btn-msg-speak" onclick="speakSingleMessage(${mIdx})" title="${playMsgText}">
+                                                            <i class="fas fa-volume-up"></i>
+                                                        </button>
+                                                    </div>
+                                                    <p class="transcript-text">${displayText}</p>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            const noTranscriptText = (ui[currentLang] && ui[currentLang].noTranscript) || 'Nenhuma transcrição disponível para esta simulação.';
+                            return `
+                                <div class="card" style="margin-top: 2rem;">
+                                    <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-comments" style="color: var(--primary);"></i> ${transcriptTitle}
+                                    </h3>
+                                    <div style="padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.88rem;">
+                                        <i class="fas fa-comment-slash" style="font-size: 1.8rem; display: block; margin-bottom: 8px; opacity: 0.4;"></i>
+                                        ${noTranscriptText}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    })()}
                 </div>
             `;
             window.scrollTo({ top: 0, behavior: 'smooth' });
             runCountUp();
+            populateVoiceSelector();
+            if (currentSimSearchKeyword && currentSimSearchKeyword.trim()) {
+                setTimeout(() => {
+                    const firstMatched = document.querySelector('.transcript-bubble.search-matched-bubble');
+                    if (firstMatched) {
+                        firstMatched.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 200);
+            }
         }
 
-        function prevSim() { if (currentSimIndex > 0) showSimulationDetail(currentSimIndex - 1, currentFilterUser); }
-        function nextSim() { 
-            const filtered = getFilteredSimulations(currentFilterUser);
-            if (currentSimIndex < filtered.length - 1) showSimulationDetail(currentSimIndex + 1, currentFilterUser); 
+        function prevSim() {
+            if (currentSimIndex > 0) {
+                const filtered = getSortedAndFilteredSims(currentFilterUser);
+                if (filtered[currentSimIndex - 1]) {
+                    showSimulationDetail(filtered[currentSimIndex - 1].originalIdx, currentFilterUser);
+                }
+            }
         }
-        function hideSimNav() { 
-            document.getElementById('simNav').style.display = 'none'; 
-            currentFilterUser = null; 
+
+        function nextSim() {
+            const filtered = getSortedAndFilteredSims(currentFilterUser);
+            if (currentSimIndex < filtered.length - 1) {
+                if (filtered[currentSimIndex + 1]) {
+                    showSimulationDetail(filtered[currentSimIndex + 1].originalIdx, currentFilterUser);
+                }
+            }
+        }
+
+        function hideSimNav() {
+            const floater = document.getElementById('simNav');
+            if (floater) floater.style.display = 'none';
+            currentFilterUser = null;
         }
 
         function showGlobalStats() {
             hideSimNav();
             window.activeUser = null;
             
-            // Re-evaluate active users and update sidebar
             activeUsers = getActiveUsers();
             renderUserList();
 
-            // Filtragem Dinâmica por Contexto (Área, Use Case e Data)
             let filteredSims = getFilteredSimulations();
-
             const totalSessions = filteredSims.length;
             
-            // Médias baseadas nos usuários ativos filtrados
             const activeInFilter = activeUsers;
             const activeCount = activeInFilter.length || 1;
             
-            const avgScore = totalSessions > 0 ? Math.round(filteredSims.reduce((a, b) => a + b.score, 0) / totalSessions) : 0;
-            const avgLqa = totalSessions > 0 ? Math.round(activeInFilter.reduce((a, b) => a + (b.lqaScore || 0), 0) / activeCount) : 0;
+            const scoredSims = filteredSims.filter(s => s.finished && s.score !== null && s.score !== undefined);
+            const avgScore = scoredSims.length > 0 ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length) : 0;
+            const avgLqa = activeInFilter.length > 0 ? Math.round(activeInFilter.reduce((a, b) => a + (b.lqaScore || 0), 0) / activeCount) : 0;
 
             const totalSeconds = filteredSims.reduce((acc, s) => acc + getSec(s.dur), 0);
             const avgTimePerRun = totalSessions > 0 ? Math.round(totalSeconds / totalSessions) : 0;
             
-            const totalAreas = new Set(filteredSims.map(s => {
-                const sc = s.scenario.toUpperCase();
-                if (sc.includes("RECEPCIONISTA")) return "Recepcionista";
-                if (sc.includes("CONCIERGE")) return "Concierge";
-                if (sc.includes("GUEST ATTENDANT")) return "Guest Attendant";
-                return "Outros";
-            })).size;
-            const totalUseCases = new Set(filteredSims.map(s => s.scenario)).size;
-
-            // Cálculo do Período Dinâmico
-            const allDates = filteredSims.map(s => {
-                const [d, m, y] = s.date.split('/');
-                return new Date(y, m - 1, d);
-            }).sort((a, b) => a - b);
+            const allDates = filteredSims.map(s => parseDateBR(s.date)).sort((a, b) => a - b);
             
             const formatDate = (date) => {
-                if (!date) return '--';
+                if (!date || isNaN(date.getTime())) return '--';
                 const d = String(date.getDate()).padStart(2, '0');
                 const m = String(date.getMonth() + 1).padStart(2, '0');
                 const y = date.getFullYear();
                 return `${d}/${m}/${y}`;
             };
 
-            const firstDate = formatDate(allDates[0]);
-            const lastDate = formatDate(allDates[allDates.length - 1]);
+            const firstDate = allDates.length > 0 ? formatDate(allDates[0]) : '--';
+            const lastDate = allDates.length > 0 ? formatDate(allDates[allDates.length - 1]) : '--';
 
             const top5 = [...activeInFilter].sort((a, b) => {
-                const aSims = filteredSims.filter(s => s.name === a.name);
-                const bSims = filteredSims.filter(s => s.name === b.name);
+                const aSims = filteredSims.filter(s => s.name === a.name && s.finished);
+                const bSims = filteredSims.filter(s => s.name === b.name && s.finished);
                 const aAvg = aSims.length > 0 ? Math.round(aSims.reduce((acc, s) => acc + s.score, 0) / aSims.length) : 0;
                 const bAvg = bSims.length > 0 ? Math.round(bSims.reduce((acc, s) => acc + s.score, 0) / bSims.length) : 0;
                 return bAvg - aAvg;
@@ -40262,11 +41043,37 @@
                                     <div class="dropdown-item ${!currentFilterUseCase ? 'selected' : ''}" onclick="setUseCaseFilter('all')">
                                         <i class="fas fa-th-large"></i> ${ui[currentLang].allCases}
                                     </div>
-                                    ${[...new Set(RAW_SIMULATIONS.map(s => s.scenario))].map(sc => `
+                                    ${[...new Set(VALID_SIMS.map(s => s.scenario))].map(sc => `
                                         <div class="dropdown-item ${currentFilterUseCase === sc ? 'selected' : ''}" onclick="setUseCaseFilter('${sc}')">
                                             <i class="fas fa-file-alt"></i> ${translateScenario(sc)}
                                         </div>
                                     `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">${ui[currentLang].statusLabel}</span>
+                            <div class="custom-dropdown" id="statusDropdown" style="min-width: 220px;">
+                                <div class="dropdown-trigger" onclick="toggleDropdown('statusDropdown', 'statusArrow')">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <i class="fas fa-tasks" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                                        <span id="selectedStatusLabel">
+                                            ${!currentFilterStatus ? ui[currentLang].statusAll : (currentFilterStatus === 'finished' ? ui[currentLang].statusFinished : ui[currentLang].statusUnfinished)}
+                                        </span>
+                                    </div>
+                                    <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="statusArrow"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item ${!currentFilterStatus ? 'selected' : ''}" onclick="setStatusFilter('all')">
+                                        <i class="fas fa-list"></i> ${ui[currentLang].statusAll}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterStatus === 'finished' ? 'selected' : ''}" onclick="setStatusFilter('finished')">
+                                        <i class="fas fa-check-circle"></i> ${ui[currentLang].statusFinished}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterStatus === 'unfinished' ? 'selected' : ''}" onclick="setStatusFilter('unfinished')">
+                                        <i class="fas fa-times-circle"></i> ${ui[currentLang].statusUnfinished}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -40348,35 +41155,84 @@
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
                                 <i class="fas fa-fire" style="margin-right: 8px; color: #f59e0b;"></i> ${ui[currentLang].topUseCases}
                             </h3>
-                            <div id="top-scenarios-list">
-                                ${(() => {
-                                    const counts = {};
-                                    filteredSims.forEach(s => counts[s.scenario] = (counts[s.scenario] || 0) + 1);
-                                    return Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0, 5).map(([sc, count]) => `
-                                        <div class="perf-item">
-                                            <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;">${translateScenario(sc)}</span>
-                                            <strong>${count}</strong>
-                                        </div>
-                                    `).join('');
-                                })()}
-                            </div>
+                            <div id="topCasesList"></div>
                         </div>
                         <div class="card">
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
-                                <i class="fas fa-chart-bar" style="margin-right: 8px; color: var(--primary);"></i> ${ui[currentLang].trend}
+                                <i class="fas fa-users" style="margin-right: 8px; color: #3b82f6;"></i> ${ui[currentLang].usageBy}
                             </h3>
-                            <div style="height: 220px; position: relative;">
-                                <canvas id="globalTrendChart"></canvas>
-                            </div>
+                            <div id="usageByUserList"></div>
                         </div>
                     </div>
-                    ${renderSimulationsTable(null, currentFilterArea)}
+
+                    <div class="card" style="margin-top: 3rem;">
+                        <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].trend}</h3>
+                        <div style="height: 300px;">
+                            <canvas id="globalTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div id="simTableWrapper">
+                        ${renderSimulationsTable(null, currentFilterArea)}
+                    </div>
                 </div>
             `;
 
             const topList = document.getElementById('topList');
-            top5.forEach((u, idx) => {
-                topList.innerHTML += `<div class="perf-item"><span>${idx + 1}º ${u.name}</span><strong>${u.avgScore}%</strong></div>`;
+            top5.forEach(u => {
+                topList.innerHTML += `
+                    <div class="top-item" onclick="selectUserByName('${u.name}')" style="cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <img src="${u.avatar}" class="avatar-small">
+                            <div>
+                                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">${u.name}</span>
+                                <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">${u.count} ${ui[currentLang].sessions.toLowerCase()}</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-weight: 800; color: var(--primary); font-size: 1.1rem;">${u.avgScore}%</span>
+                            <span style="font-size: 0.7rem; color: var(--text-muted); display: block;">Score</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const caseCounts = {};
+            filteredSims.forEach(s => {
+                caseCounts[s.scenario] = (caseCounts[s.scenario] || 0) + 1;
+            });
+            const sortedCases = Object.entries(caseCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const topCasesList = document.getElementById('topCasesList');
+            sortedCases.forEach(([sc, count]) => {
+                const pct = Math.round((count / (totalSessions || 1)) * 100);
+                topCasesList.innerHTML += `
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; font-weight: 600;">
+                            <span>${translateScenario(sc)}</span>
+                            <span style="color: var(--primary); font-weight: 700;">${count} (${pct}%)</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-bar-fill" style="width: ${pct}%;"></div></div>
+                    </div>
+                `;
+            });
+
+            const userCounts = {};
+            filteredSims.forEach(s => {
+                userCounts[s.name] = (userCounts[s.name] || 0) + 1;
+            });
+            const sortedUsers = Object.entries(userCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const usageByUserList = document.getElementById('usageByUserList');
+            sortedUsers.forEach(([name, count]) => {
+                const pct = Math.round((count / (totalSessions || 1)) * 100);
+                usageByUserList.innerHTML += `
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; font-weight: 600;">
+                            <span>${name}</span>
+                            <span style="color: var(--primary); font-weight: 700;">${count} runs (${pct}%)</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-bar-fill" style="width: ${pct}%;"></div></div>
+                    </div>
+                `;
             });
 
             document.getElementById('chartValue').innerText = avgScore + '%';
@@ -40388,6 +41244,11 @@
             runCountUp();
         }
 
+        function selectUserByName(name) {
+            const u = activeUsers.find(x => x.name === name);
+            if (u) selectUser(u);
+        }
+
         function renderGlobalTrendChart(filteredSimsOverride) {
             const canvas = document.getElementById('globalTrendChart');
             if (!canvas) return;
@@ -40395,9 +41256,8 @@
             
             if (gTrendChart) gTrendChart.destroy();
             
-            const sourceSims = filteredSimsOverride || VALID_SIMS;
+            const sourceSims = (filteredSimsOverride || VALID_SIMS).filter(s => s.finished && s.score !== null);
             
-            // Agrupar médias por data
             const dateMap = {};
             sourceSims.forEach(s => {
                 if (!dateMap[s.date]) dateMap[s.date] = { sum: 0, count: 0 };
@@ -40438,6 +41298,7 @@
 
         function renderGlobalChart(id, val, color) {
             const canvas = document.getElementById(id);
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
             const grad = ctx.createLinearGradient(0, 0, canvas.width || 180, 0);
             grad.addColorStop(0, '#00bcf2');
@@ -40464,54 +41325,29 @@
             hideSimNav();
             window.activeUser = user;
             
-            // Re-evaluate active users
             activeUsers = getActiveUsers();
             renderUserList();
 
             const userSims = getFilteredSimulations(user.name);
             const userTotalSeconds = userSims.reduce((acc, s) => acc + getSec(s.dur), 0);
-            const userTotalMinutes = Math.round(userTotalSeconds / 60);
             const userAvgSeconds = userSims.length > 0 ? Math.round(userTotalSeconds / userSims.length) : 0;
-            const userAreas = userSims.map(s => {
-                const sc = s.scenario.toUpperCase();
-                if (sc.includes("RECEPCIONISTA")) return "Recepcionista";
-                if (sc.includes("CONCIERGE")) return "Concierge";
-                if (sc.includes("GUEST ATTENDANT")) return "Guest Attendant";
-                return ui[currentLang].areaOutros;
-            });
-            const userTotalAreas = new Set(userAreas).size;
-            const userTotalUseCases = new Set(userSims.map(s => s.scenario)).size;
             
-            // Helper to get area from scenario
-            const getArea = (sc) => {
-                const u = sc.toUpperCase();
-                if (u.includes("RECEPCIONISTA")) return "Recepcionista";
-                if (u.includes("CONCIERGE")) return "Concierge";
-                if (u.includes("GUEST ATTENDANT")) return "Guest Attendant";
-                return ui[currentLang].areaOutros;
-            };
-
-            // Calculate context-aware comparison
             const filteredSims = getFilteredSimulations();
-            const userFilteredSims = userSims;
-            
-            // User score in this specific filter context (fallback to global average if no simulations in filter)
-            const contextUserScore = userFilteredSims.length > 0 
-                ? userFilteredSims.reduce((a, b) => a + b.score, 0) / userFilteredSims.length 
+            const userScoredSims = userSims.filter(s => s.finished && s.score !== null);
+            const contextUserScore = userScoredSims.length > 0 
+                ? Math.round(userScoredSims.reduce((a, b) => a + b.score, 0) / userScoredSims.length)
                 : user.avgScore;
 
             const usersInContext = [...new Set(filteredSims.map(s => s.name))];
             const rankings = usersInContext.map(name => {
-                const sims = filteredSims.filter(s => s.name === name);
-                const avg = sims.reduce((a, b) => a + b.score, 0) / sims.length;
+                const sims = filteredSims.filter(s => s.name === name && s.finished);
+                const avg = sims.length > 0 ? sims.reduce((a, b) => a + b.score, 0) / sims.length : 0;
                 return { name, avg };
             }).sort((a, b) => b.avg - a.avg);
 
             const userRankIdx = rankings.findIndex(r => cleanName(r.name) === cleanName(user.name));
             const userRank = userRankIdx === -1 ? 1 : userRankIdx + 1;
-            const totalRanked = rankings.length || 1;
 
-            // Global rankings for other cards
             const getGlobalRank = (metricFn, reverse = false) => {
                 const list = activeUsers.map(u => ({ name: u.name, val: metricFn(u) }))
                     .sort((a, b) => reverse ? a.val - b.val : b.val - a.val);
@@ -40525,17 +41361,7 @@
                 const total = sims.reduce((acc, s) => acc + getSec(s.dur), 0);
                 return sims.length > 0 ? total / sims.length : 0;
             });
-            const totalTimeRank = getGlobalRank(u => {
-                const sims = getFilteredSimulations(u.name);
-                return sims.reduce((acc, s) => acc + getSec(s.dur), 0);
-            });
             const langRank = getGlobalRank(u => (u.languages || []).length);
-            const dateRank = getGlobalRank(u => {
-                const lastDate = u.dates[u.dates.length - 1];
-                if (!lastDate) return 0;
-                const [d, m, y] = lastDate.split('/');
-                return new Date(y, m - 1, d).getTime();
-            });
 
             const content = document.getElementById('mainContent');
             content.innerHTML = `
@@ -40603,6 +41429,32 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">${ui[currentLang].statusLabel}</span>
+                            <div class="custom-dropdown" id="statusDropdown" style="min-width: 220px;">
+                                <div class="dropdown-trigger" onclick="toggleDropdown('statusDropdown', 'statusArrow')">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <i class="fas fa-tasks" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                                        <span id="selectedStatusLabel">
+                                            ${!currentFilterStatus ? ui[currentLang].statusAll : (currentFilterStatus === 'finished' ? ui[currentLang].statusFinished : ui[currentLang].statusUnfinished)}
+                                        </span>
+                                    </div>
+                                    <i class="fas fa-chevron-down" style="font-size: 0.7rem; transition: transform 0.3s ease;" id="statusArrow"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item ${!currentFilterStatus ? 'selected' : ''}" onclick="setStatusFilter('all')">
+                                        <i class="fas fa-list"></i> ${ui[currentLang].statusAll}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterStatus === 'finished' ? 'selected' : ''}" onclick="setStatusFilter('finished')">
+                                        <i class="fas fa-check-circle"></i> ${ui[currentLang].statusFinished}
+                                    </div>
+                                    <div class="dropdown-item ${currentFilterStatus === 'unfinished' ? 'selected' : ''}" onclick="setStatusFilter('unfinished')">
+                                        <i class="fas fa-times-circle"></i> ${ui[currentLang].statusUnfinished}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="stats-grid" style="margin-bottom: 3.5rem;">
@@ -40658,33 +41510,35 @@
 
                         <div class="stat-card-big">
                             <div class="trend-indicator up" style="background: var(--primary-light); color: var(--primary); margin-bottom: 10px;">
-                                <i class="fas fa-crown"></i> ${ui[currentLang].rankingLabel}: ${dateRank}º
+                                <i class="fas fa-bullseye"></i> ${ui[currentLang].lastSimulation}
                             </div>
-                            <span class="val" style="font-size: 1.1rem; margin-top: 12px; color: var(--text-muted);">${user.dates.length ? user.dates[user.dates.length - 1] : '--'}</span>
-                            <span class="lab">${ui[currentLang].lastSimulation}</span>
+                            <span class="val" style="font-size: 1.2rem; margin-top: 10px;">${user.dates.length > 0 ? user.dates[user.dates.length - 1] : '--'}</span>
+                            <span class="lab">${ui[currentLang].dates}</span>
                         </div>
                     </div>
 
                     <div class="grid grid-2">
                         <div class="card">
-                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].skills}</h3>
-                            <div id="u-skills"></div>
-                        </div>
-                        <div class="card">
-                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].aiFeedback}</h3>
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].behavior}</h3>
                             <div class="insight-box">
                                 <div class="insight-header">
-                                    <i class="fas fa-microphone"></i>
-                                    <h4>${ui[currentLang].realTimeSession}</h4>
+                                    <i class="fas fa-lightbulb"></i>
+                                    <h4>${ui[currentLang].contextLabel}</h4>
                                 </div>
                                 <ul class="bullet-list" id="u-insight"></ul>
-                                <div class="skill-bar-container" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
-                                    <div class="skill-label-row">
-                                        <span style="font-size: 0.75rem;">${ui[currentLang].sessionPerf}</span>
-                                        <span style="font-size: 0.85rem;">${user.avgScore}%</span>
-                                    </div>
-                                    <div class="skill-track"><div class="skill-bar-fill" style="width: ${user.avgScore}%;"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].skills}</h3>
+                            <div id="u-skills"></div>
+                            
+                            <div class="skill-bar-container" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                                <div class="skill-label-row">
+                                    <span style="font-size: 0.75rem;">${ui[currentLang].sessionPerf}</span>
+                                    <span style="font-size: 0.85rem;">${user.avgScore}%</span>
                                 </div>
+                                <div class="skill-track"><div class="skill-bar-fill" style="width: ${user.avgScore}%;"></div></div>
                             </div>
                         </div>
                     </div>
@@ -40695,11 +41549,13 @@
                             <canvas id="userChart"></canvas>
                         </div>
                     </div>
-                    ${renderSimulationsTable(user.name, currentFilterArea)}
+                    
+                    <div id="simTableWrapper">
+                        ${renderSimulationsTable(user.name, currentFilterArea)}
+                    </div>
                 </div>
             `;
 
-            // Bullet Summary
             const insightBox = document.getElementById('u-insight');
             (user.insights[currentLang] || []).forEach(txt => {
                 const li = document.createElement('li');
@@ -40707,17 +41563,15 @@
                 insightBox.appendChild(li);
             });
 
-            // Flags
             const langBox = document.getElementById('u-langs');
             const flags = { PT: '🇧🇷 PT-BR', FR: '🇫🇷 FR', EN: '🇺🇸 EN' };
             (user.languages || []).forEach(l => {
                 langBox.innerHTML += `<span class="lang-badge">${flags[l] || l}</span>`;
             });
 
-            // Matriz de Competências
             const skillsDiv = document.getElementById('u-skills');
             if (skillsDiv) {
-                skillsDiv.innerHTML = ''; // Limpa antes de renderizar
+                skillsDiv.innerHTML = '';
                 Object.entries(user.skills).forEach(([skill, val]) => {
                     const translatedName = (ui[currentLang].skillNames && ui[currentLang].skillNames[skill]) ? ui[currentLang].skillNames[skill] : skill;
                     skillsDiv.innerHTML += `
@@ -40726,20 +41580,17 @@
                                 <span>${translatedName}</span>
                                 <span>${val}%</span>
                             </div>
-                            <div class="skill-track"><div class="skill-bar-fill" style="width: ${val}%;"></div></div>
+                            <div class="skill-track"><div class="skill-bar-fill" style="width: ${val}%"></div></div>
                         </div>
                     `;
                 });
             }
 
-            renderUserChart(user);
-            renderUserList();
-
-            // Donuts do Perfil
-            document.getElementById('userScoreValue').innerText = Math.round(contextUserScore) + '%';
+            document.getElementById('userScoreValue').innerText = contextUserScore + '%';
             document.getElementById('userLqaValue').innerText = user.lqaScore + '%';
-            renderGlobalChart('userScoreChart', Math.round(contextUserScore), '#00bcf2');
+            renderGlobalChart('userScoreChart', contextUserScore, '#00bcf2');
             renderGlobalChart('userLqaChart', user.lqaScore, '#8b5cf6');
+            renderUserChart(user);
 
             runCountUp();
         }
@@ -40946,6 +41797,7 @@
             });
         }
 
+        
         function toggleDropdown(id, arrowId) {
             const dd = document.getElementById(id);
             const arrow = document.getElementById(arrowId);
@@ -40954,31 +41806,35 @@
             if (arrow) arrow.style.transform = dd.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        function setAreaFilter(val) {
-            currentFilterArea = val === 'all' ? null : val;
-            if (window.activeUser) selectUser(window.activeUser);
-            else showGlobalStats();
-        }
-
-        function setUseCaseFilter(val) {
-            currentFilterUseCase = val === 'all' ? null : val;
-            if (window.activeUser) selectUser(window.activeUser);
-            else showGlobalStats();
-        }
-
         document.addEventListener('click', (e) => {
-            ['areaDropdown', 'useCaseDropdown'].forEach(id => {
+            ['areaDropdown', 'useCaseDropdown', 'statusDropdown'].forEach(id => {
                 const dd = document.getElementById(id);
                 if (dd && !dd.contains(e.target)) {
                     dd.classList.remove('active');
-                    const arrow = document.getElementById(id === 'areaDropdown' ? 'dropdownArrow' : 'useCaseArrow');
+                    const arrow = document.getElementById(id === 'areaDropdown' ? 'dropdownArrow' : (id === 'useCaseDropdown' ? 'useCaseArrow' : 'statusArrow'));
                     if (arrow) arrow.style.transform = 'rotate(0deg)';
                 }
             });
         });
 
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (!input || !icon) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                icon.style.color = 'var(--primary, #00bcf2)';
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+                icon.style.color = '#94a3b8';
+            }
+        }
 
-        // ── Autenticação de Acesso por Senha ─────────────────────────────────────────
+// ── Autenticação de Acesso por Senha ─────────────────────────────────────────
         const ACCESS_PASSWORD = "Fairmont123*";
 
         function doLogin() {

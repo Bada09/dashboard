@@ -1054,8 +1054,11 @@
             <p style="color: #64748b; margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;" id="login-desc">Insira a senha de acesso para visualizar o resumo executivo.</p>
             
             <div id="login-step-1">
-                <div style="position: relative; margin-bottom: 1.5rem;">
-                    <input type="password" id="login-password" placeholder="••••••••" autofocus style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #f1f5f9; outline: none; font-family: 'Inter'; font-size: 1rem; transition: all 0.3s; background: #f8fafc;" onkeydown="if(event.key==='Enter') validatePassword()">
+                <div style="position: relative; margin-bottom: 1.5rem; display: flex; align-items: center;">
+                    <input type="password" id="login-password" placeholder="••••••••" autofocus style="width: 100%; padding: 16px 50px 16px 20px; border-radius: 16px; border: 2px solid #f1f5f9; outline: none; font-family: 'Inter'; font-size: 1rem; transition: all 0.3s; background: #f8fafc;" onkeydown="if(event.key==='Enter') validatePassword()">
+                    <button type="button" onclick="togglePasswordVisibility('login-password', 'eyeIconResumo')" style="position: absolute; right: 16px; background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.1rem; padding: 6px; display: flex; align-items: center; justify-content: center; transition: color 0.2s;" title="Visualizar senha">
+                        <i class="fas fa-eye" id="eyeIconResumo"></i>
+                    </button>
                 </div>
                 <button id="btn-login-resumo" onclick="validatePassword()" style="width: 100%; padding: 16px; background: #00bcf2; color: #041e42; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,188,242,0.3); letter-spacing: 0.05em;">ENTRAR</button>
                 <div id="login-error-msg" style="display: none; color: #ef4444; font-size: 0.9rem; margin-top: 1rem; font-weight: 600;">Senha incorreta. Tente novamente.</div>
@@ -1063,6 +1066,21 @@
         </div>
         <script>
             const RESUMO_PASSWORD = 'Fairmont123*';
+
+            function togglePasswordVisibility(inputId, iconId) {
+                const input = document.getElementById(inputId);
+                const icon = document.getElementById(iconId);
+                if (!input || !icon) return;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
 
             if (sessionStorage.getItem('fairmont_authenticated') === 'true' || sessionStorage.getItem('fhLoggedIn') === '1') {
                 const overlay = document.getElementById('security-login-overlay');
