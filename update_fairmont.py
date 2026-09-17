@@ -319,9 +319,19 @@ for member in dump.get('members', []):
         if ev and ev.get('feedback'):
             feedback = translate_feedback_to_portuguese(str(ev.get('feedback')))
 
-        # Interações
-        messages = conv.get('messages') or []
-        interactions = len(messages)
+        # Interações e Transcrição da Corrida
+        clean_messages = []
+        raw_msgs = conv.get('messages') or []
+        for m in raw_msgs:
+            txt = (m.get('content') or m.get('text') or '').strip()
+            role = m.get('participantType') or m.get('role') or 'AI'
+            if txt:
+                clean_messages.append({
+                    "role": "HUMAN" if "HUMAN" in str(role).upper() or "USER" in str(role).upper() else "AI",
+                    "text": txt
+                })
+        interactions = len(clean_messages) if clean_messages else len(raw_msgs)
+        finished = (score is not None)
 
         sim = {
             "name": full_name,
@@ -331,7 +341,9 @@ for member in dump.get('members', []):
             "scenario": scenario,
             "lqa": "N/A",
             "interactions": interactions,
-            "feedback": feedback
+            "feedback": feedback,
+            "finished": finished,
+            "messages": clean_messages
         }
 
         simulations.append(sim)
