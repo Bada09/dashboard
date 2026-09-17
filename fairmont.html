@@ -1536,21 +1536,16 @@
                 <img src="rhapsody_logo.png" alt="rhapsody">
             </div>
             <div class="login-title">Performance Hub</div>
-            <div class="login-sub">Acesso restrito · rhapsody Intelligence</div>
+            <div class="login-sub">Acesso restrito · Insira a senha para continuar</div>
 
             <div class="login-error" id="loginError">
                 <i class="fas fa-exclamation-circle"></i>
-                <span id="loginErrorMsg">E-mail ou senha incorretos.</span>
+                <span id="loginErrorMsg">Senha incorreta.</span>
             </div>
 
             <div class="login-field">
-                <label>E-mail</label>
-                <input type="email" id="loginEmail" placeholder="admin@rhapsody.run" autocomplete="email"
-                    onkeydown="if(event.key==='Enter') doLogin()">
-            </div>
-            <div class="login-field">
-                <label>Senha</label>
-                <input type="password" id="loginPassword" placeholder="••••••••"
+                <label>Senha de Acesso</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" autofocus
                     onkeydown="if(event.key==='Enter') doLogin()">
             </div>
 
@@ -13416,68 +13411,19 @@
         });
 
 
-        // ── Credenciais de Acesso ──────────────────────────────────────────────────────
-        const CREDENTIALS = [
-            { email: "admin@rhapsody.run", password: "rhapsody2026" },
-            { email: "beatriz.ventura@fairmont.com", password: "rhapsody2026" },
-            { email: "bruna.araujo@fairmont.com", password: "rhapsody2026" },
-            { email: "carlos.conde@fairmont.com", password: "rhapsody2026" },
-            { email: "carolina.queiroz@fairmont.com", password: "rhapsody2026" },
-            { email: "daniel.leitao@fairmont.com", password: "rhapsody2026" },
-            { email: "danny.fernandes@fairmont.com", password: "rhapsody2026" },
-            { email: "enzo.hidde@fairmont.com", password: "rhapsody2026" },
-            { email: "faubert.alcincor@fairmont.com", password: "rhapsody2026" },
-            { email: "gabrielle.goncalves@fairmont.com", password: "rhapsody2026" },
-            { email: "gabrielli.mattos@fairmont.com", password: "rhapsody2026" },
-            { email: "isadora.bignon@fairmont.com", password: "rhapsody2026" },
-            { email: "iury.jesus@fairmont.com", password: "rhapsody2026" },
-            { email: "jesse.henriques@fairmont.com", password: "rhapsody2026" },
-            { email: "jonathas.pinheiro@fairmont.com", password: "rhapsody2026" },
-            { email: "jorge.aguiar@fairmont.com", password: "rhapsody2026" },
-            { email: "jose.fabricio@fairmont.com", password: "rhapsody2026" },
-            { email: "juliana.ribeiro@fairmont.com", password: "rhapsody2026" },
-            { email: "jullie.anjos@fairmont.com", password: "rhapsody2026" },
-            { email: "leiziane.oliveira@fairmont.com", password: "rhapsody2026" },
-            { email: "leonel.leandro@fairmont.com", password: "rhapsody2026" },
-            { email: "luan.freitas@fairmont.com", password: "rhapsody2026" },
-            { email: "luana.vergueiro@fairmont.com", password: "rhapsody2026" },
-            { email: "lucas.goncalves@fairmont.com", password: "rhapsody2026" },
-            { email: "lucas.jesus@fairmont.com", password: "rhapsody2026" },
-            { email: "lucas.lopes@fairmont.com", password: "rhapsody2026" },
-            { email: "lucca.moraes@fairmont.com", password: "rhapsody2026" },
-            { email: "luceanne.daly@fairmont.com", password: "rhapsody2026" },
-            { email: "luiza.athayde@fairmont.com", password: "rhapsody2026" },
-            { email: "manuel.blanco@fairmont.com", password: "rhapsody2026" },
-            { email: "matheus.barcelos@fairmont.com", password: "rhapsody2026" },
-            { email: "matteus.moraes@fairmont.com", password: "rhapsody2026" },
-            { email: "naomi.carvalho@fairmont.com", password: "rhapsody2026" },
-            { email: "neube.brigagao@fairmont.com", password: "rhapsody2026" },
-            { email: "patricia.eckhard@fairmont.com", password: "rhapsody2026" },
-            { email: "paulo.bispo@fairmont.com", password: "rhapsody2026" },
-            { email: "pedro.jorge@fairmont.com", password: "rhapsody2026" },
-            { email: "pedro.maranhao@fairmont.com", password: "rhapsody2026" },
-            { email: "rickenson.rosulme@fairmont.com", password: "rhapsody2026" },
-            { email: "samantha.bastos@fairmont.com", password: "rhapsody2026" },
-            { email: "silvio.gomes@fairmont.com", password: "rhapsody2026" },
-            { email: "tauan.nunes@fairmont.com", password: "rhapsody2026" },
-            { email: "thiago.lobo@fairmont.com", password: "rhapsody2026" },
-            { email: "veronica.ebers@fairmont.com", password: "rhapsody2026" },
-            { email: "vinicius.barboza@fairmont.com", password: "rhapsody2026" },
-            { email: "vitoria.greice@fairmont.com", password: "rhapsody2026" },
-            { email: "wendy.cruz@fairmont.com", password: "rhapsody2026" }
-        ];
-        // ────────────────────────────────────────────────────────────────────────────
+        // ── Autenticação de Acesso por Senha ─────────────────────────────────────────
+        const ACCESS_PASSWORD = "Fairmont123*";
 
         function doLogin() {
-            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-            const password = document.getElementById('loginPassword').value;
+            const passwordInput = document.getElementById('loginPassword');
+            const password = passwordInput ? passwordInput.value : '';
             const btn = document.getElementById('btnLogin');
             const errBox = document.getElementById('loginError');
             const errMsg = document.getElementById('loginErrorMsg');
 
             // Basic validation
-            if (!email || !password) {
-                errMsg.textContent = 'Preencha e-mail e senha.';
+            if (!password) {
+                errMsg.textContent = 'Por favor, digite a senha.';
                 errBox.classList.add('show');
                 return;
             }
@@ -13487,23 +13433,24 @@
             errBox.classList.remove('show');
 
             setTimeout(() => {
-                const match = CREDENTIALS.find(c =>
-                    c.email === email && c.password === password
-                );
-
-                if (match) {
+                if (password === ACCESS_PASSWORD) {
                     sessionStorage.setItem('fhLoggedIn', '1');
+                    sessionStorage.setItem('fairmont_authenticated', 'true');
                     const overlay = document.getElementById('loginOverlay');
-                    overlay.classList.add('hidden');
-                    setTimeout(() => overlay.remove(), 650);
+                    if (overlay) {
+                        overlay.classList.add('hidden');
+                        setTimeout(() => overlay.remove(), 650);
+                    }
                 } else {
                     btn.classList.remove('loading');
-                    errMsg.textContent = 'E-mail ou senha incorretos.';
+                    errMsg.textContent = 'Senha incorreta. Tente novamente.';
                     errBox.classList.add('show');
-                    document.getElementById('loginPassword').value = '';
-                    document.getElementById('loginPassword').focus();
+                    if (passwordInput) {
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                    }
                 }
-            }, 800);
+            }, 500);
         }
 
         // Generate floating particles

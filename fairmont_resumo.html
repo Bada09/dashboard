@@ -1051,99 +1051,58 @@
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #00bcf2, #041e42);"></div>
             <img src="rhapsody_logo.png" alt="rhapsody" style="height: 55px; margin-bottom: 2.5rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
             <h2 style="font-family: 'Outfit'; margin-bottom: 1rem; color: #041e42; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em;">Acesso Restrito</h2>
-            <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1rem; line-height: 1.5;" id="login-desc">Para garantir a segurança dos dados, insira seu e-mail corporativo.</p>
+            <p style="color: #64748b; margin-bottom: 2rem; font-size: 1rem; line-height: 1.5;" id="login-desc">Insira a senha de acesso para visualizar o resumo executivo.</p>
             
             <div id="login-step-1">
                 <div style="position: relative; margin-bottom: 1.5rem;">
-                    <input type="email" id="login-email" placeholder="nome@rhapsody.run" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #f1f5f9; outline: none; font-family: 'Inter'; font-size: 1rem; transition: all 0.3s; background: #f8fafc;">
+                    <input type="password" id="login-password" placeholder="••••••••" autofocus style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #f1f5f9; outline: none; font-family: 'Inter'; font-size: 1rem; transition: all 0.3s; background: #f8fafc;" onkeydown="if(event.key==='Enter') validatePassword()">
                 </div>
-                <button onclick="sendCode()" style="width: 100%; padding: 16px; background: #00bcf2; color: #041e42; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,188,242,0.3); letter-spacing: 0.05em;">SOLICITAR CÓDIGO</button>
-            </div>
-            
-            <div id="login-step-2" style="display: none;">
-                <div style="margin-bottom: 1.5rem;">
-                    <input type="text" id="login-code" placeholder="0 0 0 0 0 0" maxlength="6" style="width: 100%; padding: 16px 20px; border-radius: 16px; border: 2px solid #00bcf2; outline: none; font-family: 'Outfit'; font-size: 1.8rem; text-align: center; letter-spacing: 0.3em; font-weight: 800; background: #f0f9ff; color: #041e42;">
-                </div>
-                <button onclick="validateCode()" style="width: 100%; padding: 16px; background: #041e42; color: #ffffff; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s; box-shadow: 0 8px 20px rgba(4,30,66,0.3); letter-spacing: 0.05em;">VALIDAR ACESSO</button>
-                <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8; cursor: pointer;" onclick="location.reload()">Reenviar e-mail</p>
+                <button id="btn-login-resumo" onclick="validatePassword()" style="width: 100%; padding: 16px; background: #00bcf2; color: #041e42; border: none; border-radius: 16px; font-weight: 800; font-family: 'Outfit'; font-size: 1.1rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,188,242,0.3); letter-spacing: 0.05em;">ENTRAR</button>
+                <div id="login-error-msg" style="display: none; color: #ef4444; font-size: 0.9rem; margin-top: 1rem; font-weight: 600;">Senha incorreta. Tente novamente.</div>
             </div>
         </div>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
         <script>
-            // === CONFIGURAÇÃO DE ENVIO DE E-MAIL (EMAILJS) ===
-            // 1. Crie uma conta gratuita em: https://www.emailjs.com/
-            // 2. Adicione um "Email Service" (ex: Gmail) e pegue o seu SERVICE_ID
-            // 3. Crie um "Email Template" que contenha a variável {{code}} no corpo do texto e pegue o TEMPLATE_ID
-            // 4. Copie sua Public Key em Account > API Keys
-            // 5. Substitua as 3 variáveis abaixo:
-            const EMAILJS_PUBLIC_KEY = 'Srr7kfdqNB0Jh8LS6';
-            const EMAILJS_SERVICE_ID = 'service_ci1piia';
-            const EMAILJS_TEMPLATE_ID = 'template_d2ty8si';
+            const RESUMO_PASSWORD = 'Fairmont123*';
 
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-
-            if (sessionStorage.getItem('fairmont_authenticated') === 'true') {
-                document.getElementById('security-login-overlay').style.display = 'none';
+            if (sessionStorage.getItem('fairmont_authenticated') === 'true' || sessionStorage.getItem('fhLoggedIn') === '1') {
+                const overlay = document.getElementById('security-login-overlay');
+                if (overlay) overlay.style.display = 'none';
             }
 
-            function sendCode() {
-                const email = document.getElementById('login-email').value;
-                if (!email || !email.includes('@')) {
-                    alert('Por favor, insira um e-mail válido.');
-                    return;
-                }
-
-                const btn = document.querySelector('#login-step-1 button');
-                btn.innerText = 'Enviando...';
-                btn.disabled = true;
-
-                // Gerar código de 6 dígitos seguro
-                const code = Math.floor(100000 + Math.random() * 900000).toString();
-                sessionStorage.setItem('temp_auth_code', code);
-
-                if (EMAILJS_PUBLIC_KEY === 'COLOQUE_SUA_PUBLIC_KEY_AQUI') {
-                    // Modo de Simulação se as chaves não estiverem configuradas
-                    alert(`ATENÇÃO: O EmailJS não está configurado!\nO código gerado para teste é: ${code}`);
-                    showStep2(email);
-                    btn.innerText = 'ENVIAR CÓDIGO';
-                    btn.disabled = false;
-                    return;
-                }
-
-                // Enviar e-mail real via EmailJS
-                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                    to_email: email,
-                    code: code
-                }).then(function() {
-                    showStep2(email);
-                }, function(error) {
-                    alert('Erro ao enviar e-mail. Verifique se configurou corretamente as chaves do EmailJS.');
-                    console.error('EmailJS Error:', error);
-                    btn.innerText = 'ENVIAR CÓDIGO';
-                    btn.disabled = false;
-                });
-            }
-
-            function showStep2(email) {
-                document.getElementById('login-step-1').style.display = 'none';
-                document.getElementById('login-step-2').style.display = 'block';
-                document.getElementById('login-desc').innerHTML = 'Código de validação enviado para <strong>' + email + '</strong>';
-            }
-
-            function validateCode() {
-                const inputCode = document.getElementById('login-code').value;
-                const correctCode = sessionStorage.getItem('temp_auth_code');
+            function validatePassword() {
+                const inputPass = document.getElementById('login-password').value;
+                const errDiv = document.getElementById('login-error-msg');
                 
-                if (!inputCode || inputCode !== correctCode) {
-                    alert('Código inválido ou incorreto. Tente novamente.');
+                if (!inputPass) {
+                    if (errDiv) {
+                        errDiv.innerText = 'Por favor, digite a senha.';
+                        errDiv.style.display = 'block';
+                    }
                     return;
                 }
-                
-                sessionStorage.setItem('fairmont_authenticated', 'true');
-                document.getElementById('security-login-overlay').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('security-login-overlay').style.display = 'none';
-                }, 500);
+
+                if (inputPass === RESUMO_PASSWORD) {
+                    if (errDiv) errDiv.style.display = 'none';
+                    sessionStorage.setItem('fairmont_authenticated', 'true');
+                    sessionStorage.setItem('fhLoggedIn', '1');
+                    const overlay = document.getElementById('security-login-overlay');
+                    if (overlay) {
+                        overlay.style.opacity = '0';
+                        setTimeout(() => {
+                            overlay.style.display = 'none';
+                        }, 500);
+                    }
+                } else {
+                    if (errDiv) {
+                        errDiv.innerText = 'Senha incorreta. Tente novamente.';
+                        errDiv.style.display = 'block';
+                    }
+                    const pwdInput = document.getElementById('login-password');
+                    if (pwdInput) {
+                        pwdInput.value = '';
+                        pwdInput.focus();
+                    }
+                }
             }
         </script>
     </div>
