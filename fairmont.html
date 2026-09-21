@@ -1717,6 +1717,11 @@
                 <button class="btn-header" onclick="showGlobalStats()">
                     <i class="fas fa-home"></i> <span id="t-generalBtn">Geral</span>
                 </button>
+                <button class="btn-header" id="btn-update-dashboard" onclick="triggerManualUpdate()" title="Sincronizar com o dump mais recente" style="display: inline-flex; align-items: center; gap: 7px;">
+                    <i class="fas fa-sync-alt" id="update-icon"></i> <span id="t-updateData">Atualizar</span>
+                    <span id="robot-status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; transition: background 0.3s;" title="Robô offline"></span>
+                </button>
+
             </div>
         </header>
 
@@ -1858,6 +1863,7 @@
 
         const ui = {
             pt: {
+                updateData: "Atualizar",
                 statusLabel: "Status:",
                 statusAll: "Todas as Simulações",
                 statusFinished: "Concluídas",
@@ -1954,6 +1960,7 @@
                 }
             },
             fr: {
+                updateData: "Actualiser",
                 statusLabel: "Statut :",
                 statusAll: "Toutes les Simulations",
                 statusFinished: "Terminées",
@@ -39572,6 +39579,27 @@
         ]
     },
     {
+        "name": "Luan Freitas",
+        "date": "20/09/2026",
+        "dur": "0m 7s",
+        "score": null,
+        "scenario": "[CONCIERGE] Fim de semana de aniversario",
+        "lqa": "N/A",
+        "interactions": 2,
+        "feedback": "",
+        "finished": false,
+        "messages": [
+            {
+                "role": "HUMAN",
+                "text": "Royal Service Luan, boa tarde, como posso ajudar?"
+            },
+            {
+                "role": "AI",
+                "text": "Boa tarde. Quero oferecer uma estadia surpresa de três dias para minha esposa"
+            }
+        ]
+    },
+    {
         "name": "Pedro Maranhao",
         "date": "30/08/2026",
         "dur": "2m 56s",
@@ -41420,6 +41448,83 @@
         }
         // ═══════════════════════════════════════════════════
 
+        let lastKnownDump = '';
+
+        function showToastNotification(msg, isSuccess = true) {
+            let toast = document.getElementById('robot-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'robot-toast';
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 28px;
+                    right: 28px;
+                    z-index: 999999;
+                    background: #041e42;
+                    color: #ffffff;
+                    padding: 14px 22px;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    border-left: 4px solid #00bcf2;
+                    font-size: 0.88rem;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    transform: translateY(120px);
+                    opacity: 0;
+                `;
+                document.body.appendChild(toast);
+            }
+            toast.innerHTML = `<i class="fas ${isSuccess ? 'fa-robot' : 'fa-exclamation-triangle'}" style="color: #00bcf2; font-size: 1.25rem;"></i> <span>${msg}</span>`;
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.transform = 'translateY(120px)';
+                toast.style.opacity = '0';
+            }, 4500);
+        }
+
+        async function checkRobotStatus() {
+            const dot = document.getElementById('robot-status-dot');
+            const btn = document.getElementById('btn-update-dashboard');
+            try {
+                const response = await fetch('http://127.0.0.1:8080/status');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (dot) {
+                        dot.style.background = data.status === 'atualizando' ? '#eab308' : '#22c55e';
+                        dot.title = `Robô ${data.status.toUpperCase()} · Dump: ${data.last_processed_dump || 'Nenhum'}`;
+                    }
+                    if (btn) {
+                        btn.title = `Robô Ativo · Dump: ${data.last_processed_dump || 'Nenhum'}\nClique para sincronizar manualmente`;
+                    }
+                    
+                    // Se o robô acabou de processar um dump novo em segundo plano
+                    if (data.last_processed_dump) {
+                        if (!lastKnownDump) {
+                            lastKnownDump = data.last_processed_dump;
+                        } else if (lastKnownDump !== data.last_processed_dump) {
+                            lastKnownDump = data.last_processed_dump;
+                            showToastNotification(currentLang === 'fr' 
+                                ? `Nouveau dump détecté (${data.last_processed_dump}) ! Actualisation de la page...` 
+                                : `Novo dump detectado (${data.last_processed_dump})! Recarregando dados...`);
+                            setTimeout(() => location.reload(), 1800);
+                        }
+                    }
+                }
+            } catch (err) {
+                if (dot) {
+                    dot.style.background = '#94a3b8';
+                    dot.title = 'Robô offline (execute iniciar_robo.bat para sincronização automática)';
+                }
+                if (btn) {
+                    btn.title = 'Robô local offline · Clique para tentar conectar';
+                }
+            }
+        }
+
         async function triggerManualUpdate() {
             const btn = document.getElementById('btn-update-dashboard');
             const icon = document.getElementById('update-icon');
@@ -41427,47 +41532,49 @@
             
             if (!btn) return;
             
-            // Desabilita o botao e comeca a animacao
             btn.disabled = true;
-            btn.style.opacity = '0.6';
+            btn.style.opacity = '0.7';
             btn.style.cursor = 'not-allowed';
             if (icon) icon.classList.add('spin-active');
             
-            const origText = label ? label.innerText : 'Atualizar Dados';
+            const origText = label ? label.innerText : (currentLang === 'fr' ? 'Actualiser' : 'Atualizar');
             if (label) {
-                label.innerText = currentLang === 'fr' ? 'Mise à jour...' : 'Atualizando...';
+                label.innerText = currentLang === 'fr' ? 'Vérification...' : 'Verificando...';
             }
             
             try {
-                // Faz a requisicao HTTP para o daemon local
                 const response = await fetch('http://127.0.0.1:8080/update');
                 if (response.ok) {
                     const data = await response.json();
                     if (label) {
                         label.innerText = currentLang === 'fr' ? 'Succès!' : 'Sucesso!';
                     }
-                    alert(currentLang === 'fr' 
-                        ? 'Dashboard mis à jour avec succès! La page va se recharger.' 
-                        : 'Dashboard atualizado com sucesso! A página será recarregada.');
-                    location.reload();
+                    showToastNotification(currentLang === 'fr' 
+                        ? `Dashboard mis à jour avec le dump ${data.dump}!` 
+                        : `Dashboard atualizado com o dump ${data.dump}! Recarregando...`);
+                    setTimeout(() => location.reload(), 1500);
                 } else {
                     const errData = await response.json().catch(() => ({}));
-                    const detail = errData.detail || 'Erro desconhecido';
+                    const detail = errData.detail || errData.message || 'Erro desconhecido';
                     throw new Error(detail);
                 }
             } catch (error) {
-                console.error(error);
+                console.warn("Aviso ao conectar ao daemon:", error);
                 if (label) label.innerText = origText;
                 if (icon) icon.classList.remove('spin-active');
                 btn.disabled = false;
                 btn.style.opacity = '1';
                 btn.style.cursor = 'pointer';
                 
-                alert(currentLang === 'fr' 
-                    ? 'Erreur lors de la mise à jour. Assurez-vous que le service local (daemon) est en cours d\'exécution.\nDétail : ' + error.message
-                    : 'Erro ao atualizar dados. Certifique-se de que o daemon local está rodando.\nDetalhe: ' + error.message);
+                showToastNotification(currentLang === 'fr'
+                    ? 'Le robot local est hors ligne. Exécutez iniciar_robo.bat pour l\'activer.'
+                    : 'O robô local está offline. Dê um duplo clique em iniciar_robo.bat para ativá-lo.', false);
             }
         }
+
+        // Iniciar monitoramento de status do robô a cada 15s
+        setInterval(checkRobotStatus, 15000);
+        setTimeout(checkRobotStatus, 1000);
 
         // Initialize
         const savedLang = localStorage.getItem('fairmontLang') || 'pt';

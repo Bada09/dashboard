@@ -1,4 +1,4 @@
-const lastUpdate = '18/09/2026 18:02';
+const lastUpdate = '21/09/2026 14:53';
 const users = [
     {
         "firstName": "Tom",
@@ -47,7 +47,7 @@ const users = [
     },
     {
         "firstName": "Sophie",
-        "lastName": "GTest",
+        "lastName": "G",
         "email": "sgeraud@gmail.com",
         "username": "sgeraud",
         "equipe": "Recepção",
@@ -69,7 +69,7 @@ const users = [
                 "En attente du début des simulations."
             ]
         },
-        "name": "Sophie GTest",
+        "name": "Sophie G",
         "lqaScore": 0,
         "languages": [
             "PT",
@@ -388,8 +388,8 @@ const users = [
         "name": "Tabajara Dias",
         "lqaScore": 53.7,
         "languages": [
-            "FR",
             "EN",
+            "FR",
             "PT"
         ],
         "improvement": {
@@ -619,8 +619,8 @@ const users = [
         "name": "Gabrielli Mattos",
         "lqaScore": 61.9,
         "languages": [
-            "FR",
             "EN",
+            "FR",
             "PT"
         ],
         "improvement": {
@@ -681,8 +681,8 @@ const users = [
         "name": "Neube Brigagao",
         "lqaScore": 72.3,
         "languages": [
-            "FR",
             "EN",
+            "FR",
             "PT"
         ],
         "improvement": {
@@ -731,8 +731,8 @@ const users = [
         "name": "Matheus Barcelos",
         "lqaScore": 64.7,
         "languages": [
-            "FR",
             "EN",
+            "FR",
             "PT"
         ],
         "improvement": {
@@ -781,8 +781,8 @@ const users = [
         "name": "Enzo Hidde",
         "lqaScore": 75.8,
         "languages": [
-            "FR",
             "EN",
+            "FR",
             "PT"
         ],
         "improvement": {
@@ -832,8 +832,8 @@ const users = [
         "name": "Patricia Eckhard",
         "lqaScore": 52.7,
         "languages": [
-            "FR",
             "EN",
+            "FR",
             "PT"
         ],
         "improvement": {
@@ -2087,7 +2087,7 @@ const users = [
         "email": "luan.freitas@fairmont.com",
         "username": "luan.freitas",
         "equipe": "Guest Attendant",
-        "avgDurSec": 13,
+        "avgDurSec": 3,
         "avgScore": 72.0,
         "skills": {
             "Escuta": 78.8,
@@ -2096,7 +2096,7 @@ const users = [
             "Padroes": 72.0,
             "Personalizacao": 66.8
         },
-        "count": 6,
+        "count": 7,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -2125,7 +2125,10 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-09-13",
+        "dates": [
+            "2026-09-13",
+            "2026-09-20"
+        ],
         "avgDurMin": 1
     },
     {
