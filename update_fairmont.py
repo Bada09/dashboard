@@ -13,16 +13,50 @@ if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
     except Exception:
         pass
 
-DUMP_FILE = 'Dump-Fairmont-10sep26-16h44.json'
-if len(sys.argv) > 1:
+def parse_dump_date(filename):
+    m = re.search(r'(\d{1,2})([a-zA-Z]+)(\d{2})-([0-9]{1,2})h([0-9]{2})', filename, re.IGNORECASE)
+    if not m:
+        return None
+    day, month_str, yr, hr, mn = m.groups()
+    month_str = month_str.lower()
+    months = {
+        'jan': 1, 'feb': 2, 'fev': 2, 'mar': 3, 'apr': 4, 'abr': 4,
+        'may': 5, 'mai': 5, 'jun': 6, 'jul': 7, 'aug': 8, 'ago': 8,
+        'aou': 8, 'sep': 9, 'sept': 9, 'set': 9, 'oct': 10, 'out': 10,
+        'nov': 11, 'dec': 12, 'dez': 12
+    }
+    month = 0
+    for prefix, num in months.items():
+        if month_str.startswith(prefix) or prefix.startswith(month_str):
+            month = num
+            break
+    if month == 0:
+        month = 9
+    return datetime.datetime(2000 + int(yr), month, int(day), int(hr), int(mn))
+
+def get_latest_dump_file(directory='.'):
+    import glob
+    pattern = os.path.join(directory, '*[dD]ump*.[jJ][sS][oO][nN]')
+    dumps = glob.glob(pattern)
+    if not dumps:
+        return None
+    def dump_key(f):
+        dt = parse_dump_date(os.path.basename(f))
+        if dt:
+            return dt.timestamp()
+        return os.path.getmtime(f)
+    dumps.sort(key=dump_key, reverse=True)
+    return dumps[0]
+
+DUMP_FILE = None
+if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
     DUMP_FILE = sys.argv[1]
 else:
-    import glob
-    dumps = glob.glob('[dD]ump-[fF]airmont-*.json')
-    if dumps:
-        # Sort by modification time to get the newest
-        dumps.sort(key=os.path.getmtime, reverse=True)
-        DUMP_FILE = dumps[0]
+    DUMP_FILE = get_latest_dump_file('.')
+
+if not DUMP_FILE:
+    raise FileNotFoundError("Nenhum arquivo de dump (.json) encontrado no diretório!")
+
 
 HTML_FILE = 'fairmont.html'
 USERS_DATA_FILE = 'users_data.js'
@@ -579,13 +613,21 @@ print(f"   Com score avaliado  : {scored_count}")
 unique_colabs = len(set(s['name'] for s in simulations if s['name'].lower() not in excluded_names))
 print(f"   Colaboradores únicos: {unique_colabs}")
 
+# Gravar último dump processado
+try:
+    with open('last_processed_dump.txt', 'w', encoding='utf-8') as f:
+        f.write(os.path.basename(DUMP_FILE))
+except Exception as e:
+    print(f"Aviso ao gravar last_processed_dump.txt: {e}")
+
 # ─── 6. Publicação Automática no GitHub ───────────────────────────────────────
 print("\n=== Publicando alterações no GitHub... ===")
 try:
     now_str = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
     commit_msg = f"Auto-update Fairmont dashboard ({now_str})"
     
-    subprocess.run(["git", "add", HTML_FILE, USERS_DATA_FILE, "update_fairmont.py", "update_fairmont_data.ps1"], check=True)
+    subprocess.run(["git", "add", HTML_FILE, USERS_DATA_FILE, "last_processed_dump.txt", "update_fairmont.py", "update_fairmont_data.ps1"], check=True)
+
     
     diff_status = subprocess.run(["git", "diff", "--staged", "--quiet"])
     if diff_status.returncode != 0:
