@@ -1589,110 +1589,11 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-        .audio-player-toolbar {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(4, 30, 66, 0.04);
-            padding: 5px 12px;
-            border-radius: 30px;
-            border: 1px solid rgba(4, 30, 66, 0.08);
-        }
-        .btn-audio-play {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: #ffffff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(0, 188, 242, 0.28);
-        }
-        .btn-audio-play:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 188, 242, 0.4);
-        }
-        .btn-audio-stop {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            background: #e2e8f0;
-            color: #475569;
-            border: none;
-            border-radius: 50%;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .btn-audio-stop:hover {
-            background: #cbd5e1;
-            color: #0f172a;
-        }
-        .audio-speed-group {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            margin-left: 2px;
-        }
-        .audio-speed-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-muted);
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 2px 7px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .audio-speed-btn:hover {
-            color: var(--text-main);
-            background: rgba(0, 0, 0, 0.05);
-        }
-        .audio-speed-btn.active {
-            background: var(--accent);
-            color: #ffffff;
-            font-weight: 700;
-        }
-        .transcript-bubble.playing-bubble {
-            border-color: var(--primary) !important;
-            box-shadow: 0 0 0 3px rgba(0, 188, 242, 0.25), 0 4px 14px rgba(0, 188, 242, 0.15) !important;
-            transform: translateY(-2px);
-            background: rgba(0, 188, 242, 0.08) !important;
-        }
         .transcript-bubble.search-matched-bubble {
             border: 2px solid var(--primary) !important;
             background: rgba(0, 188, 242, 0.08) !important;
             box-shadow: 0 4px 15px rgba(0, 188, 242, 0.18) !important;
         }
-        .audio-wave-anim {
-            display: inline-flex;
-            align-items: center;
-            gap: 2px;
-            height: 12px;
-            margin-left: 3px;
-        }
-        .audio-wave-anim .bar {
-            width: 2px;
-            height: 100%;
-            background: #ffffff;
-            border-radius: 1px;
-            animation: waveBounce 0.8s ease-in-out infinite alternate;
-        }
-        .audio-wave-anim .bar:nth-child(2) { animation-delay: 0.2s; }
-        .audio-wave-anim .bar:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes waveBounce {
-            0% { height: 3px; }
-            100% { height: 12px; }
-        }
-
         /* ── Date Filter Period Buttons ── */
         .btn-period {
             padding: 8px 16px;
@@ -40297,379 +40198,9 @@
             return html;
         }
 
-        // ── CONTROLE DE REPRODUÇÃO DE ÁUDIO DA TRANSCRIÇÃO ──
-        let isAudioPlaying = false;
-        let isAudioPaused = false;
-        let currentPlayingMsgIndex = -1;
-        let audioSpeed = 1.0;
-        let currentAudioElement = null;
-        let currentActiveSimOriginalIndex = 0;
-        let currentActiveSimBrokerName = '';
-
-        let availableSpeechVoices = [];
-        let userVoicePreference = localStorage.getItem('fairmontPreferredVoice') || 'auto';
-        if (userVoicePreference && userVoicePreference !== 'auto' && !userVoicePreference.startsWith('single_') && !userVoicePreference.startsWith('dual_')) {
-            userVoicePreference = 'auto';
-            localStorage.setItem('fairmontPreferredVoice', 'auto');
-        }
-
-        function setUserVoicePreference(val) {
-            userVoicePreference = val;
-            localStorage.setItem('fairmontPreferredVoice', val);
-        }
-
-        function isBrokerFemale(name) {
-            if (!name) return false;
-            const clean = name.trim().split(/\s+/)[0].toLowerCase()
-                .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-            const femaleNames = [
-                'juliana', 'sabrina', 'carolina', 'ana', 'maria', 'patricia', 'fernanda', 'amanda',
-                'beatriz', 'camila', 'daniela', 'debora', 'gabriela', 'helena', 'isabela', 'jessica',
-                'larissa', 'leticia', 'luana', 'marina', 'natalia', 'paula', 'renata', 'sophie',
-                'tatiana', 'vanessa', 'yara', 'thais', 'aline', 'bruna', 'claudia', 'elaine',
-                'fabiana', 'giselle', 'luciana', 'mariana', 'monica', 'priscila', 'simone', 'valeria'
-            ];
-            if (femaleNames.includes(clean)) return true;
-            if (clean.endsWith('a') && !['luca', 'lucas', 'nicola', 'elias', 'jonas', 'ayrton'].includes(clean)) {
-                return true;
-            }
-            return false;
-        }
-
-        function isFemaleVoice(v) {
-            const n = ((v && v.name) || '').toLowerCase();
-            return /francisca|thalita|brenda|giovanna|leila|leticia|manuela|raquel|ysabella|maria|heloisa|yara|denise|celine|sylvie|female|mulher/i.test(n)
-                || (n.includes('google') && !n.includes('male') && !n.includes('homem'));
-        }
-
-        function isMaleVoice(v) {
-            const n = ((v && v.name) || '').toLowerCase();
-            return /antonio|donato|fabio|julio|nicolau|valerio|daniel|felipe|alain|henri|paul|male|homem/i.test(n);
-        }
-
-        function getVoiceScore(voice) {
-            const name = (voice.name || '').toLowerCase();
-            let score = 0;
-            if (name.includes('natural')) score += 120;
-            if (name.includes('neural')) score += 100;
-            if (name.includes('online')) score += 80;
-            if (name.includes('google')) score += 90;
-            if (!voice.localService) score += 30;
-            return score;
-        }
-
-        function populateVoiceSelector() {
-            const select = document.getElementById('selectVoiceOption');
-            if (!select || !('speechSynthesis' in window)) return;
-            
-            let voices = availableSpeechVoices.length ? availableSpeechVoices : (window.speechSynthesis.getVoices() || []);
-            const prefix = currentLang === 'fr' ? 'fr' : 'pt';
-            const matching = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith(prefix));
-
-            matching.sort((a, b) => {
-                const isNatA = /natural|neural|online|google/i.test(a.name);
-                const isNatB = /natural|neural|online|google/i.test(b.name);
-                if (isNatA && !isNatB) return -1;
-                if (!isNatA && isNatB) return 1;
-                return a.name.localeCompare(b.name);
-            });
-
-            let optionsHtml = '';
-            if (currentLang === 'pt') {
-                optionsHtml += `<option value="auto">🎭 Diálogo Automático (Alterna Você & rhapsody)</option>`;
-                optionsHtml += `<option value="dual_fem_ia_male_human">👩 rhapsody (Francisca) & 👨 Você (Antonio)</option>`;
-                optionsHtml += `<option value="dual_male_ia_fem_human">👨 rhapsody (Antonio) & 👩 Você (Francisca)</option>`;
-                optionsHtml += `<optgroup label="── Voz Fixa Única ──">`;
-            } else {
-                optionsHtml += `<option value="auto">🎭 Dialogue Automatique (Alterné)</option>`;
-                optionsHtml += `<optgroup label="── Voix Fixe ──">`;
-            }
-
-            matching.forEach(v => {
-                const isNatural = /natural|neural|online|google/i.test(v.name);
-                const tag = isNatural ? '⭐ ' : '';
-                const cleanName = v.name.replace(/ - Portuguese \(Brazil\)| - French \(France\)/gi, '').trim();
-                optionsHtml += `<option value="single_${v.voiceURI || v.name}">${tag}${cleanName}</option>`;
-            });
-
-            optionsHtml += `</optgroup>`;
-
-            select.innerHTML = optionsHtml;
-            if (userVoicePreference && [...select.options].some(o => o.value === userVoicePreference)) {
-                select.value = userVoicePreference;
-            } else {
-                select.value = 'auto';
-            }
-        }
-
-        function initVoices() {
-            if (!('speechSynthesis' in window)) return;
-            availableSpeechVoices = window.speechSynthesis.getVoices() || [];
-            populateVoiceSelector();
-        }
-        if ('speechSynthesis' in window) {
-            initVoices();
-            window.speechSynthesis.onvoiceschanged = initVoices;
-        }
-
-        function getBestVoice(lang, isHuman) {
-            if (!('speechSynthesis' in window)) return null;
-            let voices = availableSpeechVoices.length ? availableSpeechVoices : (window.speechSynthesis.getVoices() || []);
-            if (!voices.length) return null;
-
-            if (userVoicePreference && userVoicePreference.startsWith('single_')) {
-                const targetName = userVoicePreference.replace('single_', '');
-                const explicitVoice = voices.find(v => (v.voiceURI === targetName || v.name === targetName));
-                if (explicitVoice) return explicitVoice;
-            }
-            
-            const prefix = lang === 'fr' ? 'fr' : 'pt';
-            const matching = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith(prefix));
-            if (!matching.length) return null;
-
-            const sorted = matching.slice().sort((a, b) => getVoiceScore(b) - getVoiceScore(a));
-
-            const femaleVoices = sorted.filter(isFemaleVoice);
-            const maleVoices = sorted.filter(isMaleVoice);
-
-            const bestFemale = femaleVoices[0] || sorted[0];
-            const bestMale = maleVoices[0] || (sorted.length > 1 ? sorted[1] : sorted[0]);
-
-            if (userVoicePreference === 'dual_fem_ia_male_human') {
-                return isHuman ? bestMale : bestFemale;
-            }
-            if (userVoicePreference === 'dual_male_ia_fem_human') {
-                return isHuman ? bestFemale : bestMale;
-            }
-
-            const brokerName = currentActiveSimBrokerName || (window.activeUser ? window.activeUser.name : '');
-            const brokerFemale = isBrokerFemale(brokerName);
-
-            if (brokerFemale) {
-                return isHuman ? bestFemale : bestMale;
-            } else {
-                return isHuman ? bestMale : bestFemale;
-            }
-        }
-
-        function prepareSpeechText(rawText) {
-            if (!rawText) return '';
-            let t = rawText;
-            t = t.replace(/<[^>]+>/g, '');
-            if (currentLang === 'pt') {
-                t = t.replace(/\bR\$\s*(\d+)/gi, '$1 reais');
-                t = t.replace(/\b(\d+)%/g, '$1 por cento');
-                t = t.replace(/\bFairmont\b/gi, 'Férmon');
-                t = t.replace(/\brhapsody\b/gi, 'Rápsodi');
-                t = t.replace(/\bIA\b/g, 'I.A.');
-                t = t.replace(/\bDr\./gi, 'Doutor');
-                t = t.replace(/\bDra\./gi, 'Doutora');
-                t = t.replace(/\bSr\./gi, 'Senhor');
-                t = t.replace(/\bSra\./gi, 'Senhora');
-                t = t.replace(/\bvc\b/gi, 'você');
-                t = t.replace(/\btbm\b/gi, 'também');
-                t = t.replace(/\bpq\b/gi, 'porque');
-            }
-            return t;
-        }
-
-        function clearAudioHighlights() {
-            document.querySelectorAll('.transcript-bubble').forEach(b => {
-                b.classList.remove('playing-bubble');
-            });
-        }
-
-        function stopTranscriptAudio() {
-            if (currentAudioElement) {
-                currentAudioElement.pause();
-                currentAudioElement.currentTime = 0;
-                currentAudioElement = null;
-            }
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            isAudioPlaying = false;
-            isAudioPaused = false;
-            currentPlayingMsgIndex = -1;
-            clearAudioHighlights();
-            updateAudioControlsUI();
-        }
-
-        function updateAudioControlsUI() {
-            const playBtn = document.getElementById('btnAudioPlay');
-            const stopBtn = document.getElementById('btnAudioStop');
-            const playIcon = document.getElementById('audioPlayIcon');
-            const playLabel = document.getElementById('audioPlayLabel');
-            const waveAnim = document.getElementById('audioWaveAnim');
-            if (!playBtn) return;
-
-            const playAudioText = (ui[currentLang] && ui[currentLang].playAudio) ? ui[currentLang].playAudio : 'Ouvir conversa';
-            const pauseAudioText = (ui[currentLang] && ui[currentLang].pauseAudio) ? ui[currentLang].pauseAudio : 'Pausar';
-            const resumeAudioText = (ui[currentLang] && ui[currentLang].resumeAudio) ? ui[currentLang].resumeAudio : 'Continuar';
-
-            if (isAudioPlaying && !isAudioPaused) {
-                if (playIcon) playIcon.className = 'fas fa-pause';
-                if (playLabel) playLabel.innerText = pauseAudioText;
-                if (stopBtn) stopBtn.style.display = 'inline-flex';
-                if (waveAnim) waveAnim.style.display = 'inline-flex';
-            } else if (isAudioPaused) {
-                if (playIcon) playIcon.className = 'fas fa-play';
-                if (playLabel) playLabel.innerText = resumeAudioText;
-                if (stopBtn) stopBtn.style.display = 'inline-flex';
-                if (waveAnim) waveAnim.style.display = 'none';
-            } else {
-                if (playIcon) playIcon.className = 'fas fa-play';
-                if (playLabel) playLabel.innerText = playAudioText;
-                if (stopBtn) stopBtn.style.display = 'none';
-                if (waveAnim) waveAnim.style.display = 'none';
-            }
-        }
-
-        function toggleTranscriptAudio() {
-            if (isAudioPlaying && !isAudioPaused) {
-                if (currentAudioElement) {
-                    currentAudioElement.pause();
-                } else if ('speechSynthesis' in window) {
-                    window.speechSynthesis.pause();
-                }
-                isAudioPlaying = false;
-                isAudioPaused = true;
-                updateAudioControlsUI();
-            } else if (isAudioPaused) {
-                if (currentAudioElement) {
-                    currentAudioElement.play().catch(() => {});
-                } else if ('speechSynthesis' in window) {
-                    window.speechSynthesis.resume();
-                }
-                isAudioPlaying = true;
-                isAudioPaused = false;
-                updateAudioControlsUI();
-            } else {
-                playSimulationAudio(0);
-            }
-        }
-
-        function playSimulationAudio(startIndex = 0) {
-            stopTranscriptAudio();
-            isAudioPlaying = true;
-            isAudioPaused = false;
-            currentPlayingMsgIndex = startIndex;
-            updateAudioControlsUI();
-            playNextTranscriptMessage();
-        }
-
-        function playNextTranscriptMessage() {
-            if (!isAudioPlaying || isAudioPaused) return;
-            const bubbles = document.querySelectorAll('.transcript-bubble');
-            if (currentPlayingMsgIndex >= bubbles.length) {
-                stopTranscriptAudio();
-                return;
-            }
-
-            clearAudioHighlights();
-            const activeBubble = bubbles[currentPlayingMsgIndex];
-            if (activeBubble) {
-                activeBubble.classList.add('playing-bubble');
-                activeBubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-
-            const textEl = activeBubble ? activeBubble.querySelector('.transcript-text') : null;
-            const isHuman = activeBubble && activeBubble.classList.contains('human');
-            const text = textEl ? textEl.innerText.trim() : '';
-            const speechText = prepareSpeechText(text);
-
-            if (!speechText) {
-                currentPlayingMsgIndex++;
-                playNextTranscriptMessage();
-                return;
-            }
-
-            const fallbackToSynth = () => {
-                currentAudioElement = null;
-                const utt = new SpeechSynthesisUtterance(speechText);
-                const lang = currentLang === 'fr' ? 'fr' : 'pt';
-                utt.lang = lang === 'fr' ? 'fr-FR' : 'pt-BR';
-                utt.rate = (audioSpeed || 1.0) * (isHuman ? 0.98 : 1.02);
-                utt.pitch = isHuman ? 0.98 : 1.02;
-
-                const voice = getBestVoice(lang, isHuman);
-                if (voice) utt.voice = voice;
-
-                utt.onend = () => {
-                    if (isAudioPlaying && !isAudioPaused) {
-                        currentPlayingMsgIndex++;
-                        playNextTranscriptMessage();
-                    }
-                };
-                utt.onerror = (e) => {
-                    console.warn('SpeechSynthesis error:', e);
-                    if (isAudioPlaying && !isAudioPaused) {
-                        currentPlayingMsgIndex++;
-                        playNextTranscriptMessage();
-                    }
-                };
-                window.speechSynthesis.speak(utt);
-            };
-
-            fallbackToSynth();
-        }
-
-        function speakSingleMessage(index) {
-            stopTranscriptAudio();
-
-            const bubble = document.getElementById(`transcriptBubble-${index}`);
-            if (!bubble) return;
-
-            bubble.classList.add('playing-bubble');
-            isAudioPlaying = true;
-            isAudioPaused = false;
-            currentPlayingMsgIndex = index;
-            updateAudioControlsUI();
-
-            const textEl = bubble.querySelector('.transcript-text');
-            const isHuman = bubble.classList.contains('human');
-            const text = textEl ? textEl.innerText.trim() : '';
-            const speechText = prepareSpeechText(text);
-
-            if (!speechText) {
-                stopTranscriptAudio();
-                return;
-            }
-
-            const utt = new SpeechSynthesisUtterance(speechText);
-            const lang = currentLang === 'fr' ? 'fr' : 'pt';
-            utt.lang = lang === 'fr' ? 'fr-FR' : 'pt-BR';
-            utt.rate = (audioSpeed || 1.0) * (isHuman ? 0.98 : 1.02);
-            utt.pitch = isHuman ? 0.98 : 1.02;
-
-            const voice = getBestVoice(lang, isHuman);
-            if (voice) utt.voice = voice;
-
-            utt.onend = () => {
-                stopTranscriptAudio();
-            };
-            utt.onerror = () => {
-                stopTranscriptAudio();
-            };
-            window.speechSynthesis.speak(utt);
-        }
-
-        function setAudioSpeed(speed) {
-            audioSpeed = speed;
-            if (currentAudioElement) {
-                currentAudioElement.playbackRate = speed;
-            }
-            document.querySelectorAll('.audio-speed-btn').forEach(b => {
-                b.classList.toggle('active', parseFloat(b.dataset.speed) === speed);
-            });
-            if (isAudioPlaying && !isAudioPaused && currentPlayingMsgIndex >= 0 && !currentAudioElement) {
-                window.speechSynthesis.cancel();
-                playNextTranscriptMessage();
-            }
-        }
+        function stopTranscriptAudio() {}
 
         function showSimulationDetail(originalIndex, filterUser = null, skipTableSortChange = false) {
-            stopTranscriptAudio();
             currentFilterUser = filterUser === 'all' ? null : filterUser;
             const filtered = getSortedAndFilteredSims(currentFilterUser);
 
@@ -40696,8 +40227,6 @@
             }
 
             currentSimIndex = localIndex >= 0 ? localIndex : 0;
-            currentActiveSimOriginalIndex = (sim.originalIdx !== undefined) ? sim.originalIdx : originalIndex;
-            currentActiveSimBrokerName = sim.name || '';
             const totalSimsCount = (filtered && filtered.length > 0) ? filtered.length : 1;
             const user = activeUsers.find(u => u.name === sim.name) || activeUsers[0];
             const content = document.getElementById('mainContent');
@@ -40786,7 +40315,7 @@
                                         return `<li>${ui[currentLang].noFeedback}</li>`;
                                     }
                                     const fb = rawFeedback
-                                        .replace(/\{\{[^}]+\}/g, '')
+                                        .replace(/\{\{[^}]+\}\}/g, '')
                                         .replace(/###\s*(.+)/g, '<br><strong style="color:var(--accent);font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;">$1</strong><br>')
                                         .replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0.5rem 0;">')
                                         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
@@ -40820,42 +40349,14 @@
 
                     ${(() => {
                         const transcriptTitle = (ui[currentLang] && ui[currentLang].transcriptTitle) || 'Transcrição da Simulação';
-                        const playAudioText = (ui[currentLang] && ui[currentLang].playAudio) || 'Ouvir conversa';
-                        const stopAudioText = (ui[currentLang] && ui[currentLang].stopAudio) || 'Parar';
-                        const playMsgText = (ui[currentLang] && ui[currentLang].playMessage) || 'Ouvir fala';
                         
                         if (sim.messages && sim.messages.length > 0) {
                             return `
                                 <div class="card" style="margin-top: 2rem;">
-                                    <div class="transcript-header-row">
+                                    <div class="transcript-header-row" style="margin-bottom: 1.2rem;">
                                         <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin: 0; display: flex; align-items: center; gap: 8px;">
                                             <i class="fas fa-comments" style="color: var(--primary);"></i> ${transcriptTitle}
                                         </h3>
-                                        <div class="audio-player-toolbar">
-                                            <button id="btnAudioPlay" class="btn-audio-play" onclick="toggleTranscriptAudio()">
-                                                <i class="fas fa-play" id="audioPlayIcon"></i>
-                                                <span id="audioPlayLabel">${playAudioText}</span>
-                                                <span class="audio-wave-anim" id="audioWaveAnim" style="display: none;">
-                                                    <span class="bar"></span>
-                                                    <span class="bar"></span>
-                                                    <span class="bar"></span>
-                                                </span>
-                                            </button>
-                                            <button id="btnAudioStop" class="btn-audio-stop" onclick="stopTranscriptAudio()" style="display: none;" title="${stopAudioText}">
-                                                <i class="fas fa-stop"></i>
-                                            </button>
-                                            <div class="audio-speed-group">
-                                                <button class="audio-speed-btn active" data-speed="1" onclick="setAudioSpeed(1)">1x</button>
-                                                <button class="audio-speed-btn" data-speed="1.25" onclick="setAudioSpeed(1.25)">1.25x</button>
-                                                <button class="audio-speed-btn" data-speed="1.5" onclick="setAudioSpeed(1.5)">1.5x</button>
-                                            </div>
-                                            <div class="voice-selector-box" style="display: inline-flex; align-items: center; gap: 6px; margin-left: 6px;">
-                                                <i class="fas fa-headset" style="font-size: 0.75rem; color: var(--text-muted);" title="Seletor de Voz"></i>
-                                                <select id="selectVoiceOption" onchange="setUserVoicePreference(this.value)" style="padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-main); outline: none; cursor: pointer; max-width: 250px;" title="Alternância de Vozes (rhapsody ↔ Você)">
-                                                    <option value="auto">🎭 ${currentLang === 'pt' ? 'Diálogo Automático (Alterna Você & rhapsody)' : 'Dialogue Automatique'}</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="transcript-container" id="transcriptContainer">
                                         ${sim.messages.map((msg, mIdx) => {
@@ -40864,8 +40365,8 @@
                                             const label = isHuman ? (currentLang === 'pt' ? 'Você' : 'Vous') : 'rhapsody';
                                             const icon = isHuman ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
                                             const cleanMsgText = fixEnc(msg.text || '');
-                                            const normMsg = cleanMsgText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-                                            const normTerm = (currentSimSearchKeyword || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                                            const normMsg = cleanMsgText.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+                                            const normTerm = (currentSimSearchKeyword || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
                                             const isMatch = normTerm && normMsg.includes(normTerm);
                                             const matchedClass = isMatch ? ' search-matched-bubble' : '';
                                             const displayText = isMatch ? highlightSearchTerm(cleanMsgText, currentSimSearchKeyword) : cleanMsgText;
@@ -40876,9 +40377,6 @@
                                                             ${isHuman ? label + ' ' + icon : icon + ' ' + label}
                                                             ${isMatch ? `<span style="margin-left: 8px; font-size: 0.68rem; background: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase;"><i class="fas fa-search"></i> ${currentLang === 'pt' ? 'Correspondência' : 'Correspondance'}</span>` : ''}
                                                         </span>
-                                                        <button class="btn-msg-speak" onclick="speakSingleMessage(${mIdx})" title="${playMsgText}">
-                                                            <i class="fas fa-volume-up"></i>
-                                                        </button>
                                                     </div>
                                                     <p class="transcript-text">${displayText}</p>
                                                 </div>
@@ -40906,7 +40404,6 @@
             `;
             window.scrollTo({ top: 0, behavior: 'smooth' });
             runCountUp();
-            populateVoiceSelector();
             if (currentSimSearchKeyword && currentSimSearchKeyword.trim()) {
                 setTimeout(() => {
                     const firstMatched = document.querySelector('.transcript-bubble.search-matched-bubble');
