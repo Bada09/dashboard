@@ -1641,6 +1641,90 @@
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .donut-container canvas { max-width: 120px !important; max-height: 120px !important; }
         }
+
+        /* ══════════════ SOFT SKILLS TAB ══════════════ */
+        .softskills-area-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .softskills-area-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .softskills-area-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+        }
+        .ssac-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+        .ssac-header h3 { margin: 0; }
+        .ssac-score { font-family: 'Outfit'; font-weight: 700; font-size: 1.35rem; color: var(--primary-dark); }
+        .ssac-meta { display: flex; gap: 16px; font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-bottom: 1rem; flex-wrap: wrap; }
+        .ssac-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.1rem; min-height: 26px; }
+        .ssac-characteristic { font-size: 0.82rem; line-height: 1.55; color: var(--text-muted); margin-bottom: 1.1rem; min-height: 44px; }
+        .ssac-characteristic .txt-strength { color: #15803d; font-weight: 700; }
+        .ssac-characteristic .txt-gap { color: #b45309; font-weight: 700; margin-left: 4px; }
+        .executive-summary { font-size: 0.9rem; line-height: 1.65; color: var(--text-main); background: #f8fafc; border-left: 3px solid var(--primary); padding: 0.9rem 1.1rem; border-radius: 8px; margin-bottom: 1.2rem; }
+        .skill-legend { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.9rem; line-height: 1.5; }
+        .ssac-cta { font-size: 0.75rem; font-weight: 800; color: var(--primary-dark); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px; }
+
+        .skill-pill {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 0.72rem; font-weight: 700; padding: 4px 10px;
+            border-radius: 999px; white-space: nowrap; line-height: 1.4;
+        }
+        .skill-pill.strength { background: rgba(34,197,94,0.12); color: #15803d; }
+        .skill-pill.gap { background: rgba(245,158,11,0.15); color: #b45309; }
+        .skill-pill.neutral { background: #f1f5f9; color: var(--text-muted); }
+
+        .expected-behavior-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.2rem;
+        }
+        .expected-behavior-item { display: flex; gap: 12px; align-items: flex-start; }
+        .ebi-emoji { font-size: 1.5rem; line-height: 1; }
+        .ebi-title { font-weight: 700; font-size: 0.88rem; color: var(--text-main); margin-bottom: 3px; }
+        .ebi-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.45; }
+
+        .softskills-person-list { display: flex; flex-direction: column; gap: 1rem; }
+        .softskills-person-card {
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius);
+            padding: 1.3rem 1.6rem;
+        }
+        .sspc-top { display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 1rem; flex-wrap: wrap; }
+        .sspc-name { font-weight: 700; font-size: 1.02rem; color: var(--text-main); }
+        .sspc-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; }
+        .sspc-right { display: flex; align-items: center; gap: 16px; }
+        .toggle-caret { transition: transform 0.25s ease; color: var(--text-muted); }
+        .evolution-badge { font-size: 0.75rem; font-weight: 800; padding: 5px 11px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; }
+        .evolution-badge.up { background: rgba(34,197,94,0.12); color: #15803d; }
+        .evolution-badge.down { background: rgba(239,68,68,0.12); color: #b91c1c; }
+        .evolution-badge.flat { background: #f1f5f9; color: var(--text-muted); }
+        .sspc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+        .sspc-synthesis { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--card-border); }
+        .ss-inline-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 800; margin-bottom: 0.8rem; }
+        .skill-synthesis { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+        .ss-col-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 6px; }
+        .ss-col-title.strength { color: #15803d; }
+        .ss-col-title.gap { color: #b45309; }
+        .ss-col-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skill-pill-count { font-weight: 800; opacity: 0.75; margin-left: 2px; }
+        .sspc-detail { margin-top: 1.15rem; padding-top: 1.15rem; border-top: 1px dashed var(--card-border); }
+        .sspc-detail h4 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.9rem; font-weight: 800; }
+        .session-history { display: flex; flex-direction: column; gap: 0.9rem; }
+        .session-history-item { background: #f8fafc; border-radius: 10px; padding: 0.95rem 1.05rem; }
+        .shi-top { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 0.45rem; }
+        .shi-date { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); }
+        .shi-scenario { font-size: 0.78rem; font-weight: 600; color: var(--text-main); }
+        .shi-score { margin-left: auto; font-weight: 800; color: var(--primary-dark); }
+        .shi-block { font-size: 0.82rem; line-height: 1.55; color: var(--text-muted); margin-top: 0.35rem; }
+        .shi-block.strength strong { color: #15803d; }
+        .shi-block.gap strong { color: #b45309; }
 </style>
 </head>
 
@@ -1701,7 +1785,8 @@
                 </div>
             </div>
             <nav class="nav-menu">
-                <a href="#" class="nav-link active"><span id="t-menuDashboard">Dashboard</span></a>
+                <a href="#" class="nav-link active" id="navDashboard" onclick="event.preventDefault(); showGlobalStats();"><span id="t-menuDashboard">Dashboard</span></a>
+                <a href="#" class="nav-link" id="navSoftSkills" onclick="event.preventDefault(); showSoftSkillsHome();"><span id="t-menuSoftSkills">Soft Skills</span></a>
             </nav>
             <div class="header-controls">
                 <div class="lang-switch">
@@ -1957,7 +2042,24 @@
                     Crises: "Gestão de Crises",
                     Padroes: "Padrões de Luxo",
                     Personalizacao: "Personalização"
-                }
+                },
+                menuSoftSkills: "Soft Skills",
+                softSkillsTitle: "Mapa de",
+                softSkillsTitleAccent: "Soft Skills",
+                softSkillsSubtitle: "Resumo comportamental real, extraído dos debriefings de IA de cada simulação — por área e por colaborador.",
+                softSkillsAreaDesc: "Evolução individual de comportamento, pontos fortes e pontos a desenvolver, sessão a sessão, à luz dos padrões de atendimento de luxo Fairmont.",
+                viewDetails: "Ver detalhes",
+                expectedBehaviorTitle: "O que se espera de um atendimento de luxo Fairmont",
+                evolutionHistory: "Histórico de Evolução",
+                strengthsLabel: "Pontos fortes",
+                improvementsLabel: "Pontos de Melhoria",
+                noPatternYet: "Ainda sem padrão claro identificado",
+                softSkillsSessionsAnalyzed: "sessões com debriefing analisadas",
+                areaSynthesisTitle: "Síntese da Área",
+                personSynthesisTitle: "Resumo Executivo",
+                goodDominionOf: "Bom domínio de",
+                stillNeedsToDevelop: "Pontos de Melhoria:",
+                skillLegend: "🟢 competências já dominadas (mais mencionadas como ponto forte do que como melhoria)  •  🟠 pontos de melhoria (mencionados mais como melhoria do que como ponto forte)"
             },
             fr: {
                 updateData: "Actualiser",
@@ -2054,7 +2156,24 @@
                     Crises: "Gestion de Crises",
                     Padroes: "Standards de Luxe",
                     Personalizacao: "Personnalisation"
-                }
+                },
+                menuSoftSkills: "Soft Skills",
+                softSkillsTitle: "Carte des",
+                softSkillsTitleAccent: "Soft Skills",
+                softSkillsSubtitle: "Synthèse comportementale réelle, extraite des débriefings IA de chaque simulation — par domaine et par collaborateur.",
+                softSkillsAreaDesc: "Évolution individuelle du comportement, points forts et axes de développement, session par session, au regard des standards de service de luxe Fairmont.",
+                viewDetails: "Voir les détails",
+                expectedBehaviorTitle: "Ce qu'on attend d'un service de luxe Fairmont",
+                evolutionHistory: "Historique d'Évolution",
+                strengthsLabel: "Points forts",
+                improvementsLabel: "Points de Développement",
+                noPatternYet: "Aucune tendance claire identifiée",
+                softSkillsSessionsAnalyzed: "sessions avec débriefing analysées",
+                areaSynthesisTitle: "Synthèse du Domaine",
+                personSynthesisTitle: "Résumé Exécutif",
+                goodDominionOf: "Bonne maîtrise de",
+                stillNeedsToDevelop: "Points de Développement :",
+                skillLegend: "🟢 compétences déjà maîtrisées (plus souvent citées comme point fort que comme axe d'amélioration)  •  🟠 points de développement (plus souvent cités comme axe d'amélioration que comme point fort)"
             }
         };
 
@@ -2101,6 +2220,10 @@
             if (typeof activeUsers !== 'undefined') {
                 renderUserList();
                 if (window.activeUser) selectUser(window.activeUser);
+                else if (typeof currentView !== 'undefined' && currentView === 'softskills') {
+                    if (currentSoftSkillArea) renderSoftSkillAreaDetail();
+                    else renderSoftSkillsHome();
+                }
                 else showGlobalStats();
             }
         }
@@ -40490,7 +40613,9 @@
         function showGlobalStats() {
             hideSimNav();
             window.activeUser = null;
-            
+            currentView = 'dashboard';
+            syncNavActive();
+
             activeUsers = getActiveUsers();
             renderUserList();
 
@@ -40870,7 +40995,9 @@
         function selectUser(user) {
             hideSimNav();
             window.activeUser = user;
-            
+            currentView = 'dashboard';
+            syncNavActive();
+
             activeUsers = getActiveUsers();
             renderUserList();
 
@@ -41575,6 +41702,605 @@
         // Iniciar monitoramento de status do robô a cada 15s
         setInterval(checkRobotStatus, 15000);
         setTimeout(checkRobotStatus, 1000);
+
+
+        // ══════════════════════════════════════════════════════════════
+        // SOFT SKILLS MODULE — comportamento real extraído dos debriefings
+        // de IA de cada simulação (não são valores simulados/aleatórios).
+        // ══════════════════════════════════════════════════════════════
+        var currentView = 'dashboard';
+        var currentSoftSkillArea = null;
+
+        function syncNavActive() {
+            const navD = document.getElementById('navDashboard');
+            const navS = document.getElementById('navSoftSkills');
+            if (navD) navD.classList.toggle('active', currentView === 'dashboard');
+            if (navS) navS.classList.toggle('active', currentView === 'softskills');
+        }
+
+        const LUXURY_SKILLS = [
+            { key: 'escuta', emoji: '👂',
+              pt: 'Qualidade de Escuta', fr: 'Qualité d’Écoute',
+              desc: { pt: 'Ouvir sem interromper e resolver no primeiro contato — a LQA avalia isso dentro do pilar de Inteligência Emocional, e a Forbes só considera o padrão atingido quando o pedido é "atendido no primeiro contato, sem necessidade de retorno".',
+                      fr: 'Écouter sans interrompre et résoudre dès le premier contact — la LQA l’évalue dans son pilier Intelligence Émotionnelle, et Forbes exige qu’une demande soit « traitée dès le premier contact, sans qu’il soit nécessaire d’y revenir ».' },
+              kw: ['escuta','escutar','ouvi','ouvir','ecoute','ecouter','entendimento','compreender','compreensao','atento','atenta'] },
+            { key: 'empatia', emoji: '🤍',
+              pt: 'Empatia & Acolhimento', fr: 'Empathie & Accueil',
+              desc: { pt: 'Saudação calorosa e sincera, com contato visual e sorriso natural — padrão Forbes Five-Star ("staff consistently warm, sincere and welcoming") e primeiro dos Passos de Serviço da Ritz-Carlton.',
+                      fr: 'Accueil chaleureux et sincère, avec contact visuel et sourire naturel — standard Forbes Five-Star et première des « Étapes de Service » du référentiel Ritz-Carlton.' },
+              kw: ['empatia','empatico','empatica','acolh','empathie','empathique','chaleur','chaleureux','compreensivo'] },
+            { key: 'emocoes', emoji: '🧘',
+              pt: 'Gestão das Emoções', fr: 'Gestion des Émotions',
+              desc: { pt: 'Manter o tom calmo e o ritmo adequado mesmo sob pressão — a LQA usa uma escala de 5 níveis de engajamento emocional, de "extremamente insatisfeito" a "completamente engajado".',
+                      fr: 'Garder un ton calme et un rythme adapté même sous pression — la LQA utilise une échelle d’engagement émotionnel à 5 niveaux, de « extrêmement insatisfait » à « totalement engagé ».' },
+              kw: ['calma','calmo','calme','controle emocional','sangue frio','serenidade','sereno','tranquil','paciencia','paciente'] },
+            { key: 'assertividade', emoji: '💬',
+              pt: 'Assertividade', fr: 'Assertivité',
+              desc: { pt: 'Conduzir com perguntas diretas e ritmo sob controle, nem apressado nem lento — a Forbes avalia explicitamente se "o ritmo do serviço é ajustado à preferência do hóspede".',
+                      fr: 'Mener l’échange avec des questions directes et un rythme maîtrisé — Forbes évalue explicitement si « le rythme du service est adapté aux préférences du client ».' },
+              kw: ['assertiv','clareza','claro','clara','clair','direct','objetiv','vago','vague','hesita'] },
+            { key: 'padroes', emoji: '🌟',
+              pt: 'Domínio dos Padrões de Luxo', fr: 'Maîtrise des Standards de Luxe',
+              desc: { pt: 'Aplicar naturalmente o vocabulário e o requinte esperados — a Forbes atribui 75% da nota cinco estrelas ao serviço (não à estrutura física), e a LQA audita mais de 1.000 padrões por propriedade.',
+                      fr: 'Appliquer naturellement le vocabulaire et le raffinement attendus — Forbes attribue 75% de la note cinq étoiles au service (pas à la structure physique), et la LQA audite plus de 1000 standards par établissement.' },
+              kw: ['luxo','luxe','padrao','padroes','standard','excelencia','excellence','sur-mesure','requinte','prestige','premium','vip'] },
+            { key: 'objeccoes', emoji: '🔧',
+              pt: 'Tratamento de Objeções/Reclamações', fr: 'Traitement des Objections/Réclamations',
+              desc: { pt: 'Assumir a reclamação como sua, resolver com autonomia e registrar o ocorrido — é literalmente o Padrão Básico nº13 da Ritz-Carlton: "nunca perca um hóspede".',
+                      fr: 'Prendre la réclamation en charge personnellement, la résoudre avec autonomie et la consigner — c’est littéralement le Standard de Base n°13 Ritz-Carlton : « ne jamais perdre un client ».' },
+              kw: ['reclama','objection','insatisf','queixa','plainte','contrarie','reclamacao'] },
+            { key: 'personalizacao', emoji: '🎨',
+              pt: 'Personalização da Experiência', fr: 'Personnalisation de l’Expérience',
+              desc: { pt: 'Registrar e lembrar preferências do hóspede, usando o nome dele com naturalidade — Padrão Básico nº12 da Ritz-Carlton ("cada funcionário é responsável por identificar e registrar preferências") e critério Forbes de serviço "personalizado, não roteirizado".',
+                      fr: 'Enregistrer et se souvenir des préférences du client, en utilisant son nom naturellement — Standard de Base n°12 Ritz-Carlton (« identifier et enregistrer les préférences de chaque client ») et critère Forbes d’un service « personnalisé, non scénarisé ».' },
+              kw: ['personaliz','personnalis','nome do cliente','nome do hospede','prenom','sur mesure','ocasiao especial'] },
+            { key: 'conhecimento_rede', emoji: '🌐',
+              pt: 'Conhecimento da Oferta/Rede', fr: 'Connaissance de l’Offre/Réseau',
+              desc: { pt: 'Dominar instalações, horários e serviços do hotel para orientar com segurança — parte do pilar de Excelência de Serviço avaliado pela LQA.',
+                      fr: 'Maîtriser les installations, horaires et services de l’hôtel pour orienter avec assurance — fait partie du pilier Excellence de Service audité par la LQA.' },
+              kw: ['rede','reseau','instalac','infrastructure','estabelecimento','etablissement'] },
+            { key: 'criatividade', emoji: '✨',
+              pt: 'Criatividade', fr: 'Créativité',
+              desc: { pt: 'Ir além do script quando a ocasião permite encantar — a Forbes distingue explicitamente serviço "antecipatório e proativo" (cinco estrelas) de serviço apenas "reativo".',
+                      fr: 'Aller au-delà du script quand l’occasion permet de surprendre — Forbes distingue explicitement un service « anticipatoire et proactif » (cinq étoiles) d’un service simplement « réactif ».' },
+              kw: ['criativ','creativ','original','surpreend','surprenant','inventivo'] },
+            { key: 'aconselhamento', emoji: '🧭',
+              pt: 'Capacidade de Aconselhamento', fr: 'Capacité de Conseil',
+              desc: { pt: 'Recomendar com convicção, hierarquizando as opções para o perfil do hóspede — a Forbes só reconhece o pedido como resolvido quando isso acontece sem hesitação nem retrabalho.',
+                      fr: 'Recommander avec conviction, en hiérarchisant les options selon le profil du client — Forbes n’accepte une demande comme résolue que sans hésitation ni reprise.' },
+              kw: ['aconselh','conseil','recomend','sugest','orient','hierarquiz'] },
+            { key: 'produtos', emoji: '🍲',
+              pt: 'Domínio do Cardápio e das Acomodações', fr: 'Maîtrise de la Carte et des Hébergements',
+              desc: { pt: 'Responder sobre cardápio, vinhos e categorias de quarto sem hesitar — a Forbes só considera um pedido resolvido quando é "atendido no primeiro contato, sem necessidade de retorno".',
+                      fr: 'Répondre sur la carte, les vins et les catégories de chambres sans hésiter — Forbes ne considère une demande résolue que si elle est « traitée dès le premier contact, sans qu’il soit nécessaire d’y revenir ».' },
+              kw: ['produto','cardapio','menu','prato','plat','vinho','vin','quarto','chambre','suite'] },
+            { key: 'relacionamento', emoji: '🤝',
+              pt: 'Relacionamento com o Cliente', fr: 'Relation Client',
+              desc: { pt: 'Construir proximidade real ao longo da conversa — reflete o 2º Passo de Serviço da Ritz-Carlton: antecipação e atendimento das necessidades do hóspede.',
+                      fr: 'Construire une vraie proximité tout au long de l’échange — reflète la 2ᵉ Étape de Service Ritz-Carlton : anticipation et satisfaction des besoins du client.' },
+              kw: ['relacionamento','relation','confianca','confiance','proximidade','vinculo','lien'] },
+            { key: 'crise', emoji: '🚨',
+              pt: 'Gestão de Crise', fr: 'Gestion de Crise',
+              desc: { pt: 'Assumir o controle de uma situação delicada com firmeza, sem escalar o conflito — mesmo princípio do Padrão Básico nº13 da Ritz-Carlton, aplicado a incidentes mais graves.',
+                      fr: 'Prendre le contrôle d’une situation délicate avec fermeté, sans envenimer le conflit — même principe que le Standard de Base n°13 Ritz-Carlton, appliqué aux incidents plus graves.' },
+              kw: ['crise','conflito','conflit','tenso','tendu','urgencia','urgence','alcoolizado','ivre'] }
+        ];
+
+        function normTxt(s) {
+            return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+        }
+
+        function skillPill(key, kind) {
+            const sk = LUXURY_SKILLS.find(s => s.key === key);
+            if (!sk) return '';
+            return `<span class="skill-pill ${kind}">${sk.emoji} ${sk[currentLang]}</span>`;
+        }
+
+        // Cada competência entra SÓ de um lado (forte OU a desenvolver), nunca nos
+        // dois — o saldo é (menções como ponto forte) - (menções como melhoria).
+        // Isso evita o problema de uma mesma competência aparecer duplicada em
+        // verde e em amarelo/laranja ao mesmo tempo.
+        function computeNetSkills(strengthCounts, gapCounts) {
+            const strengths = [], gaps = [];
+            LUXURY_SKILLS.forEach(sk => {
+                const s = (strengthCounts && strengthCounts[sk.key]) || 0;
+                const g = (gapCounts && gapCounts[sk.key]) || 0;
+                const net = s - g;
+                if (net > 0) strengths.push({ key: sk.key, count: s, net });
+                else if (net < 0) gaps.push({ key: sk.key, count: g, net });
+            });
+            strengths.sort((a, b) => b.net - a.net || b.count - a.count);
+            gaps.sort((a, b) => a.net - b.net || b.count - a.count);
+            return { strengths, gaps };
+        }
+
+        function renderSkillPillsFromList(list, kind, emptyLabel) {
+            if (!list.length) return `<span class="skill-pill neutral">${emptyLabel}</span>`;
+            return list.map(({ key, count }) => {
+                const sk = LUXURY_SKILLS.find(s => s.key === key);
+                if (!sk) return '';
+                return `<span class="skill-pill ${kind}">${sk.emoji} ${sk[currentLang]} <span class="skill-pill-count">×${count}</span></span>`;
+            }).join('');
+        }
+
+        function renderSkillSynthesis(strengthCounts, gapCounts) {
+            const L = ui[currentLang];
+            const { strengths, gaps } = computeNetSkills(strengthCounts, gapCounts);
+            return `
+                <div class="skill-legend">${L.skillLegend}</div>
+                <div class="skill-synthesis">
+                    <div class="skill-synthesis-col">
+                        <h5 class="ss-col-title strength"><i class="fas fa-circle-check"></i> ${L.strengthsLabel}</h5>
+                        <div class="ss-col-pills">${renderSkillPillsFromList(strengths, 'strength', L.noPatternYet)}</div>
+                    </div>
+                    <div class="skill-synthesis-col">
+                        <h5 class="ss-col-title gap"><i class="fas fa-triangle-exclamation"></i> ${L.improvementsLabel}</h5>
+                        <div class="ss-col-pills">${renderSkillPillsFromList(gaps, 'gap', L.noPatternYet)}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Junta nomes de competências em uma frase natural: "A, B e C"
+        function joinSkillLabels(keys, max) {
+            const labels = (keys || []).slice(0, max).map(k => {
+                const sk = LUXURY_SKILLS.find(s => s.key === k);
+                return sk ? sk[currentLang] : null;
+            }).filter(Boolean);
+            if (!labels.length) return '';
+            if (labels.length === 1) return labels[0];
+            const conj = currentLang === 'fr' ? 'et' : 'e';
+            return `${labels.slice(0, -1).join(', ')} ${conj} ${labels[labels.length - 1]}`;
+        }
+
+        // Resumo executivo em texto corrido — característica geral da área,
+        // baseada nas competências que se espera de um atendimento de luxo.
+        function areaExecutiveSummary(area) {
+            const L = ui[currentLang];
+            const areaLabel = L['area' + area.area.replace(/\s/g, '')] || area.area;
+            const { strengths, gaps } = computeNetSkills(area.strengthCounts, area.gapCounts);
+            const strengthsTxt = joinSkillLabels(strengths.map(s => s.key), 3);
+            const gapsTxt = joinSkillLabels(gaps.map(g => g.key), 2);
+            if (currentLang === 'fr') {
+                let s = `L'équipe ${areaLabel} affiche un score moyen de ${area.avgScore}%.`;
+                if (strengthsTxt) s += ` Bonne maîtrise de : ${strengthsTxt}.`;
+                if (gapsTxt) s += ` Points de développement : ${gapsTxt}.`;
+                return s;
+            }
+            let s = `A área de ${areaLabel} tem score médio de ${area.avgScore}%.`;
+            if (strengthsTxt) s += ` Bom domínio de ${strengthsTxt}.`;
+            if (gapsTxt) s += ` Pontos de melhoria: ${gapsTxt}.`;
+            return s;
+        }
+
+        // Resumo executivo individual — evolução de score + o que melhorou e o
+        // que ainda precisa desenvolver, comparando as sessões mais antigas com
+        // as mais recentes da mesma pessoa.
+        function personExecutiveSummary(p) {
+            const firstName = p.name.trim().split(' ')[0];
+            const { strengths } = computeNetSkills(p.strengthCounts, p.gapCounts);
+            const improvedTxt = joinSkillLabels(p.resolvedGaps, 2);
+            const stillTxt = joinSkillLabels(p.persistentGaps, 2);
+            // não repete no "ponto forte consistente" uma competência já citada como "já evoluiu"
+            // ou como "pontos de melhoria" ainda persistentes — evita a mesma competência
+            // aparecer simultaneamente nos dois lados do resumo.
+            const consistentStrengthKeys = strengths.map(s => s.key).filter(k => !p.resolvedGaps.includes(k) && !p.persistentGaps.includes(k));
+            const topStrengthTxt = joinSkillLabels(consistentStrengthKeys, 2);
+
+            const parts = [];
+            if (currentLang === 'fr') {
+                if (p.count > 1) {
+                    if (p.delta > 0) parts.push(`${firstName} a progressé de ${p.delta} points depuis sa première session évaluée (${p.firstScore}% → ${p.lastScore}%)`);
+                    else if (p.delta < 0) parts.push(`${firstName} a reculé de ${Math.abs(p.delta)} points depuis sa première session évaluée (${p.firstScore}% → ${p.lastScore}%)`);
+                    else parts.push(`${firstName} maintient un score stable, autour de ${p.avgScore}%`);
+                } else {
+                    parts.push(`${firstName} a une session évaluée, avec un score de ${p.avgScore}%`);
+                }
+                if (topStrengthTxt) parts.push(`point fort constant en ${topStrengthTxt}`);
+                if (improvedTxt) parts.push(`a progressé en ${improvedTxt}`);
+                if (stillTxt) parts.push(`points de développement : ${stillTxt}`);
+                return parts.join('. ') + '.';
+            }
+
+            if (p.count > 1) {
+                if (p.delta > 0) parts.push(`${firstName} evoluiu ${p.delta} pontos percentuais desde a primeira sessão avaliada (${p.firstScore}% → ${p.lastScore}%)`);
+                else if (p.delta < 0) parts.push(`${firstName} caiu ${Math.abs(p.delta)} pontos percentuais desde a primeira sessão avaliada (${p.firstScore}% → ${p.lastScore}%)`);
+                else parts.push(`${firstName} mantém um score estável, em torno de ${p.avgScore}%`);
+            } else {
+                parts.push(`${firstName} tem uma sessão avaliada, com score de ${p.avgScore}%`);
+            }
+            if (topStrengthTxt) parts.push(`ponto forte consistente em ${topStrengthTxt}`);
+            if (improvedTxt) parts.push(`já evoluiu em ${improvedTxt}`);
+            if (stillTxt) parts.push(`pontos de melhoria: ${stillTxt}`);
+            return parts.join('. ') + '.';
+        }
+
+        // Extrai frases de "pontos fortes" e "pontos a melhorar" do texto livre
+        // do debriefing. Usa marcadores {{...}} quando existem; senão, aplica uma
+        // divisão heurística no ponto em que o texto normalmente vira sugestão.
+        // O debriefing de IA da rhapsody mudou de formato várias vezes ao longo do
+        // tempo ({{Título}}, ## Título markdown, "Título:" em texto corrido...).
+        // Em vez de tratar cada formato separadamente, procuramos as FRASES de
+        // cabeçalho conhecidas (pontos fortes / pontos de melhoria / neutras) em
+        // qualquer lugar do texto e cortamos o conteúdo entre elas — isso cobre
+        // {{}}, ##, emoji + título e "Título:" com a mesma lógica.
+        const SS_STRENGTH_RE = /pontos?\s+forte?s?(?:\s+da\s+interven[cç][aã]o)?\s*:?|points?\s+forts?(?:\s+de\s+l['’]interven\w*)?\s*:?/gi;
+        const SS_IMPROVEMENT_RE = /pontos?\s+de\s+melhoria(?:\s+da\s+interven[cç][aã]o)?\s*:?|eixos?\s+de\s+melhoria\s*:?|[aá]reas?\s+de\s+melhoria\s*:?|axes?\s+d['’]am[ée]lior\w*(?:\s+de\s+l['’]interven\w*)?\s*:?|eixos?\s+de\s+desenvolvimento\s*:?|[aá]reas?\s+de\s+desenvolvimento\s*:?|pontos?\s+de\s+desenvolvimento\s*:?|pontos?\s+a\s+desenvolver\s*:?/gi;
+        // Observação: frases curtas e genéricas como "a melhorar"/"a aprimorar" foram
+        // propositalmente excluídas da lista acima — elas aparecem com frequência em
+        // frases comuns do texto (ex.: "há pontos importantes a aprimorar") e não só
+        // como cabeçalho de seção, o que geraria cortes de frase incorretos.
+        const SS_NEUTRAL_RE = /an[áa]lise\s+emocional|analyse\s+[ée]motionnelle|recomenda[çc][õo]es|recommandations|verifica[çc][õo]es\s+factuais|\bpersona\b|vis[ãa]o\s+geral|objetivo\s+principal|momento[\s-]chave|para\s+lembrar|oportunidades\s+perdidas|mapa\s+de\s+compet[êe]ncias/gi;
+
+        function heuristicPivotSplit(fb) {
+            const pivotRegex = /(no entanto|contudo|todavia|entretanto|cependant|toutefois|neanmoins|néanmoins|para enriquecer|pour enrichir|sugiro|je te conseille|je vous conseille|je vous invite|uma dica|outra dica|erro comum)/i;
+            const m = pivotRegex.exec(fb);
+            let head = fb, tail = '';
+            if (m) { head = fb.slice(0, m.index); tail = fb.slice(m.index); }
+            const splitSentences = (t) => t.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(s => s.length > 25);
+            let strengths = splitSentences(head).slice(m ? -3 : 0, m ? undefined : 2);
+            let improvements = m ? splitSentences(tail).slice(0, 3) : [];
+            return { strengths, improvements };
+        }
+
+        function splitFeedbackSections(rawFeedback) {
+            const fb = fixEnc(rawFeedback || '').replace(/\[(linha em branco|ligne vide)\]/gi, '').trim();
+            if (!fb) return { strengths: [], improvements: [] };
+
+            let hits = [];
+            [['strength', SS_STRENGTH_RE], ['improvement', SS_IMPROVEMENT_RE], ['other', SS_NEUTRAL_RE]].forEach(([type, re]) => {
+                re.lastIndex = 0;
+                let match;
+                while ((match = re.exec(fb)) !== null) {
+                    hits.push({ idx: match.index, end: match.index + match[0].length, type });
+                    if (match[0].length === 0) re.lastIndex++;
+                }
+            });
+
+            if (!hits.length) return heuristicPivotSplit(fb);
+
+            hits.sort((a, b) => a.idx - b.idx);
+            const merged = [];
+            hits.forEach(h => {
+                const last = merged[merged.length - 1];
+                if (last && h.idx - last.end < 3) return; // marcador duplicado colado (ex.: dentro de {{}} + ##)
+                merged.push(h);
+            });
+
+            let strengths = [], improvements = [];
+            for (let i = 0; i < merged.length; i++) {
+                const cur = merged[i];
+                if (cur.type === 'other') continue;
+                const start = cur.end;
+                const end = (i + 1 < merged.length) ? merged[i + 1].idx : fb.length;
+                let body = fb.slice(start, end).replace(/^[:,.\-—–#\s]+/, '').trim();
+                if (!body) continue;
+                const lines = body.split('\n')
+                    .map(l => l.replace(/^[\s\-•▶🟢🔴🟡➕⚠️#]+/, '').trim())
+                    .filter(l => l.length > 12 && !/^\[(linha em branco|ligne vide|\.\.\.)\]$/i.test(l));
+                const chunks = lines.length > 1 ? lines : body.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(s => s.length > 15);
+                if (cur.type === 'strength') strengths.push(...chunks.slice(0, 4));
+                else improvements.push(...chunks.slice(0, 4));
+            }
+
+            if (!strengths.length && !improvements.length) return heuristicPivotSplit(fb);
+            return { strengths, improvements };
+        }
+
+        function tagSkills(sentences) {
+            const counts = {};
+            LUXURY_SKILLS.forEach(sk => counts[sk.key] = 0);
+            (sentences || []).forEach(sent => {
+                const n = normTxt(sent);
+                LUXURY_SKILLS.forEach(sk => {
+                    if (sk.kw.some(k => n.includes(normTxt(k)))) counts[sk.key]++;
+                });
+            });
+            return counts;
+        }
+
+        function topSkillKeys(counts, n) {
+            return Object.entries(counts).filter(([k, v]) => v > 0).sort((a, b) => b[1] - a[1]).slice(0, n).map(([k]) => k);
+        }
+
+        // Base de sessões elegível: finalizadas, com nota e com debriefing de texto
+        function getSoftSkillsSims() {
+            return VALID_SIMS.filter(s => s.finished && s.feedback && s.score !== null && s.score !== undefined);
+        }
+
+        function buildPersonProfile(name, sims) {
+            const mine = sims.filter(s => s.name === name).sort((a, b) => parseDateBR(a.date) - parseDateBR(b.date));
+            if (!mine.length) return null;
+
+            let strengthCounts = {}, gapCounts = {};
+            LUXURY_SKILLS.forEach(sk => { strengthCounts[sk.key] = 0; gapCounts[sk.key] = 0; });
+
+            const sessions = mine.map(s => {
+                const parsed = splitFeedbackSections(s.feedback);
+                const sC = tagSkills(parsed.strengths);
+                const gC = tagSkills(parsed.improvements);
+                LUXURY_SKILLS.forEach(sk => { strengthCounts[sk.key] += sC[sk.key]; gapCounts[sk.key] += gC[sk.key]; });
+                return {
+                    date: s.date, score: s.score, scenario: s.scenario,
+                    strengths: parsed.strengths, improvements: parsed.improvements,
+                    gapKeys: Object.entries(gC).filter(([k, v]) => v > 0).map(([k]) => k)
+                };
+            });
+
+            const scores = mine.map(s => s.score);
+            const avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+            const firstScore = scores[0], lastScore = scores[scores.length - 1];
+            const delta = scores.length > 1 ? (lastScore - firstScore) : 0;
+
+            // Compara as sessões mais antigas com as mais recentes da mesma pessoa
+            // para identificar o que ela já melhorou e o que ainda precisa desenvolver.
+            const n = sessions.length;
+            const splitAt = n >= 3 ? Math.floor(n / 2) : (n === 2 ? 1 : n);
+            const earlySessions = sessions.slice(0, splitAt);
+            const recentSessions = n === 1 ? sessions : sessions.slice(splitAt);
+            const earlyGapSet = new Set(earlySessions.flatMap(s => s.gapKeys));
+            const recentGapSet = new Set(recentSessions.flatMap(s => s.gapKeys));
+            const recentGapCounts = {};
+            recentSessions.forEach(s => s.gapKeys.forEach(k => { recentGapCounts[k] = (recentGapCounts[k] || 0) + 1; }));
+            const earlyGapCounts = {};
+            earlySessions.forEach(s => s.gapKeys.forEach(k => { earlyGapCounts[k] = (earlyGapCounts[k] || 0) + 1; }));
+            const resolvedGaps = [...earlyGapSet].filter(k => !recentGapSet.has(k))
+                .sort((a, b) => (earlyGapCounts[b] || 0) - (earlyGapCounts[a] || 0));
+            const persistentGaps = [...recentGapSet]
+                .sort((a, b) => (recentGapCounts[b] || 0) - (recentGapCounts[a] || 0));
+
+            // Recupera o Resumo Comportamental Técnico estático (insights) da pessoa,
+            // a mesma fonte usada no card individual do dashboard principal.
+            const original = (typeof users !== 'undefined' ? users : []).find(u => cleanName(u.name) === cleanName(name)) || {};
+            const insights = original.insights || { pt: [], fr: [] };
+
+            return {
+                name,
+                count: mine.length,
+                avgScore, firstScore, lastScore, delta,
+                sessions,
+                strengthCounts, gapCounts,
+                resolvedGaps, persistentGaps,
+                insights,
+                topStrengths: topSkillKeys(strengthCounts, 3),
+                topGaps: topSkillKeys(gapCounts, 3)
+            };
+        }
+
+        function getSoftSkillAreas() {
+            const sims = getSoftSkillsSims();
+            const areaMap = {};
+            sims.forEach(s => {
+                const area = getArea(s.scenario);
+                (areaMap[area] = areaMap[area] || []).push(s);
+            });
+            return Object.entries(areaMap).map(([area, list]) => {
+                const names = [...new Set(list.map(s => s.name))];
+                const avgScore = Math.round(list.reduce((a, b) => a + b.score, 0) / list.length);
+                let strengthCounts = {}, gapCounts = {};
+                LUXURY_SKILLS.forEach(sk => { strengthCounts[sk.key] = 0; gapCounts[sk.key] = 0; });
+                list.forEach(s => {
+                    const parsed = splitFeedbackSections(s.feedback);
+                    const sC = tagSkills(parsed.strengths), gC = tagSkills(parsed.improvements);
+                    LUXURY_SKILLS.forEach(sk => { strengthCounts[sk.key] += sC[sk.key]; gapCounts[sk.key] += gC[sk.key]; });
+                });
+                return {
+                    area, memberCount: names.length, sessionCount: list.length, avgScore,
+                    strengthCounts, gapCounts,
+                    topStrengths: topSkillKeys(strengthCounts, 3),
+                    topGaps: topSkillKeys(gapCounts, 3)
+                };
+            }).sort((a, b) => b.sessionCount - a.sessionCount);
+        }
+
+        function showSoftSkillsHome() {
+            hideSimNav();
+            window.activeUser = null;
+            currentView = 'softskills';
+            currentSoftSkillArea = null;
+            syncNavActive();
+            activeUsers = getActiveUsers();
+            renderUserList();
+            renderSoftSkillsHome();
+        }
+
+        function renderSoftSkillsHome() {
+            const L = ui[currentLang];
+            const areas = getSoftSkillAreas();
+            const totalSessions = areas.reduce((a, b) => a + b.sessionCount, 0);
+            const content = document.getElementById('mainContent');
+            content.innerHTML = `
+                <div class="global-stats">
+                    <header class="header-section">
+                        <div class="header-content-left">
+                            <h1>${L.softSkillsTitle} <span>${L.softSkillsTitleAccent}</span></h1>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-top: 8px;">
+                                <i class="fas fa-user-tie"></i> ${totalSessions} ${L.softSkillsSessionsAnalyzed}
+                            </p>
+                        </div>
+                        <div class="header-content-right">
+                            <p class="header-desc">${L.softSkillsSubtitle}</p>
+                        </div>
+                    </header>
+
+                    <div class="softskills-area-grid">
+                        ${areas.map(a => renderAreaCard(a)).join('') || `<div class="card">${L.waitingData}</div>`}
+                    </div>
+
+                    <div class="card">
+                        <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.6rem;">
+                            <i class="fas fa-crown" style="color: var(--primary);"></i> ${L.expectedBehaviorTitle}
+                        </h3>
+                        <div class="expected-behavior-grid">
+                            ${LUXURY_SKILLS.map(sk => `
+                                <div class="expected-behavior-item">
+                                    <span class="ebi-emoji">${sk.emoji}</span>
+                                    <div>
+                                        <div class="ebi-title">${sk[currentLang]}</div>
+                                        <div class="ebi-desc">${sk.desc[currentLang]}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAreaCard(a) {
+            const L = ui[currentLang];
+            const areaLabel = L['area' + a.area.replace(/\s/g, '')] || a.area;
+            const { strengths, gaps } = computeNetSkills(a.strengthCounts, a.gapCounts);
+            const strengthsTxt = joinSkillLabels(strengths.map(s => s.key), 3);
+            const gapsTxt = joinSkillLabels(gaps.map(g => g.key), 2);
+            return `
+                <div class="softskills-area-card" onclick="showSoftSkillArea('${a.area.replace(/'/g, "\\'")}')">
+                    <div class="ssac-header">
+                        <h3>${areaLabel}</h3>
+                        <span class="ssac-score">${a.avgScore}%</span>
+                    </div>
+                    <div class="ssac-meta">
+                        <span><i class="fas fa-users"></i> ${a.memberCount} ${L.collaborators.toLowerCase()}</span>
+                        <span><i class="fas fa-comments"></i> ${a.sessionCount} ${L.sessions.toLowerCase()}</span>
+                    </div>
+                    <p class="ssac-characteristic">
+                        ${strengthsTxt ? `<strong class="txt-strength">${L.goodDominionOf}</strong> ${strengthsTxt}.` : ''}
+                        ${gapsTxt ? `<strong class="txt-gap">${L.stillNeedsToDevelop}</strong> ${gapsTxt}.` : ''}
+                        ${(!strengthsTxt && !gapsTxt) ? L.noPatternYet : ''}
+                    </p>
+                    <div class="ssac-cta">${L.viewDetails} <i class="fas fa-arrow-right"></i></div>
+                </div>
+            `;
+        }
+
+        function showSoftSkillArea(area) {
+            currentSoftSkillArea = area;
+            renderSoftSkillAreaDetail();
+        }
+
+        function renderSoftSkillAreaDetail() {
+            const L = ui[currentLang];
+            const sims = getSoftSkillsSims().filter(s => getArea(s.scenario) === currentSoftSkillArea);
+            const names = [...new Set(sims.map(s => s.name))];
+            const profiles = names.map(n => buildPersonProfile(n, sims)).filter(Boolean).sort((a, b) => b.avgScore - a.avgScore);
+            const areaLabel = L['area' + currentSoftSkillArea.replace(/\s/g, '')] || currentSoftSkillArea;
+            const areaEntry = getSoftSkillAreas().find(a => a.area === currentSoftSkillArea);
+            const content = document.getElementById('mainContent');
+            content.innerHTML = `
+                <div id="softSkillsAreaDetail">
+                    <button onclick="showSoftSkillsHome()" class="btn-secondary" style="font-size: 0.85rem; padding: 10px 18px; border-radius: 10px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 1.5rem;">
+                        <i class="fas fa-arrow-left"></i> ${L.back}
+                    </button>
+                    <header class="header-section" style="padding: 2.5rem !important; min-height: auto; margin-bottom: 2rem !important;">
+                        <div class="header-content-left">
+                            <h1>${areaLabel}</h1>
+                            <p class="header-desc" style="margin-top: 10px;">${L.softSkillsAreaDesc}</p>
+                        </div>
+                    </header>
+
+                    <div class="card" style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1.2rem;">
+                            <i class="fas fa-layer-group" style="color: var(--primary);"></i> ${L.areaSynthesisTitle}
+                        </h3>
+                        ${areaEntry ? `<p class="executive-summary">${areaExecutiveSummary(areaEntry)}</p>` : ''}
+                        ${areaEntry ? renderSkillSynthesis(areaEntry.strengthCounts, areaEntry.gapCounts) : ''}
+                    </div>
+
+                    <div class="softskills-person-list">
+                        ${profiles.map(p => renderPersonCard(p)).join('') || `<div class="card">${L.waitingData}</div>`}
+                    </div>
+                </div>
+            `;
+            profiles.forEach(p => drawSparkline(p));
+        }
+
+        function safeId(name) {
+            return 'ss-' + name.replace(/[^a-zA-Z0-9]/g, '');
+        }
+
+        function renderPersonCard(p) {
+            const L = ui[currentLang];
+            const deltaClass = p.delta > 0 ? 'up' : (p.delta < 0 ? 'down' : 'flat');
+            const deltaIcon = p.delta > 0 ? 'fa-arrow-trend-up' : (p.delta < 0 ? 'fa-arrow-trend-down' : 'fa-minus');
+            const id = safeId(p.name);
+            return `
+            <div class="softskills-person-card">
+                <div class="sspc-top" onclick="togglePersonDetail('${id}')">
+                    <div>
+                        <div class="sspc-name">${p.name}</div>
+                        <div class="sspc-meta">${p.count} ${L.sessions.toLowerCase()} • ${L.avgScore}: <strong>${p.avgScore}%</strong></div>
+                    </div>
+                    <div class="sspc-right">
+                        <canvas id="spark-${id}" width="120" height="36"></canvas>
+                        ${p.count > 1 ? `<span class="evolution-badge ${deltaClass}"><i class="fas ${deltaIcon}"></i> ${p.delta > 0 ? '+' : ''}${p.delta}%</span>` : ''}
+                        <i class="fas fa-chevron-down toggle-caret" id="caret-${id}"></i>
+                    </div>
+                </div>
+                <div class="sspc-synthesis">
+                    <h5 class="ss-inline-title">${L.personSynthesisTitle}</h5>
+                    <p class="executive-summary">${personExecutiveSummary(p)}</p>
+                    ${renderSkillSynthesis(p.strengthCounts, p.gapCounts)}
+                    ${(p.insights && p.insights[currentLang] && p.insights[currentLang].length) ? `
+                    <div class="insight-box" style="margin-top: 1.5rem;">
+                        <div class="insight-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>${L.contextLabel}</h4>
+                        </div>
+                        <ul class="bullet-list">
+                            ${p.insights[currentLang].map(txt => `<li>${fixEnc(txt)}</li>`).join('')}
+                        </ul>
+                    </div>` : ''}
+                </div>
+                <div class="sspc-detail" id="detail-${id}" style="display: none;">
+                    <h4>${L.evolutionHistory}</h4>
+                    <div class="session-history">
+                        ${p.sessions.map(s => `
+                            <div class="session-history-item">
+                                <div class="shi-top">
+                                    <span class="shi-date">${s.date}</span>
+                                    <span class="shi-scenario">${translateScenario(s.scenario)}</span>
+                                    <span class="shi-score">${s.score}%</span>
+                                </div>
+                                ${s.strengths.length ? `<div class="shi-block strength"><strong>${L.strengthsLabel}:</strong> ${fixEnc(s.strengths.join(' '))}</div>` : ''}
+                                ${s.improvements.length ? `<div class="shi-block gap"><strong>${L.improvementsLabel}:</strong> ${fixEnc(s.improvements.join(' '))}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function togglePersonDetail(id) {
+            const el = document.getElementById('detail-' + id);
+            const caret = document.getElementById('caret-' + id);
+            if (!el) return;
+            const isOpen = el.style.display !== 'none';
+            el.style.display = isOpen ? 'none' : 'block';
+            if (caret) caret.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function drawSparkline(p) {
+            const id = safeId(p.name);
+            const canvas = document.getElementById('spark-' + id);
+            if (!canvas || typeof Chart === 'undefined') return;
+            new Chart(canvas.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: p.sessions.map(s => s.date),
+                    datasets: [{
+                        data: p.sessions.map(s => s.score),
+                        borderColor: '#00bcf2',
+                        backgroundColor: 'rgba(0,188,242,0.10)',
+                        borderWidth: 2, pointRadius: 0, tension: 0.35, fill: true
+                    }]
+                },
+                options: {
+                    responsive: false, animation: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: { x: { display: false }, y: { display: false, min: 0, max: 100 } }
+                }
+            });
+        }
 
         // Initialize
         const savedLang = localStorage.getItem('fairmontLang') || 'pt';
