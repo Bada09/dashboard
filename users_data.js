@@ -1,13 +1,12 @@
-const lastUpdate = '21/09/2026 14:53';
 const users = [
     {
         "firstName": "Tom",
         "lastName": "Landes",
         "email": "tom.landes@rhapsody.run",
-        "username": "tom.landes",
+        "username": "tom.landes@rhapsody.run",
         "equipe": "Concierge",
-        "avgDurSec": 4,
-        "avgScore": 0,
+        "avgDurSec": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -39,65 +38,29 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-06-09",
-            "2026-07-22",
-            "2026-07-26"
+            "09/06/2026",
+            "22/07/2026",
+            "26/07/2026"
         ],
-        "avgDurMin": 0
-    },
-    {
-        "firstName": "Sophie",
-        "lastName": "G",
-        "email": "sgeraud@gmail.com",
-        "username": "sgeraud",
-        "equipe": "Recepção",
-        "avgDurSec": 0,
-        "avgScore": 0,
-        "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
-        },
-        "count": 0,
-        "insights": {
-            "pt": [
-                "Aguardando início das simulações."
-            ],
-            "fr": [
-                "En attente du début des simulations."
-            ]
-        },
-        "name": "Sophie G",
-        "lqaScore": 0,
-        "languages": [
-            "PT",
-            "FR"
-        ],
-        "improvement": {
-            "pt": "Reforçar padrões LQA",
-            "fr": "Renforcer les standards LQA"
-        },
-        "dates": "",
-        "avgDurMin": 0
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Sophie",
         "lastName": "Géraud",
         "email": "sophie.geraud@rhapsody.run",
-        "username": "sophie.geraud",
+        "username": "sophie.geraud@rhapsody.run",
         "equipe": "Recepcionista",
-        "avgDurSec": 47,
+        "avgDurSec": 14,
         "avgScore": 42.0,
         "skills": {
-            "Escuta": 48.6,
-            "Empatia": 47.0,
-            "Crises": 32.0,
-            "Padroes": 42.6,
-            "Personalizacao": 36.9
+            "Escuta": 41.2,
+            "Personalizacao": 40.7,
+            "Empatia": 42.8,
+            "Crises": 38.4,
+            "Padroes": 37.8
         },
-        "count": 209,
+        "count": 602,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -115,10 +78,10 @@ const users = [
             ]
         },
         "name": "Sophie Géraud",
-        "lqaScore": 42.6,
+        "lqaScore": 88.6,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -126,96 +89,97 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-11-10",
-            "2025-11-13",
-            "2025-11-14",
-            "2025-11-15",
-            "2025-11-16",
-            "2025-11-17",
-            "2025-11-18",
-            "2025-11-20",
-            "2025-11-27",
-            "2025-11-28",
-            "2025-12-01",
-            "2025-12-09",
-            "2025-12-16",
-            "2025-12-17",
-            "2025-12-18",
-            "2025-12-22",
-            "2025-12-23",
-            "2025-12-24",
-            "2025-12-25",
-            "2025-12-26",
-            "2025-12-29",
-            "2026-01-02",
-            "2026-01-30",
-            "2026-02-05",
-            "2026-02-09",
-            "2026-02-10",
-            "2026-02-11",
-            "2026-02-12",
-            "2026-02-16",
-            "2026-02-17",
-            "2026-02-20",
-            "2026-02-23",
-            "2026-02-25",
-            "2026-02-26",
-            "2026-03-04",
-            "2026-03-25",
-            "2026-03-26",
-            "2026-03-29",
-            "2026-03-30",
-            "2026-04-01",
-            "2026-04-08",
-            "2026-04-10",
-            "2026-04-13",
-            "2026-04-15",
-            "2026-04-16",
-            "2026-04-17",
-            "2026-04-24",
-            "2026-04-27",
-            "2026-05-04",
-            "2026-05-07",
-            "2026-05-13",
-            "2026-05-19",
-            "2026-05-20",
-            "2026-05-26",
-            "2026-05-27",
-            "2026-05-28",
-            "2026-06-08",
-            "2026-06-09",
-            "2026-06-16",
-            "2026-06-18",
-            "2026-06-22",
-            "2026-07-01",
-            "2026-07-06",
-            "2026-07-07",
-            "2026-07-09",
-            "2026-07-13",
-            "2026-07-14",
-            "2026-07-15",
-            "2026-08-02",
-            "2026-08-13",
-            "2026-09-15"
+            "10/11/2025",
+            "13/11/2025",
+            "14/11/2025",
+            "15/11/2025",
+            "16/11/2025",
+            "17/11/2025",
+            "18/11/2025",
+            "20/11/2025",
+            "27/11/2025",
+            "28/11/2025",
+            "01/12/2025",
+            "09/12/2025",
+            "16/12/2025",
+            "17/12/2025",
+            "18/12/2025",
+            "22/12/2025",
+            "23/12/2025",
+            "24/12/2025",
+            "25/12/2025",
+            "26/12/2025",
+            "29/12/2025",
+            "02/01/2026",
+            "30/01/2026",
+            "05/02/2026",
+            "09/02/2026",
+            "10/02/2026",
+            "11/02/2026",
+            "12/02/2026",
+            "16/02/2026",
+            "17/02/2026",
+            "20/02/2026",
+            "23/02/2026",
+            "25/02/2026",
+            "26/02/2026",
+            "04/03/2026",
+            "25/03/2026",
+            "26/03/2026",
+            "29/03/2026",
+            "30/03/2026",
+            "01/04/2026",
+            "08/04/2026",
+            "10/04/2026",
+            "13/04/2026",
+            "15/04/2026",
+            "16/04/2026",
+            "17/04/2026",
+            "24/04/2026",
+            "27/04/2026",
+            "04/05/2026",
+            "07/05/2026",
+            "13/05/2026",
+            "19/05/2026",
+            "20/05/2026",
+            "26/05/2026",
+            "27/05/2026",
+            "28/05/2026",
+            "08/06/2026",
+            "09/06/2026",
+            "16/06/2026",
+            "18/06/2026",
+            "22/06/2026",
+            "01/07/2026",
+            "06/07/2026",
+            "07/07/2026",
+            "09/07/2026",
+            "13/07/2026",
+            "14/07/2026",
+            "15/07/2026",
+            "02/08/2026",
+            "13/08/2026",
+            "15/09/2026"
         ],
-        "avgDurMin": 1
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Philippe",
         "lastName": "Lepeuple",
         "email": "philippe.lepeuple@rhapsody.run",
-        "username": "philippe.lepeuple",
+        "username": "philippe.lepeuple@rhapsody.run",
         "equipe": "Recepcionista",
-        "avgDurSec": 15,
+        "avgDurSec": 3,
         "avgScore": 52.2,
         "skills": {
-            "Escuta": 57.3,
-            "Empatia": 57.2,
-            "Crises": 42.2,
-            "Padroes": 52.2,
-            "Personalizacao": 46.3
+            "Escuta": 48.8,
+            "Personalizacao": 47.6,
+            "Empatia": 53.9,
+            "Crises": 48.3,
+            "Padroes": 47.3
         },
-        "count": 36,
+        "count": 145,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -233,7 +197,7 @@ const users = [
             ]
         },
         "name": "Philippe Lepeuple",
-        "lqaScore": 52.2,
+        "lqaScore": 80.0,
         "languages": [
             "FR",
             "PT"
@@ -243,33 +207,34 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-11-14",
-            "2025-11-15",
-            "2025-11-16",
-            "2025-11-17",
-            "2025-12-05",
-            "2025-12-09",
-            "2026-01-07",
-            "2026-01-30",
-            "2026-02-09",
-            "2026-07-10"
+            "14/11/2025",
+            "15/11/2025",
+            "16/11/2025",
+            "17/11/2025",
+            "05/12/2025",
+            "09/12/2025",
+            "07/01/2026",
+            "30/01/2026",
+            "09/02/2026",
+            "10/07/2026"
         ],
-        "avgDurMin": 1
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Leonel ",
         "lastName": "Leandro",
         "email": "leonel.leandro@fairmont.com",
-        "username": "leonel.leandro",
+        "username": "leonel.leandro@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 47,
+        "avgDurSec": 42,
         "avgScore": 42.5,
         "skills": {
-            "Escuta": 49.4,
-            "Empatia": 47.5,
-            "Crises": 32.5,
-            "Padroes": 42.5,
-            "Personalizacao": 34.8
+            "Escuta": 37.5,
+            "Personalizacao": 52.5,
+            "Empatia": 50.0,
+            "Crises": 40.0,
+            "Padroes": 52.5
         },
         "count": 6,
         "insights": {
@@ -297,27 +262,28 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-07-16",
-            "2026-08-12"
+            "16/07/2026",
+            "12/08/2026"
         ],
-        "avgDurMin": 2
+        "avgDurMin": 1,
+        "avatar": ""
     },
     {
         "firstName": "Fernando",
         "lastName": "Godoy",
         "email": "fernando.godoy@rhapsody.run",
-        "username": "fernando.godoy",
+        "username": "fernando.godoy@rhapsody.run",
         "equipe": "Recepcionista",
-        "avgDurSec": 44,
+        "avgDurSec": 0,
         "avgScore": 42.7,
         "skills": {
-            "Escuta": 50.3,
-            "Empatia": 47.7,
-            "Crises": 32.7,
-            "Padroes": 42.7,
-            "Personalizacao": 37.4
+            "Escuta": 41.9,
+            "Personalizacao": 44.4,
+            "Empatia": 52.7,
+            "Crises": 47.7,
+            "Padroes": 38.5
         },
-        "count": 6,
+        "count": 8,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -335,7 +301,7 @@ const users = [
             ]
         },
         "name": "Fernando Godoy",
-        "lqaScore": 42.7,
+        "lqaScore": 100.0,
         "languages": [
             "FR",
             "PT"
@@ -345,30 +311,31 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-10-18",
-            "2025-10-30",
-            "2025-12-23",
-            "2026-01-17",
-            "2026-05-01"
+            "18/10/2025",
+            "30/10/2025",
+            "23/12/2025",
+            "17/01/2026",
+            "01/05/2026"
         ],
-        "avgDurMin": 2
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Tabajara",
         "lastName": "Dias",
         "email": "taba.dias@rhapsody.run",
-        "username": "taba.dias",
+        "username": "taba.dias@rhapsody.run",
         "equipe": "Recepcionista",
-        "avgDurSec": 40,
+        "avgDurSec": 57,
         "avgScore": 47.7,
         "skills": {
-            "Escuta": 53.4,
-            "Empatia": 52.7,
-            "Crises": 37.7,
-            "Padroes": 53.7,
-            "Personalizacao": 42.6
+            "Escuta": 49.0,
+            "Personalizacao": 52.7,
+            "Empatia": 57.7,
+            "Crises": 57.7,
+            "Padroes": 48.0
         },
-        "count": 23,
+        "count": 54,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -386,10 +353,10 @@ const users = [
             ]
         },
         "name": "Tabajara Dias",
-        "lqaScore": 53.7,
+        "lqaScore": 80.0,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -397,39 +364,40 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-10-15",
-            "2025-10-21",
-            "2025-10-23",
-            "2026-01-29",
-            "2026-01-30",
-            "2026-02-20",
-            "2026-02-27",
-            "2026-03-09",
-            "2026-03-26",
-            "2026-04-08",
-            "2026-04-15",
-            "2026-04-16",
-            "2026-04-17",
-            "2026-04-28",
-            "2026-05-21",
-            "2026-06-16"
+            "15/10/2025",
+            "21/10/2025",
+            "23/10/2025",
+            "29/01/2026",
+            "30/01/2026",
+            "20/02/2026",
+            "26/02/2026",
+            "09/03/2026",
+            "26/03/2026",
+            "08/04/2026",
+            "15/04/2026",
+            "16/04/2026",
+            "17/04/2026",
+            "28/04/2026",
+            "21/05/2026",
+            "16/06/2026"
         ],
-        "avgDurMin": 4
+        "avgDurMin": 1,
+        "avatar": ""
     },
     {
         "firstName": "Carolina",
         "lastName": "Queiroz",
         "email": "carolina.queiroz@fairmont.com",
-        "username": "carolina.queiroz",
+        "username": "carolina.queiroz@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 38,
+        "avgDurSec": 0,
         "avgScore": 53.0,
         "skills": {
-            "Escuta": 57.9,
+            "Escuta": 48.0,
+            "Personalizacao": 63.0,
             "Empatia": 58.0,
-            "Crises": 43.0,
-            "Padroes": 53.0,
-            "Personalizacao": 46.0
+            "Crises": 48.0,
+            "Padroes": 58.0
         },
         "count": 1,
         "insights": {
@@ -456,17 +424,20 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-09-15",
-        "avgDurMin": 8
+        "dates": [
+            "15/09/2026"
+        ],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Juliana",
         "lastName": "Ribeiro",
         "email": "juliana.ribeiro@fairmont.com",
-        "username": "juliana.ribeiro",
+        "username": "juliana.ribeiro@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -493,17 +464,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Luana",
         "lastName": "Vergueiro",
         "email": "luana.vergueiro@fairmont.com",
-        "username": "luana.vergueiro",
+        "username": "luana.vergueiro@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -530,25 +502,26 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Lucas",
         "lastName": "Lopes",
         "email": "lucas.lopes@fairmont.com",
-        "username": "lucas.lopes",
+        "username": "lucas.lopes@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 38,
+        "avgDurSec": 0,
         "avgScore": 66.4,
         "skills": {
-            "Escuta": 70.5,
-            "Empatia": 71.4,
-            "Crises": 56.4,
-            "Padroes": 67.9,
-            "Personalizacao": 60.6
+            "Escuta": 63.5,
+            "Personalizacao": 76.4,
+            "Empatia": 76.4,
+            "Crises": 62.8,
+            "Padroes": 64.3
         },
-        "count": 8,
+        "count": 14,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -576,28 +549,29 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-12-10",
-            "2025-12-11",
-            "2026-01-29"
+            "10/12/2025",
+            "11/12/2025",
+            "29/01/2026"
         ],
-        "avgDurMin": 3
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Gabrielli",
         "lastName": "Mattos",
         "email": "gabrielli.mattos@fairmont.com",
-        "username": "gabrielli.mattos",
+        "username": "gabrielli.mattos@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 46,
+        "avgDurSec": 28,
         "avgScore": 58.3,
         "skills": {
-            "Escuta": 64.9,
-            "Empatia": 63.3,
-            "Crises": 48.3,
-            "Padroes": 61.9,
-            "Personalizacao": 51.1
+            "Escuta": 56.9,
+            "Personalizacao": 68.3,
+            "Empatia": 68.3,
+            "Crises": 62.9,
+            "Padroes": 60.4
         },
-        "count": 24,
+        "count": 39,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -617,10 +591,10 @@ const users = [
             ]
         },
         "name": "Gabrielli Mattos",
-        "lqaScore": 61.9,
+        "lqaScore": 100.0,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -628,38 +602,39 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-01-28",
-            "2026-04-13",
-            "2026-04-17",
-            "2026-05-14",
-            "2026-05-18",
-            "2026-05-28",
-            "2026-06-01",
-            "2026-06-02",
-            "2026-07-15",
-            "2026-07-30",
-            "2026-08-07",
-            "2026-08-11",
-            "2026-09-09"
+            "28/01/2026",
+            "13/04/2026",
+            "17/04/2026",
+            "14/05/2026",
+            "18/05/2026",
+            "28/05/2026",
+            "01/06/2026",
+            "02/06/2026",
+            "15/07/2026",
+            "30/07/2026",
+            "07/08/2026",
+            "11/08/2026",
+            "09/09/2026"
         ],
-        "avgDurMin": 3
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Neube",
         "lastName": "Brigagao",
         "email": "neube.brigagao@fairmont.com",
-        "username": "neube.brigagao",
+        "username": "neube.brigagao@fairmont.com",
         "equipe": "Recepcionista",
-        "avgDurSec": 17,
+        "avgDurSec": 1,
         "avgScore": 71.2,
         "skills": {
-            "Escuta": 76.1,
-            "Empatia": 76.2,
-            "Crises": 61.2,
-            "Padroes": 72.3,
-            "Personalizacao": 63.8
+            "Escuta": 70.1,
+            "Personalizacao": 81.2,
+            "Empatia": 76.8,
+            "Crises": 69.5,
+            "Padroes": 67.3
         },
-        "count": 9,
+        "count": 11,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -679,10 +654,10 @@ const users = [
             ]
         },
         "name": "Neube Brigagao",
-        "lqaScore": 72.3,
+        "lqaScore": 100.0,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -690,30 +665,31 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-11-18",
-            "2025-11-19",
-            "2025-12-09",
-            "2025-12-15",
-            "2026-05-22"
+            "18/11/2025",
+            "19/11/2025",
+            "09/12/2025",
+            "15/12/2025",
+            "21/05/2026"
         ],
-        "avgDurMin": 4
+        "avgDurMin": 1,
+        "avatar": ""
     },
     {
         "firstName": "Matheus",
         "lastName": "Barcelos",
         "email": "matheus.barcelos@fairmont.com",
-        "username": "matheus.barcelos",
+        "username": "matheus.barcelos@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 26,
+        "avgDurSec": 59,
         "avgScore": 61.3,
         "skills": {
-            "Escuta": 68.5,
-            "Empatia": 66.3,
-            "Crises": 51.3,
-            "Padroes": 64.7,
-            "Personalizacao": 56.3
+            "Escuta": 61.3,
+            "Personalizacao": 71.3,
+            "Empatia": 68.0,
+            "Crises": 56.3,
+            "Padroes": 61.3
         },
-        "count": 7,
+        "count": 8,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -731,8 +707,8 @@ const users = [
         "name": "Matheus Barcelos",
         "lqaScore": 64.7,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -740,30 +716,31 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-12-22",
-            "2026-01-07",
-            "2026-08-26",
-            "2026-09-11",
-            "2026-09-14"
+            "22/12/2025",
+            "07/01/2026",
+            "26/08/2026",
+            "11/09/2026",
+            "14/09/2026"
         ],
-        "avgDurMin": 5
+        "avgDurMin": 2,
+        "avatar": ""
     },
     {
         "firstName": "Enzo",
         "lastName": "Hidde",
         "email": "enzo.hidde@fairmont.com",
-        "username": "enzo.hidde",
+        "username": "enzo.hidde@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 54,
+        "avgDurSec": 13,
         "avgScore": 75.8,
         "skills": {
-            "Escuta": 83.0,
-            "Empatia": 80.8,
-            "Crises": 65.8,
-            "Padroes": 75.8,
-            "Personalizacao": 68.0
+            "Escuta": 76.8,
+            "Personalizacao": 85.8,
+            "Empatia": 85.8,
+            "Crises": 72.8,
+            "Padroes": 71.8
         },
-        "count": 5,
+        "count": 11,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -779,10 +756,10 @@ const users = [
             ]
         },
         "name": "Enzo Hidde",
-        "lqaScore": 75.8,
+        "lqaScore": 73.3,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -790,31 +767,32 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-12-09",
-            "2025-12-11",
-            "2025-12-12",
-            "2026-01-07",
-            "2026-01-30",
-            "2026-05-25"
+            "09/12/2025",
+            "11/12/2025",
+            "12/12/2025",
+            "07/01/2026",
+            "30/01/2026",
+            "25/05/2026"
         ],
-        "avgDurMin": 11
+        "avgDurMin": 6,
+        "avatar": ""
     },
     {
         "firstName": "Patricia",
         "lastName": "Eckhard",
         "email": "patricia.eckhard@fairmont.com",
-        "username": "patricia.eckhard",
+        "username": "patricia.eckhard@fairmont.com",
         "equipe": "Recepcionista",
-        "avgDurSec": 33,
+        "avgDurSec": 42,
         "avgScore": 49.3,
         "skills": {
-            "Escuta": 54.7,
-            "Empatia": 54.3,
-            "Crises": 39.3,
-            "Padroes": 52.7,
-            "Personalizacao": 43.7
+            "Escuta": 49.3,
+            "Personalizacao": 59.3,
+            "Empatia": 56.8,
+            "Crises": 55.5,
+            "Padroes": 50.5
         },
-        "count": 6,
+        "count": 11,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -830,10 +808,10 @@ const users = [
             ]
         },
         "name": "Patricia Eckhard",
-        "lqaScore": 52.7,
+        "lqaScore": 80.0,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -841,29 +819,30 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-12-09",
-            "2026-06-01",
-            "2026-06-14",
-            "2026-06-17"
+            "09/12/2025",
+            "01/06/2026",
+            "14/06/2026",
+            "17/06/2026"
         ],
-        "avgDurMin": 2
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Jesse",
         "lastName": "Henriques",
         "email": "jesse.henriques@fairmont.com",
-        "username": "jesse.henriques",
+        "username": "jesse.henriques@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 23,
+        "avgDurSec": 3,
         "avgScore": 78.0,
         "skills": {
-            "Escuta": 85.8,
-            "Empatia": 83.0,
-            "Crises": 68.0,
-            "Padroes": 78.0,
-            "Personalizacao": 71.7
+            "Escuta": 73.0,
+            "Personalizacao": 88.0,
+            "Empatia": 88.0,
+            "Crises": 73.0,
+            "Padroes": 78.0
         },
-        "count": 5,
+        "count": 7,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -889,20 +868,21 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-01-07",
-            "2026-06-02",
-            "2026-06-05"
+            "07/01/2026",
+            "02/06/2026",
+            "05/06/2026"
         ],
-        "avgDurMin": 3
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Beatriz",
         "lastName": "Ventura",
         "email": "beatriz.ventura@fairmont.com",
-        "username": "beatriz.ventura",
+        "username": "beatriz.ventura@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -929,17 +909,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Faubert",
         "lastName": "Alcincor",
         "email": "faubert.alcincor@fairmont.com",
-        "username": "faubert.alcincor",
+        "username": "faubert.alcincor@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -966,25 +947,26 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Jullie",
         "lastName": "Anjos",
         "email": "jullie.anjos@fairmont.com",
-        "username": "jullie.anjos",
+        "username": "jullie.anjos@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 38,
+        "avgDurSec": 12,
         "avgScore": 50.0,
         "skills": {
-            "Escuta": 54.4,
-            "Empatia": 55.0,
-            "Crises": 40.0,
-            "Padroes": 60.0,
-            "Personalizacao": 44.6
+            "Escuta": 60.0,
+            "Personalizacao": 60.0,
+            "Empatia": 60.0,
+            "Crises": 45.0,
+            "Padroes": 55.0
         },
-        "count": 5,
+        "count": 6,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1004,25 +986,28 @@ const users = [
         "name": "Jullie Anjos",
         "lqaScore": 60.0,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-07-03",
-        "avgDurMin": 2
+        "dates": [
+            "03/07/2026"
+        ],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Lucas",
         "lastName": "Goncalves",
         "email": "lucas.goncalves@fairmont.com",
-        "username": "lucas.goncalves",
+        "username": "lucas.goncalves@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1049,17 +1034,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Veronica",
         "lastName": "Ebers",
         "email": "veronica.ebers@fairmont.com",
-        "username": "veronica.ebers",
+        "username": "veronica.ebers@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1086,17 +1072,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Luiza",
         "lastName": "Athayde",
         "email": "luiza.athayde@fairmont.com",
-        "username": "luiza.athayde",
+        "username": "luiza.athayde@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1123,17 +1110,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Paulo",
         "lastName": "Bispo",
         "email": "paulo.bispo@fairmont.com",
-        "username": "paulo.bispo",
+        "username": "paulo.bispo@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1160,25 +1148,26 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Silvio",
         "lastName": "Gomes",
         "email": "silvio.gomes@fairmont.com",
-        "username": "silvio.gomes",
+        "username": "silvio.gomes@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 58,
+        "avgDurSec": 31,
         "avgScore": 39.0,
         "skills": {
-            "Escuta": 46.4,
-            "Empatia": 44.0,
-            "Crises": 29.0,
-            "Padroes": 39.0,
-            "Personalizacao": 31.6
+            "Escuta": 39.0,
+            "Personalizacao": 49.0,
+            "Empatia": 49.0,
+            "Crises": 34.0,
+            "Padroes": 44.0
         },
-        "count": 3,
+        "count": 4,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1202,19 +1191,20 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-08-31",
-            "2026-09-16"
+            "31/08/2026",
+            "16/09/2026"
         ],
-        "avgDurMin": 0
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Tauan",
         "lastName": "Nunes",
         "email": "tauan.nunes@fairmont.com",
-        "username": "tauan.nunes",
+        "username": "tauan.nunes@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1241,17 +1231,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Vinicius",
         "lastName": "Barboza",
         "email": "vinicius.barboza@fairmont.com",
-        "username": "vinicius.barboza",
+        "username": "vinicius.barboza@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1278,23 +1269,24 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Wendy",
         "lastName": "Cruz",
         "email": "wendy.cruz@fairmont.com",
-        "username": "wendy.cruz",
+        "username": "wendy.cruz@fairmont.com",
         "equipe": "Recepcionista",
-        "avgDurSec": 25,
+        "avgDurSec": 48,
         "avgScore": 64.2,
         "skills": {
-            "Escuta": 71.4,
-            "Empatia": 69.2,
-            "Crises": 54.2,
-            "Padroes": 66.8,
-            "Personalizacao": 56.3
+            "Escuta": 65.5,
+            "Personalizacao": 69.2,
+            "Empatia": 71.7,
+            "Crises": 68.0,
+            "Padroes": 64.2
         },
         "count": 10,
         "insights": {
@@ -1314,8 +1306,8 @@ const users = [
         "name": "Wendy Cruz",
         "lqaScore": 66.8,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -1323,30 +1315,31 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-06-06",
-            "2026-06-15",
-            "2026-08-01",
-            "2026-08-11",
-            "2026-08-23"
+            "06/06/2026",
+            "15/06/2026",
+            "01/08/2026",
+            "11/08/2026",
+            "23/08/2026"
         ],
-        "avgDurMin": 1
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Isadora",
         "lastName": "Bignon",
         "email": "isadora.bignon@fairmont.com",
-        "username": "isadora.bignon",
+        "username": "isadora.bignon@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 35,
+        "avgDurSec": 30,
         "avgScore": 48.7,
         "skills": {
-            "Escuta": 54.8,
-            "Empatia": 53.7,
-            "Crises": 38.7,
-            "Padroes": 55.3,
-            "Personalizacao": 39.8
+            "Escuta": 47.0,
+            "Personalizacao": 58.7,
+            "Empatia": 58.7,
+            "Crises": 45.4,
+            "Padroes": 50.4
         },
-        "count": 3,
+        "count": 4,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1374,25 +1367,26 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-08-27",
-            "2026-09-15"
+            "27/08/2026",
+            "15/09/2026"
         ],
-        "avgDurMin": 5
+        "avgDurMin": 4,
+        "avatar": ""
     },
     {
         "firstName": "Luceanne",
         "lastName": "Daly",
         "email": "luceanne.daly@fairmont.com",
-        "username": "luceanne.daly",
+        "username": "luceanne.daly@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 39,
+        "avgDurSec": 59,
         "avgScore": 56.3,
         "skills": {
-            "Escuta": 61.8,
-            "Empatia": 61.3,
-            "Crises": 46.3,
-            "Padroes": 56.3,
-            "Personalizacao": 49.1
+            "Escuta": 51.3,
+            "Personalizacao": 66.3,
+            "Empatia": 66.3,
+            "Crises": 54.6,
+            "Padroes": 63.0
         },
         "count": 6,
         "insights": {
@@ -1420,19 +1414,20 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-09-16",
-            "2026-09-17"
+            "16/09/2026",
+            "17/09/2026"
         ],
-        "avgDurMin": 1
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Jorge",
         "lastName": "Aguiar",
         "email": "jorge.aguiar@fairmont.com",
-        "username": "jorge.aguiar",
+        "username": "jorge.aguiar@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1459,17 +1454,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Bruna",
         "lastName": "Araujo",
         "email": "bruna.araujo@fairmont.com",
-        "username": "bruna.araujo",
+        "username": "bruna.araujo@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1496,17 +1492,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Daniel",
         "lastName": "Leitao",
         "email": "daniel.leitao@fairmont.com",
-        "username": "daniel.leitao",
+        "username": "daniel.leitao@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1533,17 +1530,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Iury",
         "lastName": "Jesus",
         "email": "iury.jesus@fairmont.com",
-        "username": "iury.jesus",
+        "username": "iury.jesus@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 51,
-        "avgScore": 0,
+        "avgDurSec": 22,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1574,17 +1572,20 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-09-14",
-        "avgDurMin": 0
+        "dates": [
+            "14/09/2026"
+        ],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Jonathas",
         "lastName": "Pinheiro",
         "email": "jonathas.pinheiro@fairmont.com",
-        "username": "jonathas.pinheiro",
+        "username": "jonathas.pinheiro@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1611,17 +1612,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Leiziane",
         "lastName": "Oliveira",
         "email": "leiziane.oliveira@fairmont.com",
-        "username": "leiziane.oliveira",
+        "username": "leiziane.oliveira@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1648,17 +1650,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Manuel",
         "lastName": "Blanco",
         "email": "manuel.blanco@fairmont.com",
-        "username": "manuel.blanco",
+        "username": "manuel.blanco@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1685,17 +1688,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Matteus",
         "lastName": "Moraes",
         "email": "matteus.moraes@fairmont.com",
-        "username": "matteus.moraes",
+        "username": "matteus.moraes@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1722,17 +1726,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Naomi",
         "lastName": "Carvalho",
         "email": "naomi.carvalho@fairmont.com",
-        "username": "naomi.carvalho",
+        "username": "naomi.carvalho@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1759,23 +1764,24 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Carlos",
         "lastName": "Conde",
         "email": "carlos.conde@fairmont.com",
-        "username": "carlos.conde",
+        "username": "carlos.conde@fairmont.com",
         "equipe": "Concierge",
-        "avgDurSec": 8,
+        "avgDurSec": 50,
         "avgScore": 40.2,
         "skills": {
-            "Escuta": 47.5,
-            "Empatia": 45.2,
-            "Crises": 30.2,
-            "Padroes": 46.2,
-            "Personalizacao": 32.7
+            "Escuta": 38.2,
+            "Personalizacao": 50.2,
+            "Empatia": 44.2,
+            "Crises": 35.2,
+            "Padroes": 40.2
         },
         "count": 9,
         "insights": {
@@ -1795,8 +1801,8 @@ const users = [
         "name": "Carlos Conde",
         "lqaScore": 46.2,
         "languages": [
-            "EN",
             "FR",
+            "EN",
             "PT"
         ],
         "improvement": {
@@ -1804,23 +1810,24 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-05-25",
-            "2026-05-27",
-            "2026-08-12",
-            "2026-08-26",
-            "2026-09-11",
-            "2026-09-18"
+            "25/05/2026",
+            "27/05/2026",
+            "12/08/2026",
+            "26/08/2026",
+            "11/09/2026",
+            "18/09/2026"
         ],
-        "avgDurMin": 4
+        "avgDurMin": 2,
+        "avatar": ""
     },
     {
         "firstName": "Pedro",
         "lastName": "Jorge",
         "email": "pedro.jorge@fairmont.com",
-        "username": "pedro.jorge",
+        "username": "pedro.jorge@fairmont.com",
         "equipe": "Recepcionista",
-        "avgDurSec": 1,
-        "avgScore": 0,
+        "avgDurSec": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1851,17 +1858,20 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-06-29",
-        "avgDurMin": 0
+        "dates": [
+            "29/06/2026"
+        ],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Rickenson",
         "lastName": "Rosulme",
         "email": "rickenson.rosulme@fairmont.com",
-        "username": "rickenson.rosulme",
+        "username": "rickenson.rosulme@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -1888,25 +1898,26 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Philippe",
         "lastName": "de Langlais",
         "email": "philippe.de-langlais@rhapsody.run",
-        "username": "philippe.de-langlais",
+        "username": "philippe.de-langlais@rhapsody.run",
         "equipe": "Recepcionista",
-        "avgDurSec": 58,
+        "avgDurSec": 16,
         "avgScore": 53.1,
         "skills": {
-            "Escuta": 60.5,
-            "Empatia": 58.1,
-            "Crises": 43.1,
-            "Padroes": 57.1,
-            "Personalizacao": 45.8
+            "Escuta": 52.3,
+            "Personalizacao": 59.0,
+            "Empatia": 63.1,
+            "Crises": 60.6,
+            "Padroes": 52.6
         },
-        "count": 37,
+        "count": 49,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1926,7 +1937,7 @@ const users = [
             ]
         },
         "name": "Philippe de Langlais",
-        "lqaScore": 57.1,
+        "lqaScore": 60.0,
         "languages": [
             "FR",
             "PT"
@@ -1936,44 +1947,45 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2025-10-13",
-            "2025-10-31",
-            "2025-11-10",
-            "2025-11-13",
-            "2025-11-14",
-            "2025-11-17",
-            "2025-11-18",
-            "2025-11-26",
-            "2025-12-22",
-            "2025-12-29",
-            "2026-02-03",
-            "2026-02-25",
-            "2026-03-03",
-            "2026-03-10",
-            "2026-04-09",
-            "2026-04-12",
-            "2026-04-13",
-            "2026-04-16",
-            "2026-04-17",
-            "2026-04-27",
-            "2026-05-12",
-            "2026-06-14",
-            "2026-06-21",
-            "2026-06-24",
-            "2026-07-04",
-            "2026-07-07",
-            "2026-07-15"
+            "13/10/2025",
+            "31/10/2025",
+            "10/11/2025",
+            "13/11/2025",
+            "14/11/2025",
+            "17/11/2025",
+            "18/11/2025",
+            "26/11/2025",
+            "22/12/2025",
+            "29/12/2025",
+            "03/02/2026",
+            "25/02/2026",
+            "03/03/2026",
+            "10/03/2026",
+            "09/04/2026",
+            "12/04/2026",
+            "13/04/2026",
+            "16/04/2026",
+            "17/04/2026",
+            "27/04/2026",
+            "12/05/2026",
+            "14/06/2026",
+            "21/06/2026",
+            "24/06/2026",
+            "04/07/2026",
+            "07/07/2026",
+            "15/07/2026"
         ],
-        "avgDurMin": 2
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Danny",
         "lastName": "Fernandes",
         "email": "danny.fernandes@fairmont.com",
-        "username": "danny.fernandes",
+        "username": "danny.fernandes@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -2000,17 +2012,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Gabrielle",
         "lastName": "Goncalves",
         "email": "gabrielle.goncalves@fairmont.com",
-        "username": "gabrielle.goncalves",
+        "username": "gabrielle.goncalves@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -2037,17 +2050,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Jose",
         "lastName": "Fabricio",
         "email": "jose.fabricio@fairmont.com",
-        "username": "jose.fabricio",
+        "username": "jose.fabricio@fairmont.com",
         "equipe": "Recepcionista",
-        "avgDurSec": 2,
-        "avgScore": 0,
+        "avgDurSec": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -2078,25 +2092,28 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-08-21",
-        "avgDurMin": 0
+        "dates": [
+            "21/08/2026"
+        ],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Luan",
         "lastName": "Freitas",
         "email": "luan.freitas@fairmont.com",
-        "username": "luan.freitas",
+        "username": "luan.freitas@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 3,
-        "avgScore": 72.0,
+        "avgDurSec": 46,
+        "avgScore": 66.0,
         "skills": {
-            "Escuta": 78.8,
-            "Empatia": 77.0,
-            "Crises": 62.0,
-            "Padroes": 72.0,
-            "Personalizacao": 66.8
+            "Escuta": 68.5,
+            "Personalizacao": 76.0,
+            "Empatia": 76.0,
+            "Crises": 76.0,
+            "Padroes": 64.3
         },
-        "count": 7,
+        "count": 14,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -2116,7 +2133,7 @@ const users = [
             ]
         },
         "name": "Luan Freitas",
-        "lqaScore": 72.0,
+        "lqaScore": 66.0,
         "languages": [
             "FR",
             "PT"
@@ -2126,19 +2143,21 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "2026-09-13",
-            "2026-09-20"
+            "13/09/2026",
+            "20/09/2026",
+            "04/10/2026"
         ],
-        "avgDurMin": 1
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Lucca",
         "lastName": "Moraes",
         "email": "lucca.moraes@fairmont.com",
-        "username": "lucca.moraes",
+        "username": "lucca.moraes@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -2165,17 +2184,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Samantha",
         "lastName": "Bastos",
         "email": "samantha.bastos@fairmont.com",
-        "username": "samantha.bastos",
+        "username": "samantha.bastos@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -2202,23 +2222,24 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Pedro",
         "lastName": "Maranhao",
         "email": "pedro.maranhao@fairmont.com",
-        "username": "pedro.maranhao",
+        "username": "pedro.maranhao@fairmont.com",
         "equipe": "Recepcionista",
-        "avgDurSec": 56,
+        "avgDurSec": 39,
         "avgScore": 63.0,
         "skills": {
-            "Escuta": 67.9,
+            "Escuta": 68.0,
+            "Personalizacao": 73.0,
             "Empatia": 68.0,
-            "Crises": 53.0,
-            "Padroes": 73.0,
-            "Personalizacao": 56.8
+            "Crises": 68.0,
+            "Padroes": 58.0
         },
         "count": 1,
         "insights": {
@@ -2245,23 +2266,26 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-08-30",
-        "avgDurMin": 2
+        "dates": [
+            "30/08/2026"
+        ],
+        "avgDurMin": 1,
+        "avatar": ""
     },
     {
         "firstName": "Thiago",
         "lastName": "Lobo",
         "email": "thiago.lobo@fairmont.com",
-        "username": "thiago.lobo",
+        "username": "thiago.lobo@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 34,
+        "avgDurSec": 6,
         "avgScore": 43.0,
         "skills": {
-            "Escuta": 47.3,
-            "Empatia": 48.0,
-            "Crises": 33.0,
-            "Padroes": 43.0,
-            "Personalizacao": 37.1
+            "Escuta": 43.0,
+            "Personalizacao": 53.0,
+            "Empatia": 53.0,
+            "Crises": 53.0,
+            "Padroes": 38.0
         },
         "count": 1,
         "insights": {
@@ -2288,17 +2312,20 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "2026-08-25",
-        "avgDurMin": 0
+        "dates": [
+            "25/08/2026"
+        ],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Vitoria",
         "lastName": "Greice",
         "email": "vitoria.greice@fairmont.com",
-        "username": "vitoria.greice",
+        "username": "vitoria.greice@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -2325,17 +2352,18 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     },
     {
         "firstName": "Lucas",
         "lastName": "Jesus",
         "email": "lucas.jesus@fairmont.com",
-        "username": "lucas.jesus",
+        "username": "lucas.jesus@fairmont.com",
         "equipe": "Recepção",
         "avgDurSec": 0,
-        "avgScore": 0,
+        "avgScore": 0.0,
         "skills": {
             "Crises": 0,
             "Padroes": 0,
@@ -2362,7 +2390,9 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": "",
-        "avgDurMin": 0
+        "dates": [],
+        "avgDurMin": 0,
+        "avatar": ""
     }
 ];
+const lastUpdate = "05/10/2026 03:51";
