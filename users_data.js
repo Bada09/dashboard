@@ -2156,16 +2156,16 @@ const users = [
         "email": "lucca.moraes@fairmont.com",
         "username": "lucca.moraes@fairmont.com",
         "equipe": "Recepção",
-        "avgDurSec": 0,
-        "avgScore": 0.0,
+        "avgDurSec": 47,
+        "avgScore": 68.0,
         "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
+            "Escuta": 63.0,
+            "Personalizacao": 78.0,
+            "Empatia": 78.0,
+            "Crises": 78.0,
+            "Padroes": 63.0
         },
-        "count": 0,
+        "count": 1,
         "insights": {
             "pt": [
                 "Aguardando início das simulações."
@@ -2184,8 +2184,10 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": [],
-        "avgDurMin": 0,
+        "dates": [
+            "05/10/2026"
+        ],
+        "avgDurMin": 1,
         "avatar": ""
     },
     {
@@ -2324,16 +2326,16 @@ const users = [
         "email": "vitoria.greice@fairmont.com",
         "username": "vitoria.greice@fairmont.com",
         "equipe": "Recepção",
-        "avgDurSec": 0,
-        "avgScore": 0.0,
+        "avgDurSec": 16,
+        "avgScore": 58.0,
         "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
+            "Escuta": 58.0,
+            "Personalizacao": 68.0,
+            "Empatia": 68.0,
+            "Crises": 68.0,
+            "Padroes": 58.0
         },
-        "count": 0,
+        "count": 4,
         "insights": {
             "pt": [
                 "Aguardando início das simulações."
@@ -2352,7 +2354,9 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": [],
+        "dates": [
+            "05/10/2026"
+        ],
         "avgDurMin": 0,
         "avatar": ""
     },
@@ -2395,4 +2399,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "05/10/2026 03:51";
+const lastUpdate = "05/10/2026 15:14";
