@@ -14,17 +14,19 @@ const users = [
             "Personalizacao": 0,
             "Escuta": 0
         },
-        "count": 3,
+        "count": 5,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
                 "Reforçar vocabulário e fluidez.",
-                "Desenvolver resiliência emocional."
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
                 "Attention nécessaire aux standards LQA.",
                 "Renforcer le vocabulaire et la fluidité.",
-                "Développer la résilience émotionnelle."
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Tom Landes",
@@ -40,7 +42,8 @@ const users = [
         "dates": [
             "09/06/2026",
             "22/07/2026",
-            "26/07/2026"
+            "26/07/2026",
+            "06/10/2026"
         ],
         "avgDurMin": 0,
         "avatar": ""
@@ -436,22 +439,28 @@ const users = [
         "email": "juliana.ribeiro@fairmont.com",
         "username": "juliana.ribeiro@fairmont.com",
         "equipe": "Recepção",
-        "avgDurSec": 0,
-        "avgScore": 0.0,
+        "avgDurSec": 46,
+        "avgScore": 78.0,
         "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
+            "Escuta": 73.0,
+            "Personalizacao": 88.0,
+            "Empatia": 88.0,
+            "Crises": 88.0,
+            "Padroes": 73.0
         },
-        "count": 0,
+        "count": 1,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Juliana Ribeiro",
@@ -464,8 +473,10 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": [],
-        "avgDurMin": 0,
+        "dates": [
+            "05/10/2026"
+        ],
+        "avgDurMin": 1,
         "avatar": ""
     },
     {
@@ -486,10 +497,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Luana Vergueiro",
@@ -893,10 +910,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Beatriz Ventura",
@@ -931,10 +954,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Faubert Alcincor",
@@ -1018,10 +1047,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Lucas Goncalves",
@@ -1056,10 +1091,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Veronica Ebers",
@@ -1094,10 +1135,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Luiza Athayde",
@@ -1132,10 +1179,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Paulo Bispo",
@@ -1172,12 +1225,14 @@ const users = [
             "pt": [
                 "Atenção necessária aos padrões LQA.",
                 "Reforçar vocabulário e fluidez.",
-                "Desenvolver resiliência emocional."
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
                 "Attention nécessaire aux standards LQA.",
                 "Renforcer le vocabulaire et la fluidité.",
-                "Développer la résilience émotionnelle."
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Silvio Gomes",
@@ -1215,10 +1270,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Tauan Nunes",
@@ -1253,10 +1314,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Vinicius Barboza",
@@ -1438,10 +1505,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Jorge Aguiar",
@@ -1476,10 +1549,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Bruna Araujo",
@@ -1514,10 +1593,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Daniel Leitao",
@@ -1554,12 +1639,14 @@ const users = [
             "pt": [
                 "Atenção necessária aos padrões LQA.",
                 "Reforçar vocabulário e fluidez.",
-                "Desenvolver resiliência emocional."
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
                 "Attention nécessaire aux standards LQA.",
                 "Renforcer le vocabulaire et la fluidité.",
-                "Développer la résilience émotionnelle."
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Iury Jesus",
@@ -1596,10 +1683,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Jonathas Pinheiro",
@@ -1634,10 +1727,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Leiziane Oliveira",
@@ -1672,10 +1771,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Manuel Blanco",
@@ -1710,10 +1815,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Matteus Moraes",
@@ -1748,10 +1859,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Naomi Carvalho",
@@ -1840,12 +1957,14 @@ const users = [
             "pt": [
                 "Atenção necessária aos padrões LQA.",
                 "Reforçar vocabulário e fluidez.",
-                "Desenvolver resiliência emocional."
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
                 "Attention nécessaire aux standards LQA.",
                 "Renforcer le vocabulaire et la fluidité.",
-                "Développer la résilience émotionnelle."
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Pedro Jorge",
@@ -1882,10 +2001,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Rickenson Rosulme",
@@ -1996,10 +2121,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Danny Fernandes",
@@ -2034,10 +2165,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Gabrielle Goncalves",
@@ -2074,12 +2211,14 @@ const users = [
             "pt": [
                 "Atenção necessária aos padrões LQA.",
                 "Reforçar vocabulário e fluidez.",
-                "Desenvolver resiliência emocional."
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
                 "Attention nécessaire aux standards LQA.",
                 "Renforcer le vocabulaire et la fluidité.",
-                "Développer la résilience émotionnelle."
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Jose Fabricio",
@@ -2168,10 +2307,16 @@ const users = [
         "count": 1,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Bom engajamento com o hóspede.",
+                "Conhecimento técnico em evolução.",
+                "Necessita refinar tom de voz em crises.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Bon engagement avec le client.",
+                "Connaissances techniques en évolution.",
+                "Besoin de raffiner le ton en cas de crise.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Lucca Moraes",
@@ -2208,10 +2353,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Samantha Bastos",
@@ -2338,10 +2489,16 @@ const users = [
         "count": 4,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Vitoria Greice",
@@ -2378,10 +2535,16 @@ const users = [
         "count": 0,
         "insights": {
             "pt": [
-                "Aguardando início das simulações."
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem."
             ],
             "fr": [
-                "En attente du début des simulations."
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage."
             ]
         },
         "name": "Lucas Jesus",
@@ -2399,4 +2562,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "05/10/2026 15:14";
+const lastUpdate = "14/10/2026 10:04";
