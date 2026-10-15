@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=19"></script>
+    <script src="users_data.js?v=20"></script>
 
     <style>
         :root {
@@ -1904,7 +1904,7 @@
                 return currentLang === 'pt' ? "✨ RECEPÇÃO – Check-out marcante" : "✨ RÉCEPTION – Check-out mémorable";
             }
             if (scl.includes("noite") || scl.includes("nuit")) {
-                return currentLang === 'pt' ? "🌙 GUEST ATTENDANT – Problema noturno" : "🌙 GUEST ATTENDANT – Problème nocturne";
+                return currentLang === 'pt' ? "🌙 ROYAL SERVICES – Problema noturno" : "🌙 ROYAL SERVICES – Problème nocturne";
             }
             if (scl.includes("alcool") || scl.includes("ivre")) {
                 return currentLang === 'pt' ? "🛌 RECEPÇÃO – Cliente alcoolizado" : "🛌 RÉCEPTION – Client alcoolisé";
@@ -2006,7 +2006,7 @@
                 teamAvg: "Média do Time",
                 areaRecepcionista: "Recepcionista",
                 areaConcierge: "Concierge",
-                areaGuestAttendant: "Guest Attendant",
+                areaGuestAttendant: "ROYAL SERVICES",
                 areaOutros: "Outros",
                 usersBtn: "USUÁRIOS",
                 closeBtn: "FECHAR",
@@ -2143,7 +2143,7 @@
                 teamAvg: "Moyenne Équipe",
                 areaRecepcionista: "Réceptionniste",
                 areaConcierge: "Concierge",
-                areaGuestAttendant: "Guest Attendant",
+                areaGuestAttendant: "ROYAL SERVICES",
                 areaOutros: "Autres",
                 usersBtn: "UTILISATEURS",
                 closeBtn: "FERMER",
@@ -2259,7 +2259,7 @@
                 return currentLang === 'pt' ? "✨ RECEPÇÃO – Check-out marcante" : "✨ RÉCEPTION – Check-out mémorable";
             }
             if (scl.includes("noite") || scl.includes("nuit")) {
-                return currentLang === 'pt' ? "🌙 GUEST ATTENDANT – Problema noturno" : "🌙 GUEST ATTENDANT – Problème nocturne";
+                return currentLang === 'pt' ? "🌙 ROYAL SERVICES – Problema noturno" : "🌙 ROYAL SERVICES – Problème nocturne";
             }
             if (scl.includes("alcool") || scl.includes("ivre")) {
                 return currentLang === 'pt' ? "🛌 RECEPÇÃO – Cliente alcoolizado" : "🛌 RÉCEPTION – Client alcoolisé";
@@ -40847,7 +40847,7 @@
             const sc = scenario.toUpperCase();
             if (sc.includes("RECEPCIONISTA") || sc.includes("RECEPÇÃO")) return "Recepcionista";
             if (sc.includes("CONCIERGE")) return "Concierge";
-            if (sc.includes("GUEST ATTENDANT") || sc.includes("ROOM SERVICE")) return "Guest Attendant";
+            if (sc.includes("ROYAL SERVICES") || sc.includes("ROOM SERVICE")) return "ROYAL SERVICES";
             return "Outros";
         }
 
@@ -41644,7 +41644,7 @@
                                     <div class="dropdown-item ${currentFilterArea === 'Concierge' ? 'selected' : ''}" onclick="setAreaFilter('Concierge')">
                                         <i class="fas fa-concierge-bell"></i> ${ui[currentLang].areaConcierge}
                                     </div>
-                                    <div class="dropdown-item ${currentFilterArea === 'Guest Attendant' ? 'selected' : ''}" onclick="setAreaFilter('Guest Attendant')">
+                                    <div class="dropdown-item ${currentFilterArea === 'ROYAL SERVICES' ? 'selected' : ''}" onclick="setAreaFilter('ROYAL SERVICES')">
                                         <i class="fas fa-utensils"></i> ${ui[currentLang].areaGuestAttendant}
                                     </div>
                                 </div>
@@ -42024,7 +42024,7 @@
                                     <div class="dropdown-item ${currentFilterArea === 'Concierge' ? 'selected' : ''}" onclick="setAreaFilter('Concierge')">
                                         <i class="fas fa-concierge-bell"></i> ${ui[currentLang].areaConcierge}
                                     </div>
-                                    <div class="dropdown-item ${currentFilterArea === 'Guest Attendant' ? 'selected' : ''}" onclick="setAreaFilter('Guest Attendant')">
+                                    <div class="dropdown-item ${currentFilterArea === 'ROYAL SERVICES' ? 'selected' : ''}" onclick="setAreaFilter('ROYAL SERVICES')">
                                         <i class="fas fa-utensils"></i> ${ui[currentLang].areaGuestAttendant}
                                     </div>
                                 </div>
