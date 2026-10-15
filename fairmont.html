@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=20"></script>
+    <script src="users_data.js?v=21"></script>
 
     <style>
         :root {
@@ -1894,8 +1894,8 @@
             if (scl.includes("anivers") || scl.includes("annivers")) {
                 return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
             }
-            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("room service")) {
-                return currentLang === 'pt' ? "🍽️ ROOM SERVICE – Escolha do prato" : "🍽️ ROOM SERVICE – Choix du plat";
+            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("ROYAL SERVICES")) {
+                return currentLang === 'pt' ? "🍽️ ROYAL SERVICES – Escolha do prato" : "🍽️ ROYAL SERVICES – Choix du plat";
             }
             if (scl.includes("insatis")) {
                 return currentLang === 'pt' ? "🛎️ RECEPÇÃO – Cliente insatisfeito" : "🛎️ RÉCEPTION – Client insatisfait";
@@ -2249,8 +2249,8 @@
             if (scl.includes("anivers") || scl.includes("annivers")) {
                 return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
             }
-            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("room service")) {
-                return currentLang === 'pt' ? "🍽️ ROOM SERVICE – Escolha do prato" : "🍽️ ROOM SERVICE – Choix du plat";
+            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("ROYAL SERVICES")) {
+                return currentLang === 'pt' ? "🍽️ ROYAL SERVICES – Escolha do prato" : "🍽️ ROYAL SERVICES – Choix du plat";
             }
             if (scl.includes("insatis")) {
                 return currentLang === 'pt' ? "🛎️ RECEPÇÃO – Cliente insatisfeito" : "🛎️ RÉCEPTION – Client insatisfait";
@@ -40847,7 +40847,7 @@
             const sc = scenario.toUpperCase();
             if (sc.includes("RECEPCIONISTA") || sc.includes("RECEPÇÃO")) return "Recepcionista";
             if (sc.includes("CONCIERGE")) return "Concierge";
-            if (sc.includes("ROYAL SERVICES") || sc.includes("ROOM SERVICE")) return "ROYAL SERVICES";
+            if (sc.includes("ROYAL SERVICES") || sc.includes("ROYAL SERVICES")) return "ROYAL SERVICES";
             return "Outros";
         }
 
