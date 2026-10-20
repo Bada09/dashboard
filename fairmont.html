@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=24"></script>
+    <script src="users_data.js?v=26"></script>
 
     <style>
         :root {
@@ -1894,7 +1894,7 @@
             if (scl.includes("anivers") || scl.includes("annivers")) {
                 return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
             }
-            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("ROYAL SERVICES")) {
+            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("royal services") || scl.includes("guest attendant") || scl.includes("room service")) {
                 return currentLang === 'pt' ? "🍽️ ROYAL SERVICES – Escolha do prato" : "🍽️ ROYAL SERVICES – Choix du plat";
             }
             if (scl.includes("insatis")) {
@@ -2007,7 +2007,8 @@
                 areaRecepcionista: "Recepcionista",
                 areaConcierge: "Concierge",
                 areaGuestAttendant: "ROYAL SERVICES",
-                areaROYAL SERVICES: "ROYAL SERVICES",
+                areaROYALSERVICES: "ROYAL SERVICES",
+                areaOutros: "Outros",
                 usersBtn: "USUÁRIOS",
                 closeBtn: "FECHAR",
                 contextLabel: "Contexto:",
@@ -2144,7 +2145,8 @@
                 areaRecepcionista: "Réceptionniste",
                 areaConcierge: "Concierge",
                 areaGuestAttendant: "ROYAL SERVICES",
-                areaROYAL SERVICES: "Autres",
+                areaROYALSERVICES: "ROYAL SERVICES",
+                areaOutros: "Autres",
                 usersBtn: "UTILISATEURS",
                 closeBtn: "FERMER",
                 contextLabel: "Contexte:",
@@ -2249,7 +2251,7 @@
             if (scl.includes("anivers") || scl.includes("annivers")) {
                 return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
             }
-            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("ROYAL SERVICES")) {
+            if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("royal services") || scl.includes("guest attendant") || scl.includes("room service")) {
                 return currentLang === 'pt' ? "🍽️ ROYAL SERVICES – Escolha do prato" : "🍽️ ROYAL SERVICES – Choix du plat";
             }
             if (scl.includes("insatis")) {
@@ -40843,12 +40845,12 @@
         }
 
         function getArea(scenario) {
-            if (!scenario) return "ROYAL SERVICES";
+            if (!scenario) return "Outros";
             const sc = scenario.toUpperCase();
             if (sc.includes("RECEPCIONISTA") || sc.includes("RECEPÇÃO")) return "Recepcionista";
             if (sc.includes("CONCIERGE")) return "Concierge";
-            if (sc.includes("ROYAL SERVICES") || sc.includes("ROYAL SERVICES")) return "ROYAL SERVICES";
-            return "ROYAL SERVICES";
+            if (sc.includes("ROYAL SERVICES") || sc.includes("GUEST ATTENDANT") || sc.includes("ROOM SERVICE")) return "ROYAL SERVICES";
+            return "Outros";
         }
 
         function getFilteredSims(sims) {
