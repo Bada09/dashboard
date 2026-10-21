@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fairmont Performance Hub | rhapsody Intelligence</title>
+    <title>Fairmont Sprint Pilot | rhapsody Intelligence</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=29"></script>
+    <script src="users_data.js?v=28"></script>
 
     <style>
         :root {
@@ -1754,6 +1754,54 @@
         .explain-note { color: var(--text-muted) !important; font-size: 0.84rem !important; }
         .explain-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.4rem; }
         @media (max-width: 600px) { .explain-modal { padding: 1.6rem 1.2rem 1.2rem; } .btn-explain-score { width: 100%; justify-content: center; } }
+        /* ── Conquistas ── */
+        .achievements-card { position: relative; }
+        .ach-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 1.4rem; flex-wrap: wrap; }
+        .ach-count { font-size: 0.8rem; font-weight: 700; color: var(--primary); background: rgba(0,188,242,0.1); padding: 5px 12px; border-radius: 999px; }
+        .ach-level { display: flex; align-items: center; gap: 16px; background: linear-gradient(90deg, #041e42, #0b3a6e); color: #fff; border-radius: 14px; padding: 1rem 1.3rem; margin-bottom: 1.3rem; }
+        .lvl-icon { font-size: 2.2rem; line-height: 1; }
+        .lvl-body { flex: 1; min-width: 0; }
+        .lvl-name { font-weight: 800; font-size: 1.1rem; }
+        .lvl-name span { font-weight: 600; opacity: 0.75; font-size: 0.9rem; }
+        .lvl-next { font-size: 0.78rem; opacity: 0.8; margin-top: 6px; }
+        .ach-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+        .ach-metric { background: var(--bg-page); border-radius: 12px; padding: 0.8rem 1rem; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+        .ach-metric .v { font-size: 1.35rem; font-weight: 800; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ach-metric.small .v { font-size: 1rem; }
+        .ach-metric.up .v { color: #059669; }
+        .ach-metric.down .v { color: #dc2626; }
+        .ach-metric .l { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; color: var(--text-muted); }
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 14px; }
+        .badge-grid.compact { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
+        .badge-seal { text-align: center; padding: 0.4rem 0.2rem; cursor: default; }
+        .seal-disc { position: relative; width: 64px; height: 64px; margin: 0 auto 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.7rem;
+            background: #eef2f6; border: 3px dashed #cbd5e1; filter: grayscale(1); opacity: 0.55; transition: transform 0.2s; }
+        .badge-grid.compact .seal-disc { width: 52px; height: 52px; font-size: 1.35rem; }
+        .badge-seal.earned .seal-disc { filter: none; opacity: 1; border-style: solid; box-shadow: 0 6px 16px rgba(4,30,66,0.18); }
+        .badge-seal.earned:hover .seal-disc { transform: translateY(-3px) rotate(-4deg); }
+        .tier-bronze .seal-disc { background: radial-gradient(circle at 35% 30%, #fde7d4, #e7a873); border-color: #b8713d; }
+        .tier-prata .seal-disc { background: radial-gradient(circle at 35% 30%, #ffffff, #c7d0db); border-color: #8a97a8; }
+        .tier-ouro .seal-disc { background: radial-gradient(circle at 35% 30%, #fff6cf, #f2c94c); border-color: #b8891a; }
+        .tier-case .seal-disc { background: radial-gradient(circle at 35% 30%, #d9f6ff, #6fd3f5); border-color: #0a8fbd; }
+        .seal-check { position: absolute; right: -4px; bottom: -2px; background: #059669; color: #fff; font-size: 0.6rem; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
+        .seal-name { font-size: 0.78rem; font-weight: 700; color: var(--accent); line-height: 1.25; }
+        .badge-seal.locked .seal-name { color: var(--text-muted); }
+        .seal-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; }
+        .badge-seal.earned .seal-sub { color: #059669; font-weight: 700; }
+        .seal-track { height: 5px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin: 6px auto 0; max-width: 90px; }
+        .seal-track.big { max-width: none; height: 7px; background: rgba(255,255,255,0.2); margin-top: 8px; }
+        .seal-track > div { height: 100%; background: linear-gradient(90deg, var(--primary), #6fd3f5); border-radius: 999px; }
+        .ach-foot { font-size: 0.72rem; color: var(--text-muted); margin-top: 1.2rem; font-style: italic; }
+        .ach-team-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 2rem; }
+        .ach-sub { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 0.8rem; }
+        .xp-row { display: flex; align-items: center; gap: 10px; padding: 0.6rem 0.4rem; border-bottom: 1px solid var(--border); cursor: pointer; border-radius: 8px; }
+        .xp-row:hover { background: var(--bg-page); }
+        .xp-row .pos { width: 28px; text-align: center; font-weight: 800; color: var(--accent); }
+        .xp-row .nm { flex: 1; min-width: 0; font-weight: 700; font-size: 0.88rem; color: var(--text-main); }
+        .xp-row .nm small { display: block; font-weight: 600; color: var(--text-muted); font-size: 0.72rem; }
+        .xp-row .badges-mini { font-size: 0.95rem; letter-spacing: 1px; white-space: nowrap; }
+        .xp-row .xp { font-weight: 800; color: var(--primary); white-space: nowrap; font-size: 0.9rem; }
+        @media (max-width: 900px) { .ach-team-grid { grid-template-columns: 1fr; } .xp-row .badges-mini { display: none; } }
 </style>
 </head>
 
@@ -1822,6 +1870,9 @@
                     <button id="btn-pt" class="active" onclick="setLang('pt')">PT-BR</button>
                     <button id="btn-fr" onclick="setLang('fr')">FRANÇAIS</button>
                 </div>
+                <button class="btn-header" id="btn-pilot-mode" onclick="togglePilotMode()" style="display: inline-flex; align-items: center; gap: 7px; background: var(--primary); border-color: var(--primary); color: #fff;">
+                    <i class="fas fa-layer-group"></i> Piloto Full
+                </button>
                 <button class="btn-header" onclick="window.print()">
                     <i class="fas fa-file-pdf"></i> <span id="t-export-pdf">Exportar PDF</span>
                 </button>
@@ -1913,6 +1964,13 @@
             if (scl.includes("anivers") || scl.includes("annivers")) {
                 return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
             }
+            if (scl.includes("aconselh") || scl.includes("conseiller")) {
+                return currentLang === 'pt' ? "🧭 CONCIERGE – Aconselhar um cliente" : "🧭 CONCIERGE – Conseiller un client";
+            }
+            // "problema noturno" precisa vir antes da regra genérica de GUEST ATTENDANT/ROYAL SERVICES
+            if (scl.includes("noite") || scl.includes("noturn") || scl.includes("nuit") || scl.includes("nocturn")) {
+                return currentLang === 'pt' ? "🌙 ROYAL SERVICES – Problema noturno" : "🌙 ROYAL SERVICES – Problème nocturne";
+            }
             if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("royal services") || scl.includes("guest attendant") || scl.includes("room service")) {
                 return currentLang === 'pt' ? "🍽️ ROYAL SERVICES – Escolha do prato" : "🍽️ ROYAL SERVICES – Choix du plat";
             }
@@ -1921,9 +1979,6 @@
             }
             if (scl.includes("check")) {
                 return currentLang === 'pt' ? "✨ RECEPÇÃO – Check-out marcante" : "✨ RÉCEPTION – Check-out mémorable";
-            }
-            if (scl.includes("noite") || scl.includes("nuit")) {
-                return currentLang === 'pt' ? "🌙 ROYAL SERVICES – Problema noturno" : "🌙 ROYAL SERVICES – Problème nocturne";
             }
             if (scl.includes("alcool") || scl.includes("ivre")) {
                 return currentLang === 'pt' ? "🛌 RECEPÇÃO – Cliente alcoolizado" : "🛌 RÉCEPTION – Client alcoolisé";
@@ -2238,6 +2293,7 @@
                 const el = document.getElementById('t-' + k);
                 if (el) el.innerText = v;
             });
+            if (typeof syncPilotButton === 'function') syncPilotButton();
 
             const searchEl = document.getElementById('userSearch');
             if (searchEl) searchEl.placeholder = ui[lang].search;
@@ -2270,6 +2326,13 @@
             if (scl.includes("anivers") || scl.includes("annivers")) {
                 return currentLang === 'pt' ? "🎁 CONCIERGE – Fim de semana de aniversário" : "🎁 CONCIERGE – Week-end d'anniversaire";
             }
+            if (scl.includes("aconselh") || scl.includes("conseiller")) {
+                return currentLang === 'pt' ? "🧭 CONCIERGE – Aconselhar um cliente" : "🧭 CONCIERGE – Conseiller un client";
+            }
+            // "problema noturno" precisa vir antes da regra genérica de GUEST ATTENDANT/ROYAL SERVICES
+            if (scl.includes("noite") || scl.includes("noturn") || scl.includes("nuit") || scl.includes("nocturn")) {
+                return currentLang === 'pt' ? "🌙 ROYAL SERVICES – Problema noturno" : "🌙 ROYAL SERVICES – Problème nocturne";
+            }
             if (scl.includes("prato") || scl.includes("refeic") || scl.includes("repas") || scl.includes("menu") || scl.includes("chambre") || scl.includes("royal services") || scl.includes("guest attendant") || scl.includes("room service")) {
                 return currentLang === 'pt' ? "🍽️ ROYAL SERVICES – Escolha do prato" : "🍽️ ROYAL SERVICES – Choix du plat";
             }
@@ -2278,9 +2341,6 @@
             }
             if (scl.includes("check")) {
                 return currentLang === 'pt' ? "✨ RECEPÇÃO – Check-out marcante" : "✨ RÉCEPTION – Check-out mémorable";
-            }
-            if (scl.includes("noite") || scl.includes("nuit")) {
-                return currentLang === 'pt' ? "🌙 ROYAL SERVICES – Problema noturno" : "🌙 ROYAL SERVICES – Problème nocturne";
             }
             if (scl.includes("alcool") || scl.includes("ivre")) {
                 return currentLang === 'pt' ? "🛌 RECEPÇÃO – Cliente alcoolizado" : "🛌 RÉCEPTION – Client alcoolisé";
@@ -42361,6 +42421,83 @@
             return minInteractions && !isInternal;
         });
 
+        // ── Sprint Pilot × Piloto Full ──
+        // Sprint Pilot (padrão): só os colaboradores e use cases definidos para o sprint
+        // (planilha "Sprint Pilot Usuários"). Piloto Full: todas as sessões.
+        // Para mudar o sprint, edite as duas listas abaixo.
+        const SPRINT_USERS = [
+            // Royal Service
+            'Caio Mariath', 'Faubert Alcindor', 'Jullie Anjos', 'Luan Freitas',
+            // Recepção
+            'Beatriz Ventura', 'Lucca Moraes', 'Rickenson Rosulme'
+        ];
+        const SPRINT_USE_CASES = [
+            /escolha do prato/i,            // Royal Services 1 — Aconselhar o cliente sobre a escolha do prato no serviço de quarto
+            /problema noturno/i,            // Royal Services 2 — Cliente irritado com problema no quarto no meio da noite
+            /check-?out/i,                  // Recepção 1 — Transformar check-out em um momento marcante
+            /insatisf/i                     // Recepção 2 — Lidar com um cliente que expressa insatisfação
+        ];
+        const sprintNameKey = n => fixEnc(n || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(/\s+/).filter(Boolean).sort().join(' ');
+        const SPRINT_USER_KEYS = SPRINT_USERS.map(sprintNameKey);
+        function isSprintSim(s) {
+            const key = sprintNameKey(s.name);
+            const tokens = key.split(' ');
+            // aceita nome invertido ("Mariath Caio") e nomes completos com sobrenomes extras
+            const userOk = SPRINT_USER_KEYS.some(k => k === key || k.split(' ').every(t => tokens.includes(t)));
+            const caseOk = SPRINT_USE_CASES.some(re => re.test(s.scenario || ''));
+            return userOk && caseOk;
+        }
+        // VALID_SIMS é alterado no lugar para que todas as telas sigam o modo ativo.
+        const FULL_SIMS = VALID_SIMS.slice();
+        var pilotMode = 'sprint';
+        function getSprintStart() {
+            const d = new Date();
+            d.setDate(d.getDate() - 7);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+        function applyPilotMode(mode) {
+            pilotMode = mode;
+            const src = mode === 'sprint' ? FULL_SIMS.filter(isSprintSim) : FULL_SIMS;
+            VALID_SIMS.length = 0;
+            src.forEach(s => VALID_SIMS.push(s));
+        }
+        function fmtShortDate(d) {
+            return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0');
+        }
+        function pilotTitleHTML() {
+            if (pilotMode === 'sprint') {
+                return `Sprint <span>Pilot</span><small style="display:block;font-size:0.9rem;font-weight:600;opacity:0.75;margin-top:8px;letter-spacing:0.02em;">${currentLang === 'fr' ? `${SPRINT_USERS.length} collaborateurs · ${SPRINT_USE_CASES.length} use cases · Royal Service et Réception` : `${SPRINT_USERS.length} colaboradores · ${SPRINT_USE_CASES.length} use cases · Royal Service e Recepção`}</small>`;
+            }
+            return `${currentLang === 'fr' ? 'Pilote' : 'Piloto'} <span>Full</span><small style="display:block;font-size:0.9rem;font-weight:600;opacity:0.75;margin-top:8px;letter-spacing:0.02em;">${currentLang === 'fr' ? 'Analyse complète de toutes les sessions du pilote' : 'Análise completa de todas as sessões do piloto'}</small>`;
+        }
+        function syncPilotButton() {
+            const btn = document.getElementById('btn-pilot-mode');
+            if (!btn) return;
+            btn.innerHTML = pilotMode === 'sprint'
+                ? `<i class="fas fa-layer-group"></i> ${currentLang === 'fr' ? 'Pilote Full' : 'Piloto Full'}`
+                : `<i class="fas fa-bolt"></i> Sprint Pilot`;
+            btn.title = pilotMode === 'sprint'
+                ? (currentLang === 'fr' ? 'Voir l’analyse complète de toutes les sessions' : 'Ver a análise completa de todas as sessões')
+                : (currentLang === 'fr' ? 'Revenir au Sprint Pilot' : 'Voltar para o Sprint Pilot');
+        }
+        function togglePilotMode() {
+            applyPilotMode(pilotMode === 'sprint' ? 'full' : 'sprint');
+            currentFilterPeriodPreset = 'all';
+            currentFilterStartDate = null;
+            currentFilterEndDate = null;
+            currentFilterUseCase = null;
+            currentFilterArea = null;
+            currentFilterUser = null;
+            window.activeUser = null;
+            syncPilotButton();
+            if (typeof closeScoreExplanation === 'function') closeScoreExplanation();
+            if (typeof currentView !== 'undefined' && currentView === 'softskills' && typeof showSoftSkillsHome === 'function') showSoftSkillsHome();
+            else showGlobalStats();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        applyPilotMode('sprint');
+
         let activeUsers = [];
 
         var currentFilterStatus = 'finished'; // 'finished' | 'unfinished' | null
@@ -42568,9 +42705,9 @@
             const filtered = getFilteredSimulations();
             return [...new Set(filtered.map(s => s.name))].map(name => {
                 const userSims = filtered.filter(s => s.name === name);
-                const scoredSims = userSims.filter(s => s.score !== null && s.score !== undefined && s.score > 0); // score 0 = sessão abortada, fora da média
-                const avgScore = scoredSims.length > 0
-                    ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length)
+                const effScores = userSims.map(effSimScore).filter(v => v !== null);
+                const avgScore = effScores.length > 0
+                    ? Math.round(effScores.reduce((a, b) => a + b, 0) / effScores.length)
                     : 0;
                 const original = (typeof users !== 'undefined' ? users : []).find(u => cleanName(u.name) === cleanName(name)) || {};
                 
@@ -42710,7 +42847,7 @@
                                 ${currentLang === 'pt' ? 'Ontem' : 'Hier'}
                             </button>
                             <button class="btn-period ${currentFilterPeriodPreset === 'all' ? 'active' : ''}" onclick="setPeriodFilter('all')">
-                                ${currentLang === 'pt' ? 'Todo o histórico' : 'Tout l\'historique'}
+                                ${pilotMode === 'sprint' ? (currentLang === 'pt' ? 'Todo o sprint' : 'Tout le sprint') : (currentLang === 'pt' ? 'Todo o histórico' : 'Tout l\'historique')}
                             </button>
                             <button class="btn-period ${currentFilterPeriodPreset === 'last7' ? 'active' : ''}" onclick="setPeriodFilter('last7')">
                                 ${currentLang === 'pt' ? 'Últimos 7 dias' : '7 derniers jours'}
@@ -42922,11 +43059,11 @@
                 if (hasValidScore) {
                     Object.keys(userSkills).forEach(k => { simSkills[k] = clampPct(sim.score + skillOffset(k)); });
                 } else {
-                    const userScored = VALID_SIMS.filter(s => s.name === sim.name && s.finished && s.score > 0);
+                    const userScored = FULL_SIMS.filter(s => s.name === sim.name && s.finished && s.score > 0);
                     const base = userScored.length
                         ? userScored.reduce((a, b) => a + b.score, 0) / userScored.length
                         : (() => { // sem nenhuma sessão com nota: média da equipe nas sessões com nota
-                            const team = VALID_SIMS.filter(s => s.finished && s.score > 0);
+                            const team = FULL_SIMS.filter(s => s.finished && s.score > 0);
                             return team.length ? team.reduce((a, b) => a + b.score, 0) / team.length : 60;
                         })();
                     const MATRIX_MAP = {
@@ -42968,6 +43105,16 @@
                 ? (vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null)
                 : sim.score;
             return { skills: simSkills, source: skillSource, score, estimated, note: skillSource === 'profile' ? skillSourceNote : '' };
+        }
+
+        // Nota usada nas médias: nota da rhapsody (>0) ou, se veio 0 com debriefing,
+        // a nota calculada a partir do debriefing. Sessões sem debriefing ficam fora.
+        function effSimScore(s) {
+            if (!s || !s.finished) return null;
+            if (s.score > 0) return s.score;
+            if (!s.feedback) return null;
+            const p = getSimSkillProfile(s);
+            return (p && p.score !== null && !p.estimated) ? p.score : null;
         }
 
         function simScoreLabel(p) {
@@ -43239,8 +43386,8 @@
             const activeInFilter = activeUsers;
             const activeCount = activeInFilter.length || 1;
             
-            const scoredSims = filteredSims.filter(s => s.finished && s.score !== null && s.score !== undefined && s.score > 0);
-            const avgScore = scoredSims.length > 0 ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length) : 0;
+            const globalEff = filteredSims.map(effSimScore).filter(v => v !== null);
+            const avgScore = globalEff.length > 0 ? Math.round(globalEff.reduce((a, b) => a + b, 0) / globalEff.length) : 0;
             const avgLqa = activeInFilter.length > 0 ? Math.round(activeInFilter.reduce((a, b) => a + (b.lqaScore || 0), 0) / activeCount) : 0;
 
             const totalSeconds = filteredSims.reduce((acc, s) => acc + getSec(s.dur), 0);
@@ -43259,20 +43406,14 @@
             const firstDate = allDates.length > 0 ? formatDate(allDates[0]) : '--';
             const lastDate = allDates.length > 0 ? formatDate(allDates[allDates.length - 1]) : '--';
 
-            const top5 = [...activeInFilter].sort((a, b) => {
-                const aSims = filteredSims.filter(s => s.name === a.name && s.finished);
-                const bSims = filteredSims.filter(s => s.name === b.name && s.finished);
-                const aAvg = aSims.length > 0 ? Math.round(aSims.reduce((acc, s) => acc + s.score, 0) / aSims.length) : 0;
-                const bAvg = bSims.length > 0 ? Math.round(bSims.reduce((acc, s) => acc + s.score, 0) / bSims.length) : 0;
-                return bAvg - aAvg;
-            }).slice(0, 5);
+            const top5 = [...activeInFilter].sort((a, b) => (b.avgScore || 0) - (a.avgScore || 0)).slice(0, 5);
 
             const content = document.getElementById('mainContent');
             content.innerHTML = `
                 <div class="global-stats">
                     <header class="header-section">
                         <div class="header-content-left">
-                            <h1>${ui[currentLang].globalMetrics} <span>${ui[currentLang].operation}</span></h1>
+                            <h1>${pilotTitleHTML()}</h1>
                             <p style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-top: 8px;">
                                 <i class="fas fa-calendar-alt"></i> ${ui[currentLang].periodLabel} ${firstDate} - ${lastDate}
                             </p>
@@ -43401,6 +43542,8 @@
                         </div>
                     </div>
                     
+                    ${renderTeamAchievementsHTML()}
+
                     <div class="grid grid-2">
                         <div class="card perf-card">
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].topPerformers}</h3>
@@ -43541,12 +43684,12 @@
             
             if (gTrendChart) gTrendChart.destroy();
             
-            const sourceSims = (filteredSimsOverride || VALID_SIMS).filter(s => s.finished && s.score !== null && s.score > 0);
+            const sourceSims = (filteredSimsOverride || VALID_SIMS).filter(s => effSimScore(s) !== null);
             
             const dateMap = {};
             sourceSims.forEach(s => {
                 if (!dateMap[s.date]) dateMap[s.date] = { sum: 0, count: 0 };
-                dateMap[s.date].sum += s.score;
+                dateMap[s.date].sum += effSimScore(s);
                 dateMap[s.date].count++;
             });
             
@@ -43620,9 +43763,9 @@
             const userAvgSeconds = userSims.length > 0 ? Math.round(userTotalSeconds / userSims.length) : 0;
             
             const filteredSims = getFilteredSimulations();
-            const userScoredSims = userSims.filter(s => s.finished && s.score !== null && s.score > 0);
-            const contextUserScore = userScoredSims.length > 0 
-                ? Math.round(userScoredSims.reduce((a, b) => a + b.score, 0) / userScoredSims.length)
+            const userEff = userSims.map(effSimScore).filter(v => v !== null);
+            const contextUserScore = userEff.length > 0 
+                ? Math.round(userEff.reduce((a, b) => a + b, 0) / userEff.length)
                 : user.avgScore;
 
             const usersInContext = [...new Set(filteredSims.map(s => s.name))];
@@ -43829,6 +43972,8 @@
                             </div>
                         </div>
                     </div>
+
+                    ${renderUserAchievementsHTML(user)}
 
                     <div class="card" style="margin-top: 3rem;">
                         <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].trend}</h3>
@@ -44775,7 +44920,7 @@
                 lead = T(`${firstName}, o essencial do atendimento esteve presente. A nota mostra que você já tem uma base consistente — faltam alguns ajustes finos para chegar ao nível de excelência.`,
                          `${firstName}, l’essentiel du service était là. La note montre une base solide — il reste quelques ajustements pour atteindre l’excellence.`);
             } else if (score >= 50) {
-                headline = T('Em construção — e com caminho claro 🧭', 'En construction — avec un cap clair 🧭');
+                headline = T('Evoluindo — e com caminho claro 🧭', 'En progression — avec un cap clair 🧭');
                 lead = T(`${firstName}, você mostrou boas intenções e atitudes importantes, e a nota indica exatamente onde concentrar a energia para dar o próximo salto.`,
                          `${firstName}, vous avez montré de bonnes intentions et des attitudes importantes ; la note indique précisément où concentrer votre énergie pour franchir le prochain cap.`);
             } else {
@@ -44785,7 +44930,7 @@
             }
 
             // 2) Contexto: comparação com as próprias sessões no mesmo cenário
-            const mine = VALID_SIMS.filter(s => s.name === sim.name && s !== sim && s.scenario === sim.scenario)
+            const mine = FULL_SIMS.filter(s => s.name === sim.name && s !== sim && s.scenario === sim.scenario)
                 .map(s => getSimSkillProfile(s)).filter(p => p.score !== null && !p.estimated).map(p => p.score);
             let contextHtml = '';
             if (mine.length) {
@@ -44922,6 +45067,231 @@
             document.body.style.overflow = '';
         }
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeScoreExplanation(); });
+
+        // ══════════════════════════════════════════════════════════════
+        // CONQUISTAS — selos e métricas de evolução por colaborador.
+        // Tudo é calculado a partir das sessões do modo ativo (Sprint Pilot ou
+        // Piloto Full), usando a mesma nota exibida no histórico (effSimScore).
+        // ══════════════════════════════════════════════════════════════
+        const BADGES = [
+            { key: 'primeira', icon: '🔑', tier: 'bronze',
+              pt: ['Primeira Chave', 'Concluiu a primeira simulação.'], fr: ['Première Clé', 'Première simulation terminée.'],
+              target: 1, metric: m => m.done },
+            { key: 'frequente', icon: '🛎️', tier: 'prata',
+              pt: ['Presença Constante', 'Concluiu 5 simulações.'], fr: ['Présence Constante', '5 simulations terminées.'],
+              target: 5, metric: m => m.done },
+            { key: 'embaixador', icon: '🏛️', tier: 'ouro',
+              pt: ['Embaixador Fairmont', 'Concluiu 10 simulações.'], fr: ['Ambassadeur Fairmont', '10 simulations terminées.'],
+              target: 10, metric: m => m.done },
+            { key: 'rotina', icon: '📅', tier: 'prata',
+              pt: ['Rotina de Treino', 'Praticou em 3 dias diferentes.'], fr: ['Routine d’Entraînement', 'Pratique sur 3 jours différents.'],
+              target: 3, metric: m => m.days },
+            { key: 'explorador', icon: '🧭', tier: 'prata',
+              pt: ['Explorador', 'Praticou 2 use cases diferentes.'], fr: ['Explorateur', '2 use cases différents pratiqués.'],
+              target: 2, metric: m => m.cases },
+            { key: 'bom', icon: '⭐', tier: 'bronze',
+              pt: ['Padrão Fairmont', 'Atingiu 70% em uma sessão.'], fr: ['Standard Fairmont', '70% atteints dans une session.'],
+              target: 70, metric: m => m.best, unit: '%' },
+            { key: 'cinco', icon: '🌟', tier: 'ouro',
+              pt: ['Cinco Estrelas', 'Atingiu 80% em uma sessão.'], fr: ['Cinq Étoiles', '80% atteints dans une session.'],
+              target: 80, metric: m => m.best, unit: '%' },
+            { key: 'consistente', icon: '💎', tier: 'ouro',
+              pt: ['Excelência Consistente', '3 sessões seguidas com 70% ou mais.'], fr: ['Excellence Constante', '3 sessions d’affilée à 70% ou plus.'],
+              target: 3, metric: m => m.bestStreak70 },
+            { key: 'virada', icon: '🚀', tier: 'prata',
+              pt: ['Virada', 'Subiu 15 pontos de uma sessão para a seguinte no mesmo use case.'], fr: ['Rebond', '+15 points d’une session à l’autre sur le même use case.'],
+              target: 15, metric: m => m.bestJump, unit: ' pts' },
+            { key: 'impecavel', icon: '🤝', tier: 'ouro',
+              pt: ['Atendimento Impecável', 'Sessão com 70%+ sem o hóspede precisar corrigir nada.'], fr: ['Service Impeccable', 'Session à 70%+ sans aucune correction du client.'],
+              target: 1, metric: m => m.flawless },
+            { key: 'cardapio', icon: '🍽️', tier: 'case', match: /escolha do prato|prato|menu/i,
+              pt: ['Mestre do Cardápio', '75% em Escolha do prato.'], fr: ['Maître de la Carte', '75% sur Choix du plat.'],
+              target: 75, metric: m => m.bestByCase('prato'), unit: '%' },
+            { key: 'noturno', icon: '🌙', tier: 'case',
+              pt: ['Calma Noturna', '75% em Problema noturno.'], fr: ['Calme Nocturne', '75% sur Problème nocturne.'],
+              target: 75, metric: m => m.bestByCase('noturno'), unit: '%' },
+            { key: 'checkout', icon: '✨', tier: 'case',
+              pt: ['Despedida Memorável', '75% em Check-out marcante.'], fr: ['Départ Mémorable', '75% sur Check-out mémorable.'],
+              target: 75, metric: m => m.bestByCase('checkout'), unit: '%' },
+            { key: 'insatisfeito', icon: '🛡️', tier: 'case',
+              pt: ['Reverte Insatisfação', '75% em Cliente insatisfeito.'], fr: ['Retourne la Situation', '75% sur Client insatisfait.'],
+              target: 75, metric: m => m.bestByCase('insatisfeito'), unit: '%' }
+        ];
+
+        const BADGE_CASE_RE = {
+            prato: /escolha do prato|prato no servi/i,
+            noturno: /noturn|noite|nocturn/i,
+            checkout: /check-?out/i,
+            insatisfeito: /insatisf/i
+        };
+
+        const LEVELS = [
+            { min: 0,   pt: 'Trainee',      fr: 'Trainee',      icon: '🌱' },
+            { min: 60,  pt: 'Associado',    fr: 'Associé',      icon: '🌿' },
+            { min: 160, pt: 'Especialista', fr: 'Spécialiste',  icon: '🌳' },
+            { min: 320, pt: 'Embaixador',   fr: 'Ambassadeur',  icon: '🏅' },
+            { min: 520, pt: 'Lenda Fairmont', fr: 'Légende Fairmont', icon: '👑' }
+        ];
+
+        function simSortKey(s) {
+            const i = FULL_SIMS.indexOf(s);
+            return parseDateBR(s.date).getTime() * 1000 + (i >= 0 ? (FULL_SIMS.length - i) : 0);
+        }
+
+        function computeUserAchievements(name) {
+            const sims = VALID_SIMS.filter(s => cleanName(s.name) === cleanName(name))
+                .map(s => ({ s, sc: effSimScore(s) }))
+                .filter(x => x.sc !== null)
+                .sort((a, b) => simSortKey(a.s) - simSortKey(b.s));
+            const scores = sims.map(x => x.sc);
+            let streak = 0, bestStreak70 = 0, bestJump = 0, flawless = 0;
+            const lastByCase = {};
+            sims.forEach(x => {
+                streak = x.sc >= 70 ? streak + 1 : 0;
+                bestStreak70 = Math.max(bestStreak70, streak);
+                const ck = x.s.scenario;
+                if (lastByCase[ck] !== undefined) bestJump = Math.max(bestJump, x.sc - lastByCase[ck]);
+                lastByCase[ck] = x.sc;
+                if (x.sc >= 70 && x.s.messages && x.s.messages.length >= 6 && findClientCorrections(x.s).length === 0) flawless++;
+            });
+            const half = Math.max(1, Math.floor(scores.length / 2));
+            const firstAvg = scores.length ? scores.slice(0, half).reduce((a, b) => a + b, 0) / half : 0;
+            const lastPart = scores.slice(-half);
+            const lastAvg = scores.length ? lastPart.reduce((a, b) => a + b, 0) / lastPart.length : 0;
+            const m = {
+                done: sims.length,
+                days: new Set(sims.map(x => x.s.date)).size,
+                cases: new Set(sims.map(x => x.s.scenario)).size,
+                best: scores.length ? Math.max(...scores) : 0,
+                avg: scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0,
+                last: scores.length ? scores[scores.length - 1] : 0,
+                evolution: scores.length >= 2 ? Math.round(lastAvg - firstAvg) : null,
+                bestStreak70, bestJump: Math.max(0, bestJump), flawless,
+                minutes: Math.round(sims.reduce((a, x) => a + getSec(x.s.dur), 0) / 60),
+                bestByCase: key => {
+                    const v = sims.filter(x => BADGE_CASE_RE[key].test(x.s.scenario || '')).map(x => x.sc);
+                    return v.length ? Math.max(...v) : 0;
+                }
+            };
+            // selos de use case só aparecem para a área em que a pessoa atua
+            const CASE_AREA = { cardapio: 'ROYAL SERVICES', noturno: 'ROYAL SERVICES', checkout: 'Recepcionista', insatisfeito: 'Recepcionista' };
+            const myAreas = new Set(sims.map(x => getArea(x.s.scenario)));
+            const relevant = BADGES.filter(b => !CASE_AREA[b.key] || !myAreas.size || myAreas.has(CASE_AREA[b.key]));
+            const badges = relevant.map(b => {
+                const val = b.metric(m) || 0;
+                return { ...b, value: val, earned: val >= b.target, progress: Math.max(0, Math.min(1, val / b.target)) };
+            });
+            const earned = badges.filter(b => b.earned);
+            const tierXP = { bronze: 20, prata: 35, ouro: 60, case: 40 };
+            const xp = Math.round(m.done * 10 + scores.reduce((a, b) => a + b, 0) / 10 + earned.reduce((a, b) => a + (tierXP[b.tier] || 25), 0));
+            let lvlIdx = 0;
+            LEVELS.forEach((l, i) => { if (xp >= l.min) lvlIdx = i; });
+            const next = LEVELS[lvlIdx + 1] || null;
+            return { name, metrics: m, badges, earned, xp, level: LEVELS[lvlIdx], next,
+                     levelProgress: next ? (xp - LEVELS[lvlIdx].min) / (next.min - LEVELS[lvlIdx].min) : 1 };
+        }
+
+        function badgeSealHTML(b, opts = {}) {
+            const L = currentLang === 'fr' ? b.fr : b.pt;
+            const shown = b.unit ? `${Math.round(b.value)}${b.unit}` : `${Math.round(b.value)}`;
+            const tgt = b.unit ? `${b.target}${b.unit}` : `${b.target}`;
+            const tip = `${L[0]} — ${L[1]}${b.earned ? '' : ` (${shown} / ${tgt})`}`;
+            return `
+                <div class="badge-seal ${b.earned ? 'earned tier-' + b.tier : 'locked'}" title="${tip.replace(/"/g, '&quot;')}">
+                    <div class="seal-disc"><span>${b.icon}</span>${b.earned ? '<i class="fas fa-check seal-check"></i>' : ''}</div>
+                    <div class="seal-name">${L[0]}</div>
+                    ${opts.count !== undefined
+                        ? `<div class="seal-sub">${opts.count} ${currentLang === 'fr' ? (opts.count === 1 ? 'collaborateur' : 'collaborateurs') : (opts.count === 1 ? 'colaborador' : 'colaboradores')}</div>`
+                        : (b.earned
+                            ? `<div class="seal-sub">${currentLang === 'fr' ? 'Débloqué' : 'Conquistado'}</div>`
+                            : `<div class="seal-track"><div style="width:${Math.round(b.progress * 100)}%"></div></div><div class="seal-sub">${shown} / ${tgt}</div>`)}
+                </div>`;
+        }
+
+        function renderUserAchievementsHTML(user) {
+            const a = computeUserAchievements(user.name);
+            const fr = currentLang === 'fr';
+            const m = a.metrics;
+            const evo = m.evolution === null ? '—' : (m.evolution > 0 ? `+${m.evolution}` : `${m.evolution}`);
+            const evoClass = m.evolution === null ? '' : (m.evolution > 0 ? 'up' : (m.evolution < 0 ? 'down' : ''));
+            const nextTxt = a.next
+                ? (fr ? `${a.next.min - a.xp} XP jusqu’à ${a.next.icon} ${a.next.fr}` : `Faltam ${a.next.min - a.xp} XP para ${a.next.icon} ${a.next.pt}`)
+                : (fr ? 'Niveau maximum atteint' : 'Nível máximo atingido');
+            const metric = (val, lab, cls = '') => `<div class="ach-metric ${cls}"><span class="v">${val}</span><span class="l">${lab}</span></div>`;
+            return `
+                <div class="card achievements-card" style="margin-top: 3rem;">
+                    <div class="ach-head">
+                        <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin: 0;">${fr ? 'Conquêtes' : 'Conquistas'}</h3>
+                        <span class="ach-count">${a.earned.length} / ${a.badges.length} ${fr ? 'badges' : 'selos'}</span>
+                    </div>
+                    <div class="ach-level">
+                        <div class="lvl-icon">${a.level.icon}</div>
+                        <div class="lvl-body">
+                            <div class="lvl-name">${fr ? a.level.fr : a.level.pt} <span>· ${a.xp} XP</span></div>
+                            <div class="seal-track big"><div style="width:${Math.round(a.levelProgress * 100)}%"></div></div>
+                            <div class="lvl-next">${nextTxt}</div>
+                        </div>
+                    </div>
+                    <div class="ach-metrics">
+                        ${metric(m.done, fr ? 'Sessions terminées' : 'Sessões concluídas')}
+                        ${metric(m.best + '%', fr ? 'Meilleure note' : 'Melhor nota')}
+                        ${metric(evo + (m.evolution === null ? '' : ' pts'), fr ? 'Évolution (début → fin)' : 'Evolução (início → fim)', evoClass)}
+                        ${metric(m.bestStreak70, fr ? 'Meilleure série ≥70%' : 'Melhor sequência ≥70%')}
+                        ${metric(m.days, fr ? 'Jours d’entraînement' : 'Dias de treino')}
+                        ${metric(m.minutes + ' min', fr ? 'Temps de pratique' : 'Tempo de prática')}
+                    </div>
+                    <div class="badge-grid">${a.badges.slice().sort((x, y) => (y.earned - x.earned) || (y.progress - x.progress)).map(b => badgeSealHTML(b)).join('')}</div>
+                    <p class="ach-foot">${fr
+                        ? 'XP : 10 par session terminée + 1 par tranche de 10 points de note + bonus par badge.'
+                        : 'XP: 10 por sessão concluída + 1 a cada 10 pontos de nota + bônus por selo conquistado.'}</p>
+                </div>`;
+        }
+
+        function renderTeamAchievementsHTML() {
+            const fr = currentLang === 'fr';
+            const names = [...new Set(getFilteredSimulations().map(s => s.name))];
+            const all = names.map(n => computeUserAchievements(n)).filter(a => a.metrics.done > 0);
+            if (!all.length) return '';
+            const totalEarned = all.reduce((a, b) => a + b.earned.length, 0);
+            const withBadge = all.filter(a => a.earned.length > 0).length;
+            const counts = BADGES.map(b => ({ b, n: all.filter(a => a.earned.some(e => e.key === b.key)).length }));
+            const rare = counts.filter(c => c.n > 0).sort((x, y) => x.n - y.n)[0];
+            const evoVals = all.map(a => a.metrics.evolution).filter(v => v !== null);
+            const evoAvg = evoVals.length ? Math.round(evoVals.reduce((a, b) => a + b, 0) / evoVals.length) : null;
+            const ranking = all.slice().sort((x, y) => y.xp - x.xp).slice(0, 5);
+            const evoTop = all.filter(a => a.metrics.evolution !== null).sort((x, y) => y.metrics.evolution - x.metrics.evolution)[0];
+            const metric = (val, lab, cls = '') => `<div class="ach-metric ${cls}"><span class="v">${val}</span><span class="l">${lab}</span></div>`;
+            return `
+                <div class="card achievements-card" style="margin-bottom: 2.5rem;">
+                    <div class="ach-head">
+                        <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin: 0;">${fr ? 'Conquêtes de l’équipe' : 'Conquistas do time'}</h3>
+                        <span class="ach-count">${totalEarned} ${fr ? 'badges débloqués' : 'selos conquistados'}</span>
+                    </div>
+                    <div class="ach-metrics">
+                        ${metric(`${withBadge}/${all.length}`, fr ? 'Collaborateurs avec badge' : 'Colaboradores com selo')}
+                        ${metric((totalEarned / all.length).toFixed(1).replace('.', fr ? ',' : ','), fr ? 'Badges par personne' : 'Selos por pessoa')}
+                        ${metric(evoAvg === null ? '—' : (evoAvg > 0 ? '+' : '') + evoAvg + ' pts', fr ? 'Évolution moyenne' : 'Evolução média', evoAvg > 0 ? 'up' : (evoAvg < 0 ? 'down' : ''))}
+                        ${metric(evoTop ? `${evoTop.name.split(' ')[0]} ${evoTop.metrics.evolution > 0 ? '+' : ''}${evoTop.metrics.evolution}` : '—', fr ? 'Plus forte évolution' : 'Maior evolução')}
+                        ${metric(rare ? `${rare.b.icon} ${(fr ? rare.b.fr : rare.b.pt)[0]}` : '—', fr ? 'Badge le plus rare' : 'Selo mais raro', 'small')}
+                    </div>
+                    <div class="ach-team-grid">
+                        <div>
+                            <h4 class="ach-sub">${fr ? 'Classement XP' : 'Ranking de XP'}</h4>
+                            ${ranking.map((a, i) => `
+                                <div class="xp-row" onclick="selectUserByName('${a.name.replace(/'/g, "\\'")}')">
+                                    <span class="pos">${['🥇', '🥈', '🥉'][i] || (i + 1)}</span>
+                                    <span class="nm">${a.name}<small>${a.level.icon} ${fr ? a.level.fr : a.level.pt}</small></span>
+                                    <span class="badges-mini">${a.earned.slice(0, 6).map(b => `<span title="${(fr ? b.fr : b.pt)[0]}">${b.icon}</span>`).join('')}</span>
+                                    <span class="xp">${a.xp} XP</span>
+                                </div>`).join('')}
+                        </div>
+                        <div>
+                            <h4 class="ach-sub">${fr ? 'Badges débloqués dans l’équipe' : 'Selos conquistados no time'}</h4>
+                            <div class="badge-grid compact">${counts.map(c => badgeSealHTML({ ...c.b, earned: c.n > 0, value: c.n, progress: 0 }, { count: c.n })).join('')}</div>
+                        </div>
+                    </div>
+                </div>`;
+        }
 
         // Base de sessões elegível: finalizadas, com nota e com debriefing de texto
         function getSoftSkillsSims() {
