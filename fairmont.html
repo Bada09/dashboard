@@ -1823,6 +1823,11 @@
         .guide-levels div { background: #fff; border-radius: 10px; padding: 0.6rem; text-align: center; display: flex; flex-direction: column; gap: 2px; font-size: 0.8rem; }
         .guide-levels span { font-size: 1.4rem; }
         .guide-levels small { color: var(--text-muted); }
+        .lvl-avatar { flex: 0 0 auto; line-height: 0; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); }
+        .xp-avatar { flex: 0 0 auto; line-height: 0; }
+        .guide-levels em { font-style: normal; font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; }
+        .guide-levels svg { margin: 0 auto 4px; }
+        .avatar-small.has-ach { background: none !important; padding: 0; overflow: visible; line-height: 0; }
 </style>
 </head>
 
@@ -42521,7 +42526,7 @@
 
         let activeUsers = [];
 
-        var currentFilterStatus = 'finished'; // 'finished' | 'unfinished' | null
+        var currentFilterStatus = null; // 'finished' | 'unfinished' | null
         var currentFilterPeriodPreset = 'all'; // 'yesterday' | 'all' | 'last7' | 'last30' | 'custom'
         var currentFilterStartDate = null;
         var currentFilterEndDate = null;
@@ -43629,10 +43634,11 @@
 
             const topList = document.getElementById('topList');
             top5.forEach(u => {
+                const uAch = computeUserAchievements(u.name);
                 topList.innerHTML += `
                     <div class="top-item" onclick="selectUserByName('${u.name}')" style="cursor: pointer;">
                         <div style="display: flex; align-items: center; gap: 15px;">
-                            <div class="avatar-small"><i class="fas fa-user"></i></div>
+                            <div class="avatar-small has-ach" title="${currentLang === 'fr' ? uAch.level.fr : uAch.level.pt}">${achievementAvatarSVG(levelIndexOf(uAch.level), 40)}</div>
                             <div>
                                 <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">${u.name}</span>
                                 <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">${u.count} ${ui[currentLang].sessions.toLowerCase()}</span>
@@ -45159,6 +45165,64 @@
             return parseDateBR(s.date).getTime() * 1000 + (i >= 0 ? (FULL_SIMS.length - i) : 0);
         }
 
+        // ── Avatares por nível de conquista ──
+        // Personagens originais em SVG, um por nível (Trainee → Lenda Fairmont).
+        // O uniforme fica mais elaborado a cada nível; a moldura acompanha a cor do nível.
+        const AVATAR_THEMES = [
+            { ring: ['#b7e4c7', '#52b788'], bg: '#ecfdf3', suit: '#94a3b8', shirt: '#ffffff', accent: '#52b788' }, // Trainee
+            { ring: ['#f4c7a1', '#c07a45'], bg: '#fff4ea', suit: '#1e3a5f', shirt: '#ffffff', accent: '#c07a45' }, // Associado
+            { ring: ['#e2e8f0', '#8a97a8'], bg: '#f1f5f9', suit: '#0b2a4a', shirt: '#ffffff', accent: '#00bcf2' }, // Especialista
+            { ring: ['#fde68a', '#c99a1c'], bg: '#fffbeb', suit: '#041e42', shirt: '#ffffff', accent: '#e3b23c' }, // Embaixador
+            { ring: ['#a5f3fc', '#7c3aed'], bg: '#f5f3ff', suit: '#2e1065', shirt: '#ffffff', accent: '#f2c94c' }  // Lenda
+        ];
+
+        function levelIndexOf(level) {
+            const i = LEVELS.indexOf(level);
+            return i >= 0 ? i : 0;
+        }
+
+        function achievementAvatarSVG(lvlIdx, size = 64) {
+            const t = AVATAR_THEMES[Math.max(0, Math.min(AVATAR_THEMES.length - 1, lvlIdx))];
+            const id = 'av' + lvlIdx + '_' + Math.random().toString(36).slice(2, 7);
+            const skin = '#f1d3bd', hair = '#3b2a20';
+            // acessórios por nível
+            const nameTag = `<rect x="58" y="80" width="14" height="6" rx="1.5" fill="#fff" stroke="${t.accent}" stroke-width="1.2"/>`;
+            const bowTie = `<path d="M43 69 l-7 -4 v8 z M57 69 l7 -4 v8 z" fill="${t.accent}"/><circle cx="50" cy="69" r="2.4" fill="${t.accent}"/>`;
+            const tie = `<path d="M50 67 l-3 3 l3 15 l3 -15 z" fill="${t.accent}"/>`;
+            const lapels = `<path d="M38 66 L50 84 L40 96 L30 96 Z" fill="${t.suit}" opacity="0.85"/><path d="M62 66 L50 84 L60 96 L70 96 Z" fill="${t.suit}" opacity="0.85"/>`;
+            const keyPin = `<g transform="translate(62 78) rotate(-35)"><circle r="2.6" fill="none" stroke="${t.accent}" stroke-width="1.6"/><rect x="2.2" y="-0.8" width="7" height="1.6" fill="${t.accent}"/><rect x="7" y="0.6" width="1.4" height="2.4" fill="${t.accent}"/></g>`;
+            const pocket = `<path d="M33 82 h7 v2 h-7 z" fill="${t.accent}"/>`;
+            const crown = `<g transform="translate(0 9)"><path d="M38 20 l4 -9 l4 6 l4 -9 l4 9 l4 -6 l4 9 z" fill="${t.accent}" stroke="#b8891a" stroke-width="0.8"/><circle cx="50" cy="12" r="1.6" fill="#fff"/></g>`;
+            const sparkles = `<g fill="${t.accent}"><path d="M14 30 l1.5 4 l4 1.5 l-4 1.5 l-1.5 4 l-1.5 -4 l-4 -1.5 l4 -1.5 z"/><path d="M85 24 l1.2 3 l3 1.2 l-3 1.2 l-1.2 3 l-1.2 -3 l-3 -1.2 l3 -1.2 z"/></g>`;
+            const cap = `<path d="M34 32 q16 -12 32 0 v4 h-32 z" fill="${t.suit}"/><rect x="32" y="35" width="36" height="3.5" rx="1.5" fill="${t.accent}"/>`;
+            const extras = [
+                nameTag,                                  // Trainee: crachá
+                cap + bowTie,                             // Associado: quepe de mensageiro + gravata borboleta
+                lapels + tie + pocket,                    // Especialista: blazer + gravata
+                lapels + bowTie + keyPin + pocket,        // Embaixador: blazer + borboleta + broche de chave
+                sparkles + lapels + bowTie + keyPin + pocket + crown // Lenda: tudo + coroa
+            ][Math.max(0, Math.min(4, lvlIdx))];
+            const hairShape = lvlIdx === 1 ? '' : `<path d="M35 41 q0 -17 15 -17 q15 0 15 17 q-3 -8 -15 -9 q-12 1 -15 9 z" fill="${hair}"/>`;
+            return `<svg class="ach-avatar" width="${size}" height="${size}" viewBox="0 0 100 100" role="img" aria-label="avatar">
+                <defs>
+                    <linearGradient id="${id}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.ring[0]}"/><stop offset="1" stop-color="${t.ring[1]}"/></linearGradient>
+                    <clipPath id="${id}c"><circle cx="50" cy="50" r="44"/></clipPath>
+                </defs>
+                <circle cx="50" cy="50" r="49" fill="url(#${id}r)"/>
+                <circle cx="50" cy="50" r="44" fill="${t.bg}"/>
+                <g clip-path="url(#${id}c)"><g transform="translate(-7.5 -15) scale(1.15)">
+                    <path d="M18 100 q2 -30 32 -34 q30 4 32 34 z" fill="${t.suit}"/>
+                    <path d="M42 64 L50 84 L58 64 z" fill="${t.shirt}"/>
+                    <rect x="45" y="56" width="10" height="10" rx="3" fill="${skin}"/>
+                    <ellipse cx="50" cy="45" rx="14" ry="15.5" fill="${skin}"/>
+                    ${hairShape}
+                    <circle cx="44.5" cy="46" r="1.6" fill="#1f2937"/><circle cx="55.5" cy="46" r="1.6" fill="#1f2937"/>
+                    <path d="M44.5 52.5 q5.5 4.5 11 0" stroke="#9a3412" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+                    ${extras}
+                </g></g>
+            </svg>`;
+        }
+
         function computeUserAchievements(name) {
             const sims = VALID_SIMS.filter(s => cleanName(s.name) === cleanName(name))
                 .map(s => ({ s, sc: effSimScore(s) }))
@@ -45246,7 +45310,7 @@
                         <div class="ach-head-right">${badgesGuideBtnHTML()}<span class="ach-count">${a.earned.length} / ${a.badges.length} ${fr ? 'badges' : 'selos'}</span></div>
                     </div>
                     <div class="ach-level">
-                        <div class="lvl-icon">${a.level.icon}</div>
+                        <div class="lvl-avatar">${achievementAvatarSVG(levelIndexOf(a.level), 76)}</div>
                         <div class="lvl-body">
                             <div class="lvl-name">${fr ? a.level.fr : a.level.pt} <span>· ${a.xp} XP</span></div>
                             <div class="seal-track big"><div style="width:${Math.round(a.levelProgress * 100)}%"></div></div>
@@ -45301,6 +45365,7 @@
                             ${ranking.map((a, i) => `
                                 <div class="xp-row" onclick="selectUserByName('${a.name.replace(/'/g, "\\'")}')">
                                     <span class="pos">${['🥇', '🥈', '🥉'][i] || (i + 1)}</span>
+                                    <span class="xp-avatar">${achievementAvatarSVG(levelIndexOf(a.level), 38)}</span>
                                     <span class="nm">${a.name}<small>${a.level.icon} ${fr ? a.level.fr : a.level.pt}</small></span>
                                     <span class="badges-mini">${a.earned.slice(0, 6).map(b => `<span title="${(fr ? b.fr : b.pt)[0]}">${b.icon}</span>`).join('')}</span>
                                     <span class="xp">${a.xp} XP</span>
@@ -45348,8 +45413,9 @@
                     </ul>
                 </div>
                 <div class="explain-sec">
-                    <h4>📶 ${T('Níveis', 'Niveaux')}</h4>
-                    <div class="guide-levels">${LEVELS.map(l => `<div><span>${l.icon}</span><strong>${fr ? l.fr : l.pt}</strong><small>${l.min}+ XP</small></div>`).join('')}</div>
+                    <h4>📶 ${T('Níveis e avatares', 'Niveaux et avatars')}</h4>
+                    <p>${T('Cada nível tem um avatar próprio — o uniforme fica mais elaborado conforme o colaborador acumula XP.', 'Chaque niveau a son avatar — l’uniforme s’enrichit à mesure que le collaborateur accumule de l’XP.')}</p>
+                    <div class="guide-levels">${LEVELS.map((l, i) => `<div>${achievementAvatarSVG(i, 56)}<strong>${fr ? l.fr : l.pt}</strong><small>${l.min}+ XP</small><em>${[T('Crachá de boas-vindas', 'Badge de bienvenue'), T('Quepe e gravata borboleta', 'Calot et nœud papillon'), T('Blazer e gravata', 'Blazer et cravate'), T('Broche da chave dourada', 'Broche de la clé dorée'), T('Coroa da excelência', 'Couronne de l’excellence')][i]}</em></div>`).join('')}</div>
                 </div>
                 <div class="explain-sec">
                     <h4>📊 ${T('Métricas do perfil', 'Indicateurs du profil')}</h4>
