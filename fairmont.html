@@ -1802,6 +1802,27 @@
         .xp-row .badges-mini { font-size: 0.95rem; letter-spacing: 1px; white-space: nowrap; }
         .xp-row .xp { font-weight: 800; color: var(--primary); white-space: nowrap; font-size: 0.9rem; }
         @media (max-width: 900px) { .ach-team-grid { grid-template-columns: 1fr; } .xp-row .badges-mini { display: none; } }
+        .btn-badges-guide { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--primary); background: #fff; color: var(--accent); font-weight: 700; font-size: 0.8rem;
+            padding: 7px 14px; border-radius: 999px; cursor: pointer; font-family: inherit; transition: var(--transition); }
+        .btn-badges-guide i { color: var(--primary); }
+        .btn-badges-guide:hover { background: var(--primary); color: #fff; }
+        .btn-badges-guide:hover i { color: #fff; }
+        .ach-head-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .guide-row { display: flex; align-items: center; gap: 12px; padding: 0.55rem 0; border-bottom: 1px solid var(--border); }
+        .guide-row:last-child { border-bottom: none; }
+        .guide-seal { width: 42px; height: 42px; flex: 0 0 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; border: 2px solid; }
+        .guide-seal.tier-bronze { background: radial-gradient(circle at 35% 30%, #fde7d4, #e7a873); border-color: #b8713d; }
+        .guide-seal.tier-prata { background: radial-gradient(circle at 35% 30%, #ffffff, #c7d0db); border-color: #8a97a8; }
+        .guide-seal.tier-ouro { background: radial-gradient(circle at 35% 30%, #fff6cf, #f2c94c); border-color: #b8891a; }
+        .guide-seal.tier-case { background: radial-gradient(circle at 35% 30%, #d9f6ff, #6fd3f5); border-color: #0a8fbd; }
+        .guide-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: 0.88rem; line-height: 1.4; }
+        .guide-txt span { color: var(--text-muted); font-size: 0.82rem; }
+        .guide-xp { text-align: right; font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+        .guide-xp b { color: var(--primary); font-size: 0.82rem; }
+        .guide-levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; }
+        .guide-levels div { background: #fff; border-radius: 10px; padding: 0.6rem; text-align: center; display: flex; flex-direction: column; gap: 2px; font-size: 0.8rem; }
+        .guide-levels span { font-size: 1.4rem; }
+        .guide-levels small { color: var(--text-muted); }
 </style>
 </head>
 
@@ -45222,7 +45243,7 @@
                 <div class="card achievements-card" style="margin-top: 3rem;">
                     <div class="ach-head">
                         <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin: 0;">${fr ? 'Conquêtes' : 'Conquistas'}</h3>
-                        <span class="ach-count">${a.earned.length} / ${a.badges.length} ${fr ? 'badges' : 'selos'}</span>
+                        <div class="ach-head-right">${badgesGuideBtnHTML()}<span class="ach-count">${a.earned.length} / ${a.badges.length} ${fr ? 'badges' : 'selos'}</span></div>
                     </div>
                     <div class="ach-level">
                         <div class="lvl-icon">${a.level.icon}</div>
@@ -45265,7 +45286,7 @@
                 <div class="card achievements-card" style="margin-bottom: 2.5rem;">
                     <div class="ach-head">
                         <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin: 0;">${fr ? 'Conquêtes de l’équipe' : 'Conquistas do time'}</h3>
-                        <span class="ach-count">${totalEarned} ${fr ? 'badges débloqués' : 'selos conquistados'}</span>
+                        <div class="ach-head-right">${badgesGuideBtnHTML()}<span class="ach-count">${totalEarned} ${fr ? 'badges débloqués' : 'selos conquistados'}</span></div>
                     </div>
                     <div class="ach-metrics">
                         ${metric(`${withBadge}/${all.length}`, fr ? 'Collaborateurs avec badge' : 'Colaboradores com selo')}
@@ -45291,6 +45312,78 @@
                         </div>
                     </div>
                 </div>`;
+        }
+
+
+        // ── "Entenda os selos e conquistas" ──
+        function badgesGuideHTML() {
+            const fr = currentLang === 'fr';
+            const T = (pt, f) => fr ? f : pt;
+            const tierName = { bronze: T('Bronze', 'Bronze'), prata: T('Prata', 'Argent'), ouro: T('Ouro', 'Or'), case: T('Use case', 'Use case') };
+            const tierXP = { bronze: 20, prata: 35, ouro: 60, case: 40 };
+            const groups = [
+                { title: T('🎯 Prática — constância no treino', '🎯 Pratique — régularité'), keys: ['primeira', 'frequente', 'embaixador', 'rotina', 'explorador'] },
+                { title: T('🏆 Desempenho — qualidade do atendimento', '🏆 Performance — qualité du service'), keys: ['bom', 'cinco', 'consistente', 'virada', 'impecavel'] },
+                { title: T('🎭 Use cases — domínio de cada cenário', '🎭 Use cases — maîtrise de chaque scénario'), keys: ['cardapio', 'noturno', 'checkout', 'insatisfeito'] }
+            ];
+            const row = b => {
+                const L = fr ? b.fr : b.pt;
+                return `<div class="guide-row">
+                    <div class="guide-seal tier-${b.tier}"><span>${b.icon}</span></div>
+                    <div class="guide-txt"><strong>${L[0]}</strong><span>${L[1]}</span></div>
+                    <div class="guide-xp">${tierName[b.tier]}<br><b>+${tierXP[b.tier]} XP</b></div>
+                </div>`;
+            };
+            return `
+                <h3 class="explain-headline">${T('Como funcionam os selos e conquistas', 'Comment fonctionnent les badges et conquêtes')}</h3>
+                <p class="explain-lead">${T('Cada simulação concluída gera pontos (XP) e pode desbloquear selos. Eles reconhecem a constância no treino, a qualidade do atendimento e o domínio de cada use case — e mostram o próximo passo de cada colaborador.',
+                                             'Chaque simulation terminée rapporte des points (XP) et peut débloquer des badges. Ils récompensent la régularité, la qualité du service et la maîtrise de chaque use case — et indiquent la prochaine étape de chacun.')}</p>
+                ${groups.map(g => `<div class="explain-sec"><h4>${g.title}</h4>${g.keys.map(k => BADGES.find(b => b.key === k)).filter(Boolean).map(row).join('')}</div>`).join('')}
+                <div class="explain-sec">
+                    <h4>⚡ ${T('Como o XP é calculado', 'Calcul de l’XP')}</h4>
+                    <ul>
+                        <li>${T('<strong>+10 XP</strong> por simulação concluída.', '<strong>+10 XP</strong> par simulation terminée.')}</li>
+                        <li>${T('<strong>+1 XP</strong> a cada 10 pontos de nota (uma sessão de 80% vale +8).', '<strong>+1 XP</strong> par tranche de 10 points de note (une session à 80% vaut +8).')}</li>
+                        <li>${T('<strong>Bônus por selo:</strong> Bronze +20, Prata +35, Ouro +60, Use case +40.', '<strong>Bonus par badge :</strong> Bronze +20, Argent +35, Or +60, Use case +40.')}</li>
+                    </ul>
+                </div>
+                <div class="explain-sec">
+                    <h4>📶 ${T('Níveis', 'Niveaux')}</h4>
+                    <div class="guide-levels">${LEVELS.map(l => `<div><span>${l.icon}</span><strong>${fr ? l.fr : l.pt}</strong><small>${l.min}+ XP</small></div>`).join('')}</div>
+                </div>
+                <div class="explain-sec">
+                    <h4>📊 ${T('Métricas do perfil', 'Indicateurs du profil')}</h4>
+                    <ul>
+                        <li>${T('<strong>Evolução (início → fim):</strong> média da segunda metade das sessões menos a média da primeira metade.', '<strong>Évolution (début → fin) :</strong> moyenne de la seconde moitié des sessions moins celle de la première moitié.')}</li>
+                        <li>${T('<strong>Melhor sequência ≥70%:</strong> maior número de sessões seguidas com nota de 70% ou mais.', '<strong>Meilleure série ≥70% :</strong> plus grand nombre de sessions d’affilée à 70% ou plus.')}</li>
+                        <li>${T('<strong>Dias de treino</strong> e <strong>tempo de prática:</strong> dias diferentes com sessão concluída e soma da duração das sessões.', '<strong>Jours d’entraînement</strong> et <strong>temps de pratique :</strong> jours distincts avec une session terminée et durée cumulée.')}</li>
+                    </ul>
+                </div>
+                <p class="explain-note" style="margin-top:1rem;">${T('Valem as sessões concluídas do modo ativo (Sprint Pilot ou Piloto Full), com a mesma nota exibida no histórico. Os selos de use case aparecem apenas para a área em que o colaborador atua (Royal Service ou Recepção).',
+                                                                     'Seules les sessions terminées du mode actif (Sprint Pilot ou Pilote Full) comptent, avec la note affichée dans l’historique. Les badges de use case n’apparaissent que pour l’équipe du collaborateur (Royal Service ou Réception).')}</p>`;
+        }
+
+        function openBadgesGuide() {
+            let ov = document.getElementById('explainOverlay');
+            if (!ov) {
+                ov = document.createElement('div');
+                ov.id = 'explainOverlay';
+                ov.className = 'explain-overlay';
+                ov.addEventListener('click', e => { if (e.target === ov) closeScoreExplanation(); });
+                document.body.appendChild(ov);
+            }
+            ov.innerHTML = `
+                <div class="explain-modal" role="dialog" aria-modal="true">
+                    <button class="explain-close" onclick="closeScoreExplanation()" aria-label="Fechar">&times;</button>
+                    <div class="explain-kicker">${currentLang === 'fr' ? 'Comprendre les badges et conquêtes' : 'Entenda os selos e conquistas'}</div>
+                    <div class="explain-body">${badgesGuideHTML()}</div>
+                </div>`;
+            ov.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function badgesGuideBtnHTML() {
+            return `<button class="btn-badges-guide" onclick="openBadgesGuide()"><i class="fas fa-circle-question"></i> ${currentLang === 'fr' ? 'Comprendre les badges et conquêtes' : 'Entenda os selos e conquistas'}</button>`;
         }
 
         // Base de sessões elegível: finalizadas, com nota e com debriefing de texto
