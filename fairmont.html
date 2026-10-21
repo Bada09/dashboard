@@ -1808,10 +1808,6 @@
                 <button class="btn-header" onclick="showGlobalStats()">
                     <i class="fas fa-home"></i> <span id="t-generalBtn">Geral</span>
                 </button>
-                <button class="btn-header" id="btn-update-dashboard" onclick="triggerManualUpdate()" title="Sincronizar com o dump mais recente" style="display: inline-flex; align-items: center; gap: 7px;">
-                    <i class="fas fa-sync-alt" id="update-icon"></i> <span id="t-updateData">Atualizar</span>
-                    <span id="robot-status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; transition: background 0.3s;" title="Robô offline"></span>
-                </button>
 
             </div>
         </header>
@@ -42331,8 +42327,9 @@
                     valA = new Date(y1, m1 - 1, d1).getTime();
                     valB = new Date(y2, m2 - 1, d2).getTime();
                 } else if (sortField === 'score') {
-                    valA = a.finished ? a.score : -1;
-                    valB = b.finished ? b.score : -1;
+                    const pa = getSimSkillProfile(a), pb = getSimSkillProfile(b);
+                    valA = pa.score !== null ? pa.score : -1;
+                    valB = pb.score !== null ? pb.score : -1;
                 } else if (sortField === 'name') {
                     valA = (a.name || '').toLowerCase();
                     valB = (b.name || '').toLowerCase();
@@ -42634,8 +42631,10 @@
 
             let simCount = 1;
             simList.forEach((s) => {
-                const badgeClass = !s.finished ? 'score-low' : (s.score >= 80 ? 'score-high' : (s.score >= 60 ? 'score-mid' : 'score-low'));
-                const scoreText = !s.finished ? 'N/A' : `${s.score}%`;
+                const sp = getSimSkillProfile(s);
+                const badgeClass = (sp.score === null) ? 'score-low' : (sp.score >= 80 ? 'score-high' : (sp.score >= 60 ? 'score-mid' : 'score-low'));
+                const scoreText = simScoreLabel(sp);
+                const scoreTitle = simScoreTitle(sp);
 
                 let matchSnippet = '';
                 if (hasKeyword) {
@@ -42675,7 +42674,7 @@
                                 </div>
                             ` : ''}
                         </td>
-                        <td><span class="score-badge ${badgeClass}">${scoreText}</span></td>
+                        <td><span class="score-badge ${badgeClass}"${scoreTitle ? ` title="${scoreTitle}" style="cursor:help;opacity:0.85;"` : ''}>${scoreText}</span></td>
                         <td>${s.dur}</td>
                     </tr>
                 `;
@@ -42717,6 +42716,91 @@
 
         function stopTranscriptAudio() {}
 
+        // Matriz de competências + nota exibida de uma sessão (usado no detalhe e no histórico).
+        // Sessões sem nota válida recebem uma ESTIMATIVA (média das competências estimadas),
+        // marcada com "≈". Estimativas não entram nas médias do dashboard.
+        function getSimSkillProfile(sim) {
+            if (!sim) return { skills: {}, source: 'none', score: null, estimated: false, note: '' };
+            const user = (typeof activeUsers !== 'undefined' ? activeUsers : []).find(u => cleanName(u.name) === cleanName(sim.name))
+                || (typeof users !== 'undefined' ? users : []).find(u => cleanName((u.firstName || '') + ' ' + (u.lastName || '')) === cleanName(sim.name))
+                || null;
+                // ── Matriz de Competências da sessão ──
+                // 1) Sessão com nota válida (>0): ancorada no score da sessão + desvio de cada
+                //    competência no perfil do colaborador.
+                // 2) Sessão sem nota (score 0 ou não finalizada): base = média do colaborador nas
+                //    sessões com nota; se houver debriefing, ajusta cada competência pelo que a IA
+                //    citou como ponto forte (+) ou ponto de melhoria (−); sem debriefing, usa o perfil.
+                const simSkills = {};
+                const userSkills = (user && user.skills) ? user.skills : { Escuta: 70, Empatia: 75, Crises: 65, Padroes: 70, Personalizacao: 70 };
+                const skillVals = Object.values(userSkills).filter(v => v > 0);
+                const skillMean = skillVals.length ? skillVals.reduce((a, b) => a + b, 0) / skillVals.length : 0;
+                const skillOffset = k => (userSkills[k] > 0 && skillMean >= 20 && skillVals.length >= 3) ? (userSkills[k] - skillMean) : 0;
+                const clampPct = v => Math.min(100, Math.max(0, Math.round(v)));
+                const hasValidScore = !!(sim && sim.finished && sim.score > 0);
+                let skillSource = 'score';
+                if (hasValidScore) {
+                    Object.keys(userSkills).forEach(k => { simSkills[k] = clampPct(sim.score + skillOffset(k)); });
+                } else {
+                    const userScored = VALID_SIMS.filter(s => s.name === sim.name && s.finished && s.score > 0);
+                    const base = userScored.length
+                        ? userScored.reduce((a, b) => a + b.score, 0) / userScored.length
+                        : (() => { // sem nenhuma sessão com nota: média da equipe nas sessões com nota
+                            const team = VALID_SIMS.filter(s => s.finished && s.score > 0);
+                            return team.length ? team.reduce((a, b) => a + b.score, 0) / team.length : 60;
+                        })();
+                    const MATRIX_MAP = {
+                        Escuta: ['escuta'],
+                        Empatia: ['empatia', 'emocoes', 'relacionamento'],
+                        Crises: ['crise', 'objeccoes', 'emocoes'],
+                        Padroes: ['padroes', 'produtos', 'conhecimento_rede'],
+                        Personalizacao: ['personalizacao', 'criatividade', 'aconselhamento']
+                    };
+                    let sc = null, gc = null;
+                    if (sim.feedback && typeof splitFeedbackSections === 'function') {
+                        const parts = splitFeedbackSections(sim.feedback);
+                        if (parts.strengths.length || parts.improvements.length) {
+                            sc = tagSkills(parts.strengths); gc = tagSkills(parts.improvements);
+                        }
+                    }
+                    skillSource = sc ? 'feedback' : 'profile';
+                    Object.keys(userSkills).forEach(k => {
+                        let adj = 0;
+                        if (sc) {
+                            (MATRIX_MAP[k] || []).forEach(sk => { adj += 8 * ((sc[sk] || 0) - (gc[sk] || 0)); });
+                            adj = Math.max(-15, Math.min(15, adj));
+                        }
+                        simSkills[k] = Math.min(95, clampPct(base + skillOffset(k) + adj)); // estimativa nunca mostra 100%
+                    });
+                }
+                const skillSourceNote = skillSource === 'score' ? '' : (currentLang === 'fr'
+                    ? (skillSource === 'feedback'
+                        ? 'Session sans note : estimation à partir du debriefing de l’IA (points forts / points d’amélioration) et de la moyenne du collaborateur.'
+                        : 'Session non finalisée, sans debriefing : estimation basée sur le profil du collaborateur.')
+                    : (skillSource === 'feedback'
+                        ? 'Sessão sem nota: estimativa a partir do debriefing da IA (pontos fortes / pontos de melhoria) e da média do colaborador.'
+                        : 'Sessão não finalizada, sem debriefing: estimativa pelo perfil do colaborador.'));
+            const vals = Object.values(simSkills);
+            // Sessões com debriefing e score 0 recebem a nota calculada como nota normal (sem "≈").
+            // Só sessões não finalizadas, sem debriefing, continuam marcadas como estimativa.
+            const estimated = skillSource === 'profile';
+            const score = (skillSource !== 'score')
+                ? (vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null)
+                : sim.score;
+            return { skills: simSkills, source: skillSource, score, estimated, note: skillSource === 'profile' ? skillSourceNote : '' };
+        }
+
+        function simScoreLabel(p) {
+            if (!p || p.score === null || p.score === undefined) return 'N/A';
+            return (p.estimated ? '≈' : '') + p.score + '%';
+        }
+
+        function simScoreTitle(p) {
+            if (!p || !p.estimated) return '';
+            return currentLang === 'fr'
+                ? (p.source === 'feedback' ? 'Estimation : session sans note, calculée à partir du debriefing de l’IA' : 'Estimation : session non finalisée, basée sur le profil du collaborateur')
+                : (p.source === 'feedback' ? 'Estimativa: sessão sem nota, calculada a partir do debriefing da IA' : 'Estimativa: sessão não finalizada, baseada no perfil do colaborador');
+        }
+
         function showSimulationDetail(originalIndex, filterUser = null, skipTableSortChange = false) {
             currentFilterUser = filterUser === 'all' ? null : filterUser;
             const filtered = getSortedAndFilteredSims(currentFilterUser);
@@ -42748,25 +42832,15 @@
             const user = activeUsers.find(u => u.name === sim.name) || activeUsers[0];
             const content = document.getElementById('mainContent');
 
-            // Matriz da sessão ancorada no score DESTA simulação: cada competência = score da sessão
-            // + o desvio daquela competência em relação ao perfil médio do colaborador.
-            // (Antes: perfil × score/média do usuário + ruído aleatório — sessões com score 0 derrubavam
-            //  a média e inflavam a razão, levando tudo a 100%.) Sem aleatoriedade: o valor é estável.
-            const simSkills = {};
-            const userSkills = (user && user.skills) ? user.skills : { Escuta: 70, Empatia: 75, Crises: 65, Padroes: 70, Personalizacao: 70 };
-            const skillVals = Object.values(userSkills).filter(v => v > 0);
-            const skillMean = skillVals.length ? skillVals.reduce((a, b) => a + b, 0) / skillVals.length : 0;
-            const simScoreBase = (sim && sim.finished && sim.score > 0) ? sim.score : null;
-            Object.keys(userSkills).forEach(k => {
-                if (simScoreBase === null) { simSkills[k] = 0; return; }
-                const offset = (userSkills[k] > 0 && skillMean > 0) ? (userSkills[k] - skillMean) : 0;
-                simSkills[k] = Math.min(100, Math.max(0, Math.round(simScoreBase + offset)));
-            });
+            const simProfile = getSimSkillProfile(sim);
+            const simSkills = simProfile.skills;
+            const skillSourceNote = simProfile.note;
 
             const tones = ["Profissional", "Empático", "Proativo", "Calmo", "Diplomático"];
             const simTone = sim.finished ? tones[currentSimIndex % tones.length] : "N/A";
-            const simSent = !sim.finished ? "N/A" : (sim.score >= 75 ? "Positivo" : (sim.score >= 55 ? "Neutro" : "Atenção"));
-            const sentClass = !sim.finished ? "sent-neu" : (sim.score >= 75 ? "sent-pos" : "sent-neu");
+            const effScore = simProfile.score;
+            const simSent = (effScore === null) ? "N/A" : (effScore >= 75 ? "Positivo" : (effScore >= 55 ? "Neutro" : "Atenção"));
+            const sentClass = (effScore === null) ? "sent-neu" : (effScore >= 75 ? "sent-pos" : "sent-neu");
 
             const floater = document.getElementById('simNav');
             if (floater) floater.style.display = 'flex';
@@ -42779,8 +42853,9 @@
             const nextBtn = document.getElementById('nextSimBtn');
             if (nextBtn) nextBtn.disabled = (currentSimIndex === totalSimsCount - 1);
 
-            const scoreDisplay = sim.finished ? `${sim.score}%` : 'N/A';
-            const scoreVal = sim.finished ? sim.score : 0;
+            const scoreDisplay = simScoreLabel(simProfile);
+            const scoreVal = simProfile.score || 0;
+            const scoreTitleDetail = simScoreTitle(simProfile);
 
             content.innerHTML = `
                 <div id="simDetail">
@@ -42801,7 +42876,9 @@
 
                     <div class="stats-grid" style="margin-bottom: 2rem;">
                         <div class="stat-card-big">
-                            <span class="val count-up" data-val="${scoreVal}" data-suffix="%">${scoreDisplay}</span>
+                            ${simProfile.estimated
+                                ? `<span class="val" title="${scoreTitleDetail}" style="cursor:help;">${scoreDisplay}</span>`
+                                : `<span class="val count-up" data-val="${scoreVal}" data-suffix="%">${scoreDisplay}</span>`}
                             <span class="lab">${ui[currentLang].avgScore}</span>
                         </div>
                         <div class="stat-card-big">
@@ -42866,6 +42943,7 @@
                                     </div>
                                 `).join('')}
                             </div>
+                            ${skillSourceNote ? `<p style="margin-top:1.2rem;font-size:0.78rem;line-height:1.5;color:var(--text-secondary);font-style:italic;"><i class="fas fa-circle-info"></i> ${skillSourceNote}</p>` : ''}
                         </div>
                     </div>
 
