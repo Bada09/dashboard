@@ -946,7 +946,7 @@ const users = [
         "email": "beatriz.ventura@fairmont.com",
         "username": "beatriz.ventura@fairmont.com",
         "equipe": "Recepção",
-        "avgDurSec": 6,
+        "avgDurSec": 34,
         "avgScore": 0.0,
         "skills": {
             "Crises": 0,
@@ -955,7 +955,7 @@ const users = [
             "Personalizacao": 0,
             "Escuta": 0
         },
-        "count": 1,
+        "count": 3,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -983,7 +983,7 @@ const users = [
         "dates": [
             "20/10/2026"
         ],
-        "avgDurMin": 2,
+        "avgDurMin": 1,
         "avatar": ""
     },
     {
@@ -2613,4 +2613,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "20/10/2026 15:52";
+const lastUpdate = "21/10/2026 13:30";
