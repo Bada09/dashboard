@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=27"></script>
+    <script src="users_data.js?v=28"></script>
 
     <style>
         :root {
@@ -42390,7 +42390,7 @@
             const filtered = getFilteredSimulations();
             return [...new Set(filtered.map(s => s.name))].map(name => {
                 const userSims = filtered.filter(s => s.name === name);
-                const scoredSims = userSims.filter(s => s.score !== null && s.score !== undefined);
+                const scoredSims = userSims.filter(s => s.score !== null && s.score !== undefined && s.score > 0); // score 0 = sessão abortada, fora da média
                 const avgScore = scoredSims.length > 0
                     ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length)
                     : 0;
@@ -42748,14 +42748,19 @@
             const user = activeUsers.find(u => u.name === sim.name) || activeUsers[0];
             const content = document.getElementById('mainContent');
 
-            const userScoreBase = (user && user.avgScore > 0) ? user.avgScore : 60;
-            const simScoreBase = (sim && sim.score > 0) ? sim.score : (sim.finished ? 58 : 30);
-            const ratio = sim.finished ? (simScoreBase / userScoreBase) : 0.5;
+            // Matriz da sessão ancorada no score DESTA simulação: cada competência = score da sessão
+            // + o desvio daquela competência em relação ao perfil médio do colaborador.
+            // (Antes: perfil × score/média do usuário + ruído aleatório — sessões com score 0 derrubavam
+            //  a média e inflavam a razão, levando tudo a 100%.) Sem aleatoriedade: o valor é estável.
             const simSkills = {};
             const userSkills = (user && user.skills) ? user.skills : { Escuta: 70, Empatia: 75, Crises: 65, Padroes: 70, Personalizacao: 70 };
+            const skillVals = Object.values(userSkills).filter(v => v > 0);
+            const skillMean = skillVals.length ? skillVals.reduce((a, b) => a + b, 0) / skillVals.length : 0;
+            const simScoreBase = (sim && sim.finished && sim.score > 0) ? sim.score : null;
             Object.keys(userSkills).forEach(k => {
-                const baseVal = userSkills[k] > 0 ? userSkills[k] : 65;
-                simSkills[k] = Math.min(100, Math.max(20, Math.round(baseVal * ratio + (Math.random() * 6 - 3))));
+                if (simScoreBase === null) { simSkills[k] = 0; return; }
+                const offset = (userSkills[k] > 0 && skillMean > 0) ? (userSkills[k] - skillMean) : 0;
+                simSkills[k] = Math.min(100, Math.max(0, Math.round(simScoreBase + offset)));
             });
 
             const tones = ["Profissional", "Empático", "Proativo", "Calmo", "Diplomático"];
@@ -42970,7 +42975,7 @@
             const activeInFilter = activeUsers;
             const activeCount = activeInFilter.length || 1;
             
-            const scoredSims = filteredSims.filter(s => s.finished && s.score !== null && s.score !== undefined);
+            const scoredSims = filteredSims.filter(s => s.finished && s.score !== null && s.score !== undefined && s.score > 0);
             const avgScore = scoredSims.length > 0 ? Math.round(scoredSims.reduce((a, b) => a + b.score, 0) / scoredSims.length) : 0;
             const avgLqa = activeInFilter.length > 0 ? Math.round(activeInFilter.reduce((a, b) => a + (b.lqaScore || 0), 0) / activeCount) : 0;
 
@@ -43272,7 +43277,7 @@
             
             if (gTrendChart) gTrendChart.destroy();
             
-            const sourceSims = (filteredSimsOverride || VALID_SIMS).filter(s => s.finished && s.score !== null);
+            const sourceSims = (filteredSimsOverride || VALID_SIMS).filter(s => s.finished && s.score !== null && s.score > 0);
             
             const dateMap = {};
             sourceSims.forEach(s => {
@@ -43351,7 +43356,7 @@
             const userAvgSeconds = userSims.length > 0 ? Math.round(userTotalSeconds / userSims.length) : 0;
             
             const filteredSims = getFilteredSimulations();
-            const userScoredSims = userSims.filter(s => s.finished && s.score !== null);
+            const userScoredSims = userSims.filter(s => s.finished && s.score !== null && s.score > 0);
             const contextUserScore = userScoredSims.length > 0 
                 ? Math.round(userScoredSims.reduce((a, b) => a + b.score, 0) / userScoredSims.length)
                 : user.avgScore;
