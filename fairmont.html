@@ -1731,6 +1731,29 @@
         .shi-block { font-size: 0.82rem; line-height: 1.55; color: var(--text-muted); margin-top: 0.35rem; }
         .shi-block.strength strong { color: #15803d; }
         .shi-block.gap strong { color: #b45309; }
+        /* ── Entenda sua nota ── */
+        .btn-explain-score { display: inline-flex; align-items: center; gap: 10px; margin: -0.5rem 0 2rem; padding: 12px 22px; border: none; border-radius: 999px; cursor: pointer;
+            background: linear-gradient(90deg, var(--primary), var(--accent)); color: #fff; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.01em;
+            box-shadow: 0 6px 18px rgba(0, 188, 242, 0.25); transition: var(--transition); font-family: inherit; }
+        .btn-explain-score:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 188, 242, 0.35); }
+        .explain-overlay { position: fixed; inset: 0; background: rgba(4, 30, 66, 0.55); display: none; align-items: center; justify-content: center; z-index: 2147483000; padding: 16px; }
+        .explain-overlay.open { display: flex; }
+        .explain-modal { position: relative; background: var(--card-bg); color: var(--text-main); border-radius: 18px; max-width: 720px; width: 100%; max-height: 88vh; overflow-y: auto;
+            padding: 2.2rem 2.2rem 1.8rem; box-shadow: 0 24px 60px rgba(4, 30, 66, 0.35); border-top: 5px solid var(--primary); }
+        .explain-close { position: absolute; top: 12px; right: 16px; background: none; border: none; font-size: 1.8rem; line-height: 1; color: var(--text-muted); cursor: pointer; }
+        .explain-kicker { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 700; color: var(--primary); margin-bottom: 0.8rem; }
+        .explain-score-pill { display: inline-block; font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: 0.4rem; }
+        .explain-headline { font-size: 1.35rem; margin: 0 0 0.6rem; color: var(--accent); }
+        .explain-lead { font-size: 0.98rem; line-height: 1.6; color: var(--text-main); margin-bottom: 1.2rem; }
+        .explain-sec { background: var(--bg-page); border-radius: 12px; padding: 1rem 1.2rem; margin-top: 0.9rem; }
+        .explain-sec h4 { margin: 0 0 0.5rem; font-size: 0.95rem; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+        .explain-sec p, .explain-sec li { font-size: 0.9rem; line-height: 1.6; color: var(--text-main); }
+        .explain-sec p { margin: 0.3rem 0; }
+        .explain-sec ul { margin: 0.4rem 0 0.2rem; padding-left: 1.2rem; }
+        .explain-sec li { margin-bottom: 0.35rem; }
+        .explain-note { color: var(--text-muted) !important; font-size: 0.84rem !important; }
+        .explain-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.4rem; }
+        @media (max-width: 600px) { .explain-modal { padding: 1.6rem 1.2rem 1.2rem; } .btn-explain-score { width: 100%; justify-content: center; } }
 </style>
 </head>
 
@@ -42833,6 +42856,7 @@
             const content = document.getElementById('mainContent');
 
             const simProfile = getSimSkillProfile(sim);
+            window.__explainSim = sim;
             const simSkills = simProfile.skills;
             const skillSourceNote = simProfile.note;
 
@@ -42899,6 +42923,10 @@
                         </div>
                     </div>
 
+                    <button class="btn-explain-score" onclick="openScoreExplanation()">
+                        <i class="fas fa-lightbulb"></i> ${currentLang === 'fr' ? 'Comprendre votre note' : 'Entenda sua nota'}
+                    </button>
+
                     <div class="analysis-grid">
                         <div class="card">
                             <h3 style="color: var(--accent); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem;">${ui[currentLang].aiFeedback}</h3>
@@ -42943,7 +42971,7 @@
                                     </div>
                                 `).join('')}
                             </div>
-                            ${skillSourceNote ? `<p style="margin-top:1.2rem;font-size:0.78rem;line-height:1.5;color:var(--text-secondary);font-style:italic;"><i class="fas fa-circle-info"></i> ${skillSourceNote}</p>` : ''}
+                            ${skillSourceNote ? `<p style="margin-top:1.2rem;font-size:0.78rem;line-height:1.5;color:var(--text-muted);font-style:italic;"><i class="fas fa-circle-info"></i> ${skillSourceNote}</p>` : ''}
                         </div>
                     </div>
 
@@ -44431,6 +44459,311 @@
         function topSkillKeys(counts, n) {
             return Object.entries(counts).filter(([k, v]) => v > 0).sort((a, b) => b[1] - a[1]).slice(0, n).map(([k]) => k);
         }
+
+        // ══════════════════════════════════════════════════════════════
+        // "Entenda sua nota" — explicação da nota de cada sessão, escrita com
+        // abordagem de psicologia positiva: começa pelo que a pessoa já faz bem,
+        // trata pontos de melhoria como próximos passos e dá contexto (média
+        // pessoal, ruído de transcrição) para que uma nota isolada não pese demais.
+        // Tudo é derivado do debriefing da rhapsody, da transcrição e do histórico.
+        // ══════════════════════════════════════════════════════════════
+        const EXPLAIN_TIPS = {
+            escuta: { pt: 'Antes de responder, devolva em uma frase o que o hóspede pediu ("Então, para confirmar, o senhor gostaria de…"). Isso mostra atenção e evita retrabalho.',
+                      fr: 'Avant de répondre, reformulez en une phrase la demande du client (« Si je comprends bien, vous souhaitez… »). Cela montre votre attention et évite les reprises.' },
+            empatia: { pt: 'Comece reconhecendo o sentimento do hóspede ("Entendo como isso é importante para o senhor") e só depois passe à solução.',
+                       fr: 'Commencez par reconnaître l’émotion du client (« Je comprends à quel point c’est important pour vous ») avant de proposer la solution.' },
+            emocoes: { pt: 'Quando o cliente apertar, respire e desacelere a fala: um ritmo calmo transmite segurança mesmo quando a resposta ainda está sendo construída.',
+                       fr: 'Quand le client met la pression, respirez et ralentissez votre débit : un rythme calme transmet de l’assurance.' },
+            assertividade: { pt: 'Prefira frases curtas e completas. Se precisar de um instante, diga "Um momento, por favor, vou confirmar para o senhor" em vez de pensar em voz alta.',
+                             fr: 'Privilégiez des phrases courtes et complètes. Si vous avez besoin d’un instant, dites « Un instant, je vérifie pour vous » plutôt que de réfléchir à voix haute.' },
+            padroes: { pt: 'Escolha duas ou três expressões de luxo que combinem com você ("com prazer", "será um prazer preparar") e use-as com naturalidade em todas as sessões.',
+                       fr: 'Choisissez deux ou trois expressions du luxe qui vous ressemblent (« avec plaisir », « ce sera un plaisir de préparer ») et utilisez-les naturellement à chaque session.' },
+            objeccoes: { pt: 'Diante de uma reclamação, assuma a situação como sua ("Vou cuidar pessoalmente disso") e diga exatamente o que vai acontecer em seguida.',
+                         fr: 'Face à une réclamation, prenez-la en charge (« Je m’en occupe personnellement ») et dites précisément ce qui va se passer ensuite.' },
+            personalizacao: { pt: 'Use o nome do hóspede pelo menos duas vezes — na abertura e no fechamento — e retome uma preferência que ele mencionou.',
+                              fr: 'Utilisez le nom du client au moins deux fois — à l’ouverture et à la clôture — et reprenez une préférence qu’il a exprimée.' },
+            conhecimento_rede: { pt: 'Escolha três serviços do hotel (horários, localização, diferenciais) e treine apresentá-los em uma frase cada.',
+                                 fr: 'Choisissez trois services de l’hôtel (horaires, emplacement, atouts) et entraînez-vous à les présenter en une phrase chacun.' },
+            criatividade: { pt: 'Quando o cliente pedir algo fora do padrão, ofereça uma alternativa que surpreenda — o "sim, e além disso…" é o que diferencia o cinco estrelas.',
+                            fr: 'Quand le client demande quelque chose d’inhabituel, proposez une alternative qui surprend — le « oui, et en plus… » fait la différence cinq étoiles.' },
+            aconselhamento: { pt: 'Em vez de listar opções, recomende uma com convicção ("Para o perfil do senhor, eu sugiro…") e ofereça uma segunda como alternativa.',
+                              fr: 'Plutôt que d’énumérer, recommandez une option avec conviction (« Pour vous, je suggère… ») et proposez-en une seconde en alternative.' },
+            produtos: { pt: 'Reserve 10 minutos para revisar o cardápio e as categorias de quarto. Se o hóspede pedir algo que não existe, diga com gentileza e já ofereça a alternativa mais próxima.',
+                        fr: 'Prenez 10 minutes pour revoir la carte et les catégories de chambres. Si le client demande un article qui n’existe pas, dites-le avec délicatesse et proposez l’alternative la plus proche.' },
+            relacionamento: { pt: 'Feche a conversa deixando uma porta aberta ("Estou à disposição se precisar de algo mais durante a estadia").',
+                              fr: 'Terminez en laissant la porte ouverte (« Je reste à votre disposition pendant tout votre séjour »).' },
+            crise: { pt: 'Em situações tensas: reconheça, peça desculpas uma vez, proponha uma solução concreta com prazo e confirme que o hóspede ficou satisfeito.',
+                     fr: 'En situation tendue : reconnaître, s’excuser une fois, proposer une solution concrète avec un délai et vérifier la satisfaction du client.' }
+        };
+
+        function explainEsc(t) {
+            return fixEnc(String(t || '')).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/\*\*([^*]+)\*\*/g, '$1').replace(/[❌✅]/g, '').trim();
+        }
+
+        // Extrai as correções factuais do debriefing ("✅ Informação correta: …")
+        function extractCorrectInfo(fb) {
+            const out = [];
+            const re = /✅\s*(?:informa[çc][ãa]o\s+correta|information\s+correcte|correto|correct)\s*:?\s*([\s\S]+?)(?=❌|✅|\n|\.\s+(?:Tamb[ée]m|Por fim|Al[ée]m|Para|Aussi|Enfin|De plus)|$)/gi;
+            let m;
+            while ((m = re.exec(fb || '')) !== null && out.length < 3) {
+                const t = m[1].trim().replace(/[.;\s]+$/, '');
+                if (t.length > 10) out.push(t.charAt(0).toUpperCase() + t.slice(1));
+            }
+            return out;
+        }
+
+        // Hesitações/ruído de transcrição nas falas do colaborador
+        function countTranscriptNoise(sim) {
+            const msgs = (sim.messages || []).filter(m => m.role === 'HUMAN');
+            let n = 0;
+            msgs.forEach(m => { n += ((m.text || '').match(/--/g) || []).length; });
+            return { noise: n, humanMsgs: msgs.length };
+        }
+
+
+        // ── Onde a sessão escorregou: fatos concretos, ditos com cuidado ──
+        // Pares "❌ Informação dada / ✅ Informação correta" do debriefing
+        function extractWrongRightPairs(fb) {
+            const out = [];
+            const re = /❌\s*(?:informa[çc][ãa]o\s+dada|information\s+donn[ée]e|dito|dit)?\s*:?\s*([\s\S]+?)\s*[.;]?\s*✅\s*(?:informa[çc][ãa]o\s+correta|information\s+correcte|correto|correct)?\s*:?\s*([\s\S]+?)(?=❌|\n|\.\s+(?:Tamb[ée]m|Por fim|Al[ée]m|Para|Aussi|Enfin|De plus)|$)/gi;
+            let m;
+            while ((m = re.exec(fb || '')) !== null && out.length < 4) {
+                const said = m[1].replace(/\s*(figuram|aparecem)\s+entre\s+os\s+itens\s+sugeridos\.?$/i, '').trim();
+                const right = m[2].trim().replace(/[.;\s]+$/, '');
+                if (said.length > 2 && right.length > 5) out.push({ said, right: right.charAt(0).toUpperCase() + right.slice(1) });
+            }
+            return out;
+        }
+
+        // Momentos em que o hóspede (rhapsody) precisou corrigir o colaborador
+        const EXPLAIN_CORRECTION_RE = /(isso n[ãa]o est[áa] (certo|correto)|n[ãa]o aceito|corrija|eu pedi|est[áa] errad|n[ãa]o foi (isso|o que)|n[ãa]o [ée] isso|ce n['’]est pas (ça|correct|ce que)|je n['’]ai pas demand|corrigez|that'?s not (right|correct|what)|i (didn'?t|did not) (ask|order))/i;
+        function findClientCorrections(sim) {
+            const msgs = sim.messages || [];
+            const out = [];
+            msgs.forEach((m, i) => {
+                if (m.role === 'AI' && i > 0 && msgs[i - 1].role === 'HUMAN' && EXPLAIN_CORRECTION_RE.test((m.text || '').slice(0, 80))) {
+                    out.push({ said: msgs[i - 1].text || '', reply: m.text || '' });
+                }
+            });
+            return out;
+        }
+
+        // Cita o que foi dito; se o trecho já vem com aspas, não duplica
+        function qSaid(t, lang) {
+            const clean = explainEsc(t).replace(/([“”"])\1+/g, '$1');
+            if (/[“"«]/.test(clean)) return clean;
+            return lang === 'fr' ? `« ${clean} »` : `“${clean}”`;
+        }
+
+        function shortQuote(t, max) {
+            t = fixEnc(String(t || '')).replace(/\s+/g, ' ').trim();
+            if (t.length <= max) return t;
+            const cut = t.slice(0, max);
+            return cut.slice(0, cut.lastIndexOf(' ') > 40 ? cut.lastIndexOf(' ') : max) + '…';
+        }
+
+        // Nome do personagem (hóspede) citado no debriefing e se o colaborador o usou
+        function checkGuestNameUse(sim, strengthsText) {
+            const m = (sim.feedback || '').match(/(?:papel d[eo]|r[ôo]le d[e']|role of|papel del?)\s+([A-ZÀ-Ý][\wÀ-ÿ-]+(?:\s+[A-ZÀ-Ý][\wÀ-ÿ-]+)?)/);
+            if (!m) return null;
+            const human = (sim.messages || []).filter(x => x.role === 'HUMAN');
+            if (human.length < 4) return null;
+            if (/\bnome\b|\bnom\b|\bname\b/i.test(normTxt(strengthsText))) return null; // a rhapsody já elogiou o uso do nome
+            const parts = m[1].split(/\s+/).map(normTxt).filter(p => p.length > 2);
+            const said = normTxt(human.map(x => x.text).join(' '));
+            const used = parts.some(p => said.includes(p));
+            return used ? null : m[1];
+        }
+
+        // Quebra em frases e remove restos de cabeçalho ("na sua atuação, destaco…") e
+        // conectivos soltos no fim ("No entanto, há").
+        function cleanExplainSentences(chunks) {
+            const out = [];
+            (chunks || []).forEach(c => {
+                fixEnc(c).split(/(?<=[.!?])\s+/).forEach(raw => {
+                    let t = raw.trim()
+                        .replace(/^(?:na sua|da sua|da|na|de sua|dans votre|de votre|de l['’])\s*(?:atua[çc][ãa]o|interven[çc][ãa]o|intervention|prestation)\s*[,:]?\s*/i, '')
+                        .replace(/^(?:destaco|eu destaco|je souligne)\s+/i, '')
+                        .replace(/^[,:;\-–—\s]+/, '');
+                    if (/^(no entanto|contudo|entretanto|por[ée]m|cependant|toutefois)\b/i.test(t) && t.length < 40) return;
+                    if (t.length < 25) return;
+                    out.push(t.charAt(0).toUpperCase() + t.slice(1));
+                });
+            });
+            return out;
+        }
+
+        function buildScoreExplanation(sim, profile) {
+            const fr = currentLang === 'fr';
+            const T = (pt, f) => fr ? f : pt;
+            const score = profile.score;
+            const skillName = k => (LUXURY_SKILLS.find(s => s.key === k) || {})[fr ? 'fr' : 'pt'] || k;
+            const firstName = (sim.name || '').split(' ')[0];
+
+            if (score === null || score === undefined || (!sim.feedback && profile.source !== 'score')) {
+                return `<p>${T('Esta sessão foi encerrada antes de a rhapsody gerar o debriefing, então ainda não há elementos para explicar a nota. Cada tentativa conta como prática — a próxima sessão completa vai trazer uma leitura detalhada do seu atendimento.',
+                               'Cette session s’est terminée avant que rhapsody ne génère son debriefing : il n’y a donc pas encore d’éléments pour expliquer la note. Chaque essai compte comme entraînement — la prochaine session complète apportera une lecture détaillée.')}</p>`;
+            }
+
+            // 1) Leitura geral, por faixa
+            let headline, lead;
+            if (score >= 80) {
+                headline = T('Uma sessão de alto nível 🌟', 'Une session de haut niveau 🌟');
+                lead = T(`${firstName}, você entregou um atendimento muito próximo do padrão cinco estrelas. A nota reflete consistência em quase todas as competências avaliadas.`,
+                         `${firstName}, vous avez offert un service très proche du standard cinq étoiles. La note reflète une belle constance sur presque toutes les compétences évaluées.`);
+            } else if (score >= 65) {
+                headline = T('Uma base sólida para crescer 💪', 'Une base solide pour progresser 💪');
+                lead = T(`${firstName}, o essencial do atendimento esteve presente. A nota mostra que você já tem uma base consistente — faltam alguns ajustes finos para chegar ao nível de excelência.`,
+                         `${firstName}, l’essentiel du service était là. La note montre une base solide — il reste quelques ajustements pour atteindre l’excellence.`);
+            } else if (score >= 50) {
+                headline = T('Em construção — e com caminho claro 🧭', 'En construction — avec un cap clair 🧭');
+                lead = T(`${firstName}, você mostrou boas intenções e atitudes importantes, e a nota indica exatamente onde concentrar a energia para dar o próximo salto.`,
+                         `${firstName}, vous avez montré de bonnes intentions et des attitudes importantes ; la note indique précisément où concentrer votre énergie pour franchir le prochain cap.`);
+            } else {
+                headline = T('Uma sessão de aprendizado 🌱', 'Une session d’apprentissage 🌱');
+                lead = T(`${firstName}, essa foi uma sessão desafiadora — e é justamente nelas que mais se aprende. A nota não mede quem você é como profissional: ela aponta um ou dois pontos específicos que, uma vez ajustados, mudam bastante o resultado.`,
+                         `${firstName}, cette session était exigeante — et c’est souvent là qu’on apprend le plus. La note ne mesure pas votre valeur professionnelle : elle pointe un ou deux points précis qui, une fois ajustés, changent beaucoup le résultat.`);
+            }
+
+            // 2) Contexto: comparação com as próprias sessões no mesmo cenário
+            const mine = VALID_SIMS.filter(s => s.name === sim.name && s !== sim && s.scenario === sim.scenario)
+                .map(s => getSimSkillProfile(s)).filter(p => p.score !== null && !p.estimated).map(p => p.score);
+            let contextHtml = '';
+            if (mine.length) {
+                const avg = Math.round(mine.reduce((a, b) => a + b, 0) / mine.length);
+                const best = Math.max(...mine);
+                if (score < avg - 5) {
+                    contextHtml = T(`Nas suas outras ${mine.length} sessões deste cenário, sua média é <strong>${avg}%</strong> e sua melhor nota foi <strong>${best}%</strong>. Ou seja: esta sessão ficou fora da sua curva — você já mostrou que consegue mais, e um dia mais difícil não define o seu nível.`,
+                                    `Sur vos ${mine.length} autres sessions de ce scénario, votre moyenne est de <strong>${avg}%</strong> et votre meilleure note de <strong>${best}%</strong>. Cette session est donc en dessous de votre niveau habituel — vous avez déjà prouvé que vous pouvez faire mieux.`);
+                } else if (score > avg + 5) {
+                    contextHtml = T(`Esta nota está <strong>acima da sua média</strong> neste cenário (${avg}%) — sinal claro de evolução. Vale reparar no que você fez diferente desta vez para repetir.`,
+                                    `Cette note est <strong>au-dessus de votre moyenne</strong> sur ce scénario (${avg}%) — un signe clair de progression. Repérez ce que vous avez fait différemment pour le reproduire.`);
+                } else {
+                    contextHtml = T(`Esta nota está em linha com a sua média neste cenário (<strong>${avg}%</strong>). Você está consistente — agora é ajustar um ponto específico para subir de patamar.`,
+                                    `Cette note est en ligne avec votre moyenne sur ce scénario (<strong>${avg}%</strong>). Vous êtes constant(e) — il s’agit maintenant d’ajuster un point précis pour passer un cap.`);
+                }
+            }
+
+            // 3) Pontos fortes e pontos que pesaram (a partir do debriefing)
+            const parts = splitFeedbackSections(sim.feedback || '');
+            const strengths = cleanExplainSentences(parts.strengths || []).slice(0, 3);
+            const gapCounts = tagSkills(parts.improvements || []);
+            const strCounts = tagSkills(parts.strengths || []);
+            const { strengths: netStr, gaps: netGaps } = computeNetSkills(strCounts, gapCounts);
+            const gapKeys = netGaps.map(g => g.key).slice(0, 3);
+            const corrections = extractCorrectInfo(sim.feedback || '');
+
+
+            // 5) Ruído de transcrição
+            const { noise, humanMsgs } = countTranscriptNoise(sim);
+            const noisy = humanMsgs > 0 && noise >= 3;
+
+            const sec = (icon, title, body) => body ? `
+                <div class="explain-sec">
+                    <h4><span>${icon}</span> ${title}</h4>
+                    ${body}
+                </div>` : '';
+
+            let html = `<div class="explain-score-pill">${profile.estimated ? '≈' : ''}${score}%</div>
+                <h3 class="explain-headline">${headline}</h3>
+                <p class="explain-lead">${lead}</p>`;
+
+            html += sec('📈', T('Contexto da nota', 'Contexte de la note'), contextHtml ? `<p>${contextHtml}</p>` : '');
+
+            html += sec('✨', T('O que você já faz bem', 'Ce que vous faites déjà bien'),
+                (strengths.length || netStr.length) ? `
+                    ${netStr.length ? `<div class="explain-pills">${netStr.slice(0, 4).map(s => `<span class="skill-pill strength">${skillName(s.key)}</span>`).join('')}</div>` : ''}
+                    ${strengths.length ? `<ul>${strengths.map(s => `<li>${explainEsc(s)}</li>`).join('')}</ul>` : ''}
+                ` : '');
+
+            const gapsBody = (gapKeys.length || (parts.improvements || []).length) ? `
+                <p>${T('Para transformar isso em evolução, estas são as competências para trabalhar — com uma dica prática para cada uma:',
+                       'Pour transformer cela en progrès, voici les compétences à travailler — avec un conseil pratique pour chacune :')}</p>
+                ${gapKeys.length ? `<ul>${gapKeys.map(k => `<li><strong>${skillName(k)}</strong> — ${(EXPLAIN_TIPS[k] || {})[fr ? 'fr' : 'pt'] || ''}</li>`).join('')}</ul>`
+                    : `<ul>${cleanExplainSentences(parts.improvements || []).slice(0, 2).map(s => `<li>${explainEsc(s)}</li>`).join('')}</ul>`}
+            ` : '';
+
+            // ── O que aconteceu nesta sessão (concreto, com cuidado) ──
+            const pairs = extractWrongRightPairs(sim.feedback || '');
+            const fixes = findClientCorrections(sim);
+            const missedName = checkGuestNameUse(sim, strengths.join(' '));
+            const missedNameEarly = checkGuestNameUse(sim, strengths.join(' '));
+            const factualImpr = cleanExplainSentences(parts.improvements || [])
+                .filter(t => !/[❌✅]|informa[çc][ãa]o (dada|correta)|information (donn|correct)/i.test(t))
+                .filter(t => !(missedNameEarly && /\bnome\b|\bnom\b/i.test(normTxt(t))))
+                .map(t => { t = t.replace(/^(por fim|tamb[ée]m|al[ée]m disso|enfin|aussi|de plus)\s*,?\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); })
+                .slice(0, 3);
+            const whatItems = [];
+            pairs.forEach(p => whatItems.push(T(
+                `<strong>Informação a ajustar.</strong> Você mencionou ${qSaid(p.said, 'pt')}. O correto é: ${explainEsc(p.right)}.`,
+                `<strong>Information à ajuster.</strong> Vous avez mentionné ${qSaid(p.said, 'fr')}. L’information correcte : ${explainEsc(p.right)}.`)));
+            if (fixes.length) {
+                const f = fixes[0];
+                whatItems.push(T(
+                    `<strong>O hóspede precisou corrigir ${fixes.length === 1 ? 'uma vez' : fixes.length + ' vezes'}.</strong> Por exemplo, depois de você dizer “${explainEsc(shortQuote(f.said, 140))}”, ele respondeu: “${explainEsc(shortQuote(f.reply, 140))}”. Num atendimento de luxo, cada correção pedida pelo cliente pesa bastante — confirmar o pedido com calma, item por item, evita isso.`,
+                    `<strong>Le client a dû vous corriger ${fixes.length === 1 ? 'une fois' : fixes.length + ' fois'}.</strong> Par exemple, après « ${explainEsc(shortQuote(f.said, 140))} », il a répondu : « ${explainEsc(shortQuote(f.reply, 140))} ». Dans le luxe, chaque correction demandée par le client pèse lourd — reformuler la commande calmement, point par point, l’évite.`));
+            }
+            if (missedName) whatItems.push(T(
+                `<strong>Nome do hóspede.</strong> Você não chamou ${explainEsc(missedName)} pelo nome durante a conversa — usar o nome na abertura e no fechamento faz parte do critério de personalização.`,
+                `<strong>Nom du client.</strong> Vous n’avez pas appelé ${explainEsc(missedName)} par son nom pendant l’échange — l’utiliser à l’ouverture et à la clôture fait partie du critère de personnalisation.`));
+            factualImpr.forEach(t => whatItems.push(explainEsc(t)));
+
+            html += sec('🔍', T('O que aconteceu nesta sessão', 'Ce qui s’est passé dans cette session'),
+                whatItems.length ? `<p>${T('Para a nota fazer sentido, aqui está exatamente onde a sessão escorregou — com o objetivo de ajudar, não de julgar:',
+                                           'Pour que la note soit claire, voici précisément où la session a glissé — pour vous aider, pas pour juger :')}</p>
+                    <ul>${whatItems.map(i => `<li>${i}</li>`).join('')}</ul>` : '');
+
+            const leftover = corrections.filter(c => !pairs.some(p => normTxt(p.right).includes(normTxt(c).slice(0, 25))));
+            html += sec('📘', T('Para relembrar', 'À retenir'),
+                leftover.length ? `<p>${T('A rhapsody trouxe estas informações corretas para usar na próxima vez:', 'rhapsody a rappelé ces informations correctes pour la prochaine fois :')}</p>
+                    <ul>${leftover.map(c => `<li>✅ ${explainEsc(c)}</li>`).join('')}</ul>` : '');
+
+            html += sec('🌱', T('Onde está sua próxima evolução', 'Votre prochaine progression'), gapsBody);
+
+            html += sec('🎙️', T('Um detalhe sobre a transcrição', 'Un détail sur la transcription'),
+                noisy ? `<p>${T('A avaliação é feita sobre o texto transcrito da sua voz. Nesta sessão, algumas falas aparecem cortadas ou com palavras trocadas — parte do que pareceu "confuso" pode ter vindo do reconhecimento de voz, e não do que você realmente disse. Falar um pouco mais pausadamente ajuda a rhapsody a entender você melhor.',
+                                   'L’évaluation se fait sur le texte transcrit de votre voix. Dans cette session, certaines phrases sont coupées ou contiennent des mots déformés — une partie de ce qui a semblé « confus » peut venir de la reconnaissance vocale. Parler un peu plus posément aide rhapsody à mieux vous comprendre.')}</p>` : '');
+
+            const nextKey = gapKeys[0];
+            html += sec('🎯', T('Seu próximo passo', 'Votre prochaine étape'),
+                `<p>${nextKey
+                    ? T(`Na próxima simulação, escolha <strong>um único foco</strong>: ${skillName(nextKey).toLowerCase()}. Pequenos ajustes consistentes trazem os maiores saltos de nota.`,
+                        `Lors de la prochaine simulation, choisissez <strong>un seul objectif</strong> : ${skillName(nextKey).toLowerCase()}. De petits ajustements réguliers apportent les plus grands progrès.`)
+                    : T('Continue praticando este cenário: a consistência é o que transforma uma boa sessão em um padrão de excelência.',
+                        'Continuez à pratiquer ce scénario : la régularité transforme une bonne session en standard d’excellence.')}</p>`);
+
+            return html;
+        }
+
+        function openScoreExplanation() {
+            const sim = window.__explainSim;
+            if (!sim) return;
+            const profile = getSimSkillProfile(sim);
+            let ov = document.getElementById('explainOverlay');
+            if (!ov) {
+                ov = document.createElement('div');
+                ov.id = 'explainOverlay';
+                ov.className = 'explain-overlay';
+                ov.addEventListener('click', e => { if (e.target === ov) closeScoreExplanation(); });
+                document.body.appendChild(ov);
+            }
+            ov.innerHTML = `
+                <div class="explain-modal" role="dialog" aria-modal="true">
+                    <button class="explain-close" onclick="closeScoreExplanation()" aria-label="Fechar">&times;</button>
+                    <div class="explain-kicker">${currentLang === 'fr' ? 'Comprendre votre note' : 'Entenda sua nota'}</div>
+                    <div class="explain-body">${buildScoreExplanation(sim, profile)}</div>
+                </div>`;
+            ov.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeScoreExplanation() {
+            const ov = document.getElementById('explainOverlay');
+            if (ov) ov.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeScoreExplanation(); });
 
         // Base de sessões elegível: finalizadas, com nota e com debriefing de texto
         function getSoftSkillsSims() {
