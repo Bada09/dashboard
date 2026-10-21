@@ -49,6 +49,53 @@ const users = [
         "avatar": ""
     },
     {
+        "name": "Mariath Caio",
+        "firstName": "Mariath",
+        "lastName": "Caio",
+        "email": "caio.mariath@fairmont.com",
+        "username": "caio.mariath@fairmont.com",
+        "equipe": "Fairmont",
+        "count": 7,
+        "dates": [
+            "20/10/2026"
+        ],
+        "avgScore": 0.0,
+        "lqaScore": 0.0,
+        "avgDurMin": 0,
+        "avgDurSec": 41,
+        "languages": [
+            "PT"
+        ],
+        "avatar": "",
+        "skills": {
+            "Escuta": 0.0,
+            "Personalizacao": 0.0,
+            "Empatia": 0.0,
+            "Crises": 0.0,
+            "Padroes": 0.0
+        },
+        "insights": {
+            "pt": [
+                "Atenção necessária aos padrões LQA.",
+                "Reforçar vocabulário e fluidez.",
+                "Desenvolver resiliência emocional.",
+                "Reduzir hesitações e vícios de linguagem.",
+                "Aprofundar domínio sobre o cardápio."
+            ],
+            "fr": [
+                "Attention nécessaire aux standards LQA.",
+                "Renforcer le vocabulaire et la fluidité.",
+                "Développer la résilience émotionnelle.",
+                "Réduire les hésitations et tics de langage.",
+                "Approfondir la maîtrise du menu."
+            ]
+        },
+        "improvement": {
+            "pt": "Reforçar padrões LQA",
+            "fr": "Renforcer les standards LQA"
+        }
+    },
+    {
         "firstName": "Sophie",
         "lastName": "Géraud",
         "email": "sophie.geraud@rhapsody.run",
@@ -439,16 +486,16 @@ const users = [
         "email": "juliana.ribeiro@fairmont.com",
         "username": "juliana.ribeiro@fairmont.com",
         "equipe": "Recepção",
-        "avgDurSec": 46,
-        "avgScore": 78.0,
+        "avgDurSec": 19,
+        "avgScore": 75.0,
         "skills": {
-            "Escuta": 73.0,
-            "Personalizacao": 88.0,
-            "Empatia": 88.0,
-            "Crises": 88.0,
-            "Padroes": 73.0
+            "Escuta": 73.8,
+            "Personalizacao": 85.0,
+            "Empatia": 85.0,
+            "Crises": 78.8,
+            "Padroes": 75.0
         },
-        "count": 1,
+        "count": 5,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -474,7 +521,8 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "05/10/2026"
+            "05/10/2026",
+            "20/10/2026"
         ],
         "avgDurMin": 1,
         "avatar": ""
@@ -898,7 +946,7 @@ const users = [
         "email": "beatriz.ventura@fairmont.com",
         "username": "beatriz.ventura@fairmont.com",
         "equipe": "Recepção",
-        "avgDurSec": 0,
+        "avgDurSec": 6,
         "avgScore": 0.0,
         "skills": {
             "Crises": 0,
@@ -907,7 +955,7 @@ const users = [
             "Personalizacao": 0,
             "Escuta": 0
         },
-        "count": 0,
+        "count": 1,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -932,8 +980,10 @@ const users = [
             "pt": "Reforçar padrões LQA",
             "fr": "Renforcer les standards LQA"
         },
-        "dates": [],
-        "avgDurMin": 0,
+        "dates": [
+            "20/10/2026"
+        ],
+        "avgDurMin": 2,
         "avatar": ""
     },
     {
@@ -986,16 +1036,16 @@ const users = [
         "email": "jullie.anjos@fairmont.com",
         "username": "jullie.anjos@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 12,
-        "avgScore": 50.0,
+        "avgDurSec": 31,
+        "avgScore": 54.4,
         "skills": {
-            "Escuta": 60.0,
-            "Personalizacao": 60.0,
-            "Empatia": 60.0,
-            "Crises": 45.0,
-            "Padroes": 55.0
+            "Escuta": 57.4,
+            "Personalizacao": 60.4,
+            "Empatia": 64.4,
+            "Crises": 61.4,
+            "Padroes": 52.4
         },
-        "count": 6,
+        "count": 13,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1024,7 +1074,8 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "03/07/2026"
+            "03/07/2026",
+            "16/10/2026"
         ],
         "avgDurMin": 0,
         "avatar": ""
@@ -2562,4 +2613,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "16/10/2026 12:25";
+const lastUpdate = "20/10/2026 15:52";
