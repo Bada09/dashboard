@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=30"></script>
+    <script src="users_data.js?v=28"></script>
 
     <style>
         :root {
@@ -43137,12 +43137,26 @@
         function isSprintSim(s) {
             const key = sprintNameKey(s.name);
             const tokens = key.split(' ');
-            // aceita nome invertido ("Caio Mariath") e nomes completos com sobrenomes extras
+            // aceita nome invertido ("Mariath Caio") e nomes completos com sobrenomes extras
             const userOk = SPRINT_USER_KEYS.some(k => k === key || k.split(' ').every(t => tokens.includes(t)));
             const caseOk = SPRINT_USE_CASES.some(re => re.test(s.scenario || ''));
             return userOk && caseOk;
         }
         // VALID_SIMS é alterado no lugar para que todas as telas sigam o modo ativo.
+        // ── Correção de nomes de exibição ──
+        // A plataforma registra alguns nomes invertidos. A correção é aplicada aqui (e não nos
+        // dados) para não ser desfeita quando o robô atualizar RAW_SIMULATIONS / users_data.js.
+        const NAME_FIXES = {
+            'mariath caio': { name: 'Caio Mariath', firstName: 'Caio', lastName: 'Mariath' }
+        };
+        (function applyNameFixes() {
+            const key = n => (n || '').toLowerCase().trim().replace(/\s+/g, ' ');
+            RAW_SIMULATIONS.forEach(s => { const f = NAME_FIXES[key(s.name)]; if (f) s.name = f.name; });
+            if (typeof users !== 'undefined') users.forEach(u => {
+                const f = NAME_FIXES[key(u.name)] || NAME_FIXES[key((u.firstName || '') + ' ' + (u.lastName || ''))];
+                if (f) { u.name = f.name; u.firstName = f.firstName; u.lastName = f.lastName; }
+            });
+        })();
         const FULL_SIMS = VALID_SIMS.slice();
         var pilotMode = 'sprint';
         function getSprintStart() {
