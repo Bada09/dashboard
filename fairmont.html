@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=28"></script>
+    <script src="users_data.js?v=29"></script>
 
     <style>
         :root {
@@ -43137,7 +43137,7 @@
         function isSprintSim(s) {
             const key = sprintNameKey(s.name);
             const tokens = key.split(' ');
-            // aceita nome invertido ("Mariath Caio") e nomes completos com sobrenomes extras
+            // aceita nome invertido ("Caio Mariath") e nomes completos com sobrenomes extras
             const userOk = SPRINT_USER_KEYS.some(k => k === key || k.split(' ').every(t => tokens.includes(t)));
             const caseOk = SPRINT_USE_CASES.some(re => re.test(s.scenario || ''));
             return userOk && caseOk;
