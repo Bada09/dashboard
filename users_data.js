@@ -55,14 +55,15 @@ const users = [
         "email": "caio.mariath@fairmont.com",
         "username": "caio.mariath@fairmont.com",
         "equipe": "Fairmont",
-        "count": 7,
+        "count": 8,
         "dates": [
-            "20/10/2026"
+            "20/10/2026",
+            "22/10/2026"
         ],
         "avgScore": 0.0,
         "lqaScore": 0.0,
         "avgDurMin": 0,
-        "avgDurSec": 41,
+        "avgDurSec": 56,
         "languages": [
             "PT"
         ],
@@ -2294,16 +2295,16 @@ const users = [
         "email": "luan.freitas@fairmont.com",
         "username": "luan.freitas@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 46,
+        "avgDurSec": 6,
         "avgScore": 66.0,
         "skills": {
             "Escuta": 68.5,
             "Personalizacao": 76.0,
             "Empatia": 76.0,
-            "Crises": 76.0,
-            "Padroes": 64.3
+            "Crises": 75.5,
+            "Padroes": 65.5
         },
-        "count": 14,
+        "count": 18,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -2323,7 +2324,7 @@ const users = [
             ]
         },
         "name": "Luan Freitas",
-        "lqaScore": 66.0,
+        "lqaScore": 100.0,
         "languages": [
             "FR",
             "PT"
@@ -2335,9 +2336,10 @@ const users = [
         "dates": [
             "13/09/2026",
             "20/09/2026",
-            "04/10/2026"
+            "04/10/2026",
+            "21/10/2026"
         ],
-        "avgDurMin": 0,
+        "avgDurMin": 1,
         "avatar": ""
     },
     {
@@ -2613,4 +2615,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "21/10/2026 13:30";
+const lastUpdate = "22/10/2026 13:04";
