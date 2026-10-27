@@ -1677,7 +1677,7 @@ const users = [
         "email": "iury.jesus@fairmont.com",
         "username": "iury.jesus@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 22,
+        "avgDurSec": 2,
         "avgScore": 0.0,
         "skills": {
             "Crises": 0,
@@ -1686,7 +1686,7 @@ const users = [
             "Personalizacao": 0,
             "Escuta": 0
         },
-        "count": 1,
+        "count": 4,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1712,9 +1712,10 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "14/09/2026"
+            "14/09/2026",
+            "23/10/2026"
         ],
-        "avgDurMin": 0,
+        "avgDurMin": 1,
         "avatar": ""
     },
     {
@@ -2295,16 +2296,16 @@ const users = [
         "email": "luan.freitas@fairmont.com",
         "username": "luan.freitas@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 6,
+        "avgDurSec": 16,
         "avgScore": 66.0,
         "skills": {
-            "Escuta": 68.5,
+            "Escuta": 67.2,
             "Personalizacao": 76.0,
             "Empatia": 76.0,
-            "Crises": 75.5,
-            "Padroes": 65.5
+            "Crises": 73.9,
+            "Padroes": 65.6
         },
-        "count": 18,
+        "count": 21,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -2337,7 +2338,9 @@ const users = [
             "13/09/2026",
             "20/09/2026",
             "04/10/2026",
-            "21/10/2026"
+            "21/10/2026",
+            "23/10/2026",
+            "25/10/2026"
         ],
         "avgDurMin": 1,
         "avatar": ""
@@ -2615,4 +2618,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "22/10/2026 13:04";
+const lastUpdate = "26/10/2026 13:49";
