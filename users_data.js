@@ -55,25 +55,27 @@ const users = [
         "email": "caio.mariath@fairmont.com",
         "username": "caio.mariath@fairmont.com",
         "equipe": "Fairmont",
-        "count": 8,
+        "count": 11,
         "dates": [
             "20/10/2026",
-            "22/10/2026"
+            "22/10/2026",
+            "27/10/2026",
+            "30/10/2026"
         ],
-        "avgScore": 0.0,
+        "avgScore": 35.0,
         "lqaScore": 0.0,
-        "avgDurMin": 0,
-        "avgDurSec": 56,
+        "avgDurMin": 1,
+        "avgDurSec": 24,
         "languages": [
             "PT"
         ],
         "avatar": "",
         "skills": {
-            "Escuta": 0.0,
-            "Personalizacao": 0.0,
-            "Empatia": 0.0,
-            "Crises": 0.0,
-            "Padroes": 0.0
+            "Escuta": 37.5,
+            "Personalizacao": 45.0,
+            "Empatia": 38.1,
+            "Crises": 41.2,
+            "Padroes": 34.4
         },
         "insights": {
             "pt": [
@@ -2618,4 +2620,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "26/10/2026 13:49";
+const lastUpdate = "03/11/2026 21:42";
