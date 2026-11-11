@@ -1679,7 +1679,7 @@ const users = [
         "email": "iury.jesus@fairmont.com",
         "username": "iury.jesus@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 2,
+        "avgDurSec": 54,
         "avgScore": 0.0,
         "skills": {
             "Crises": 0,
@@ -1688,7 +1688,7 @@ const users = [
             "Personalizacao": 0,
             "Escuta": 0
         },
-        "count": 4,
+        "count": 9,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1715,9 +1715,10 @@ const users = [
         },
         "dates": [
             "14/09/2026",
-            "23/10/2026"
+            "23/10/2026",
+            "09/11/2026"
         ],
-        "avgDurMin": 1,
+        "avgDurMin": 0,
         "avatar": ""
     },
     {
@@ -2620,4 +2621,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "06/11/2026 06:52";
+const lastUpdate = "10/11/2026 14:16";
