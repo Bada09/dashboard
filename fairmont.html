@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="users_data.js?v=34"></script>
+    <script src="users_data.js?v=35"></script>
 
     <style>
         :root {
@@ -44843,7 +44843,7 @@
         // Para mudar o sprint, edite as duas listas abaixo.
         const SPRINT_USERS = [
             // Royal Service
-            'Caio Mariath', 'Faubert Alcindor', 'Jullie Anjos', 'Luan Freitas',
+            'Caio Mariath', 'Faubert Alcindor', 'Iury Jesus', 'Jullie Anjos', 'Luan Freitas',
             // Recepção
             'Beatriz Ventura', 'Lucca Moraes', 'Rickenson Rosulme'
         ];
@@ -45587,7 +45587,7 @@
                             (MATRIX_MAP[k] || []).forEach(sk => { adj += 8 * ((sc[sk] || 0) - (gc[sk] || 0)); });
                             adj = Math.max(-15, Math.min(15, adj));
                         }
-                        simSkills[k] = Math.min(95, clampPct(base + skillOffset(k) + adj)); // estimativa nunca mostra 100%
+                        simSkills[k] = Math.max(30, Math.min(95, clampPct(base + skillOffset(k) + adj))); // estimativa: nunca 0, nunca 100%
                     });
                 }
                 const skillSourceNote = skillSource === 'score' ? '' : (currentLang === 'fr'
@@ -45609,17 +45609,19 @@
 
         // Nota usada nas médias: nota da rhapsody (>0) ou, se veio 0 com debriefing,
         // a nota calculada a partir do debriefing. Sessões sem debriefing ficam fora.
+        // Regra: nenhuma sessão fica com nota 0, mesmo sem ter terminado.
+        // Nota da rhapsody (>0); senão, nota calculada pelo debriefing; senão, estimativa
+        // pelo perfil do colaborador (ou da equipe). Todas entram nas médias.
         function effSimScore(s) {
-            if (!s || !s.finished) return null;
-            if (s.score > 0) return s.score;
-            if (!s.feedback) return null;
+            if (!s) return null;
+            if (s.finished && s.score > 0) return s.score;
             const p = getSimSkillProfile(s);
-            return (p && p.score !== null && !p.estimated) ? p.score : null;
+            return (p && p.score > 0) ? p.score : null;
         }
 
         function simScoreLabel(p) {
             if (!p || p.score === null || p.score === undefined) return 'N/A';
-            return (p.estimated ? '≈' : '') + p.score + '%';
+            return p.score + '%';
         }
 
         function simScoreTitle(p) {
@@ -46272,8 +46274,8 @@
 
             const usersInContext = [...new Set(filteredSims.map(s => s.name))];
             const rankings = usersInContext.map(name => {
-                const sims = filteredSims.filter(s => s.name === name && s.finished);
-                const avg = sims.length > 0 ? sims.reduce((a, b) => a + b.score, 0) / sims.length : 0;
+                const sc = filteredSims.filter(s => s.name === name).map(effSimScore).filter(v => v !== null);
+                const avg = sc.length > 0 ? sc.reduce((a, b) => a + b, 0) / sc.length : 0;
                 return { name, avg };
             }).sort((a, b) => b.avg - a.avg);
 
@@ -46546,7 +46548,7 @@
                 });
 
             const labels = userHistory.map(s => s.date);
-            const data = userHistory.map(s => s.score);
+            const data = userHistory.map(s => effSimScore(s));
 
             if (labels.length === 0) {
                 ctx.font = '14px Inter';
@@ -47930,7 +47932,7 @@
 
         // Base de sessões elegível: finalizadas, com nota e com debriefing de texto
         function getSoftSkillsSims() {
-            return VALID_SIMS.filter(s => s.finished && s.feedback && s.score !== null && s.score !== undefined);
+            return VALID_SIMS.filter(s => s.feedback && effSimScore(s) !== null);
         }
 
         function buildPersonProfile(name, sims) {
@@ -47946,13 +47948,13 @@
                 const gC = tagSkills(parsed.improvements);
                 LUXURY_SKILLS.forEach(sk => { strengthCounts[sk.key] += sC[sk.key]; gapCounts[sk.key] += gC[sk.key]; });
                 return {
-                    date: s.date, score: s.score, scenario: s.scenario,
+                    date: s.date, score: effSimScore(s), scenario: s.scenario,
                     strengths: parsed.strengths, improvements: parsed.improvements,
                     gapKeys: Object.entries(gC).filter(([k, v]) => v > 0).map(([k]) => k)
                 };
             });
 
-            const scores = mine.map(s => s.score);
+            const scores = mine.map(s => effSimScore(s));
             const avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
             const firstScore = scores[0], lastScore = scores[scores.length - 1];
             const delta = scores.length > 1 ? (lastScore - firstScore) : 0;
@@ -48001,7 +48003,7 @@
             });
             return Object.entries(areaMap).map(([area, list]) => {
                 const names = [...new Set(list.map(s => s.name))];
-                const avgScore = Math.round(list.reduce((a, b) => a + b.score, 0) / list.length);
+                const avgScore = Math.round(list.reduce((a, b) => a + effSimScore(b), 0) / list.length);
                 let strengthCounts = {}, gapCounts = {};
                 LUXURY_SKILLS.forEach(sk => { strengthCounts[sk.key] = 0; gapCounts[sk.key] = 0; });
                 list.forEach(s => {
