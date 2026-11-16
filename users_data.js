@@ -1680,14 +1680,14 @@ const users = [
         "email": "iury.jesus@fairmont.com",
         "username": "iury.jesus@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 54,
-        "avgScore": 0.0,
+        "avgDurSec": 46,
+        "avgScore": 25.0,
         "skills": {
-            "Crises": 0,
-            "Padroes": 0,
-            "Empatia": 5,
-            "Personalizacao": 0,
-            "Escuta": 0
+            "Escuta": 25.0,
+            "Personalizacao": 35.0,
+            "Empatia": 27.9,
+            "Crises": 27.9,
+            "Padroes": 24.3
         },
         "count": 9,
         "insights": {
@@ -2622,4 +2622,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "11/11/2026 12:29";
+const lastUpdate = "16/11/2026 12:00";
