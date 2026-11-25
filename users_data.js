@@ -1680,16 +1680,16 @@ const users = [
         "email": "iury.jesus@fairmont.com",
         "username": "iury.jesus@fairmont.com",
         "equipe": "Guest Attendant",
-        "avgDurSec": 46,
-        "avgScore": 25.0,
+        "avgDurSec": 13,
+        "avgScore": 40.7,
         "skills": {
-            "Escuta": 25.0,
-            "Personalizacao": 35.0,
-            "Empatia": 27.9,
-            "Crises": 27.9,
-            "Padroes": 24.3
+            "Escuta": 42.0,
+            "Personalizacao": 50.7,
+            "Empatia": 43.6,
+            "Crises": 44.5,
+            "Padroes": 39.9
         },
-        "count": 9,
+        "count": 15,
         "insights": {
             "pt": [
                 "Atenção necessária aos padrões LQA.",
@@ -1717,9 +1717,10 @@ const users = [
         "dates": [
             "14/09/2026",
             "23/10/2026",
-            "09/11/2026"
+            "09/11/2026",
+            "23/11/2026"
         ],
-        "avgDurMin": 0,
+        "avgDurMin": 1,
         "avatar": ""
     },
     {
@@ -2355,16 +2356,16 @@ const users = [
         "email": "lucca.moraes@fairmont.com",
         "username": "lucca.moraes@fairmont.com",
         "equipe": "Recepção",
-        "avgDurSec": 47,
-        "avgScore": 68.0,
+        "avgDurSec": 20,
+        "avgScore": 56.5,
         "skills": {
-            "Escuta": 63.0,
-            "Personalizacao": 78.0,
-            "Empatia": 78.0,
-            "Crises": 78.0,
-            "Padroes": 63.0
+            "Escuta": 58.2,
+            "Personalizacao": 64.8,
+            "Empatia": 66.5,
+            "Crises": 66.5,
+            "Padroes": 54.8
         },
-        "count": 1,
+        "count": 3,
         "insights": {
             "pt": [
                 "Bom engajamento com o hóspede.",
@@ -2390,7 +2391,8 @@ const users = [
             "fr": "Renforcer les standards LQA"
         },
         "dates": [
-            "05/10/2026"
+            "05/10/2026",
+            "23/11/2026"
         ],
         "avgDurMin": 1,
         "avatar": ""
@@ -2622,4 +2624,4 @@ const users = [
         "avatar": ""
     }
 ];
-const lastUpdate = "16/11/2026 12:00";
+const lastUpdate = "24/11/2026 13:32";
